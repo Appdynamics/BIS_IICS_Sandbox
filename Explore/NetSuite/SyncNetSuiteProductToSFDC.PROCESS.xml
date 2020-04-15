@@ -1,0 +1,454 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>gfYtjCtbdsreK8Z-gt-4614293-2015-12-31T18:49:56.104Z::pd.xml</types1:EntryId>
+      <types1:Name>SyncNetSuiteProductToSFDC</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>NetSuite-AppDynamics:Record-Item</types1:AppliesTo>
+      <types1:Tags>NetSuite</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2015-12-31T18:49:56Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-05-09T18:10:53Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-15T20:11:59Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SyncNetSuiteProductToSFDC/SyncNetSuiteProductToSFDC.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SyncNetSuiteProductToSFDC"
+                  name="SyncNetSuiteProductToSFDC">
+            <appliesTo isCopy="true">NetSuite-AppDynamics:Record-Item</appliesTo>
+            <description/>
+            <tags>NetSuite</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="productId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description="" name="temp_product" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Product2</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_priceBookEntry" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:PricebookEntry</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_productId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_priceLevel" type="objectlist">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:priceList</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_pricing" type="objectlist">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:pricing</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_filterFlag" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowedUsers>
+                     <user>infawebsvc@appdynamics.com.sandbox</user>
+                     <user>infawebsvc@appdynamics.com.sandbox</user>
+                  </allowedUsers>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="ij0zwh12" targetId="ij0zwh11"/>
+               </start>
+               <container id="ij0zwh11" type="exclusive">
+                  <title>internalId</title>
+                  <flow id="ij0zwh1f">
+                     <link id="ij0zwh1g" targetId="ij0zwh11" type="containerLink"/>
+                  </flow>
+                  <flow id="ij0zwh1i">
+                     <assignment id="ij0zwh3m">
+                        <title>Assignment to productId</title>
+                        <operation source="field" to="input.productId">internalId</operation>
+                     </assignment>
+                     <link id="ij0zwh1j" targetId="ij0zwh11" type="containerLink"/>
+                  </flow>
+                  <link id="ij0zwh1c" targetId="ij0zwh1f" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$internalId}</arg>
+                           <arg name="right"/>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="ij0zwh1d" targetId="ij0zwh1i" type="containerLink"/>
+                  <link id="ij0zwh13" targetId="c"/>
+               </container>
+               <container id="ij0zwh6a" type="exclusive">
+                  <title>scItems</title>
+                  <flow id="ij0zwh6r">
+                     <milestone id="ij0zwh7e">
+                        <link id="jtzzdkii" targetId="jtzzdkih"/>
+                     </milestone>
+                     <assignment id="jtzzdkih">
+                        <title>Assign Filter Flag Value</title>
+                        <operation source="formula" to="temp.temp_filterFlag">
+                           <expression language="XQuery">if($output.scItems[1]/customFieldList/customField[scriptId="custitem_do_not_sync"]/value/text()='true') then true() else 
+if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:contains(fn:upper-case($output.scItems[1]/salesDescription),"DO NOT")) then true() else false()
+
+
+
+
+</expression>
+                        </operation>
+                        <link id="jtzzdkkn" targetId="jtzzdkkm"/>
+                     </assignment>
+                     <container id="jtzzdkkm" type="exclusive">
+                        <title>Do Not Sync?</title>
+                        <flow id="jtzzdkkq">
+                           <link id="jtzzdkkr" targetId="jtzzdkkm" type="containerLink"/>
+                        </flow>
+                        <flow id="jtzzdkkt">
+                           <assignment id="jtzzdkm6">
+                              <title>Price Assignment</title>
+                              <operation source="field" to="temp.temp_priceLevel">output.pricing[1]/priceLevel</operation>
+                              <operation source="field" to="temp.temp_pricing">output.scItems[1]/pricingMatrix[1]/pricing</operation>
+                              <operation source="query" to="temp.temp_product">
+                                 <query from="Salesforce:Product2">
+                                    <where>NetSuite_Id__c = '{$output.scItems[1]/internalId}'</where>
+                                 </query>
+                              </operation>
+                              <link id="jtzzdkn1" targetId="jtzzdkn0"/>
+                           </assignment>
+                           <assignment id="jtzzdkn0">
+                              <title>Product Lookup</title>
+                              <operation source="query" to="temp.temp_product">
+                                 <query from="Salesforce:Product2">
+                                    <where>NetSuite_Id__c = '{$output.scItems[1]/internalId}'</where>
+                                 </query>
+                              </operation>
+                              <link id="jtzzdkoe" targetId="jtzzdkns"/>
+                           </assignment>
+                           <container id="jtzzdkns" type="exclusive">
+                              <title>temp_product</title>
+                              <flow id="jtzzdknt">
+                                 <assignment id="jtzzdknu">
+                                    <title>Update Product</title>
+                                    <operation source="field" to="temp.temp_product.ProductCode">output.scItems[1]/itemId</operation>
+                                    <operation source="field" to="temp.temp_product.Name">output.scItems[1]/salesDescription</operation>
+                                    <link id="jtzzdko7" targetId="jtzzdknv"/>
+                                 </assignment>
+                                 <eventContainer id="jtzzdknv">
+                                    <subflow id="jtzzdko0">
+                                       <title>Update Price Book</title>
+                                       <subflowGUID>9FVtrs0UI3GgJo3rbrznmh</subflowGUID>
+                                       <subflowPath>AddPriceBookEntry</subflowPath>
+                                       <appliesTo>NetSuite-AppDynamics:pricing</appliesTo>
+                                       <appliesToDataName source="field">output.pricing</appliesToDataName>
+                                       <runForEach>true</runForEach>
+                                       <input>
+                                          <parameter name="productId" source="field">temp.temp_product.Id</parameter>
+                                       </input>
+                                       <outputDef/>
+                                    </subflow>
+                                    <flow id="jtzzdknw">
+                                       <jumpTo id="jtzzdknx">
+                                          <link id="jtzzdkoa" targetId="d"/>
+                                       </jumpTo>
+                                    </flow>
+                                    <flow id="jtzzdkny">
+                                       <service id="jtzzdknz">
+                                          <title>Send Free-Form Email</title>
+                                          <serviceName>Salesforce:sfSendFreeFormEmailService</serviceName>
+                                          <serviceGUID>58gj2o5v8OacYp4U1C0Jw0</serviceGUID>
+                                          <serviceInput>
+                                             <parameter name="Subject" source="constant">Netsuite To SFDC - Product Sync Failure!</parameter>
+                                             <parameter name="Body" source="constant">&lt;p&gt;Exception Reason: {$output.faultInfo[1]/reason}&lt;/p&gt;
+&lt;p&gt;Exception Detail: {$output.faultInfo[1]/detail}&lt;/p&gt;
+&lt;p&gt;Exception FaultInfo: {$output.faultInfo}&lt;/p&gt;
+&lt;p&gt;Product:&amp;nbsp;{$temp.temp_product}&lt;/p&gt;
+&lt;p&gt;PriceLevel: {$output.pricing[1]/priceLevel}&lt;/p&gt;</parameter>
+                                             <parameter name="Recipient Address" source="constant">ns.webservice@appdynamics.com</parameter>
+                                          </serviceInput>
+                                          <link id="jtzzdlzm" targetId="jtzzdlzl"/>
+                                       </service>
+                                       <subflow id="jtzzdlzl">
+                                          <title>Add Integration Queue</title>
+                                          <subflowGUID>3ezheT37LJWcuAMHeqrlcw</subflowGUID>
+                                          <subflowPath>addIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="source" source="constant" updatable="true">Netsuite</parameter>
+                                             <parameter name="target" source="constant" updatable="true">Salesforce</parameter>
+                                             <parameter name="process" source="constant" updatable="true">SyncNetSuiteProductToSFDC</parameter>
+                                             <parameter name="tranId" source="field" updatable="true">output.scItems[1]/internalId</parameter>
+                                             <parameter name="transactionType" source="constant" updatable="true">Product/PriceBook</parameter>
+                                             <parameter name="transactionName" source="field" updatable="true">output.scItems[1]/salesDescription</parameter>
+                                          </input>
+                                          <outputDef>
+                                             <field name="recordId" type="string">
+                                                <options>
+                                                   <option name="required">false</option>
+                                                </options>
+                                             </field>
+                                          </outputDef>
+                                          <link id="jtzzdlzn" targetId="jtzzdlsp"/>
+                                       </subflow>
+                                       <subflow id="jtzzdlsp">
+                                          <title>Update Integration Queue</title>
+                                          <subflowGUID>33r0jc61skah94kOEi5MuG</subflowGUID>
+                                          <subflowPath>updateIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                                             <parameter name="status" source="constant" updatable="true">Error</parameter>
+                                             <parameter name="exception" source="field" updatable="true">output.faultInfo[1]/reason</parameter>
+                                          </input>
+                                          <outputDef/>
+                                       </subflow>
+                                       <link id="jtzzdkob" targetId="jtzzdknv" type="containerLink"/>
+                                    </flow>
+                                    <link id="jtzzdko8" targetId="jtzzdknw" type="containerLink"/>
+                                    <events>
+                                       <catch faultField="faultInfo" id="ijd74yu1" interrupting="true">
+                                          <link id="jtzzdko9" targetId="jtzzdkny" type="containerLink"/>
+                                       </catch>
+                                    </events>
+                                 </eventContainer>
+                                 <link id="jtzzdko6" targetId="jtzzdkns" type="containerLink"/>
+                              </flow>
+                              <flow id="jtzzdko1">
+                                 <eventContainer id="jtzzdkq3">
+                                    <create id="jtzzdko2">
+                                       <title>Create Product</title>
+                                       <entityName>Salesforce:Product2</entityName>
+                                       <createInput>
+                                          <parameter name="Name" source="field" updatable="true">output.scItems[1]/salesDescription</parameter>
+                                          <parameter name="ProductCode" source="field" updatable="true">output.scItems[1]/itemId</parameter>
+                                          <parameter name="IsActive" source="constant" updatable="true">true</parameter>
+                                          <parameter name="NetSuite_Id__c" source="field" updatable="true">output.scItems[1]/internalId</parameter>
+                                       </createInput>
+                                    </create>
+                                    <flow id="jtzzdkq5">
+                                       <link id="jtzzdkq6" targetId="jtzzdkq3" type="containerLink"/>
+                                    </flow>
+                                    <flow id="jtzzdkq8">
+                                       <subflow id="jtzzdkti">
+                                          <title>Add Integration Queue</title>
+                                          <subflowGUID>3ezheT37LJWcuAMHeqrlcw</subflowGUID>
+                                          <subflowPath>addIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="source" source="constant" updatable="true">Netsuite</parameter>
+                                             <parameter name="target" source="constant" updatable="true">Salesforce</parameter>
+                                             <parameter name="process" source="constant" updatable="true">SyncNetSuiteProductToSFDC</parameter>
+                                             <parameter name="tranId" source="field" updatable="true">output.scItems[1]/internalId</parameter>
+                                             <parameter name="transactionType" source="constant" updatable="true">Product/PriceBook</parameter>
+                                             <parameter name="transactionName" source="field" updatable="true">output.scItems[1]/salesDescription</parameter>
+                                          </input>
+                                          <outputDef>
+                                             <field name="recordId" type="string">
+                                                <options>
+                                                   <option name="required">false</option>
+                                                </options>
+                                             </field>
+                                          </outputDef>
+                                          <link id="jtzzdl6c" targetId="jtzzdl6b"/>
+                                       </subflow>
+                                       <subflow id="jtzzdl6b">
+                                          <title>Update Integration Queue</title>
+                                          <subflowGUID>33r0jc61skah94kOEi5MuG</subflowGUID>
+                                          <subflowPath>updateIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                                             <parameter name="status" source="constant" updatable="true">Error</parameter>
+                                             <parameter name="exception" source="field" updatable="true">output.faultInfo[1]/reason</parameter>
+                                          </input>
+                                          <outputDef/>
+                                          <link id="jtzzdn55" targetId="jtzzdn54"/>
+                                       </subflow>
+                                       <end id="jtzzdn54">
+                                          <title>End</title>
+                                       </end>
+                                    </flow>
+                                    <link id="jtzzdkq4" targetId="jtzzdkq5" type="containerLink"/>
+                                    <link id="jtzzdkod" targetId="jtzzdkr2"/>
+                                    <events>
+                                       <catch faultField="faultInfo" id="jtzzdkpy" interrupting="true">
+                                          <link id="jtzzdkq7" targetId="jtzzdkq8" type="containerLink"/>
+                                       </catch>
+                                    </events>
+                                 </eventContainer>
+                                 <eventContainer id="jtzzdkr2">
+                                    <subflow id="jtzzdko3">
+                                       <title>Add Price Book</title>
+                                       <subflowGUID>9FVtrs0UI3GgJo3rbrznmh</subflowGUID>
+                                       <subflowPath>AddPriceBookEntry</subflowPath>
+                                       <appliesTo>NetSuite-AppDynamics:pricing</appliesTo>
+                                       <appliesToDataName source="field">output.pricing</appliesToDataName>
+                                       <runForEach>true</runForEach>
+                                       <input>
+                                          <parameter name="productId" source="field" updatable="true">output.Created Product2</parameter>
+                                       </input>
+                                       <outputDef/>
+                                    </subflow>
+                                    <flow id="jtzzdkr4">
+                                       <link id="jtzzdkr5" targetId="jtzzdkr2" type="containerLink"/>
+                                    </flow>
+                                    <flow id="jtzzdkr7">
+                                       <subflow id="jtzzdlj3">
+                                          <title>Add Integration Queue</title>
+                                          <subflowGUID>3ezheT37LJWcuAMHeqrlcw</subflowGUID>
+                                          <subflowPath>addIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="source" source="constant" updatable="true">Netsuite</parameter>
+                                             <parameter name="target" source="constant" updatable="true">Salesforce</parameter>
+                                             <parameter name="process" source="constant" updatable="true">SyncNetSuiteProductToSFDC</parameter>
+                                             <parameter name="tranId" source="field" updatable="true">output.scItems[1]/internalId</parameter>
+                                             <parameter name="transactionType" source="constant" updatable="true">Product/PriceBook</parameter>
+                                             <parameter name="transactionName" source="field" updatable="true">output.scItems[1]/salesDescription</parameter>
+                                          </input>
+                                          <outputDef>
+                                             <field name="recordId" type="string">
+                                                <options>
+                                                   <option name="required">false</option>
+                                                </options>
+                                             </field>
+                                          </outputDef>
+                                          <link id="jtzzdlow" targetId="jtzzdlov"/>
+                                       </subflow>
+                                       <subflow id="jtzzdlov">
+                                          <title>Update Integration Queue</title>
+                                          <subflowGUID>33r0jc61skah94kOEi5MuG</subflowGUID>
+                                          <subflowPath>updateIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                                             <parameter name="status" source="constant" updatable="true">Error</parameter>
+                                             <parameter name="exception" source="field" updatable="true">output.faultInfo[1]/reason</parameter>
+                                          </input>
+                                          <outputDef/>
+                                       </subflow>
+                                       <link id="jtzzdkr8" targetId="jtzzdkr2" type="containerLink"/>
+                                    </flow>
+                                    <link id="jtzzdkr3" targetId="jtzzdkr4" type="containerLink"/>
+                                    <events>
+                                       <catch faultField="faultInfo" id="jtzzdkqr" interrupting="true">
+                                          <link id="jtzzdkr6" targetId="jtzzdkr7" type="containerLink"/>
+                                       </catch>
+                                    </events>
+                                 </eventContainer>
+                                 <link id="jtzzdkoc" targetId="jtzzdkns" type="containerLink"/>
+                              </flow>
+                              <link id="jtzzdko4" targetId="jtzzdknt" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="set">
+                                       <arg name="field">{$temp.temp_product}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jtzzdko5" targetId="jtzzdko1" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="unset">
+                                       <arg name="field">{$temp.temp_product}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                           </container>
+                           <link id="jtzzdkku" targetId="jtzzdkkm" type="containerLink"/>
+                        </flow>
+                        <link id="jtzzdkkp" targetId="jtzzdkkq" type="containerLink">
+                           <condition source="formula">
+                              <function name="true">
+                                 <arg name="field">{$temp.temp_filterFlag}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jtzzdkks" targetId="jtzzdkkt" type="containerLink">
+                           <condition source="formula">
+                              <function name="false">
+                                 <arg name="field">{$temp.temp_filterFlag}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="ij0zwh6s" targetId="ij0zwh6a" type="containerLink"/>
+                  </flow>
+                  <flow id="ij0zwh6u">
+                     <milestone id="ij0zwh7v">
+                        <httpStatus>204</httpStatus>
+                     </milestone>
+                     <link id="ij0zwh6v" targetId="ij0zwh6a" type="containerLink"/>
+                  </flow>
+                  <link id="ij0zwh6o" targetId="ij0zwh6r" type="containerLink">
+                     <condition source="formula">
+                        <function name="not-empty">
+                           <arg name="field">{$output.scItems}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="ij0zwh6p" targetId="ij0zwh6u" type="containerLink">
+                     <condition source="formula">
+                        <function name="empty">
+                           <arg name="field">{$output.scItems}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="ij0zwhbg" targetId="d"/>
+               </container>
+               <service id="c">
+                  <title>Search Item Detail</title>
+                  <serviceName>NetSuite-AppDynamics:Search Item Detail</serviceName>
+                  <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                  <serviceInput>
+                     <parameter name="displayName" source="constant"/>
+                     <parameter name="internalId" source="field" updatable="true">input.productId</parameter>
+                  </serviceInput>
+                  <link id="ij0zwh6b" targetId="ij0zwh6a"/>
+               </service>
+               <end id="d">
+                  <title>End</title>
+               </end>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>4ekj31AdLklkpjliCiE9kI</types1:GUID>
+      <types1:DisplayName>SyncNetSuiteProductToSFDC</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-15T20:13:13.045Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
