@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "9xQEqs4ImRBhWTcFeBsaE8",
+    "name" : "RevPro-DataIntegration",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "aabbfZk9EW4ARW8-gt-24146641-2017-11-30T05:56:42.011Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

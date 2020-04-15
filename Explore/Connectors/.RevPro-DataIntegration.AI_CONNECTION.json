@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "8pKTvEmfxGRlPbZTxBc2uY",
+    "name" : "RevPro-DataIntegration",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "xyjJYKqUlLnzYLn-gt-24146463-2017-11-30T05:55:10.379Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "9xQEqs4ImRBhWTcFeBsaE8",
+    "name" : "RevPro-DataIntegration",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "aabbfZk9EW4ARW8-gt-24146641-2017-11-30T05:56:42.011Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}

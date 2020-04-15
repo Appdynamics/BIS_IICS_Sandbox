@@ -1,0 +1,646 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>aabbfZk9EW4ARW8-gt-24146641-2017-11-30T05:56:42.011Z::svc.xml</types1:EntryId>
+      <types1:Name>RevPro-DataIntegration</types1:Name>
+      <types1:ParentFlowIds>xyjJYKqUlLnzYLn-gt-24146463-2017-11-30T05:55:10.379Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>RevPro</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>muni.jangama@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-11-30T05:56:42Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-02-19T23:59:33Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-20T00:08:34Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/RevPro_DataIntegration/RevPro_DataIntegration_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="true"
+                            debug="false"
+                            displayName="RevPro-DataIntegration"
+                            label=""
+                            name="RevPro-DataIntegration"
+                            uuid="c2e0ca46-dc81-4170-98d0-bb5944e51be4">
+            <description/>
+            <tags>RevPro</tags>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="URL"
+                                    required="true"
+                                    testWith="https://integration-sandbox.revprooncloud.com/app02"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="role"
+                                    required="true"
+                                    testWith="AppD Web Service"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="clientname"
+                                    required="true"
+                                    testWith="Default"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="username"
+                                    required="true"
+                                    testWith="web.service"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="password"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+            </connectionAttributes>
+            <actions>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="Authentication"
+                       maxRedirects="100"
+                       name="Authentication"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description>This API is used to Authenticate and get Auth Token to push and pull data from RevPro instance</description>
+                  <input/>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/authenticate"
+                                        verb="POST">
+                        <authentication>
+                           <username>{$username}</username>
+                           <password>{$password}</password>
+                           <isExpressionInPassword>true</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Accept">application/json</header>
+                           <header name="role">{$role}</header>
+                           <header name="clientname">{$clientname}</header>
+                        </httpHeaders>
+                        <body generateUsing="JSON" preserveJsonStringFormatting="false"/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="Token" type="formattedString">
+                        <xquery>{$RESTResponse//*:headers/*:header[@*:name="Revpro-Token"]/@*:value}</xquery>
+                     </field>
+                     <field description=""
+                            name="AuthStatusCode"
+                            responseStatusCode="true"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetTransferBatchList"
+                       maxRedirects="100"
+                       name="GetTransferBatchList"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>Get the transfer batch list</description>
+                  <input>
+                     <parameter name="Token"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJBcHBEIFdlYiBTZXJ2aWNlIiwiZXhwIjoxNTM0NjMwODI5LCJpYXQiOjE1MzQ2MjkwMjksIm5iZiI6MTUzNDYyOTAyOSwiY2xpZW50bmFtZSI6IkRlZmF1bHQifQ.f0CL7GPmDzBfDI99XpaZNio5_vHe6KI2NBj_vSf2VQ4"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/journal/list"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="token">{$Token}</header>
+                           <header name="Accept">application/json</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="ListOfTransferBatches"
+                            type="objectlist"
+                            xmlElement="Result">
+                        <options>
+                           <option name="referenceTo">Result</option>
+                        </options>
+                     </field>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="CreateUpload"
+                       maxRedirects="100"
+                       name="CreateUpload"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>Loads the transaction, events, or bundle configuration data in the CSV format into RevPro</description>
+                  <input>
+                     <parameter name="Token"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJXZWIgU2VydmljZSIsImV4cCI6MTUxMzI5ODI1NSwiaWF0IjoxNTEzMjk2NDU1LCJuYmYiOjE1MTMyOTY0NTUsImNsaWVudG5hbWUiOiJEZWZhdWx0In0.UNaNs7LLHijj1uAcGBxRbx1XXe-TCQ5_arPzvq0LMLI"
+                                type="string"/>
+                     <parameter name="FileContent"
+                                nogen="true"
+                                required="true"
+                                testWith="SalesForceLineID,Release Quantity,Start Date,End Date,Event Amount,Process Date,Revenue Action\r\n SO010-7720Z-4,11,10/31/2017,10/31/2017,9999,10/31/2017,B\r\n SO010-8820Z-5,22,11/1/2017,11/1/2017,8888,11/1/2017,B\r\n SO010-660Z-6,33,11/2/2017,11/2/2017,7777,11/2/2017,B\r\n"
+                                type="string"/>
+                     <parameter name="templateName"
+                                nogen="true"
+                                required="true"
+                                testWith="Event by Quantity"
+                                type="string"/>
+                     <parameter name="fileName"
+                                nogen="true"
+                                required="true"
+                                testWith="EventByQuantity.csv"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/csv/upload"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Content-Type">application/json</header>
+                           <header name="templatename">{$templateName}</header>
+                           <header name="token">{$Token}</header>
+                           <header name="Accept">application/json</header>
+                           <header name="filename">{$fileName}</header>
+                        </httpHeaders>
+                        <body>{$FileContent}</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="CreateUpload_StatusCode"
+                            responseStatusCode="true"
+                            type="string"/>
+                     <field description=""
+                            name="CreateUpload_Request ID"
+                            property="request_id"
+                            type="string"/>
+                     <field description=""
+                            name="CreateUpload_UploadID"
+                            property="id"
+                            type="string"/>
+                     <field description=""
+                            name="CreateUpload_Status"
+                            property="Status"
+                            type="string"/>
+                     <field description=""
+                            name="CreateUpload_Message"
+                            property="Message"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="UploadFile"
+                       maxRedirects="100"
+                       name="UploadFile"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>Uploads CSV files to RevPro.</description>
+                  <input>
+                     <parameter name="Token"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJXZWIgU2VydmljZSIsImV4cCI6MTUxMzY0MjI1NSwiaWF0IjoxNTEzNjQwNDU1LCJuYmYiOjE1MTM2NDA0NTUsImNsaWVudG5hbWUiOiJEZWZhdWx0In0.l1eBgSk-pHkmoAzfNNV_FjCx_rui9Wrp-l0mi466KQA"
+                                type="string"/>
+                     <parameter name="file" required="true" testWith="" type="attachment"/>
+                     <parameter name="templateName"
+                                nogen="true"
+                                required="true"
+                                testWith="Event by Quantity"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/upload/file"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="token">{$Token}</header>
+                           <header name="templatename">{$templateName}</header>
+                           <header name="Content-Type">multipart/form-data</header>
+                        </httpHeaders>
+                        <body generateUsing="Form"/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="UF_file_request_id"
+                            property="file_request_id"
+                            type="string"/>
+                     <field description="" name="UF_Status" property="Status" type="string"/>
+                     <field description=""
+                            name="UF_Message"
+                            property="Message"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetStageError"
+                       maxRedirects="100"
+                       name="GetStageError"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>This API is used to get the list of records that error-ed in the RevPro Staging table</description>
+                  <input>
+                     <parameter name="token"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJXZWIgU2VydmljZSIsImV4cCI6MTUxNjIzNzU5MywiaWF0IjoxNTE2MjM1NzkzLCJuYmYiOjE1MTYyMzU3OTMsImNsaWVudG5hbWUiOiJEZWZhdWx0In0.MUko-AYAQOdd-ERq5ziT97ra4efY1OBF90rzwtfw0k4"
+                                type="string"/>
+                     <parameter name="errortype"
+                                required="true"
+                                testWith="transaction"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/stage/error/{$errortype}"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Token">{$token}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="StgErrorStatus"
+                            property="Status"
+                            type="objectlist">
+                        <options>
+                           <option name="referenceTo">Result</option>
+                        </options>
+                     </field>
+                     <field description=""
+                            name="StgErroredData"
+                            type="objectlist"
+                            xmlElement="Result">
+                        <options>
+                           <option name="referenceTo">Result</option>
+                        </options>
+                     </field>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="Get_CreateUploadStatus"
+                       maxRedirects="100"
+                       name="Get_CreateUploadStatus"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>This API is used to check if the data is loaded successfully in to RevPro base tables</description>
+                  <input>
+                     <parameter name="token"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJXZWIgU2VydmljZSIsImV4cCI6MTUxMDc4OTkzMCwiaWF0IjoxNTEwNzg4MTMwLCJuYmYiOjE1MTA3ODgxMzAsImNsaWVudG5hbWUiOiJEZWZhdWx0In0.yI6DmyULL-87czSMvvb5Wc4SMrzM-PZ8Jceez4686ak"
+                                type="string"/>
+                     <parameter name="Uploadid" required="true" testWith="11432" type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/csv/upload/status?id={$Uploadid}"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Token">{$token}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="GetUploadstatus"
+                            property="status"
+                            type="string"/>
+                     <field description="" name="Message" property="Message" type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="Get_FileUploadStatus"
+                       maxRedirects="100"
+                       name="Get_FileUploadStatus"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>Gets Upload Status of file posted to RevPro</description>
+                  <input>
+                     <parameter name="filerequestid"
+                                required="true"
+                                testWith="2000019"
+                                type="string"/>
+                     <parameter name="token"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJXZWIgU2VydmljZSIsImV4cCI6MTUxMjA3ODc2NiwiaWF0IjoxNTEyMDc2OTY2LCJuYmYiOjE1MTIwNzY5NjYsImNsaWVudG5hbWUiOiJEZWZhdWx0In0.QOL_U3r7lGZY666epH-1N_UI6IsjcN2IZtmo4_Nh-Sw"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/fileupload/status/{$filerequestid}"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Token">{$token}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="FileUploadStatus"
+                            property="Status"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetTransferBatch"
+                       maxRedirects="100"
+                       name="GetTransferBatch"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>Gets the JE records based on batch number &amp; page number provided</description>
+                  <input>
+                     <parameter label="batchId"
+                                name="batchId"
+                                nogen="true"
+                                required="true"
+                                testWith="10439"
+                                type="string"/>
+                     <parameter label="pageNum"
+                                name="pageNum"
+                                nogen="true"
+                                required="true"
+                                testWith="1"
+                                type="string"/>
+                     <parameter label="token"
+                                name="token"
+                                nogen="true"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJBcHBEIFdlYiBTZXJ2aWNlIiwiZXhwIjoxNTM0NjMwODI5LCJpYXQiOjE1MzQ2MjkwMjksIm5iZiI6MTUzNDYyOTAyOSwiY2xpZW50bmFtZSI6IkRlZmF1bHQifQ.f0CL7GPmDzBfDI99XpaZNio5_vHe6KI2NBj_vSf2VQ4"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/journal/batch/{$batchId}/{$pageNum}"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="token">{$token}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="out_transferBatchResult"
+                            type="reference"
+                            xmlElement="Result">
+                        <options>
+                           <option name="referenceTo">eachBatchWithJE_Result</option>
+                        </options>
+                     </field>
+                     <field description=""
+                            name="out_transferBatch_journalEntryList"
+                            type="objectlist"
+                            xmlElement="JournalLines">
+                        <options>
+                           <option name="referenceTo">JournalLines</option>
+                        </options>
+                     </field>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="UpdateTransferBatchStatus"
+                       maxRedirects="100"
+                       name="UpdateTransferBatchStatus"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>Update the batch status to Transferred</description>
+                  <input>
+                     <parameter label="token"
+                                name="token"
+                                nogen="true"
+                                required="false"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJBcHBEIFdlYiBTZXJ2aWNlIiwiZXhwIjoxNTM0NDQ4NjQyLCJpYXQiOjE1MzQ0NDY4NDIsIm5iZiI6MTUzNDQ0Njg0MiwiY2xpZW50bmFtZSI6IkRlZmF1bHQifQ.4gq3pUnGV2pAfAEKsBIN90I9k50JQVF9UD6fq5Qd5d0"
+                                type="string"/>
+                     <parameter label="batchId"
+                                name="batchId"
+                                nogen="true"
+                                required="false"
+                                testWith="10431"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/journal/batch/status/{$batchId}"
+                                        verb="PUT">
+                        <httpHeaders>
+                           <header name="token">{$token}</header>
+                        </httpHeaders>
+                        <body generateUsing="JSON" preserveJsonStringFormatting="true"/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="transferredBatch_httpResposneCode"
+                            responseStatusCode="true"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetTransferBatchFile"
+                       maxRedirects="100"
+                       name="GetTransferBatchFile"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description>Gets the csv file for batch number &amp; page number provided</description>
+                  <input>
+                     <parameter label="batchId"
+                                name="batchId"
+                                nogen="true"
+                                required="true"
+                                testWith="10436"
+                                type="string"/>
+                     <parameter label="token"
+                                name="token"
+                                nogen="true"
+                                required="true"
+                                testWith="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IldFQi5TRVJWSUNFIiwiaXNzIjoiUkVWUFJPIDMuMCBXZWJzZXJ2aWNlcyIsInJvbGUiOiJBcHBEIFdlYiBTZXJ2aWNlIiwiZXhwIjoxNTM0NjAxNjU0LCJpYXQiOjE1MzQ1OTk4NTQsIm5iZiI6MTUzNDU5OTg1NCwiY2xpZW50bmFtZSI6IkRlZmF1bHQifQ.RiDhOX-0ILI7zM7UXYwTBfmAlCJtbJzuGT-6GIwQNRY"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/integration/v1/download/transferbatchfile/{$batchId}"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="token">{$token}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field attachment="true"
+                            description=""
+                            name="RP_JE_Attachment"
+                            type="attachment"/>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="listOfBatches_Result">
+                  <description/>
+                  <detail>
+                     <field name="crtd_dt" type="string"/>
+                     <field name="updt_by" type="string"/>
+                     <field name="crtd_by" type="string"/>
+                     <field name="name" type="string"/>
+                     <field name="crtd_prd_id" type="int"/>
+                     <field name="updt_dt" type="string"/>
+                     <field name="id" type="int"/>
+                     <field name="sec_atr_val" type="int"/>
+                     <field name="client_id" type="int"/>
+                     <field name="status" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="eachBatchWithJE_Result">
+                  <description/>
+                  <detail>
+                     <field name="CurrentPage" type="int"/>
+                     <field name="BatchId" type="int"/>
+                     <field name="TotalPages" type="int"/>
+                     <field name="NextPage" type="string"/>
+                     <field name="JournalLines" type="objectlist">
+                        <options>
+                           <option name="referenceTo">JournalLines</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="BatchCount" type="int"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="JournalLines">
+                  <description/>
+                  <detail>
+                     <field name="attribute1" type="string"/>
+                     <field name="attribute10" type="string"/>
+                     <field name="attribute11" type="string"/>
+                     <field name="attribute12" type="string"/>
+                     <field name="attribute13" type="string"/>
+                     <field name="attribute14" type="string"/>
+                     <field name="attribute15" type="string"/>
+                     <field name="attribute16" type="string"/>
+                     <field name="attribute17" type="string"/>
+                     <field name="attribute18" type="string"/>
+                     <field name="attribute19" type="string"/>
+                     <field name="attribute2" type="string"/>
+                     <field name="attribute20" type="string"/>
+                     <field name="attribute3" type="string"/>
+                     <field name="attribute4" type="string"/>
+                     <field name="attribute5" type="string"/>
+                     <field name="attribute6" type="string"/>
+                     <field name="attribute7" type="string"/>
+                     <field name="attribute8" type="string"/>
+                     <field name="attribute9" type="string"/>
+                     <field name="currency_code" type="string"/>
+                     <field name="entered_cr" type="string"/>
+                     <field name="entered_dr" type="string"/>
+                     <field name="reference1" type="string"/>
+                     <field name="reference2" type="string"/>
+                     <field name="reference3" type="string"/>
+                     <field name="reference4" type="string"/>
+                     <field name="reference5" type="string"/>
+                     <field name="reference6" type="string"/>
+                     <field name="reference7" type="string"/>
+                     <field name="reference8" type="string"/>
+                     <field name="reference9" type="string"/>
+                     <field name="schedule_id" type="string"/>
+                     <field name="segment1" type="string"/>
+                     <field name="stage_rownum" type="string"/>
+                     <field name="trans_id" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Result">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="processed_flag" type="string"/>
+                     <field name="upload_id" type="int"/>
+                     <field name="updt_by" type="string"/>
+                     <field name="so_num" type="string"/>
+                     <field name="so_line_id" type="string"/>
+                     <field name="so_line_num" type="int"/>
+                     <field name="updt_dt" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="sec_atr_val" type="int"/>
+                     <field name="client_id" type="int"/>
+                     <field name="crtd_dt" type="string"/>
+                     <field name="crtd_by" type="string"/>
+                     <field name="err_msg" type="string"/>
+                     <field name="inv_line_num" type="int"/>
+                     <field name="inv_num" type="string"/>
+                     <field name="inv_line_id" type="string"/>
+                     <field name="id" type="int"/>
+                     <field name="name" type="string"/>
+                     <field name="crtd_prd_id" type="int"/>
+                     <field name="status" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="ResultList">
+                  <description>ResultList</description>
+                  <detail>
+                     <field name="Result" type="objectlist">
+                        <options>
+                           <option name="referenceTo">Result</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="root">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="Status" type="string"/>
+                     <field name="Result" type="objectlist">
+                        <options>
+                           <option name="referenceTo">Result</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>9xQEqs4ImRBhWTcFeBsaE8</types1:GUID>
+      <types1:DisplayName>RevPro-DataIntegration</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-15T22:20:12.949Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
