@@ -35,10 +35,7 @@
       "repoInfo" : {
         "repoHandle" : "000TPB0Z0000000000GY"
       },
-      "contextAttributes" : [ {
-        "name" : "id",
-        "value" : "@1"
-      } ],
+      "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "",
         "contentType" : "JSON",
