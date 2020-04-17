@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "5AuLml77cSrlcjQ5ujBCiu",
+    "name" : "CreateNetSuiteFile-SecuredAgent-fromContentDocument",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "Drr0Fdw8jIw8jIw-gt-2106411-2019-02-08T20:21:04.747Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "3e7G3QHutR2jC8RcCWd0Ar",
+    "name" : "NetSuite-Journal-Entry",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "XKf3TPdqRi92qBb-gt-7616646-2015-10-07T05:15:11.791Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}

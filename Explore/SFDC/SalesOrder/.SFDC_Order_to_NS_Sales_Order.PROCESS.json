@@ -1,0 +1,164 @@
+{
+  "objectInfo" : {
+    "id" : "7WXKpNZM9P0fHJt7ibcT6B",
+    "name" : "SFDC_Order_to_NS_Sales_Order",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Create Sales Order in NetSuite(Infa dev).",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "58gj2o5v8OacYp4U1C0Jw0",
+    "name" : "Salesforce",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "bbf3TzAnOjseGbc-gt-5216312-2015-09-29T13:59:13.017Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Informatica Cloud Real Time - Guide Setup created this Salesforce connection. Enter proper password and security token if you want to use this connection outside of Salesforce",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  }, {
+    "id" : "gPD9ex60xIIkSd9IzZgAmL",
+    "name" : "NetSuite-CiscoDepartmentLookup",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "LyCnNZPD4ARW8UB-gt-16936543-2017-04-26T22:54:58.611Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  }, {
+    "id" : "56SedxwGqmClk8NTfREnam",
+    "name" : "FindCustomBillingSchedule",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "WRi8RVf4VQT53nQ-gt-571625-2019-12-17T00:05:47.855Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/SalesOrder"
+  }, {
+    "id" : "kqG4HNhic2Kk0kGc19ss2T",
+    "name" : "NetSuiteAppDynamicsOrderLineList",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "SdqVIKchzt1Y6tM-gt-11721732-2016-11-21T06:52:43.714Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Infa Dev-Iterate through Order Products to create itemList for NetSuite Sales Order",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/SalesOrder"
+  }, {
+    "id" : "1PcKhwyZKULh1N8w5Ux2yk",
+    "name" : "SFDC_To_NS_-_Sales_Order_-_Parent_Customer",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "657V5x8iaaabbeJ-gt-20422992-2018-12-17T16:53:43.921Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/SalesOrder"
+  }, {
+    "id" : "14LuGs1g15zcZeyDsfoMSl",
+    "name" : "NetSuite-AppDynamics",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "juLlpgneO0fXs3C-gt-71439-2015-07-29T13:52:10.152Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite Connection for Infa dev",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  }, {
+    "id" : "3gJ1dRfaJ25lHLylc4qI6J",
+    "name" : "SyncAttachmentToNetSuite",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "wNTrKkQIW3Ni7A7-gt-6636463-2016-03-08T00:31:29.369Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/SalesOrder"
+  } ]
+}

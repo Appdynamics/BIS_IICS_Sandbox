@@ -1,0 +1,399 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>657V5x8iaaabbeJ-gt-20422992-2018-12-17T16:53:43.921Z::pd.xml</types1:EntryId>
+      <types1:Name>SFDC_To_NS_-_Sales_Order_-_Parent_Customer</types1:Name>
+      <types1:ParentFlowIds>8KwkiPiTk08jIw8-gt-389259542-2019-11-04T19:48:20.967Z::pd.xml,dy8NTYglxbdypKw-gt-12766280-2019-11-04T22:32:06.406Z::pd.xml,qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:Account</types1:AppliesTo>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-12-17T16:53:43Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-04-17T17:54:42Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SFDC_To_NS_-_Sales_Order_-_Parent_Customer/SFDC_To_NS_-_Sales_Order_-_Parent_Customer.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SFDC_To_NS_-_Sales_Order_-_Parent_Customer"
+                  name="SFDC_To_NS_-_Sales_Order_-_Parent_Customer"
+                  overrideAPIName="false">
+            <appliesTo>Salesforce:Account</appliesTo>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_parentCustomer_internalId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="out_parentCustomer_errorMessage" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description=""
+                      name="temp_mappingObject_billingCountry"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Mapping__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_mappingObject_billingState"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Mapping__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_billingAddress" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:billingAddress</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_shippingAddress" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:shippingAddress</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_mappingObject_shippingCountry"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Mapping__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_mappingObject_shippingState"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Mapping__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_billingSubsidiary" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_billingCountry" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_shippingCountry" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_billingState" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_shippingState" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jpsk0vwm" targetId="jpsk0vwl"/>
+               </start>
+               <assignment id="jpsk0vwl">
+                  <title>Assign Integration Mapping Values</title>
+                  <operation source="query" to="temp.temp_mappingObject_billingCountry">
+                     <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
+                        <where>Lookup_Type__c = 'Country Code' AND Lookup_Name__c = '{$BillingCountry}'</where>
+                     </query>
+                  </operation>
+                  <operation source="query" to="temp.temp_mappingObject_shippingCountry">
+                     <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
+                        <where>Lookup_Type__c = 'Country Code' AND Lookup_Name__c = '{$ShippingCountry}'</where>
+                     </query>
+                  </operation>
+                  <operation source="query" to="temp.temp_mappingObject_billingState">
+                     <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
+                        <where>Lookup_Type__c = 'State/Province' AND Attribute_1__c = '{$BillingCountry}' AND Lookup_Name__c = '{$BillingState}'</where>
+                     </query>
+                  </operation>
+                  <operation source="query" to="temp.temp_mappingObject_shippingState">
+                     <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
+                        <where>Lookup_Type__c = 'State/Province' AND Attribute_1__c = '{$ShippingCountry}' AND Lookup_Name__c = '{$ShippingState}'</where>
+                     </query>
+                  </operation>
+                  <link id="jpyce2bj" targetId="jpyce2bi"/>
+               </assignment>
+               <container id="jpyce2bi" type="parallel">
+                  <title>Integration Mapping Related Paths</title>
+                  <flow id="jpyce2bm">
+                     <container id="jpyce2by" type="exclusive">
+                        <title>Billing Country Found?</title>
+                        <flow id="jpyce2bz">
+                           <assignment id="jpyce2iu">
+                              <title>Assign Billing Country &amp; Subsidiary</title>
+                              <operation source="field" to="temp.temp_billingCountry">temp.temp_mappingObject_billingCountry.Mapping_Name__c</operation>
+                              <operation source="field" to="temp.temp_billingSubsidiary">temp.temp_mappingObject_billingCountry.Attribute_2__c</operation>
+                           </assignment>
+                           <link id="jpyce2c4" targetId="jpyce2by" type="containerLink"/>
+                        </flow>
+                        <flow id="jpyce2c0">
+                           <link id="jpyce2c5" targetId="jpyce2by" type="containerLink"/>
+                        </flow>
+                        <link id="jpyce2c2" targetId="jpyce2bz" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_mappingObject_billingCountry}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jpyce2c3" targetId="jpyce2c0" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_mappingObject_billingCountry}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jpyce2bn" targetId="jpyce2bi" type="containerLink"/>
+                  </flow>
+                  <flow id="jpyce2bp">
+                     <container id="jpyce2cj" type="exclusive">
+                        <title>Shipping Country Found?</title>
+                        <flow id="jpyce2ck">
+                           <assignment id="jpyce2kd">
+                              <title>Assign Shipping Country</title>
+                              <operation source="field" to="temp.temp_shippingCountry">temp.temp_mappingObject_shippingCountry.Mapping_Name__c</operation>
+                           </assignment>
+                           <link id="jpyce2cp" targetId="jpyce2cj" type="containerLink"/>
+                        </flow>
+                        <flow id="jpyce2cl">
+                           <link id="jpyce2cq" targetId="jpyce2cj" type="containerLink"/>
+                        </flow>
+                        <link id="jpyce2cn" targetId="jpyce2ck" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_mappingObject_shippingCountry}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jpyce2co" targetId="jpyce2cl" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_mappingObject_shippingCountry}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jpyce2bq" targetId="jpyce2bi" type="containerLink"/>
+                  </flow>
+                  <flow id="jpyce2d4">
+                     <container id="jpyce2e2" type="exclusive">
+                        <title>Billing State Found?</title>
+                        <flow id="jpyce2e4">
+                           <assignment id="jpyce2l6">
+                              <title>Assign Billing State</title>
+                              <operation source="field" to="temp.temp_billingState">temp.temp_mappingObject_billingState.Mapping_Name__c</operation>
+                           </assignment>
+                           <link id="jpyce2e5" targetId="jpyce2e2" type="containerLink"/>
+                        </flow>
+                        <flow id="jpyce2e7">
+                           <assignment id="jpyce2u5">
+                              <title>Assign Billing State - From Account</title>
+                              <operation source="formula" to="temp.temp_billingState">
+                                 <expression language="XQuery">$BillingState</expression>
+                              </operation>
+                           </assignment>
+                           <link id="jpyce2e8" targetId="jpyce2e2" type="containerLink"/>
+                        </flow>
+                        <link id="jpyce2e3" targetId="jpyce2e4" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_mappingObject_billingState}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jpyce2e6" targetId="jpyce2e7" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_mappingObject_billingState}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jpyce2d5" targetId="jpyce2bi" type="containerLink"/>
+                  </flow>
+                  <flow id="jpyce2de">
+                     <container id="jpyce2ey" type="exclusive">
+                        <title>Shipping State Found?</title>
+                        <flow id="jpyce2f0">
+                           <assignment id="jpyce2lz">
+                              <title>Assign Shipping State</title>
+                              <operation source="field" to="temp.temp_shippingState">temp.temp_mappingObject_shippingState.Mapping_Name__c</operation>
+                           </assignment>
+                           <link id="jpyce2f1" targetId="jpyce2ey" type="containerLink"/>
+                        </flow>
+                        <flow id="jpyce2f3">
+                           <assignment id="jpyce307">
+                              <title>Assign Shipping State - From Account</title>
+                              <operation source="field" to="temp.temp_shippingState">ShippingState</operation>
+                           </assignment>
+                           <link id="jpyce2f4" targetId="jpyce2ey" type="containerLink"/>
+                        </flow>
+                        <link id="jpyce2ez" targetId="jpyce2f0" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_mappingObject_shippingState}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jpyce2f2" targetId="jpyce2f3" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_mappingObject_shippingState}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jpyce2df" targetId="jpyce2bi" type="containerLink"/>
+                  </flow>
+                  <link id="jpyce2bl" targetId="jpyce2bm" type="containerLink"/>
+                  <link id="jpyce2bo" targetId="jpyce2bp" type="containerLink"/>
+                  <link id="jpyce2d3" targetId="jpyce2d4" type="containerLink"/>
+                  <link id="jpyce2dd" targetId="jpyce2de" type="containerLink"/>
+                  <link id="jpyfdd10" targetId="jpyfdd0z"/>
+               </container>
+               <container id="jpyfdd0z" type="parallel">
+                  <title>Billing &amp; Shipping Addresses</title>
+                  <flow id="jpyfdd13">
+                     <assignment id="jpyfdd1n">
+                        <title>Assign Billing Address</title>
+                        <operation source="formula" to="temp.temp_NS_billingAddress[1]/billingAddress1">
+                           <expression language="XQuery">$BillingStreet</expression>
+                        </operation>
+                        <operation source="formula" to="temp.temp_NS_billingAddress[1]/billingCity">
+                           <expression language="XQuery">$BillingCity</expression>
+                        </operation>
+                        <operation source="field" to="temp.temp_NS_billingAddress[1]/billingState">temp.temp_billingState</operation>
+                        <operation source="formula" to="temp.temp_NS_billingAddress[1]/billingZip">
+                           <expression language="XQuery">$BillingPostalCode</expression>
+                        </operation>
+                        <operation source="field" to="temp.temp_NS_billingAddress[1]/billingCountry">temp.temp_billingCountry</operation>
+                     </assignment>
+                     <link id="jpyfdd14" targetId="jpyfdd0z" type="containerLink"/>
+                  </flow>
+                  <flow id="jpyfdd16">
+                     <assignment id="jpyfdd4n">
+                        <title>Assign Shipping Address</title>
+                        <operation source="field" to="temp.temp_NS_shippingAddress[1]/shippingAddress1">ShippingStreet</operation>
+                        <operation source="field" to="temp.temp_NS_shippingAddress[1]/shippingCity">ShippingCity</operation>
+                        <operation source="field" to="temp.temp_NS_shippingAddress[1]/shippingState">temp.temp_shippingState</operation>
+                        <operation source="field" to="temp.temp_NS_shippingAddress[1]/shippingZip">ShippingPostalCode</operation>
+                        <operation source="field" to="temp.temp_NS_shippingAddress[1]/shippingCountry">temp.temp_shippingCountry</operation>
+                     </assignment>
+                     <link id="jpyfdd17" targetId="jpyfdd0z" type="containerLink"/>
+                  </flow>
+                  <link id="jpyfdd12" targetId="jpyfdd13" type="containerLink"/>
+                  <link id="jpyfdd15" targetId="jpyfdd16" type="containerLink"/>
+                  <link id="jpyfddca" targetId="jpyk1p6p"/>
+               </container>
+               <eventContainer id="jpyk1p6p">
+                  <service id="jpyfddc9">
+                     <title>Create Parent Customer</title>
+                     <serviceName>NetSuite-AppDynamics:Create Customer</serviceName>
+                     <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                     <serviceInput>
+                        <parameter name="companyName" source="field" updatable="true">Name</parameter>
+                        <parameter name="phone" source="formula">
+                           <expression language="XQuery">if (fn:string-length($Phone) &gt; 5) then $Phone else ''</expression>
+                        </parameter>
+                        <parameter name="subsidiary" source="field" updatable="true">temp.temp_billingSubsidiary</parameter>
+                        <parameter name="url" source="formula">
+                           <expression language="XQuery">if(exists($Website)) 
+then
+(if(fn:substring($Website, 1,7) eq 'http://')
+then $Website
+else
+fn:concat("http://", $Website))
+else
+()
+
+
+</expression>
+                        </parameter>
+                        <parameter name="billingAddress" source="field">temp.temp_NS_billingAddress</parameter>
+                        <parameter name="shippingAddress" source="field">temp.temp_NS_shippingAddress</parameter>
+                        <parameter name="accountID" source="field" updatable="true">Account_Id_18_digit__c</parameter>
+                        <parameter name="industry" source="formula">
+                           <expression language="XQuery">$Master_Industry__c </expression>
+                        </parameter>
+                        <parameter name="parentCustomer_uniqueId" source="field">Parent_Customer_Unique_Id__c</parameter>
+                        <parameter name="Customer_uniqueId" source="field">Customer_Unique_ID__c</parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="jpyk1p6r">
+                     <assignment id="jpyk1p7u">
+                        <title>Assign Parent Customer internalId &amp; Update SFDC</title>
+                        <operation source="field" to="output.out_parentCustomer_internalId">output.NetSuite Customer ID</operation>
+                        <operation source="field" to="NetSuite_Id__c">output.NetSuite Customer ID</operation>
+                        <operation source="field" to="output.out_parentCustomer_errorMessage">output.errorMessages</operation>
+                     </assignment>
+                     <link id="jpyk1p6s" targetId="jpyk1p6p" type="containerLink"/>
+                  </flow>
+                  <flow id="jpyk1p6u">
+                     <assignment id="jpykkdlo">
+                        <title>Assign Parent Customer Error Message</title>
+                        <operation source="formula" to="output.out_parentCustomer_errorMessage">
+                           <expression language="XQuery">fn:concat($output.faultInfo-ParentCustomer[1]/Code,' - ',$output.faultInfo-ParentCustomer[1]/Detail,' - ',$output.faultInfo-ParentCustomer[1]/Reason)</expression>
+                        </operation>
+                     </assignment>
+                     <link id="jpyk1p6v" targetId="jpyk1p6p" type="containerLink"/>
+                  </flow>
+                  <link id="jpyk1p6q" targetId="jpyk1p6r" type="containerLink"/>
+                  <link id="jpyfddcb" targetId="d"/>
+                  <events>
+                     <catch faultField="faultInfo-ParentCustomer"
+                            id="jpyk1p4m"
+                            interrupting="true">
+                        <link id="jpyk1p6t" targetId="jpyk1p6u" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>1PcKhwyZKULh1N8w5Ux2yk</types1:GUID>
+      <types1:DisplayName>SFDC_To_NS_-_Sales_Order_-_Parent_Customer</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-17T19:00:47.763Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

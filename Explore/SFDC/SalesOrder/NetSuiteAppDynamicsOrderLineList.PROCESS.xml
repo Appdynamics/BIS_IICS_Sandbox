@@ -1,0 +1,424 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>SdqVIKchzt1Y6tM-gt-11721732-2016-11-21T06:52:43.714Z::pd.xml</types1:EntryId>
+      <types1:Name>NetSuiteAppDynamicsOrderLineList</types1:Name>
+      <types1:ParentFlowIds>8KwkiPiTk08jIw8-gt-389259542-2019-11-04T19:48:20.967Z::pd.xml,dy8NTYglxbdypKw-gt-12766280-2019-11-04T22:32:06.406Z::pd.xml,qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description>Infa Dev-Iterate through Order Products to create itemList for NetSuite Sales Order</types1:Description>
+      <types1:AppliesTo>Salesforce:OrderItem</types1:AppliesTo>
+      <types1:Tags>NetSuite</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-11-21T06:52:43Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-04-14T22:09:32Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.NetSuiteAppDynamicsOrderLineList/NetSuiteAppDynamicsOrderLineList.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="NetSuiteAppDynamicsOrderLineList"
+                  name="NetSuiteAppDynamicsOrderLineList"
+                  overrideAPIName="false">
+            <appliesTo>Salesforce:OrderItem</appliesTo>
+            <description>Infa Dev-Iterate through Order Products to create itemList for NetSuite Sales Order</description>
+            <tags>NetSuite</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="inputItemList" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:itemList</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </parameter>
+               <parameter description=""
+                          name="isCustomScheduleLineFound"
+                          required="true"
+                          type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description="" name="thisItem" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:item</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="thisCustomField" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:customField</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="thisCustomFieldList" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:customFieldList</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="thisList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">$po:$any</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                  </options>
+               </field>
+               <field description="" name="cotermOpptyId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="opptyProductLine" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OpportunityLineItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="months" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="netSuiteProductId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="thisConvertibleSKULookup" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Mapping__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcBillingScheduleName" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_billingScheduleInternalId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jk8kewtf" targetId="jk8kewsy"/>
+               </start>
+               <container id="jk8kewsy" type="exclusive">
+                  <title>Deal Type</title>
+                  <flow id="jk8kewsz">
+                     <assignment id="jk8kewt0">
+                        <title>Get Opportunity Product Line</title>
+                        <operation source="query" to="temp.opptyProductLine">
+                           <query advanceQuery="false" from="Salesforce:OpportunityLineItem">
+                              <where>Id = '{$Opportunity_Product__c}'</where>
+                           </query>
+                        </operation>
+                        <link id="jk8kewt9" targetId="jk8kewt1"/>
+                     </assignment>
+                     <container id="jk8kewt1" type="exclusive">
+                        <title>opptyProductLine</title>
+                        <flow id="jk8kewt2">
+                           <assignment id="jk8kewt3">
+                              <title>Assignment to cotermOpptyId</title>
+                              <operation source="formula" to="temp.cotermOpptyId">
+                                 <expression language="XQuery">if($temp.opptyProductLine.SBQQ__QuoteLine__r.Line_Type_Override__c = true() and $temp.opptyProductLine.Opportunity.Deal_Type__c = 'Add On Early Renewal') 
+then 
+$temp.opptyProductLine.Opportunity.Original_Contract__r.SBQQ__Opportunity__r.Id
+else 
+if($temp.opptyProductLine.SBQQ__QuoteLine__r.Line_Type_Override__c = true() and ($temp.opptyProductLine.Opportunity.Deal_Type__c = 'Renewal - Subscription' or $temp.opptyProductLine.Opportunity.Deal_Type__c = 'Renewal - Perpetual')) 
+then 
+$temp.opptyProductLine.Opportunity.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
+else 
+$temp.opptyProductLine.SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id</expression>
+                              </operation>
+                           </assignment>
+                           <link id="jk8kewtc" targetId="jk8kewt1" type="containerLink"/>
+                        </flow>
+                        <flow id="jk8kewt4">
+                           <container id="k90gc435" type="exclusive">
+                              <title>Quote Line Item ID</title>
+                              <flow id="k90gc437">
+                                 <assignment id="k90gc43v">
+                                    <title>Assignment to cotermOpptyId</title>
+                                    <operation source="formula" to="temp.cotermOpptyId">
+                                       <expression language="XQuery">if($SBQQ__QuoteLine__r.Line_Type_Override__c = true() and $SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Deal_Type__c = 'Add On Early Renewal')
+then
+$SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Original_Contract__r.SBQQ__Opportunity__r.Id
+else
+if($SBQQ__QuoteLine__r.Line_Type_Override__c = true() and ( $SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Deal_Type__c = 'Renewal - Subscription' or $SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Deal_Type__c = 'Renewal - Perpetual'))
+then
+$SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
+else
+$SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id</expression>
+                                    </operation>
+                                 </assignment>
+                                 <link id="k90gc438" targetId="k90gc435" type="containerLink"/>
+                              </flow>
+                              <flow id="k90gc43a">
+                                 <assignment id="k90gc446">
+                                    <title>Assignment to cotermOpptyId</title>
+                                    <operation source="formula" to="temp.cotermOpptyId">
+                                       <expression language="XQuery">if ($Order.Opportunity.Deal_Type__c = 'Add On Early Renewal')
+then
+$Order.Opportunity.Original_Contract__r.SBQQ__Opportunity__r.Id else
+if ($Order.Opportunity.Deal_Type__c = 'Renewal - Subscription' or $Order.Opportunity.Deal_Type__c = 'Renewal - Perpetual')
+then 
+$Order.Opportunity.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
+else ''
+
+</expression>
+                                    </operation>
+                                 </assignment>
+                                 <link id="k90gc43b" targetId="k90gc435" type="containerLink"/>
+                              </flow>
+                              <link id="k90gc436" targetId="k90gc437" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="set">
+                                       <arg name="field">{$QuoteLineItemId}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k90gc439" targetId="k90gc43a" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="unset">
+                                       <arg name="field">{$QuoteLineItemId}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                           </container>
+                           <link id="jk8kewtd" targetId="jk8kewt1" type="containerLink"/>
+                        </flow>
+                        <link id="jk8kewta" targetId="jk8kewt2" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.opptyProductLine}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jk8kewtb" targetId="jk8kewt4" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.opptyProductLine}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jk8kewt8" targetId="jk8kewsy" type="containerLink"/>
+                  </flow>
+                  <flow id="jk8kewt5">
+                     <link id="jk8kewte" targetId="jk8kewsy" type="containerLink"/>
+                  </flow>
+                  <link id="jk8kewt6" targetId="jk8kewsz" type="containerLink">
+                     <condition source="formula">
+                        <function name="included">
+                           <arg name="left">{$Order.Deal_Type__c}</arg>
+                           <arg name="right">New,Training,Renewal - Subscription,Renewal - Perpetual,Expansion,Growth - (Co-Term),Add-On,Add On Early Renewal</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jk8kewt7" targetId="jk8kewt5" type="containerLink"/>
+                  <link id="jk8kewtz" targetId="jk8kewty"/>
+               </container>
+               <container id="jxkxqen9" type="exclusive">
+                  <title>Payment Schedule Empty?</title>
+                  <flow id="jxkxqend">
+                     <link id="jxkxqene" targetId="jxkxqen9" type="containerLink"/>
+                  </flow>
+                  <flow id="jxkxqeng">
+                     <service id="jxkxqeos">
+                        <title>Get Billing Schedule</title>
+                        <serviceName>NetSuite-AppDynamics:searchBillingSchedule</serviceName>
+                        <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                        <serviceInput>
+                           <parameter name="in_billingSchedule_name" source="field" updatable="true">temp.temp_calcBillingScheduleName</parameter>
+                        </serviceInput>
+                        <link id="jxkxqeqr" targetId="jxkxqeqq"/>
+                     </service>
+                     <assignment id="jxkxqeqq">
+                        <title>Assignment Billing Schedule to temp</title>
+                        <operation source="field" to="temp.temp_billingScheduleInternalId">output.billingSchedule_internalId</operation>
+                     </assignment>
+                     <link id="jxkxqenh" targetId="jxkxqen9" type="containerLink"/>
+                  </flow>
+                  <link id="jxkxqenc" targetId="jxkxqend" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$temp.temp_calcBillingScheduleName}</arg>
+                           <arg name="right"/>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jxkxqenf" targetId="jxkxqeng" type="containerLink"/>
+                  <link id="jxkxqeo4" targetId="jk8kewue"/>
+               </container>
+               <assignment id="jk8kewty">
+                  <title>Assignment to months, temp_calcBillingScheduleName</title>
+                  <operation source="formula" to="temp.months">
+                     <expression language="XQuery">if(fn:exists($Subscription_Month_Duration__c))
+
+then
+
+fn:round(fn:number($Subscription_Month_Duration__c))
+
+
+else()</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_calcBillingScheduleName">
+                     <expression language="XQuery">let $payment := $Payment_Schedule_Details__c 
+let $divisibleTerm := if($payment='Equal Annual') then 12 else 
+                      if($payment='Equal Semi Annual') then 6 else 
+                      if($payment='Equal Quarterly') then 12 else 
+                      if($payment='Equal Monthly') then 12 else 0   
+                      
+let $term := if($divisibleTerm&gt;=1 and $Subscription_Month_Duration__c&gt;=1) then fn:round($Subscription_Month_Duration__c  div $divisibleTerm) else 0
+return        
+              if(fn:upper-case($payment)='BIA') then $payment else 
+			  if($input.isCustomScheduleLineFound=true()) then 'Custom' else       
+              if($payment='Equal Annual' and $term=1) then 'Equal Annual - 1 year' else 
+              if($payment='Equal Annual' and $term=2) then 'Equal Annual - 2 years' else 
+			  if($payment='Equal Annual' and $term=3) then 'Equal Annual - 3 years' else  
+              if($payment='Equal Annual' and $term=4) then 'Equal Annual - 4 years' else  
+              if($payment='Equal Annual' and $term=6) then 'Equal Annual - 6 years' else   
+              if($payment='Equal Semi Annual' and $term=1) then 'Equal Semi Annual - 1 year' else 
+			  if($payment='Equal Semi Annual' and $term=2) then 'Equal Semi Annual - 2 years' else 
+			  if($payment='Equal Semi Annual' and $term=3) then 'Equal Semi Annual - 3 years' else 
+              if($payment='Equal Quarterly' and $term=1) then 'Equal Quarterly - 1 year' else 
+			  if($payment='Equal Quarterly' and $term=2) then 'Equal Quarterly - 2 years' else 
+			  if($payment='Equal Quarterly' and $term=3) then 'Equal Quarterly - 3 years' else 
+              if($payment='Equal Monthly' and $term=1) then 'Equal Monthly - 1 year' else  
+			  if($payment='Equal Monthly' and $term=2) then 'Equal Monthly - 2 years' else   
+			  if($payment='Equal Monthly' and $term=3) then 'Equal Monthly - 3 years' else 
+              $Payment_Schedule_Details__c</expression>
+                  </operation>
+                  <link id="jxkxqena" targetId="jxkxqen9"/>
+               </assignment>
+               <assignment id="jk8kewue">
+                  <title>Assignment to netSuiteProductId</title>
+                  <operation source="field" to="temp.netSuiteProductId">PricebookEntry.Product2.NetSuite_Id__c</operation>
+                  <link id="jk8kewuv" targetId="jk8kewuu"/>
+               </assignment>
+               <assignment id="jk8kewuu">
+                  <title>Assign Order Product value to thisItem</title>
+                  <operation source="field" to="temp.thisItem[1]/item[1]/internalId">temp.netSuiteProductId</operation>
+                  <operation source="field" to="temp.thisItem[1]/description">PricebookEntry.Name</operation>
+                  <operation source="field" to="temp.thisItem[1]/quantity">Quantity</operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_list_price">
+                     <expression language="XQuery">$Revenue_List_Unit_Price__c</expression>
+                  </operation>
+                  <operation source="formula" to="temp.thisItem[1]/rate">
+                     <expression language="XQuery">$UnitPrice</expression>
+                  </operation>
+                  <operation source="constant"
+                             to="temp.thisItem[1]/custcol_monthly_perpetual_support_ren"/>
+                  <operation source="field" to="temp.thisItem[1]/custcol_product_name">PricebookEntry.Product2.Name</operation>
+                  <operation source="constant" to="temp.thisItem[1]/custcol_volume_discount_percent"/>
+                  <operation source="constant" to="temp.thisItem[1]/price[1]/internalId">-1</operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_months">
+                     <expression language="XQuery">if ($PricebookEntry.Product2.Family = 'Perpetual License')
+then '1'
+else if ($PricebookEntry.Product2.Family = 'Other')
+then '12'
+else $temp.months</expression>
+                  </operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_subscription_duration">Subscription_Month_Duration__c</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_total_price">Net_Total_Price__c</operation>
+                  <operation source="field" to="temp.thisItem[1]/amount">Net_Total_Price__c</operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_qty">
+                     <expression language="XQuery">xs:integer(fn:round(fn:number($Quantity)))</expression>
+                  </operation>
+                  <operation source="formula" to="temp.thisItem[1]/revRecTermInMonths">
+                     <expression language="XQuery">if(fn:exists($Subscription_Month_Duration__c))
+then
+fn:round(fn:number($Subscription_Month_Duration__c))
+
+else()</expression>
+                  </operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_line_type">Line_Type__c</operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_so_line_start_date">
+                     <expression language="XQuery">if(fn:empty($Start_Date__c)) then() else concat(infa:format($Start_Date__c, "yyyy-MM-dd"), "T12:00:00.000-00:00")</expression>
+                  </operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_so_line_end_date">
+                     <expression language="XQuery">if(fn:empty($End_Date__c)) then() else concat(infa:format($End_Date__c, "yyyy-MM-dd"), "T12:00:00.000-00:00")
+</expression>
+                  </operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_coterm_oppty_id">temp.cotermOpptyId</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_one_time_disc_amt">One_Time_Discount__c</operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_ext_list_price">
+                     <expression language="XQuery">$Revenue_Extended_List_Price__c</expression>
+                  </operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_monthly_list_unit_price">Monthly_List_Unit_Price__c</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_monthly_ext_list_price">Monthly_Extended_List_Price__c</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_sfdc_order_line_id">Id</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_sfdc_parent_line_id">Parent_Id__c</operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_acceptance_language">
+                     <expression language="XQuery">if($Acceptance_Flag__c = 'true') then 'T' else 'F'</expression>
+                  </operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_expiry_date">
+                     <expression language="XQuery">if ($PricebookEntry.Product2.Family = 'Service') then 
+if(fn:exists($End_Date__c)) then concat(infa:format($End_Date__c, "yyyy-MM-dd"), "T12:00:00.000-00:00")
+else () 
+else ()</expression>
+                  </operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_contract_mod_opp_id">Contract_Mod_Originating_Opportunity__c</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_referral_fee">Referral_Fee__c</operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_bill_in_arrears">
+                     <expression language="XQuery">if($Bill_In_Arrears__c = 'true') then 'T' else 'F'</expression>
+                  </operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_ad_burstable_months">Burstable_Months__c</operation>
+                  <operation source="formula" to="temp.thisItem[1]/billingSchedule[1]/internalId">
+                     <expression language="XQuery">if(fn:string-length($temp.temp_billingScheduleInternalId )&gt;0) then  $temp.temp_billingScheduleInternalId  else 
+if(xs:date(fn:substring(xs:string($Order.CreatedDate),1,10))&lt;xs:date("2019-11-01")) then '' else  
+fn:concat($Payment_Schedule_Details__c, ' ', $Subscription_Month_Duration__c)</expression>
+                  </operation>
+                  <operation source="formula" to="temp.thisItem[1]/custcol_swap_rights_line">
+                     <expression language="XQuery">if($Swap_Rights__c  = 'true') then 'T' else 'F'</expression>
+                  </operation>
+                  <link id="jk8keww4" targetId="jk8keww3"/>
+               </assignment>
+               <assignment id="jk8keww3">
+                  <title>Add thisItem to inputItemList</title>
+                  <operation source="formula" to="input.inputItemList[1]/item">
+                     <function name="list:append">
+                        <arg name="dest_field">{$input.inputItemList[1]/item}</arg>
+                        <arg name="new_field">{$temp.thisItem}</arg>
+                     </function>
+                  </operation>
+                  <link id="jk8kewwl" targetId="d"/>
+               </assignment>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>kqG4HNhic2Kk0kGc19ss2T</types1:GUID>
+      <types1:DisplayName>NetSuiteAppDynamicsOrderLineList</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-17T19:00:47.781Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

@@ -1,0 +1,196 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>WRi8RVf4VQT53nQ-gt-571625-2019-12-17T00:05:47.855Z::pd.xml</types1:EntryId>
+      <types1:Name>FindCustomBillingSchedule</types1:Name>
+      <types1:ParentFlowIds>qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-12-17T00:05:48Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-03-03T00:03:56Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.FindCustomBillingSchedule/FindCustomBillingSchedule.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="FindCustomBillingSchedule"
+                  name="FindCustomBillingSchedule"
+                  overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="input_OrderProductList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </parameter>
+            </input>
+            <output>
+               <field description="" name="out_IsCustom" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                     <option name="initialvalue">false()</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_OrderProductList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_OrderProductItem" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_IsCustomScheduleFound" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="none">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k4a6if2u" targetId="k4a6if2t"/>
+               </start>
+               <assignment id="k4a6if2t">
+                  <title>Assign Input Order List to Temp List</title>
+                  <operation source="field" to="temp.temp_OrderProductList">input.input_OrderProductList</operation>
+                  <link id="k4a6if33" targetId="k4a6if32"/>
+               </assignment>
+               <assignment id="k4a6if32">
+                  <title>Iteration Assignment</title>
+                  <operation source="formula" to="temp.temp_OrderProductItem">
+                     <expression language="XQuery">list:head($temp.temp_OrderProductList)</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_OrderProductList">
+                     <expression language="XQuery">list:tail($temp.temp_OrderProductList)</expression>
+                  </operation>
+                  <link id="k4a6if3f" targetId="k4a6if3e"/>
+               </assignment>
+               <container id="k4a6if3e" type="exclusive">
+                  <title>IterationCondition- check if more items left</title>
+                  <flow id="k4a6if3i">
+                     <assignment id="k4a6if3u">
+                        <title>Check for custom schedule</title>
+                        <operation source="formula" to="output.out_IsCustom">
+                           <expression language="XQuery">let $paymentSchedule := $temp.temp_OrderProductItem.Payment_Schedule_Details__c 
+
+let $subscriptionDuration := $temp.temp_OrderProductItem.Subscription_Month_Duration__c 
+
+let $divisibleTerm := if($paymentSchedule='Equal Annual') then 12 else 
+                      if($paymentSchedule='Equal Semi Annual') then 6 else 
+                      if($paymentSchedule='Equal Quarterly') then 12 else 
+                      if($paymentSchedule='Equal Monthly') then 12 else 0                         
+
+return 
+if ($divisibleTerm &gt;= 1 and $subscriptionDuration mod $divisibleTerm != 0)
+then true()
+else false()
+</expression>
+                        </operation>
+                        <operation source="formula" to="temp.temp_IsCustomScheduleFound">
+                           <expression language="XQuery">let $paymentSchedule := $temp.temp_OrderProductItem.Payment_Schedule_Details__c 
+
+let $subscriptionDuration := $temp.temp_OrderProductItem.Subscription_Month_Duration__c 
+
+let $divisibleTerm := if($paymentSchedule='Equal Annual') then 12 else 
+                      if($paymentSchedule='Equal Semi Annual') then 6 else 
+                      if($paymentSchedule='Equal Quarterly') then 12 else 
+                      if($paymentSchedule='Equal Monthly') then 12 else 0                         
+
+return 
+if ($divisibleTerm &gt;= 1 and $subscriptionDuration mod $divisibleTerm != 0)
+then true()
+else false()
+</expression>
+                        </operation>
+                        <link id="k4aa50n9" targetId="k4aa50n8"/>
+                     </assignment>
+                     <container id="k4aa50n8" type="exclusive">
+                        <title>Is Custom Schedule Found</title>
+                        <flow id="k4aa50nb">
+                           <end id="k4aa50oa">
+                              <title>End once custom line is found</title>
+                           </end>
+                        </flow>
+                        <flow id="k4aa50ne">
+                           <link id="k4aa50nf" targetId="k4aa50n8" type="containerLink"/>
+                        </flow>
+                        <link id="k4aa50na" targetId="k4aa50nb" type="containerLink">
+                           <condition source="formula">
+                              <function name="true">
+                                 <arg name="field">{$temp.temp_IsCustomScheduleFound}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k4aa50nd" targetId="k4aa50ne" type="containerLink">
+                           <condition source="formula">
+                              <function name="false">
+                                 <arg name="field">{$temp.temp_IsCustomScheduleFound}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k4adkten" targetId="k4adktel"/>
+                     </container>
+                     <jumpTo id="k4adktel">
+                        <link id="k4adktem" targetId="k4a6if32"/>
+                     </jumpTo>
+                  </flow>
+                  <flow id="k4a6if3l">
+                     <end id="k4adktew">
+                        <title>End once iteration is complete</title>
+                     </end>
+                  </flow>
+                  <link id="k4a6if3h" targetId="k4a6if3i" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_OrderProductItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k4a6if3k" targetId="k4a6if3l" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_OrderProductItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+               </container>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>56SedxwGqmClk8NTfREnam</types1:GUID>
+      <types1:DisplayName>FindCustomBillingSchedule</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-17T19:00:47.812Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

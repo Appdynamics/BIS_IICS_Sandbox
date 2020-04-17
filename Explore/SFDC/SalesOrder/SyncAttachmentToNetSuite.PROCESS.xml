@@ -1,0 +1,340 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>wNTrKkQIW3Ni7A7-gt-6636463-2016-03-08T00:31:29.369Z::pd.xml</types1:EntryId>
+      <types1:Name>SyncAttachmentToNetSuite</types1:Name>
+      <types1:ParentFlowIds>8KwkiPiTk08jIw8-gt-389259542-2019-11-04T19:48:20.967Z::pd.xml,dy8NTYglxbdypKw-gt-12766280-2019-11-04T22:32:06.406Z::pd.xml,qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-03-08T00:31:29Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-07-19T00:00:31Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SyncAttachmentToNetSuite/SyncAttachmentToNetSuite.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SyncAttachmentToNetSuite"
+                  name="SyncAttachmentToNetSuite">
+            <appliesTo/>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="parentId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter description="" name="netSuiteOrderId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <output>
+               <field description="" name="errorSyncAttach" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_attachment" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:Attachment</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_contentDocumentLinks" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:ContentDocumentLink</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_contentDocumentLink" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:ContentDocumentLink</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_contentDocument" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:ContentDocument</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_contentVersion" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:ContentVersion</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_attachmentErrorMessage" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_contentErrorMessage" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="io0kh06o" targetId="iliodpxm"/>
+               </start>
+               <assignment id="iliodpxm">
+                  <title>Attachment Lookup</title>
+                  <operation source="list" to="temp.temp_attachment">
+                     <query from="Salesforce:Attachment">
+                        <where>ParentId = '{$input.parentId}' Order By BodyLength desc</where>
+                     </query>
+                  </operation>
+                  <link id="io1vylyc" targetId="io1vylyb"/>
+               </assignment>
+               <assignment id="jrwh8dz2">
+                  <title>Get Content Document Links</title>
+                  <operation source="list" to="temp.temp_contentDocumentLinks">
+                     <query from="Salesforce:ContentDocumentLink">
+                        <where>LinkedEntityId = '{$input.parentId}'</where>
+                     </query>
+                  </operation>
+                  <link id="jy9bvj0x" targetId="jy9bvj0w"/>
+               </assignment>
+               <assignment id="jrwj86q9">
+                  <title>Assign Content Document Link</title>
+                  <operation source="formula" to="temp.temp_contentDocumentLink">
+                     <expression language="XQuery">list:head($temp.temp_contentDocumentLinks)</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_contentDocumentLinks">
+                     <expression language="XQuery">list:tail($temp.temp_contentDocumentLinks)</expression>
+                  </operation>
+                  <link id="jrwj86qb" targetId="jrwj86pm"/>
+               </assignment>
+               <assignment id="jrwj86ve">
+                  <title>Assignment to errorMessage</title>
+                  <operation source="field" to="output.errorSyncAttach">output.statusMessage</operation>
+                  <link id="jrwj86vg" targetId="d"/>
+               </assignment>
+               <container id="io1vylyb" type="exclusive">
+                  <title>temp_attachment</title>
+                  <flow id="io1vylyn">
+                     <subflow id="ipd7zcvc">
+                        <title>CreateNetSuiteFile</title>
+                        <subflowGUID>4S3Vtgh0XMReVnwgDwDS8S</subflowGUID>
+                        <subflowPath>CreateNetSuiteFile</subflowPath>
+                        <appliesTo>Salesforce:Attachment</appliesTo>
+                        <appliesToDataName source="field">temp.temp_attachment</appliesToDataName>
+                        <runForEach>true</runForEach>
+                        <input>
+                           <parameter name="netSuiteOrderId" source="field" updatable="true">input.netSuiteOrderId</parameter>
+                        </input>
+                        <outputDef>
+                           <field name="statusMessage" type="string">
+                              <options>
+                                 <option name="required">false</option>
+                              </options>
+                           </field>
+                        </outputDef>
+                        <link id="jrwh8dxw" targetId="jrwh8dxv"/>
+                     </subflow>
+                     <assignment id="jrwh8dxv">
+                        <title>Assign Attachment Error Message</title>
+                        <operation source="formula" to="temp.temp_attachmentErrorMessage">
+                           <expression language="XQuery">if(
+fn:string-length($temp.temp_attachmentErrorMessage)&gt;0 
+or 
+fn:string-length($temp.temp_contentErrorMessage)&gt;0
+) 
+then fn:concat($temp.temp_attachmentErrorMessage,';',$temp.temp_contentErrorMessage) else ''</expression>
+                        </operation>
+                     </assignment>
+                     <link id="io1vylyo" targetId="io1vylyb" type="containerLink"/>
+                  </flow>
+                  <flow id="io1vylyq">
+                     <link id="io1vylyr" targetId="io1vylyb" type="containerLink"/>
+                  </flow>
+                  <link id="io1vylyk" targetId="io1vylyn" type="containerLink">
+                     <condition source="formula">
+                        <function name="not-empty">
+                           <arg name="field">{$temp.temp_attachment}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="io1vylyl" targetId="io1vylyq" type="containerLink">
+                     <condition source="formula">
+                        <function name="empty">
+                           <arg name="field">{$temp.temp_attachment}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jrwh8dz3" targetId="jrwh8dz2"/>
+               </container>
+               <container id="jy9bvj0w" type="exclusive">
+                  <title>Content Document Links Set?</title>
+                  <flow id="jy9bvj10">
+                     <link id="jy9bvj11" targetId="jy9bvj0w" type="containerLink"/>
+                  </flow>
+                  <flow id="jy9bvj13">
+                     <jumpTo id="jy9bvj3b">
+                        <link id="jy9bvj3c" targetId="jrwj86ve"/>
+                     </jumpTo>
+                  </flow>
+                  <link id="jy9bvj0z" targetId="jy9bvj10" type="containerLink">
+                     <condition source="formula">
+                        <function name="not-empty">
+                           <arg name="field">{$temp.temp_contentDocumentLinks}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jy9bvj12" targetId="jy9bvj13" type="containerLink">
+                     <condition source="formula">
+                        <function name="empty">
+                           <arg name="field">{$temp.temp_contentDocumentLinks}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jy9bvj0y" targetId="jrwj86q9"/>
+               </container>
+               <container id="jrwj86pm" type="exclusive">
+                  <title>Content Document Link Set?</title>
+                  <flow id="jrwj86pq">
+                     <assignment id="jrwj86rb">
+                        <title>Get Content Document</title>
+                        <operation source="query" to="temp.temp_contentDocument">
+                           <query from="Salesforce:ContentDocument">
+                              <where>Id = '{$temp.temp_contentDocumentLink.ContentDocumentId}'</where>
+                           </query>
+                        </operation>
+                        <link id="jrwj86uh" targetId="jrwj86ug"/>
+                     </assignment>
+                     <container id="jrwj86ug" type="exclusive">
+                        <title>Is Content Document Set?</title>
+                        <flow id="jrwj86uk">
+                           <assignment id="jrwj86vw">
+                              <title>Get File</title>
+                              <operation source="query" to="temp.temp_contentVersion">
+                                 <query from="Salesforce:ContentVersion">
+                                    <where>Id = '{$temp.temp_contentDocument.LatestPublishedVersionId}' Order By VersionNumber Desc</where>
+                                 </query>
+                              </operation>
+                              <link id="jrwj86xw" targetId="jrwj86xv"/>
+                           </assignment>
+                           <container id="jrwj86xv" type="exclusive">
+                              <title>Is File Found?</title>
+                              <flow id="jrwj86xy">
+                                 <subflow id="jrwj86z0">
+                                    <title>CreateNetSuiteFile-fromContentDocument</title>
+                                    <subflowGUID>coGrRLqkf0ZdGuJHynhMCI</subflowGUID>
+                                    <subflowPath>CreateNetSuiteFile-fromContentDocument</subflowPath>
+                                    <appliesTo>Salesforce:ContentVersion</appliesTo>
+                                    <appliesToDataName source="field">temp.temp_contentVersion</appliesToDataName>
+                                    <runForEach>true</runForEach>
+                                    <input>
+                                       <parameter name="netSuiteOrderId" source="field" updatable="true">input.netSuiteOrderId</parameter>
+                                    </input>
+                                    <outputDef>
+                                       <field name="statusMessage" type="string">
+                                          <options>
+                                             <option name="required">false</option>
+                                          </options>
+                                       </field>
+                                    </outputDef>
+                                 </subflow>
+                                 <link id="jrwj86xz" targetId="jrwj86xv" type="containerLink"/>
+                              </flow>
+                              <flow id="jrwj86y1">
+                                 <link id="jrwj86y2" targetId="jrwj86xv" type="containerLink"/>
+                              </flow>
+                              <link id="jrwj86xx" targetId="jrwj86xy" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="set">
+                                       <arg name="field">{$temp.temp_contentVersion}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jy9bvj03" targetId="jy9bvj01"/>
+                              <link id="jrwj86y0" targetId="jrwj86y1" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="unset">
+                                       <arg name="field">{$temp.temp_contentVersion}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                           </container>
+                           <jumpTo id="jy9bvj01">
+                              <link id="jy9bvj02" targetId="jrwj86q9"/>
+                           </jumpTo>
+                        </flow>
+                        <flow id="jrwj86un">
+                           <link id="jrwj86uo" targetId="jrwj86ug" type="containerLink"/>
+                        </flow>
+                        <link id="jrwj86uj" targetId="jrwj86uk" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_contentDocument}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jrwj86um" targetId="jrwj86un" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_contentDocument}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jrwj86pr" targetId="jrwj86pm" type="containerLink"/>
+                  </flow>
+                  <flow id="jrwj86pt">
+                     <link id="jrwj86pu" targetId="jrwj86pm" type="containerLink"/>
+                  </flow>
+                  <link id="jrwj86pp" targetId="jrwj86pq" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_contentDocumentLink}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jrwj86ps" targetId="jrwj86pt" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_contentDocumentLink}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jrwj86vf" targetId="jrwj86ve"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>3gJ1dRfaJ25lHLylc4qI6J</types1:GUID>
+      <types1:DisplayName>SyncAttachmentToNetSuite</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-17T19:00:48.248Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

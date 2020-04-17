@@ -1,0 +1,193 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>lQhtGci3zymbdua-gt-28625957-2019-02-08T20:20:41.9Z::pd.xml</types1:EntryId>
+      <types1:Name>CreateNetSuiteFile-fromContentDocument</types1:Name>
+      <types1:ParentFlowIds>wNTrKkQIW3Ni7A7-gt-6636463-2016-03-08T00:31:29.369Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:ContentVersion</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-02-08T20:20:42Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-02-11T19:40:29Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.CreateNetSuiteFile-fromContentDocument/CreateNetSuiteFile-fromContentDocument.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="CreateNetSuiteFile-fromContentDocument"
+                  name="CreateNetSuiteFile-fromContentDocument">
+            <appliesTo>Salesforce:ContentVersion</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 10</generator>
+            <input>
+               <parameter description=""
+                          name="netSuiteOrderId"
+                          required="true"
+                          type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <output>
+               <field description="" name="statusMessage" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="tempPattern" type="string">
+                  <options>
+                     <option name="required">false</option>
+                     <option hide="true" name="initialvalue">&amp;</option>
+                  </options>
+               </field>
+               <field description="" name="tempReplace" type="string">
+                  <options>
+                     <option name="required">false</option>
+                     <option hide="true" name="initialvalue">&amp;amp;</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="ipd80r5h" targetId="ipd80r5g"/>
+               </start>
+               <container id="ipd80r5g" type="exclusive">
+                  <title>Content Size</title>
+                  <flow id="ipd80r5u">
+                     <service id="ipd80r64">
+                        <title>Create File</title>
+                        <serviceName>NetSuite-Journal-Entry:Create File</serviceName>
+                        <serviceGUID>3e7G3QHutR2jC8RcCWd0Ar</serviceGUID>
+                        <serviceInput>
+                           <parameter name="fileName" source="formula">
+                              <expression language="XQuery">fn:concat(fn:replace($Title , $temp.tempPattern, $temp.tempReplace),'.',$FileExtension)</expression>
+                           </parameter>
+                           <parameter name="fileContent" source="formula">
+                              <expression language="XQuery">$VersionData </expression>
+                           </parameter>
+                        </serviceInput>
+                        <link id="ipewgafa" targetId="ipewgaf1"/>
+                     </service>
+                     <container id="ipewgaf1" type="exclusive">
+                        <title>isSuccess</title>
+                        <flow id="ipewgaf2">
+                           <service id="ipewgaf3">
+                              <title>Attach File to Sales Order</title>
+                              <serviceName>NetSuite-Journal-Entry:Attach File</serviceName>
+                              <serviceGUID>3e7G3QHutR2jC8RcCWd0Ar</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="salesOrderId" source="field" updatable="true">input.netSuiteOrderId</parameter>
+                                 <parameter name="fileId" source="field" updatable="true">output.internalId</parameter>
+                                 <parameter name="type" source="constant">salesOrder</parameter>
+                              </serviceInput>
+                           </service>
+                           <link id="ipewgaf8" targetId="ipewgaf1" type="containerLink"/>
+                        </flow>
+                        <flow id="ipewgaf4">
+                           <assignment id="ipewwln7">
+                              <title>Output ErrorMessage</title>
+                              <operation source="formula" to="output.statusMessage">
+                                 <expression language="XQuery">fn:concat($output.faultcode, $output.faultstring)</expression>
+                              </operation>
+                           </assignment>
+                           <link id="ipewgaf9" targetId="ipewgaf1" type="containerLink"/>
+                        </flow>
+                        <link id="ipewgaf6" targetId="ipewgaf2" type="containerLink">
+                           <condition source="formula">
+                              <function name="contains">
+                                 <arg name="left">{$output.isSuccess}</arg>
+                                 <arg name="right">true</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="ipewgaf7" targetId="ipewgaf4" type="containerLink"/>
+                     </container>
+                     <link id="ipd80r5v" targetId="ipd80r5g" type="containerLink"/>
+                  </flow>
+                  <flow id="ipd80r5x">
+                     <container id="iq0gh6dj" type="exclusive">
+                        <title>Content Size</title>
+                        <flow id="iq0gh6dz">
+                           <subflow id="iq0gh6ec">
+                              <title>CreateNetSuiteFile-SecureAgent-fromContentDocument</title>
+                              <subflowGUID>5AuLml77cSrlcjQ5ujBCiu</subflowGUID>
+                              <subflowPath>CreateNetSuiteFile-SecuredAgent-fromContentDocument</subflowPath>
+                              <appliesTo>Salesforce:ContentVersion</appliesTo>
+                              <appliesToDataName source="field">Id</appliesToDataName>
+                              <runForEach>true</runForEach>
+                              <input>
+                                 <parameter name="netSuiteOrderId" source="field" updatable="true">input.netSuiteOrderId</parameter>
+                              </input>
+                              <outputDef>
+                                 <field name="statusMessage" type="string">
+                                    <options>
+                                       <option name="required">false</option>
+                                    </options>
+                                 </field>
+                              </outputDef>
+                           </subflow>
+                           <link id="iq0gh6e0" targetId="iq0gh6dj" type="containerLink"/>
+                        </flow>
+                        <flow id="iq0gh6e2">
+                           <assignment id="iq0gh6fz">
+                              <title>Assignment to statusMessage</title>
+                              <operation source="constant" to="output.statusMessage">File size exceed 10 MB</operation>
+                           </assignment>
+                           <link id="iq0gh6e3" targetId="iq0gh6dj" type="containerLink"/>
+                        </flow>
+                        <link id="iq0gh6dw" targetId="iq0gh6dz" type="containerLink">
+                           <condition source="formula">
+                              <function name="less-than">
+                                 <arg name="left">{$ContentSize}</arg>
+                                 <arg name="right">{10485760}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="iq0gh6dx" targetId="iq0gh6e2" type="containerLink"/>
+                        <link id="iq0gh6el" targetId="ipewwlnj"/>
+                     </container>
+                     <assignment id="ipewwlnj">
+                        <title>Output ErrorMessage</title>
+                        <operation source="field" to="output.statusMessage">output.statusMessage</operation>
+                     </assignment>
+                     <link id="ipd80r5y" targetId="ipd80r5g" type="containerLink"/>
+                  </flow>
+                  <link id="ipd80r5r" targetId="ipd80r5u" type="containerLink">
+                     <condition source="formula">
+                        <function name="less-than">
+                           <arg name="left">{$ContentSize}</arg>
+                           <arg name="right">{5242880}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="ipd80r5s" targetId="ipd80r5x" type="containerLink"/>
+                  <link id="ipewgafi" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>coGrRLqkf0ZdGuJHynhMCI</types1:GUID>
+      <types1:DisplayName>CreateNetSuiteFile-fromContentDocument</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-17T19:00:47.969Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

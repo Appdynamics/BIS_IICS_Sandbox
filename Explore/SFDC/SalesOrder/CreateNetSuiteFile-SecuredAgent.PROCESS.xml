@@ -1,0 +1,120 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>xJAWa-gt-636553-2016-06-12T23:17:07.638Z::pd.xml</types1:EntryId>
+      <types1:Name>CreateNetSuiteFile-SecuredAgent</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:Attachment</types1:AppliesTo>
+      <types1:Tags>.agent:INFA-AWS-DEV,.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-06-12T23:17:07Z</types1:CreationDate>
+      <types1:ModifiedBy>justin.wong@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2017-06-26T23:28:55Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.CreateNetSuiteFile-SecuredAgent/CreateNetSuiteFile-SecuredAgent.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="CreateNetSuiteFile-SecuredAgent"
+                  name="CreateNetSuiteFile-SecuredAgent">
+            <appliesTo>Salesforce:Attachment</appliesTo>
+            <description/>
+            <tags>.agent:INFA-AWS-DEV,.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <input>
+               <parameter name="netSuiteOrderId" required="true" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <output>
+               <field name="statusMessage" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field name="temp_attachment" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Attachment</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="intdfb8g" targetId="iljy6n8m"/>
+               </start>
+               <service id="iljy6n8m">
+                  <title>Create File</title>
+                  <serviceName>NetSuite-Journal-Entry:Create File</serviceName>
+                  <serviceGUID>3e7G3QHutR2jC8RcCWd0Ar</serviceGUID>
+                  <serviceInput>
+                     <parameter name="fileName" source="field" updatable="true">Name</parameter>
+                     <parameter name="fileContent" source="formula">
+                        <expression language="XQuery">$Body</expression>
+                     </parameter>
+                  </serviceInput>
+                  <link id="io1wllh9" targetId="io1wllh8"/>
+               </service>
+               <container id="io1wllh8" type="exclusive">
+                  <title>isSuccess</title>
+                  <flow id="io1wllhl">
+                     <service id="io1wllht">
+                        <title>Attach File to Sales Order</title>
+                        <serviceName>NetSuite-Journal-Entry:Attach File</serviceName>
+                        <serviceGUID>3e7G3QHutR2jC8RcCWd0Ar</serviceGUID>
+                        <serviceInput>
+                           <parameter name="salesOrderId" source="field" updatable="true">input.netSuiteOrderId</parameter>
+                           <parameter name="fileId" source="field" updatable="true">output.internalId</parameter>
+                           <parameter name="type" source="constant">salesOrder</parameter>
+                        </serviceInput>
+                     </service>
+                     <link id="io1wllhm" targetId="io1wllh8" type="containerLink"/>
+                  </flow>
+                  <flow id="io1wllho">
+                     <assignment id="io1wllhn">
+                        <title>Output ErrorMessage</title>
+                        <operation source="formula" to="output.statusMessage">
+                           <expression language="XQuery">fn:concat($output.faultcode, $output.faultstring)</expression>
+                        </operation>
+                     </assignment>
+                     <link id="io1wllhp" targetId="io1wllh8" type="containerLink"/>
+                  </flow>
+                  <link id="io1wllhi" targetId="io1wllhl" type="containerLink">
+                     <condition source="formula">
+                        <function name="contains">
+                           <arg name="left">{$output.isSuccess}</arg>
+                           <arg name="right">true</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="io1wllhj" targetId="io1wllho" type="containerLink"/>
+                  <link id="io1wlli1" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>5DWOOPZwAe0g4XOVhbhAsM</types1:GUID>
+      <types1:DisplayName>CreateNetSuiteFile-SecuredAgent</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-17T19:00:47.677Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
