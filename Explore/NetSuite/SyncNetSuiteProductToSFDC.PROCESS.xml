@@ -450,5 +450,5 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
       <types1:GUID>4ekj31AdLklkpjliCiE9kI</types1:GUID>
       <types1:DisplayName>SyncNetSuiteProductToSFDC</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-15T20:13:13.045Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-04-18T19:27:25.576Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
