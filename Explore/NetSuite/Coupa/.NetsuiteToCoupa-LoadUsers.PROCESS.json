@@ -1,0 +1,84 @@
+{
+  "objectInfo" : {
+    "id" : "l5EcbbWIpWXiaEH3eZdbOr",
+    "name" : "NetsuiteToCoupa-LoadUsers",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "kZ2sBsoZduD2L5S-gt-14060809-2017-04-23T00:44:24.168Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "9oxS2xx79xCjtr7IoTRVMT",
+    "name" : "NetSuite-Employee",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "X769eE1KoJBUhty-gt-11916950-2017-04-19T15:45:36.793Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  }, {
+    "id" : "1fvNqm00TYJgtUz0vxpdAp",
+    "name" : "NetsuiteToCoupa-upsertEachUser",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "9yCEx9dwMbgbdoP-gt-14057092-2017-04-22T23:18:05.998Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/NetSuite/Coupa"
+  }, {
+    "id" : "e3QJ93VMvM9fWwEOSF3P64",
+    "name" : "NetsuiteToCoupa-updateUserHierarchy",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "zFXyDQeH2PKDC0h-gt-14062098-2017-04-23T01:30:43.406Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/NetSuite/Coupa"
+  } ]
+}

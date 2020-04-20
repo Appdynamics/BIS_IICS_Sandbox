@@ -1,0 +1,176 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>zFXyDQeH2PKDC0h-gt-14062098-2017-04-23T01:30:43.406Z::pd.xml</types1:EntryId>
+      <types1:Name>NetsuiteToCoupa-updateUserHierarchy</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>NetSuite-Employee:record</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-04-23T01:30:43Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2017-04-25T15:49:32Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-03-18T18:43:11Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.NetsuiteToCoupa-updateUserHierarchy/NetsuiteToCoupa-updateUserHierarchy.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="NetsuiteToCoupa-updateUserHierarchy"
+                  name="NetsuiteToCoupa-updateUserHierarchy">
+            <appliesTo isCopy="true">NetSuite-Employee:record</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <tempFields>
+               <field name="temp_CoupaErrorMessage" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="iyuf9e2k" targetId="iyoz3sl5"/>
+               </start>
+               <container id="iyoz3sl5" type="exclusive">
+                  <title>Does the User have a Manager?</title>
+                  <flow id="iyoz3sly">
+                     <service id="j1u0osxn">
+                        <title>Check if User Exists in Coupa</title>
+                        <serviceName>Coupa-Users:UsersGET</serviceName>
+                        <serviceGUID>7cNlvwZoDZ4gUGMRFmYYql</serviceGUID>
+                        <serviceInput>
+                           <parameter name="employee_number" source="field" updatable="true">internalId</parameter>
+                        </serviceInput>
+                        <link id="j1u0osyr" targetId="j1u0osyd"/>
+                     </service>
+                     <container id="j1u0osyd" type="exclusive">
+                        <title>User Doesn't Exist in Coupa</title>
+                        <flow id="j1u0osye">
+                           <link id="j1u0osym" targetId="j1u0osyd" type="containerLink"/>
+                        </flow>
+                        <flow id="j1u0osyf">
+                           <subflow id="j1u0osyg">
+                              <title>Insert Record into Integration Queue - Submitted</title>
+                              <subflowGUID>3ezheT37LJWcuAMHeqrlcw</subflowGUID>
+                              <subflowPath>addIntegrationQueue</subflowPath>
+                              <runForEach>false</runForEach>
+                              <input>
+                                 <parameter name="source" source="constant" updatable="true">Netsuite</parameter>
+                                 <parameter name="target" source="constant" updatable="true">Coupa</parameter>
+                                 <parameter name="process" source="constant" updatable="true">NetsuiteToCoupa-LoadUsers</parameter>
+                                 <parameter name="tranId" source="field" updatable="true">internalId</parameter>
+                                 <parameter name="transactionType" source="constant" updatable="true">Coupa User</parameter>
+                                 <parameter name="transactionName" source="field" updatable="true">email</parameter>
+                              </input>
+                              <outputDef>
+                                 <field name="recordId" type="string">
+                                    <options>
+                                       <option name="required">false</option>
+                                    </options>
+                                 </field>
+                              </outputDef>
+                              <link id="j1u0osyo" targetId="j1u0osyh"/>
+                           </subflow>
+                           <subflow id="j1u0osyh">
+                              <title>Update Integration Queue to 'In Progress' Status</title>
+                              <subflowGUID>33r0jc61skah94kOEi5MuG</subflowGUID>
+                              <subflowPath>updateIntegrationQueue</subflowPath>
+                              <runForEach>false</runForEach>
+                              <input>
+                                 <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                                 <parameter name="status" source="constant" updatable="true">In Progress</parameter>
+                              </input>
+                              <outputDef/>
+                              <link id="j1u0ot2n" targetId="j1u0ot2m"/>
+                           </subflow>
+                           <subflow id="j1u0otax">
+                              <title>updateIntegrationQueue - Success or Error</title>
+                              <subflowGUID>33r0jc61skah94kOEi5MuG</subflowGUID>
+                              <subflowPath>updateIntegrationQueue</subflowPath>
+                              <runForEach>false</runForEach>
+                              <input>
+                                 <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                                 <parameter name="status" source="formula" updatable="true">
+                                    <expression language="XQuery">if(fn:string-length($temp.temp_CoupaErrorMessage) &gt; 0) then 'Error' else 'Success'</expression>
+                                 </parameter>
+                                 <parameter name="exception" source="field" updatable="true">output.error</parameter>
+                                 <parameter name="target transaction id" source="field" updatable="true">output.out_id</parameter>
+                              </input>
+                              <outputDef/>
+                           </subflow>
+                           <service id="j1u0ot2m">
+                              <title>Get Manager email from NS</title>
+                              <serviceName>NetSuite-Employee:GetManager</serviceName>
+                              <serviceGUID>9oxS2xx79xCjtr7IoTRVMT</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="manager_internalId" source="field" updatable="true">supervisor[1]/internalId</parameter>
+                              </serviceInput>
+                              <link id="j1u0ot2o" targetId="j1u0osyi"/>
+                           </service>
+                           <service id="j1u0osyi">
+                              <title>Update user's Manager</title>
+                              <serviceName>Coupa-Users:ManagerUpdatePUT</serviceName>
+                              <serviceGUID>7cNlvwZoDZ4gUGMRFmYYql</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="id" source="field" updatable="true">output.out_employee_Coupa_id</parameter>
+                                 <parameter name="manager_login" source="formula">
+                                    <expression language="XQuery">if($output.ManagerEmail='') then 'Manager Not Found in Netsuite' else $output.ManagerEmail</expression>
+                                 </parameter>
+                              </serviceInput>
+                              <link id="j1u0ot7f" targetId="j1u0ot7e"/>
+                           </service>
+                           <assignment id="j1u0ot7e">
+                              <title>Assign Coupa Error Message to temp field</title>
+                              <operation source="field" to="temp.temp_CoupaErrorMessage">output.error</operation>
+                              <link id="j1u0otay" targetId="j1u0otax"/>
+                           </assignment>
+                           <link id="j1u0osyn" targetId="j1u0osyd" type="containerLink"/>
+                        </flow>
+                        <link id="j1u0osyk" targetId="j1u0osye" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$output.out_employee_Coupa_id}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="j1u0osyl" targetId="j1u0osyf" type="containerLink"/>
+                     </container>
+                     <link id="iyoz3slz" targetId="iyoz3sl5" type="containerLink"/>
+                  </flow>
+                  <flow id="iyoz3sm1">
+                     <link id="iyoz3sm2" targetId="iyoz3sl5" type="containerLink"/>
+                  </flow>
+                  <link id="iyoz3slv" targetId="iyoz3sly" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$supervisor[1]/internalId}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="iyoz3slw" targetId="iyoz3sm1" type="containerLink"/>
+                  <link id="iyoz3srt" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>e3QJ93VMvM9fWwEOSF3P64</types1:GUID>
+      <types1:DisplayName>NetsuiteToCoupa-updateUserHierarchy</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-20T14:53:47.688Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

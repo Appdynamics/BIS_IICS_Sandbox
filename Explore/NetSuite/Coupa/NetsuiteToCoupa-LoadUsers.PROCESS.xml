@@ -1,0 +1,89 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>kZ2sBsoZduD2L5S-gt-14060809-2017-04-23T00:44:24.168Z::pd.xml</types1:EntryId>
+      <types1:Name>NetsuiteToCoupa-LoadUsers</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-04-23T00:44:24Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2017-04-25T15:50:29Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-03-18T18:43:11Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.NetsuiteToCoupa-LoadUsers/NetsuiteToCoupa-LoadUsers.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="NetsuiteToCoupa-LoadUsers"
+                  name="NetsuiteToCoupa-LoadUsers">
+            <appliesTo/>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="j1tz18ez" targetId="izq8ymdr"/>
+               </start>
+               <service id="izq8ymdr">
+                  <title>Get Users From Netsuite For Today</title>
+                  <serviceName>NetSuite-Employee:GetEmployeesByModifiedDate</serviceName>
+                  <serviceGUID>9oxS2xx79xCjtr7IoTRVMT</serviceGUID>
+                  <serviceInput>
+                     <parameter name="LastModifiedDate" source="formula">
+                        <expression language="XQuery">concat(
+  let $now := fn:current-dateTime()
+  let $subtractHour :=  xs:dayTimeDuration("-PT7H")
+  let $PSThour := $now + $subtractHour
+  return fn:format-dateTime($PSThour,'[Y,4]-[M,2]-[D,2]')
+  
+,'T00:00:00.000-07:00')</expression>
+                     </parameter>
+                     <parameter name="coupa_access" source="constant">true</parameter>
+                  </serviceInput>
+                  <link id="j1tz18f7" targetId="j1tz18f6"/>
+               </service>
+               <subflow id="j1tz18f6">
+                  <title>NetsuiteToCoupa-upsertEachUser</title>
+                  <subflowGUID>1fvNqm00TYJgtUz0vxpdAp</subflowGUID>
+                  <subflowPath>NetsuiteToCoupa-upsertEachUser</subflowPath>
+                  <appliesTo>NetSuite-Employee:record</appliesTo>
+                  <appliesToDataName source="field">output.objectList_employees</appliesToDataName>
+                  <runForEach>true</runForEach>
+                  <input/>
+                  <outputDef/>
+                  <link id="j1u1kaze" targetId="j1u1kazd"/>
+               </subflow>
+               <subflow id="j1u1kazd">
+                  <title>NetsuiteToCoupa-updateUserHierarchy</title>
+                  <subflowGUID>e3QJ93VMvM9fWwEOSF3P64</subflowGUID>
+                  <subflowPath>NetsuiteToCoupa-updateUserHierarchy</subflowPath>
+                  <appliesTo>NetSuite-Employee:record</appliesTo>
+                  <appliesToDataName source="field">output.objectList_employees</appliesToDataName>
+                  <runForEach>true</runForEach>
+                  <input/>
+                  <outputDef/>
+                  <link id="j1u1kazf" targetId="d"/>
+               </subflow>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>l5EcbbWIpWXiaEH3eZdbOr</types1:GUID>
+      <types1:DisplayName>NetsuiteToCoupa-LoadUsers</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-20T14:53:47.937Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
