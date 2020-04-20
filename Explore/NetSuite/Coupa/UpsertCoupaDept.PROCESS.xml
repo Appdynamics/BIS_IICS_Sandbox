@@ -1,0 +1,309 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>tycotFgpKi9zhFt-gt-1099195-2016-06-22T18:54:36.322Z::pd.xml</types1:EntryId>
+      <types1:Name>UpsertCoupaDept</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>NetSuite-ServiceConnector-List:record</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-06-22T18:54:36Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2018-02-21T18:23:48Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-07-30T20:05:41Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.UpsertCoupaDept/UpsertCoupaDept.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="UpsertCoupaDept"
+                  name="UpsertCoupaDept">
+            <appliesTo isCopy="true">NetSuite-ServiceConnector-List:record</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <output>
+               <field name="status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="iprfzu8g" targetId="iprfzu8f"/>
+               </start>
+               <service id="iprfzu8f">
+                  <title>DepartmentGETbyDeptCode</title>
+                  <serviceName>CoupaExRatePOST:DepartmentGETbyDeptCode</serviceName>
+                  <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                  <serviceInput>
+                     <parameter name="dept_code" source="field" updatable="true">internalId</parameter>
+                  </serviceInput>
+                  <link id="iprohroc" targetId="iprohrob"/>
+               </service>
+               <container id="iprohrob" type="exclusive">
+                  <title>id null?</title>
+                  <flow id="iprohroo">
+                     <service id="iprohron">
+                        <title>Create Department</title>
+                        <serviceName>CoupaExRatePOST:DepartmentPOST</serviceName>
+                        <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                        <serviceInput>
+                           <parameter name="name" source="formula">
+                              <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                           </parameter>
+                           <parameter name="active" source="formula">
+                              <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                           </parameter>
+                           <parameter name="dept_code" source="field" updatable="true">internalId</parameter>
+                        </serviceInput>
+                        <link id="iproxha8" targetId="iproxha7"/>
+                     </service>
+                     <container id="iproxha7" type="exclusive">
+                        <title>id null?</title>
+                        <flow id="iproxhao">
+                           <assignment id="iproxhan">
+                              <title>Assignment</title>
+                              <operation source="constant" to="output.status">Department Not Created</operation>
+                           </assignment>
+                           <link id="iproxhap" targetId="iproxha7" type="containerLink"/>
+                        </flow>
+                        <flow id="iproxhar">
+                           <service id="iprtuk6c">
+                              <title>Update NetSuite Department ExternalId</title>
+                              <serviceName>NetSuite-ServiceConnector-List:Update Department</serviceName>
+                              <serviceGUID>2DSl46x3pucicB9XBc1rAu</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="internalId" source="field" updatable="true">internalId</parameter>
+                                 <parameter name="externalId" source="field" updatable="true">output.id</parameter>
+                              </serviceInput>
+                              <link id="iprtuk7g" targetId="iprqnzlh"/>
+                           </service>
+                           <service id="iprqnzlh">
+                              <title>DepartmentLookupValues</title>
+                              <serviceName>CoupaExRatePOST:LookupValuesGET</serviceName>
+                              <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="external-ref-num" source="field" updatable="true">internalId</parameter>
+                                 <parameter name="lookup-id" source="constant">3</parameter>
+                              </serviceInput>
+                              <link id="iprqnzmg" targetId="iprp4ekb"/>
+                           </service>
+                           <container id="iprp4ekb" type="exclusive">
+                              <title>external_ref_num null?</title>
+                              <flow id="iprp4ekr">
+                                 <service id="iprqnzt3">
+                                    <title>Create DepartmentLookupValue</title>
+                                    <serviceName>CoupaExRatePOST:LookupValuesPOST</serviceName>
+                                    <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="name" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                                       </parameter>
+                                       <parameter name="description" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then $name else fn:concat($parent, ' : ', $name)</expression>
+                                       </parameter>
+                                       <parameter name="active" source="formula">
+                                          <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                                       </parameter>
+                                       <parameter name="external_ref_num" source="field" updatable="true">internalId</parameter>
+                                       <parameter name="lookupType_id" source="constant">3</parameter>
+                                    </serviceInput>
+                                 </service>
+                                 <link id="iprp4eks" targetId="iprp4ekb" type="containerLink"/>
+                              </flow>
+                              <flow id="iprp4eku">
+                                 <service id="iprqnzvf">
+                                    <title>UpdateLookupValuesPUT</title>
+                                    <serviceName>CoupaExRatePOST:LookupValuesPUT</serviceName>
+                                    <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="id" source="field" updatable="true">output.id</parameter>
+                                       <parameter name="name" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                                       </parameter>
+                                       <parameter name="description" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then $name else fn:concat($parent, ' : ', $name)</expression>
+                                       </parameter>
+                                       <parameter name="active" source="formula">
+                                          <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                                       </parameter>
+                                       <parameter name="external_ref_num" source="field" updatable="true">internalId</parameter>
+                                       <parameter name="lookupType_id" source="constant">3</parameter>
+                                    </serviceInput>
+                                 </service>
+                                 <link id="iprp4ekv" targetId="iprp4ekb" type="containerLink"/>
+                              </flow>
+                              <link id="iprp4eko" targetId="iprp4ekr" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.external_ref_num}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="iprp4ekp" targetId="iprp4eku" type="containerLink"/>
+                           </container>
+                           <link id="iproxhas" targetId="iproxha7" type="containerLink"/>
+                        </flow>
+                        <link id="iproxhal" targetId="iproxhao" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$output.id}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="iproxham" targetId="iproxhar" type="containerLink"/>
+                     </container>
+                     <link id="iprohrop" targetId="iprohrob" type="containerLink"/>
+                  </flow>
+                  <flow id="iprohror">
+                     <service id="iprohroq">
+                        <title>Update Department</title>
+                        <serviceName>CoupaExRatePOST:DepartmentPUT</serviceName>
+                        <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                        <serviceInput>
+                           <parameter name="id" source="field" updatable="true">output.id</parameter>
+                           <parameter name="name" source="formula">
+                              <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                           </parameter>
+                           <parameter name="active" source="formula">
+                              <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                           </parameter>
+                           <parameter name="dept_code" source="field" updatable="true">internalId</parameter>
+                        </serviceInput>
+                        <link id="iprqnzrg" targetId="iprqnzjp"/>
+                     </service>
+                     <container id="iprqnzjp" type="exclusive">
+                        <title>id null?</title>
+                        <flow id="iprqnzk8">
+                           <assignment id="iprqnznk">
+                              <title>Assignment to status</title>
+                              <operation source="constant" to="output.status">Department Not Updated</operation>
+                           </assignment>
+                           <link id="iprqnzk9" targetId="iprqnzjp" type="containerLink"/>
+                        </flow>
+                        <flow id="iprqnzkb">
+                           <service id="iprtuk71">
+                              <title>Update NetSuite Department ExternalId</title>
+                              <serviceName>NetSuite-ServiceConnector-List:Update Department</serviceName>
+                              <serviceGUID>2DSl46x3pucicB9XBc1rAu</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="internalId" source="field" updatable="true">internalId</parameter>
+                                 <parameter name="externalId" source="field" updatable="true">output.id</parameter>
+                              </serviceInput>
+                              <link id="iprtuk72" targetId="iprqnzo3"/>
+                           </service>
+                           <service id="iprqnzo3">
+                              <title>DepartmentLookupValues</title>
+                              <serviceName>CoupaExRatePOST:LookupValuesGET</serviceName>
+                              <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="external-ref-num" source="field" updatable="true">internalId</parameter>
+                                 <parameter name="lookup-id" source="constant">3</parameter>
+                              </serviceInput>
+                              <link id="iprqnzr6" targetId="iprqnzr5"/>
+                           </service>
+                           <container id="iprqnzr5" type="exclusive">
+                              <title>external_ref_num null?</title>
+                              <flow id="iprqnzrt">
+                                 <service id="iprqnztv">
+                                    <title>Create DepartmentLookupValue</title>
+                                    <serviceName>CoupaExRatePOST:LookupValuesPOST</serviceName>
+                                    <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="name" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                                       </parameter>
+                                       <parameter name="description" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                                       </parameter>
+                                       <parameter name="active" source="formula">
+                                          <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                                       </parameter>
+                                       <parameter name="external_ref_num" source="field" updatable="true">internalId</parameter>
+                                       <parameter name="lookupType_id" source="constant">3</parameter>
+                                    </serviceInput>
+                                 </service>
+                                 <link id="iprqnzru" targetId="iprqnzr5" type="containerLink"/>
+                              </flow>
+                              <flow id="iprqnzrw">
+                                 <service id="iprqnzw8">
+                                    <title>UpdateLookupValuesPUT</title>
+                                    <serviceName>CoupaExRatePOST:LookupValuesPUT</serviceName>
+                                    <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="id" source="field" updatable="true">output.id</parameter>
+                                       <parameter name="name" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                                       </parameter>
+                                       <parameter name="description" source="formula">
+                                          <expression language="XQuery">if (fn:string-length($parent) &lt; 1) then fn:concat($name, '-',$internalId) else fn:concat($parent[1]/name, ' : ', $name, '-', $internalId)</expression>
+                                       </parameter>
+                                       <parameter name="active" source="formula">
+                                          <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                                       </parameter>
+                                       <parameter name="external_ref_num" source="field" updatable="true">internalId</parameter>
+                                       <parameter name="lookupType_id" source="constant">3</parameter>
+                                    </serviceInput>
+                                 </service>
+                                 <link id="iprqnzrx" targetId="iprqnzr5" type="containerLink"/>
+                              </flow>
+                              <link id="iprqnzrq" targetId="iprqnzrt" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.external_ref_num}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="iprqnzrr" targetId="iprqnzrw" type="containerLink"/>
+                           </container>
+                           <link id="iprqnzkc" targetId="iprqnzjp" type="containerLink"/>
+                        </flow>
+                        <link id="iprqnzk5" targetId="iprqnzk8" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$output.id}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="iprqnzk6" targetId="iprqnzkb" type="containerLink"/>
+                     </container>
+                     <link id="iprohros" targetId="iprohrob" type="containerLink"/>
+                  </flow>
+                  <link id="iprohrol" targetId="iprohroo" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$output.id}</arg>
+                           <arg name="right"/>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="iprohrom" targetId="iprohror" type="containerLink"/>
+                  <link id="iprp4epu" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>3ApFwtXDLPKfXySHuukjej</types1:GUID>
+      <types1:DisplayName>UpsertCoupaDept</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-20T14:52:52.285Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

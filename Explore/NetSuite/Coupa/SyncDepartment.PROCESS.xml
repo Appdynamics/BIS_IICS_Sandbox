@@ -1,0 +1,73 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>2SOMzeHbcjqbdpI-gt-1083562-2016-06-22T18:46:11.864Z::pd.xml</types1:EntryId>
+      <types1:Name>SyncDepartment</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description>Sync NetSuite Department to Coupa</types1:Description>
+      <types1:AppliesTo/>
+      <types1:Tags>.anonymous,Coupa,NetSuite</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-06-22T18:46:11Z</types1:CreationDate>
+      <types1:ModifiedBy>justin.wong@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2016-06-23T03:42:57Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-07-30T20:05:41Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SyncDepartment/SyncDepartment.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SyncDepartment"
+                  name="SyncDepartment">
+            <appliesTo/>
+            <description>Sync NetSuite Department to Coupa</description>
+            <tags>Coupa,NetSuite,.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="link1" targetId="c"/>
+               </start>
+               <service id="c">
+                  <title>Get Department</title>
+                  <serviceName>NetSuite-ServiceConnector-List:Get Department</serviceName>
+                  <serviceGUID>2DSl46x3pucicB9XBc1rAu</serviceGUID>
+                  <serviceInput/>
+                  <link id="ipr8crns" targetId="ipr8crnr"/>
+               </service>
+               <subflow id="ipr8crnr">
+                  <title>UpsertCoupaDept</title>
+                  <subflowGUID>3ApFwtXDLPKfXySHuukjej</subflowGUID>
+                  <subflowPath>UpsertCoupaDept</subflowPath>
+                  <appliesTo>NetSuite-ServiceConnector-List:record</appliesTo>
+                  <appliesToDataName source="field">output.record[1]/record</appliesToDataName>
+                  <runForEach>true</runForEach>
+                  <input/>
+                  <outputDef>
+                     <field name="status" type="string">
+                        <options>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                  </outputDef>
+                  <link id="ipr8crnt" targetId="d"/>
+               </subflow>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>1D2JA6X28BsfFp6J3aCPgw</types1:GUID>
+      <types1:DisplayName>SyncDepartment</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-20T14:52:52.379Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
