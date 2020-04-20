@@ -1,0 +1,64 @@
+{
+  "objectInfo" : {
+    "id" : "4KnjDD9rHYhhOnkhK1CwUm",
+    "name" : "UpsertCoupaAccountLookup",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "WxXlQNOQoVVVVVV-gt-1545185-2016-06-23T05:44:56.783Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "58gj2o5v8OacYp4U1C0Jw0",
+    "name" : "Salesforce",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "bbf3TzAnOjseGbc-gt-5216312-2015-09-29T13:59:13.017Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Informatica Cloud Real Time - Guide Setup created this Salesforce connection. Enter proper password and security token if you want to use this connection outside of Salesforce",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  }, {
+    "id" : "9zdYz2l1E3dhyx7Cbjb2Mw",
+    "name" : "CoupaExRatePOST",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "6cmkbclopz4KhPV-gt-4477732-2016-05-13T15:29:33.922Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Default"
+  } ]
+}

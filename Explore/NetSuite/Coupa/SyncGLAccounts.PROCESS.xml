@@ -1,0 +1,73 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>43ybdsMkdypKwKB-gt-1544429-2016-06-23T05:36:47.899Z::pd.xml</types1:EntryId>
+      <types1:Name>SyncGLAccounts</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-06-23T05:36:47Z</types1:CreationDate>
+      <types1:ModifiedBy>justin.wong@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2016-06-23T06:59:43Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-07-30T20:06:16Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SyncGLAccounts/SyncGLAccounts.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SyncGLAccounts"
+                  name="SyncGLAccounts">
+            <appliesTo/>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="link1" targetId="c"/>
+               </start>
+               <service id="c">
+                  <title>Get GL Accounts</title>
+                  <serviceName>NetSuite-ServiceConnector-GLAccounts:Get GL Accounts</serviceName>
+                  <serviceGUID>eew2Xftjh2ufsH57TqqIWI</serviceGUID>
+                  <serviceInput/>
+                  <link id="iprvp4n3" targetId="iprvp4n2"/>
+               </service>
+               <subflow id="iprvp4n2">
+                  <title>UpsertCoupaAccountLookup</title>
+                  <subflowGUID>4KnjDD9rHYhhOnkhK1CwUm</subflowGUID>
+                  <subflowPath>UpsertCoupaAccountLookup</subflowPath>
+                  <appliesTo>NetSuite-ServiceConnector-GLAccounts:record</appliesTo>
+                  <appliesToDataName source="field">output.record[1]/record</appliesToDataName>
+                  <runForEach>true</runForEach>
+                  <input/>
+                  <outputDef>
+                     <field name="status" type="string">
+                        <options>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                  </outputDef>
+                  <link id="iprvp4n4" targetId="d"/>
+               </subflow>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>3RJbWZ8C9jIbuggMHCAEAo</types1:GUID>
+      <types1:DisplayName>SyncGLAccounts</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-20T14:40:02.7Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

@@ -1,0 +1,223 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>WxXlQNOQoVVVVVV-gt-1545185-2016-06-23T05:44:56.783Z::pd.xml</types1:EntryId>
+      <types1:Name>UpsertCoupaAccountLookup</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>NetSuite-ServiceConnector-GLAccounts:record</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-06-23T05:44:56Z</types1:CreationDate>
+      <types1:ModifiedBy>justin.wong@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2016-09-16T04:16:15Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-07-30T20:06:16Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.UpsertCoupaAccountLookup/UpsertCoupaAccountLookup.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="UpsertCoupaAccountLookup"
+                  name="UpsertCoupaAccountLookup">
+            <appliesTo isCopy="true">NetSuite-ServiceConnector-GLAccounts:record</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <output>
+               <field name="status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field name="tempAccntNum" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="iptzp2o7" targetId="iptzp2o6"/>
+               </start>
+               <container id="iptzp2o6" type="exclusive">
+                  <title>type = Income?</title>
+                  <flow id="iptzp2ow">
+                     <link id="iptzp2ox" targetId="iptzp2o6" type="containerLink"/>
+                  </flow>
+                  <flow id="iptzp2oz">
+                     <assignment id="iptzp2pm">
+                        <title>Assignment to tempAccntNum</title>
+                        <operation source="field" to="temp.tempAccntNum">acctNumber</operation>
+                        <link id="iptzp2r9" targetId="iptzp2qa"/>
+                     </assignment>
+                     <container id="iptzp2qa" type="exclusive">
+                        <title>tempAccntNum</title>
+                        <flow id="iptzp2qb">
+                           <assignment id="iptzp2qc">
+                              <title>Assignment to status</title>
+                              <operation source="constant" to="output.status">No account number</operation>
+                           </assignment>
+                           <link id="iptzp2qu" targetId="iptzp2qa" type="containerLink"/>
+                        </flow>
+                        <flow id="iptzp2qd">
+                           <service id="iptzp2qe">
+                              <title>Get AccountLookupValue</title>
+                              <serviceName>CoupaExRatePOST:LookupValuesGET</serviceName>
+                              <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="external-ref-num" source="field" updatable="true">acctNumber</parameter>
+                                 <parameter name="lookup-id" source="constant">2</parameter>
+                              </serviceInput>
+                              <link id="iptzp2qw" targetId="iptzp2qf"/>
+                           </service>
+                           <container id="iptzp2qf" type="exclusive">
+                              <title>error null?</title>
+                              <flow id="iptzp2qg">
+                                 <eventContainer id="iptzp2qh">
+                                    <service id="iptzp2ql">
+                                       <title>Update Account Lookup Value</title>
+                                       <serviceName>CoupaExRatePOST:LookupValuesPUT</serviceName>
+                                       <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                                       <serviceInput>
+                                          <parameter name="id" source="field" updatable="true">output.id</parameter>
+                                          <parameter name="name" source="formula">
+                                             <expression language="XQuery">fn:concat($acctName, '-', $acctNumber)</expression>
+                                          </parameter>
+                                          <parameter name="description" source="formula">
+                                             <expression language="XQuery">fn:concat($acctName, '-', $acctNumber)</expression>
+                                          </parameter>
+                                          <parameter name="active" source="formula">
+                                             <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                                          </parameter>
+                                          <parameter name="external_ref_num" source="field" updatable="true">acctNumber</parameter>
+                                          <parameter name="lookupType_id" source="constant">2</parameter>
+                                       </serviceInput>
+                                    </service>
+                                    <flow id="iptzp2qi">
+                                       <link id="iptzp2r2" targetId="iptzp2qh" type="containerLink"/>
+                                    </flow>
+                                    <flow id="iptzp2qj">
+                                       <service id="iptzp2qk">
+                                          <title>Send Free-Form Email</title>
+                                          <serviceName>Salesforce:sfSendFreeFormEmailService</serviceName>
+                                          <serviceGUID>58gj2o5v8OacYp4U1C0Jw0</serviceGUID>
+                                          <serviceInput>
+                                             <parameter name="Subject" source="constant">ERROR: Update Coupa Account Sync</parameter>
+                                             <parameter name="Body" source="constant">&lt;p&gt;Account: {$acctName}&amp;nbsp;{$acctNumber}&lt;br /&gt;Internal Id:&amp;nbsp;{$internalId}&lt;br /&gt;Error: {$output.faultInfo}&lt;/p&gt;</parameter>
+                                             <parameter name="Recipient Address" source="constant">justin.wong@appdynamics.com</parameter>
+                                          </serviceInput>
+                                       </service>
+                                       <link id="iptzp2r3" targetId="iptzp2qh" type="containerLink"/>
+                                    </flow>
+                                    <link id="iptzp2r0" targetId="iptzp2qi" type="containerLink"/>
+                                    <events>
+                                       <catch faultField="faultInfo" id="ipt5l7pr" interrupting="true">
+                                          <link id="iptzp2r1" targetId="iptzp2qj" type="containerLink"/>
+                                       </catch>
+                                    </events>
+                                 </eventContainer>
+                                 <link id="iptzp2qz" targetId="iptzp2qf" type="containerLink"/>
+                              </flow>
+                              <flow id="iptzp2qm">
+                                 <eventContainer id="iptzp2qn">
+                                    <service id="iptzp2qr">
+                                       <title>Create Account Lookup Value</title>
+                                       <serviceName>CoupaExRatePOST:LookupValuesPOST</serviceName>
+                                       <serviceGUID>9zdYz2l1E3dhyx7Cbjb2Mw</serviceGUID>
+                                       <serviceInput>
+                                          <parameter name="name" source="formula">
+                                             <expression language="XQuery">fn:concat($acctName, '-', $acctNumber)</expression>
+                                          </parameter>
+                                          <parameter name="description" source="formula">
+                                             <expression language="XQuery">fn:concat($acctName, '-', $acctNumber)</expression>
+                                          </parameter>
+                                          <parameter name="active" source="formula">
+                                             <expression language="XQuery">if($isInactive = 'false') then 'true' else 'false'</expression>
+                                          </parameter>
+                                          <parameter name="external_ref_num" source="field" updatable="true">acctNumber</parameter>
+                                          <parameter name="lookupType_id" source="constant">2</parameter>
+                                       </serviceInput>
+                                    </service>
+                                    <flow id="iptzp2qo">
+                                       <link id="iptzp2r7" targetId="iptzp2qn" type="containerLink"/>
+                                    </flow>
+                                    <flow id="iptzp2qp">
+                                       <service id="iptzp2qq">
+                                          <title>Send Free-Form Email</title>
+                                          <serviceName>Salesforce:sfSendFreeFormEmailService</serviceName>
+                                          <serviceGUID>58gj2o5v8OacYp4U1C0Jw0</serviceGUID>
+                                          <serviceInput>
+                                             <parameter name="Subject" source="constant">ERROR: Insert Coupa Account Sync</parameter>
+                                             <parameter name="Body" source="constant">&lt;p&gt;Account: {$acctName}&amp;nbsp;{$acctNumber}&lt;br /&gt;Internal Id:&amp;nbsp;{$internalId}&lt;br /&gt;Error: {$output.faultInfo}&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;</parameter>
+                                             <parameter name="Recipient Address" source="constant">justin.wong@appdynamics.com</parameter>
+                                          </serviceInput>
+                                       </service>
+                                       <link id="iptzp2r8" targetId="iptzp2qn" type="containerLink"/>
+                                    </flow>
+                                    <link id="iptzp2r5" targetId="iptzp2qo" type="containerLink"/>
+                                    <events>
+                                       <catch faultField="faultInfo" id="ipt5l7n7" interrupting="true">
+                                          <link id="iptzp2r6" targetId="iptzp2qp" type="containerLink"/>
+                                       </catch>
+                                    </events>
+                                 </eventContainer>
+                                 <link id="iptzp2r4" targetId="iptzp2qf" type="containerLink"/>
+                              </flow>
+                              <link id="iptzp2qx" targetId="iptzp2qg" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.error}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="iptzp2qy" targetId="iptzp2qm" type="containerLink"/>
+                           </container>
+                           <link id="iptzp2qv" targetId="iptzp2qa" type="containerLink"/>
+                        </flow>
+                        <link id="iptzp2qs" targetId="iptzp2qb" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$temp.tempAccntNum}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="iptzp2qt" targetId="iptzp2qd" type="containerLink"/>
+                     </container>
+                     <link id="iptzp2p0" targetId="iptzp2o6" type="containerLink"/>
+                  </flow>
+                  <link id="iptzp2ot" targetId="iptzp2ow" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$type}</arg>
+                           <arg name="right">Income</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="iptzp2ou" targetId="iptzp2oz" type="containerLink"/>
+                  <link id="iptzp2rt" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>4KnjDD9rHYhhOnkhK1CwUm</types1:GUID>
+      <types1:DisplayName>UpsertCoupaAccountLookup</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-20T14:40:02.619Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
