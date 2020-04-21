@@ -1,0 +1,73 @@
+{
+  "objectInfo" : {
+    "id" : "8gMilHiLIQBl1FqrzV3nwN",
+    "name" : "TF_SFDC_To_SFDC_Opportunity_CiscoFiscalPeriods",
+    "type" : "WORKFLOW",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0N00000000001N"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "zip",
+  "objectRefs" : [ {
+    "id" : "1fGfciM1rSHcaRUUyqZBwc",
+    "name" : "mct_SFDC_To_SFDC_OpportunityUpdate_02_CiscoClosedFiscalPeriod",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z00000000004U"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC"
+  }, {
+    "id" : "1U6nTZiw6A5cl9BhMH2CQM",
+    "name" : "mct_SFDC_To_SFDC_OpportunityUpdate_01_CiscoBookedFiscalPeriod",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z00000000004V"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC"
+  } ]
+}
