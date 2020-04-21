@@ -1,0 +1,119 @@
+{
+  "objectInfo" : {
+    "id" : "9Jl01rwkpDNevb7itj2jku",
+    "name" : "TF_LMS_SFTP_To_SFDC_Vouchers_BalanceUpdate ",
+    "type" : "WORKFLOW",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0N00000000003U"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "zip",
+  "objectRefs" : [ {
+    "id" : "6ZXpoitkyQncLm28dij2ur",
+    "name" : "dss_SFDC_SubscriptionVouchers_SFTP_GET_From_LMS",
+    "type" : "DSS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0I0000000000HI"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/LMS"
+  }, {
+    "id" : "4CJFwohh4WXcIWCeadsvqZ",
+    "name" : "mct_LMS_SFTP_To_SFDC_SubscriptionVouchers_UpdateBalance",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000H6"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/LMS"
+  }, {
+    "id" : "0aulUR5l457ejAum5zV1MC",
+    "name" : "dss_SFDC_TUMVouchers_SFTP_GET_From_LMS",
+    "type" : "DSS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0I0000000000FV"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/LMS"
+  }, {
+    "id" : "2iFPk04TnBEebO3hSVtBst",
+    "name" : "mct_LMS_SFTP_To_SFDC_TUM_Vouchers_UpdateBalance",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z00000000007U"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/LMS"
+  } ]
+}
