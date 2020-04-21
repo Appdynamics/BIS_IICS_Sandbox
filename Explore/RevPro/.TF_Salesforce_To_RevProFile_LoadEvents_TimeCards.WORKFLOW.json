@@ -1,0 +1,73 @@
+{
+  "objectInfo" : {
+    "id" : "21yiacVRpPLbXydHYDlKAK",
+    "name" : "TF_Salesforce_To_RevProFile_LoadEvents_TimeCards",
+    "type" : "WORKFLOW",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0N00000000001V"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "zip",
+  "objectRefs" : [ {
+    "id" : "hpkTYdfMJQeegjsOttDPg0",
+    "name" : "mct_Salesforce_To_RevProFile_LoadEvents_UpdateBillingEventFlag",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z000000000068"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/RevPro"
+  }, {
+    "id" : "bE7XBY7VXSegFQ8m7H5HKL",
+    "name" : "mct_Salesforce_To_RevProFile_LoadEvents_TimeCards",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z000000000063"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/RevPro"
+  } ]
+}
