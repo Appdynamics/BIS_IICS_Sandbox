@@ -1,0 +1,108 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>E7D2L5SeE1KoJBU-gt-5716055-2017-12-11T18:41:37.489Z::pd.xml</types1:EntryId>
+      <types1:Name>NetsuiteToRevPro-LoadTransactions-SalesOrder</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV,RevPro</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-12-11T18:41:37Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-10-16T21:51:52Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-03T21:53:38Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.NetsuiteToRevPro-LoadTransactions-SalesOrder/NetsuiteToRevPro-LoadTransactions-SalesOrder.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="NetsuiteToRevPro-LoadTransactions-SalesOrder"
+                  name="NetsuiteToRevPro-LoadTransactions-SalesOrder">
+            <appliesTo/>
+            <description/>
+            <tags>RevPro,.agent:INFA-AWS-DEV</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description=""
+                          name="fileEvent"
+                          required="true"
+                          type="reference">
+                  <options>
+                     <option name="required">false</option>
+                     <option name="referenceTo">File-RevPro-TransactionsAndEvents:PlainFileContent</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">7DhXoMclMaFi2jq8G9vhQX</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description="" name="temp_csvAttachment" type="attachment">
+                  <options>
+                     <option hide="true" name="count">1</option>
+                     <option name="maxsize">5242880</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="normal">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <event eventSource="File-RevPro-TransactionsAndEvents:FileParser-606-SalesOrder"/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jb2oyhi4" targetId="jb2oyhi3"/>
+               </start>
+               <assignment id="jb2oyhi3">
+                  <title>Assign Attachment to temp field</title>
+                  <operation source="formula" to="temp.temp_csvAttachment">
+                     <expression language="XQuery">sff:createAttachmentFromBase64('FF_NS_To_RevProFile_606_Transaction_SO.csv',util:base64Encode($input.fileEvent[1]/content, 'UTF-8'),'text/plain')</expression>
+                  </operation>
+                  <link id="jb2oyhi5" targetId="c"/>
+               </assignment>
+               <subflow id="c">
+                  <title>RevPro-FileUpload-TransactionsAndEvents - salesOrder</title>
+                  <subflowGUID>05VPMjcGKjQfyG1RT3GiWW</subflowGUID>
+                  <subflowPath>RevPro-FileUpload-TransactionsAndEvents</subflowPath>
+                  <runForEach>false</runForEach>
+                  <input>
+                     <parameter name="in_fileAttachment" source="field" updatable="true">temp.temp_csvAttachment</parameter>
+                     <parameter name="in_templateName" source="constant" updatable="true">AppDynamics File Upload</parameter>
+                     <parameter name="in_notification_pathWithFile"
+                                source="constant"
+                                updatable="true">/opt/infaagent/apps/Data_Integration_Server/data/stage/FF_NS_To_RevProFile_606_Transaction_SO.csv</parameter>
+                     <parameter name="in_notification_emailSubject"
+                                source="formula"
+                                updatable="true">
+                        <expression language="XQuery">fn:concat('RevPro Integration Error - Sales Order Transactions - ',
+infa:format(xs:string(fn:current-dateTime()),"yyyy-MM-dd HH:mm:ss", "America/Los_Angeles", 'us') ) </expression>
+                     </parameter>
+                     <parameter name="in_notification_attachmentName"
+                                source="constant"
+                                updatable="true">FF_NS_To_RevProFile_606_Transaction_SO.csv</parameter>
+                     <parameter name="in_notification_toAddress" source="constant" updatable="true">bishelp@appdynamics.com;phani.baddam@appdynamics.com;</parameter>
+                  </input>
+                  <outputDef>
+                     <field name="isSuccess" type="string">
+                        <options>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                  </outputDef>
+                  <link id="link2" targetId="d"/>
+               </subflow>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>2QTmGWO1C8Zg07CCGtXRA4</types1:GUID>
+      <types1:DisplayName>NetsuiteToRevPro-LoadTransactions-SalesOrder</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T17:44:52.9Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
