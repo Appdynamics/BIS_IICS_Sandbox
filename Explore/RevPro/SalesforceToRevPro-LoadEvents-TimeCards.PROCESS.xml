@@ -1,0 +1,122 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>XnbdoEFsWTzIf6r-gt-648780-2017-12-11T18:45:39.801Z::pd.xml</types1:EntryId>
+      <types1:Name>SalesforceToRevPro-LoadEvents-TimeCards</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV,RevPro</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>muni.jangama@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-12-11T18:45:39Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-12-22T23:02:31Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-12-22T23:05:06Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SalesforceToRevPro-LoadEvents-TimeCards/SalesforceToRevPro-LoadEvents-TimeCards.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SalesforceToRevPro-LoadEvents-TimeCards"
+                  name="SalesforceToRevPro-LoadEvents-TimeCards">
+            <appliesTo/>
+            <description/>
+            <tags>RevPro,.agent:INFA-AWS-DEV</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description=""
+                          name="fileEvent"
+                          required="true"
+                          type="reference">
+                  <options>
+                     <option name="required">false</option>
+                     <option name="referenceTo">File-RevPro-TransactionsAndEvents:PlainFileContent</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">7DhXoMclMaFi2jq8G9vhQX</option>
+                  </options>
+               </parameter>
+            </input>
+            <output>
+               <field description="" name="out_FF_Upload_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_csvAttachment" type="attachment">
+                  <options>
+                     <option hide="true" name="count">1</option>
+                     <option name="maxsize">5242880</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="normal">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <event eventSource="File-RevPro-TransactionsAndEvents:FileParser-606-TimeCardEvents"/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jb2nod84" targetId="jb2nod83"/>
+               </start>
+               <assignment id="jb2nod83">
+                  <title>Assign Attachment to temp field</title>
+                  <operation source="formula" to="temp.temp_csvAttachment">
+                     <expression language="XQuery">sff:createAttachmentFromBase64('FF_SFDC_To_RevProFile_606_Events.csv',util:base64Encode($input.fileEvent/content, 'UTF-8'),'text/plain')</expression>
+                  </operation>
+                  <link id="jb2nod85" targetId="jb2k006q"/>
+               </assignment>
+               <assignment id="k4hm4c1f">
+                  <title>Assignment to out_FF_Upload_Status</title>
+                  <operation source="constant" to="output.out_FF_Upload_Status">{$output.isSuccess}</operation>
+                  <link id="k4hm4c1h" targetId="jb2k00a8"/>
+               </assignment>
+               <subflow id="jb2k006q">
+                  <title>RevPro-FileUpload-TransactionsAndEvents-TimeCards</title>
+                  <subflowGUID>05VPMjcGKjQfyG1RT3GiWW</subflowGUID>
+                  <subflowPath>RevPro-FileUpload-TransactionsAndEvents</subflowPath>
+                  <runForEach>false</runForEach>
+                  <input>
+                     <parameter name="in_fileAttachment" source="field" updatable="true">temp.temp_csvAttachment</parameter>
+                     <parameter name="in_templateName" source="constant" updatable="true">Event by Quantity</parameter>
+                     <parameter name="in_notification_pathWithFile"
+                                source="constant"
+                                updatable="true">/opt/infaagent/apps/Data_Integration_Server/data/stage/FF_SFDC_To_RevProFile_606_Events.csv</parameter>
+                     <parameter name="in_notification_emailSubject"
+                                source="formula"
+                                updatable="true">
+                        <expression language="XQuery">fn:concat('RevPro Integration Errors - Time Card Events - ', infa:format(xs:string(fn:current-dateTime()),"yyyy-MM-dd HH:mm:ss", "America/Los_Angeles", 'us') ) 
+</expression>
+                     </parameter>
+                     <parameter name="in_notification_attachmentName"
+                                source="constant"
+                                updatable="true">FF_SFDC_To_RevProFile_606_Events.csv</parameter>
+                     <parameter name="in_notification_toAddress" source="constant" updatable="true">phani.baddam@appdynamics.com</parameter>
+                  </input>
+                  <outputDef>
+                     <field name="isSuccess" type="string">
+                        <options>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                  </outputDef>
+                  <link id="k4hm4c1g" targetId="k4hm4c1f"/>
+               </subflow>
+               <end id="jb2k00a8">
+                  <title>End</title>
+               </end>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>3FggZxOtjNWiaIm9DlwHcm</types1:GUID>
+      <types1:DisplayName>SalesforceToRevPro-LoadEvents-TimeCards</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T16:19:42.504Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
