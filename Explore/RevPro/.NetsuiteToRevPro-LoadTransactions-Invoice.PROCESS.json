@@ -1,0 +1,64 @@
+{
+  "objectInfo" : {
+    "id" : "2lLVWLG0aPVhJiLJdc9wKD",
+    "name" : "NetsuiteToRevPro-LoadTransactions-Invoice",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "vvNtLSVMTonQYWe-gt-912919-2017-12-11T21:34:39.351Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "05VPMjcGKjQfyG1RT3GiWW",
+    "name" : "RevPro-FileUpload-TransactionsAndEvents",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "V5aaabdqpw0VPNz-gt-5138129-2017-12-11T15:58:44.767Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/RevPro"
+  }, {
+    "id" : "7DhXoMclMaFi2jq8G9vhQX",
+    "name" : "File-RevPro-TransactionsAndEvents",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "lwnHUPAZf5kck8j-gt-26412504-2017-12-04T17:41:14.183Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}
