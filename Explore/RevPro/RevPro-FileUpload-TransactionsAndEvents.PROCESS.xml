@@ -1,0 +1,219 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>V5aaabdqpw0VPNz-gt-5138129-2017-12-11T15:58:44.767Z::pd.xml</types1:EntryId>
+      <types1:Name>RevPro-FileUpload-TransactionsAndEvents</types1:Name>
+      <types1:ParentFlowIds>ARW8UBM7zsZvEIA-gt-204539428-2019-11-05T16:56:17.432Z::pd.xml,E7D2L5SeE1KoJBU-gt-5716055-2017-12-11T18:41:37.489Z::pd.xml,joxMXdzWztZK0CY-gt-353640714-2019-10-30T22:44:57.149Z::pd.xml,vvNtLSVMTonQYWe-gt-912919-2017-12-11T21:34:39.351Z::pd.xml,XnbdoEFsWTzIf6r-gt-648780-2017-12-11T18:45:39.801Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV,.anonymous,RevPro</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-12-11T15:58:44Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2018-09-06T21:58:27Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-03-04T22:20:41Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.RevPro-FileUpload-TransactionsAndEvents/RevPro-FileUpload-TransactionsAndEvents.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="RevPro-FileUpload-TransactionsAndEvents"
+                  name="RevPro-FileUpload-TransactionsAndEvents">
+            <appliesTo/>
+            <description/>
+            <tags>RevPro,.agent:INFA-AWS-DEV,.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <input>
+               <parameter name="in_fileAttachment" required="true" type="attachment">
+                  <options>
+                     <option hide="true" name="count">1</option>
+                     <option name="maxsize">5242880</option>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter name="in_templateName" required="true" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter name="in_notification_pathWithFile" required="true" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter name="in_notification_emailSubject" required="true" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter name="in_notification_attachmentName" required="true" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter name="in_notification_toAddress" required="true" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <output>
+               <field name="isSuccess" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field name="temp_fileUploadStatus" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="normal">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="link1" targetId="c"/>
+               </start>
+               <service id="c">
+                  <title>Get Authentication Token</title>
+                  <serviceName>RevPro-DataIntegration:Authentication</serviceName>
+                  <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                  <serviceInput/>
+                  <link id="jb2dv0ig" targetId="jb2dv0if"/>
+               </service>
+               <service id="jb2dv0if">
+                  <title>File Upload to RevPro</title>
+                  <serviceName>RevPro-DataIntegration:UploadFile</serviceName>
+                  <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                  <serviceInput>
+                     <parameter name="Token" source="field" updatable="true">output.Token</parameter>
+                     <parameter name="file" source="field" updatable="true">input.in_fileAttachment</parameter>
+                     <parameter name="templateName" source="field" updatable="true">input.in_templateName</parameter>
+                  </serviceInput>
+                  <link id="jb2e8k22" targetId="jb2dv0jk"/>
+               </service>
+               <container id="jb2dv0jk" type="exclusive">
+                  <title>Is RevPro staging Successful?</title>
+                  <flow id="jb2e8k1e">
+                     <wait id="jb2e8k1z">
+                        <title>Wait  - File Content to be processed into RevPro stage tables</title>
+                        <duration source="formula">
+                           <function name="duration_expression">
+                              <arg name="value">3</arg>
+                              <arg name="scale">M</arg>
+                              <arg name="businessDays"/>
+                           </function>
+                        </duration>
+                        <link id="jb2e8k29" targetId="jb2e8k28"/>
+                     </wait>
+                     <service id="jb2e8k28">
+                        <title>Get Content Upload Staus</title>
+                        <serviceName>RevPro-DataIntegration:Get_FileUploadStatus</serviceName>
+                        <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                        <serviceInput>
+                           <parameter name="filerequestid" source="field" updatable="true">output.UF_file_request_id</parameter>
+                           <parameter name="token" source="field" updatable="true">output.Token</parameter>
+                        </serviceInput>
+                        <link id="jb2ef9zw" targetId="jb2ef9zv"/>
+                     </service>
+                     <container id="jb2ef9zv" type="exclusive">
+                        <title>Is Staged content processed successfully?</title>
+                        <flow id="jb2efa0b">
+                           <assignment id="jka31vrl">
+                              <title>Assign Output - Success</title>
+                              <operation source="constant" to="output.isSuccess">true</operation>
+                           </assignment>
+                           <link id="jb2efa0c" targetId="jb2ef9zv" type="containerLink"/>
+                        </flow>
+                        <flow id="jb2efa0e">
+                           <assignment id="jb2gjmo9">
+                              <title>Assign FileUploadStatus to temp field</title>
+                              <operation source="field" to="temp.temp_fileUploadStatus">output.FileUploadStatus</operation>
+                              <link id="jb2gjmoa" targetId="jb2gjmhe"/>
+                           </assignment>
+                           <assignment id="jka31vtn">
+                              <title>Assign Output - Failed</title>
+                              <operation source="constant" to="output.isSuccess">false</operation>
+                           </assignment>
+                           <subflow id="jb2gjmhe">
+                              <title>Email Notification - Stage processing Errors</title>
+                              <subflowGUID>1ibVOrhLGqphdzqsKlBpwN</subflowGUID>
+                              <subflowPath>EmailAttachments-SendNotificationAndFile</subflowPath>
+                              <runForEach>false</runForEach>
+                              <input>
+                                 <parameter name="in_pathWithFile" source="field" updatable="true">input.in_notification_pathWithFile</parameter>
+                                 <parameter name="in_emailSubject" source="formula" updatable="true">
+                                    <expression language="XQuery">fn:concat($input.in_notification_emailSubject,' - ', $temp.temp_fileUploadStatus)</expression>
+                                 </parameter>
+                                 <parameter name="in_attachmentName" source="field" updatable="true">input.in_notification_attachmentName</parameter>
+                                 <parameter name="in_toAddresses" source="field" updatable="true">input.in_notification_toAddress</parameter>
+                              </input>
+                              <outputDef/>
+                              <link id="jka31vto" targetId="jka31vtn"/>
+                           </subflow>
+                           <link id="jb2efa0f" targetId="jb2ef9zv" type="containerLink"/>
+                        </flow>
+                        <link id="jb2efa08" targetId="jb2efa0b" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$output.FileUploadStatus}</arg>
+                                 <arg name="right">Success</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jb2efa09" targetId="jb2efa0e" type="containerLink"/>
+                     </container>
+                     <link id="jb2e8k1f" targetId="jb2dv0jk" type="containerLink"/>
+                  </flow>
+                  <flow id="jb2e8k1h">
+                     <subflow id="jb2e8k1g">
+                        <title>Email Notification - Pre Stage Error</title>
+                        <subflowGUID>1ibVOrhLGqphdzqsKlBpwN</subflowGUID>
+                        <subflowPath>EmailAttachments-SendNotificationAndFile</subflowPath>
+                        <runForEach>false</runForEach>
+                        <input>
+                           <parameter name="in_pathWithFile" source="field" updatable="true">input.in_notification_pathWithFile</parameter>
+                           <parameter name="in_emailSubject" source="formula" updatable="true">
+                              <expression language="XQuery">fn:concat($input.in_notification_emailSubject,' - ', $output.UF_Message)</expression>
+                           </parameter>
+                           <parameter name="in_attachmentName" source="field" updatable="true">input.in_notification_attachmentName</parameter>
+                           <parameter name="in_toAddresses" source="field" updatable="true">input.in_notification_toAddress</parameter>
+                        </input>
+                        <outputDef/>
+                     </subflow>
+                     <link id="jb2e8k1i" targetId="jb2dv0jk" type="containerLink"/>
+                  </flow>
+                  <link id="jb2e8k1b" targetId="jb2e8k1e" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$output.UF_Status}</arg>
+                           <arg name="right">Success</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jb2e8k1c" targetId="jb2e8k1h" type="containerLink"/>
+                  <link id="jb2e8k2c" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>05VPMjcGKjQfyG1RT3GiWW</types1:GUID>
+      <types1:DisplayName>RevPro-FileUpload-TransactionsAndEvents</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T16:20:37.561Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
