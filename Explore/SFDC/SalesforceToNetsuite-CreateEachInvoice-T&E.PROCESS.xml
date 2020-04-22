@@ -1,0 +1,697 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>pww43dtQR6kbeJH-gt-392330025-2019-07-16T02:34:45.252Z::pd.xml</types1:EntryId>
+      <types1:Name>SalesforceToNetsuite-CreateEachInvoice-T_E</types1:Name>
+      <types1:ParentFlowIds>k9ZmtK9hCHbf2XZ-gt-62820532-2019-11-25T20:36:16.172Z::pd.xml,P4tciSrZMSPfXBi-gt-73045590-2019-02-14T20:58:56.662Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:NS_Invoice_Header__c</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-07-16T02:34:45Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-09-13T18:28:25Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-03-17T18:06:38Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SalesforceToNetsuite-CreateEachInvoice-T_E/SalesforceToNetsuite-CreateEachInvoice-T_E.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SalesforceToNetsuite-CreateEachInvoice-T&amp;E"
+                  name="SalesforceToNetsuite-CreateEachInvoice-T_E">
+            <appliesTo>Salesforce:NS_Invoice_Header__c</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_invoiceNumber" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_SFDC_InvoiceItemList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:NS_Invoice_Line__c</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_SFDC_InvoiceItem" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:NS_Invoice_Line__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_thisInvoice" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:Record-Invoice</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_thisInvoiceItemList" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:itemList</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_thisInvoiceItem" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:item</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_startDate" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_endDate" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_subsidiaryInternalId"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_customFormInternalId"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_successfullyCreatedInvoiceNumber"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_SFDC_CustomForm_IntMapObject"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Mapping__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_SFDC_paymentTerms_IntMapObject"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Mapping__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_paymentTerms" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_entityInternalId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_memo" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_sfdcSyncId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_poNumber" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_count" type="int">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_sfdcProjects" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="js4zm5i1" targetId="js2fvyz7"/>
+               </start>
+               <container id="js2fvyz7" type="exclusive">
+                  <title>Sent to NetSuite?</title>
+                  <flow id="js2fvyzb">
+                     <container id="js45dosg" type="exclusive">
+                        <title>Is Invoice Number Empty?</title>
+                        <flow id="js45dosj">
+                           <jumpTo id="js45dov4">
+                              <link id="js45dov5" targetId="jz09dhjt"/>
+                           </jumpTo>
+                        </flow>
+                        <flow id="js45dosm">
+                           <link id="js45dosn" targetId="js45dosg" type="containerLink"/>
+                        </flow>
+                        <link id="js45dosi" targetId="js45dosj" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$NS_Invoice__c}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="js45dosl" targetId="js45dosm" type="containerLink"/>
+                        <link id="js45dosh" targetId="js2fvz1s"/>
+                     </container>
+                     <assignment id="js2fvz1s">
+                        <title>Update SFDC Header with Already Exist Message</title>
+                        <operation source="constant" to="Status__c">Integrated</operation>
+                        <operation source="constant" to="Sent_to_NetSuite__c">true</operation>
+                        <operation source="constant" to="Integration_Exception__c">Invoice already exist in Netsuite</operation>
+                        <link id="js2fvz7u" targetId="js2fvz7t"/>
+                     </assignment>
+                     <end id="js2fvz7t">
+                        <title>End</title>
+                     </end>
+                  </flow>
+                  <flow id="js2fvyze">
+                     <service id="jz09dhjt">
+                        <title>Get Existing Invoice - If Any</title>
+                        <serviceName>NetSuite-AppDynamics:searchInvoiceHeader</serviceName>
+                        <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                        <serviceInput>
+                           <parameter name="invoice_sfdcId" source="field">Id</parameter>
+                           <parameter name="invoice_NS_statusNotRejected" source="constant">_invoiceRejected</parameter>
+                        </serviceInput>
+                        <link id="jz09jtdd" targetId="jz09jtdc"/>
+                     </service>
+                     <container id="jz09jtdc" type="exclusive">
+                        <title>Invoice Not Found?</title>
+                        <flow id="jz09jtdf">
+                           <link id="jz09jtdg" targetId="jz09jtdc" type="containerLink"/>
+                        </flow>
+                        <flow id="jz09jtdi">
+                           <assignment id="jz09jthr">
+                              <title>Update SFDC Header with Error Details</title>
+                              <operation source="constant" to="Status__c">Error</operation>
+                              <operation source="formula" to="Integration_Exception__c">
+                                 <expression language="XQuery">fn:concat('An invoice already exists in Netsuite with the SFDC Sync Id ',$Id)</expression>
+                              </operation>
+                              <link id="jz09jtkr" targetId="jz09jtkq"/>
+                           </assignment>
+                           <create id="jz09jtkq">
+                              <title>Add Integration Queue - Error</title>
+                              <entityName>Salesforce:Integration_Queue__c</entityName>
+                              <createInput>
+                                 <parameter name="Exception_Message__c" source="formula" updatable="true">
+                                    <expression language="XQuery">fn:concat('An invoice already exists in Netsuite with the SFDC Sync Id ',$Id)</expression>
+                                 </parameter>
+                                 <parameter name="Process_Name__c" source="constant" updatable="true">SalesforceToNetsuite-LoadInvoices</parameter>
+                                 <parameter name="Source_System__c" source="constant" updatable="true">Salesforce</parameter>
+                                 <parameter name="Status__c" source="constant" updatable="true">Error</parameter>
+                                 <parameter name="Target_System__c" source="constant" updatable="true">NetSuite</parameter>
+                                 <parameter name="Transaction_Id__c" source="field">Id</parameter>
+                                 <parameter name="Transaction_Name__c" source="field" updatable="true">Sales_Order__r.OrderReferenceNumber</parameter>
+                                 <parameter name="Transaction_Type__c" source="constant" updatable="true">Invoice</parameter>
+                              </createInput>
+                              <link id="jz09jtpp" targetId="jz09jtpo"/>
+                           </create>
+                           <end id="jz09jtpo">
+                              <title>End</title>
+                           </end>
+                        </flow>
+                        <link id="jz09jtde" targetId="jz09jtdf" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$output.search_Invoice_internalId}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jz09jtdh" targetId="jz09jtdi" type="containerLink"/>
+                     </container>
+                     <link id="js2fvyzf" targetId="js2fvyz7" type="containerLink"/>
+                  </flow>
+                  <link id="js2fvyza" targetId="js2fvyzb" type="containerLink">
+                     <condition source="formula">
+                        <function name="true">
+                           <arg name="field">{$Sent_to_NetSuite__c}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="js2fvyzd" targetId="js2fvyze" type="containerLink">
+                     <condition source="formula">
+                        <function name="false">
+                           <arg name="field">{$Sent_to_NetSuite__c}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="js2fvyz9" targetId="jqq6vynb"/>
+               </container>
+               <container id="jqq6vyob" type="exclusive">
+                  <title>Is Invoice Line Set?</title>
+                  <flow id="jqq6vyof">
+                     <assignment id="jy57emzj">
+                        <title>Assign to NS temp Item</title>
+                        <operation source="formula" to="temp.temp_count">
+                           <expression language="XQuery">if($temp.temp_count&gt;0) then $temp.temp_count + 1 else 1</expression>
+                        </operation>
+                        <operation source="field" to="temp.temp_NS_thisInvoiceItem[1]/item[1]/internalId">temp.temp_SFDC_InvoiceItem.Product_Code_Expense__r.NetSuite_Id__c</operation>
+                        <operation source="field" to="temp.temp_NS_thisInvoiceItem[1]/line">temp.temp_count</operation>
+                        <operation source="formula" to="temp.temp_NS_thisInvoiceItem[1]/quantity">
+                           <expression language="XQuery">if($temp.temp_SFDC_InvoiceItem.Quantity__c&gt;0) then $temp.temp_SFDC_InvoiceItem.Quantity__c else 1</expression>
+                        </operation>
+                        <operation source="formula" to="temp.temp_NS_thisInvoiceItem[1]/description">
+                           <expression language="XQuery">fn:replace(
+fn:replace($temp.temp_SFDC_InvoiceItem.Description__c,':',"&amp;lt;br&amp;gt;"),
+';',"&amp;lt;br&amp;gt;")
+</expression>
+                        </operation>
+                        <operation source="field" to="temp.temp_NS_thisInvoiceItem[1]/amount">temp.temp_SFDC_InvoiceItem.Billable_Expense_Amount__c</operation>
+                        <operation source="constant"
+                                   to="temp.temp_NS_thisInvoiceItem[1]/price[1]/internalId">-1</operation>
+                        <operation source="formula"
+                                   to="temp.temp_NS_thisInvoiceItem[1]/custcol_so_line_start_date">
+                           <expression language="XQuery">if(fn:empty($temp.temp_SFDC_InvoiceItem.From_Date__c)) then() else concat(infa:format($temp.temp_SFDC_InvoiceItem.From_Date__c , "yyyy-MM-dd"), "T12:00:00.000-00:00")</expression>
+                        </operation>
+                        <operation source="formula"
+                                   to="temp.temp_NS_thisInvoiceItem[1]/custcol_so_line_end_date">
+                           <expression language="XQuery">if(fn:empty($temp.temp_SFDC_InvoiceItem.To_Date__c )) then() else concat(infa:format($temp.temp_SFDC_InvoiceItem.To_Date__c , "yyyy-MM-dd"), "T12:00:00.000-00:00")</expression>
+                        </operation>
+                        <link id="jy57en0g" targetId="jy57en0f"/>
+                     </assignment>
+                     <assignment id="jy57en0f">
+                        <title>Assign to NS temp Items</title>
+                        <operation source="formula" to="temp.temp_NS_thisInvoiceItemList[1]/item">
+                           <function name="list:append">
+                              <arg name="dest_field">{$temp.temp_NS_thisInvoiceItemList[1]/item}</arg>
+                              <arg name="new_field">{$temp.temp_NS_thisInvoiceItem}</arg>
+                           </function>
+                        </operation>
+                        <link id="jy58ki2p" targetId="jy58ki2n"/>
+                     </assignment>
+                     <jumpTo id="jy58ki2n">
+                        <link id="jy58ki2o" targetId="jqq6vyo2"/>
+                     </jumpTo>
+                  </flow>
+                  <flow id="jqq6vyoi">
+                     <container id="jqq6vysz" type="exclusive">
+                        <title>Are All Items Set?</title>
+                        <flow id="jqq6vyt1">
+                           <assignment id="jy58kj9d">
+                              <title>Get Payment Terms</title>
+                              <operation source="query" to="temp.temp_SFDC_paymentTerms_IntMapObject">
+                                 <query from="Salesforce:Integration_Mapping__c">
+                                    <where>Lookup_Type__c = 'Payment Term' AND Lookup_Name__c = '{$Payment_Terms__c}'</where>
+                                 </query>
+                              </operation>
+                              <link id="jy58kjd7" targetId="jy58kjd6"/>
+                           </assignment>
+                           <assignment id="js2fvyp3">
+                              <title>Get Custom Form - Based on Country</title>
+                              <operation source="query" to="temp.temp_SFDC_CustomForm_IntMapObject">
+                                 <query from="Salesforce:Integration_Mapping__c">
+                                    <where>Lookup_Type__c = 'Country Code' AND Mapping_Name__c = '{$output.entity_billingCountry}'</where>
+                                 </query>
+                              </operation>
+                              <link id="js2fvyuo" targetId="js2fvyun"/>
+                           </assignment>
+                           <assignment id="jqq6vywl">
+                              <title>Calculate Header Fields &amp; Assign to Invoice temp</title>
+                              <operation source="formula" to="temp.temp_calcNS_startDate">
+                                 <expression language="XQuery">if(fn:string-length($Opportunity__r.Start_Date__c)&gt;0) then 
+fn:concat($Opportunity__r.Start_Date__c, 'T00:00:00Z') else ''</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_calcNS_endDate">
+                                 <expression language="XQuery">if(fn:string-length($Opportunity__r.End_Date__c)&gt;0) then 
+fn:concat($Opportunity__r.End_Date__c, 'T00:00:00Z') else ''</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_calcNS_subsidiaryInternalId">
+                                 <expression language="XQuery">if($Account__r.Subsidiary__c='AppDynamics, Inc.') then '1' else '9'</expression>
+                              </operation>
+                              <operation source="field" to="temp.temp_calcNS_entityInternalId">Account__r.NetSuite_Id__c</operation>
+                              <operation source="formula" to="temp.temp_calcNS_memo">
+                                 <expression language="XQuery">''</expression>
+                              </operation>
+                              <operation source="field" to="temp.temp_calcNS_paymentTerms">temp.temp_calcNS_paymentTerms</operation>
+                              <operation source="field" to="temp.temp_calcNS_sfdcSyncId">Id</operation>
+                              <operation source="field" to="temp.temp_calcNS_poNumber">Purchase_Order__c</operation>
+                              <operation source="field" to="temp.temp_NS_thisInvoice[1]/startDate">temp.temp_calcNS_startDate</operation>
+                              <operation source="field" to="temp.temp_NS_thisInvoice[1]/endDate">temp.temp_calcNS_endDate</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/subsidiary[1]/internalId">temp.temp_calcNS_subsidiaryInternalId</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/customForm[1]/internalId">temp.temp_calcNS_customFormInternalId</operation>
+                              <operation source="field" to="temp.temp_NS_thisInvoice[1]/itemList">temp.temp_NS_thisInvoiceItemList</operation>
+                              <operation source="field" to="temp.temp_NS_thisInvoice[1]/entity[1]/internalId">temp.temp_calcNS_entityInternalId</operation>
+                              <operation source="field" to="temp.temp_NS_thisInvoice[1]/memo">temp.temp_calcNS_memo</operation>
+                              <operation source="field" to="temp.temp_NS_thisInvoice[1]/terms[1]/internalId">temp.temp_calcNS_paymentTerms</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionBillAddress[1]/billAddressee">output.search_SalesOrder_billAddressee</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionBillAddress[1]/billAddr1">output.search_SalesOrder_billAddr1</operation>
+                              <operation source="field" to="temp.temp_calcNS_sfdcProjects">Project_s__c</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionBillAddress[1]/billCity">output.search_SalesOrder_billCity</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionBillAddress[1]/billState">output.search_SalesOrder_billState</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionBillAddress[1]/billCountry">output.search_SalesOrder_billCountry</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionBillAddress[1]/billZip">output.search_SalesOrder_billZip</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionShipAddress[1]/shipAddressee">output.search_SalesOrder_shipAddressee</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionShipAddress[1]/shipAddr1">output.search_SalesOrder_shipAddr1</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionShipAddress[1]/shipCity">output.search_SalesOrder_shipCity</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionShipAddress[1]/shipState">output.search_SalesOrder_shipState</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionShipAddress[1]/shipCountry">output.search_SalesOrder_shipCountry</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisInvoice[1]/transactionShipAddress[1]/shipZip">output.search_SalesOrder_shipZip</operation>
+                              <link id="jqq6vywm" targetId="jqq6vz0w"/>
+                           </assignment>
+                           <container id="jy58kjd6" type="exclusive">
+                              <title>Is Payment Term Set?</title>
+                              <flow id="jy58kjda">
+                                 <assignment id="jy58kjel">
+                                    <title>Assign Payment Terms</title>
+                                    <operation source="field" to="temp.temp_calcNS_paymentTerms">temp.temp_SFDC_paymentTerms_IntMapObject.Mapping_Name__c</operation>
+                                 </assignment>
+                                 <link id="jy58kjdb" targetId="jy58kjd6" type="containerLink"/>
+                              </flow>
+                              <flow id="jy58kjdd">
+                                 <link id="jy58kjde" targetId="jy58kjd6" type="containerLink"/>
+                              </flow>
+                              <link id="jy58kjd9" targetId="jy58kjda" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="set">
+                                       <arg name="field">{$temp.temp_SFDC_paymentTerms_IntMapObject}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jy58kjdc" targetId="jy58kjdd" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="unset">
+                                       <arg name="field">{$temp.temp_SFDC_paymentTerms_IntMapObject}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jy7pur55" targetId="jy7pur54"/>
+                           </container>
+                           <container id="js2fvyun" type="exclusive">
+                              <title>Is Custom Form Found?</title>
+                              <flow id="js2fvyur">
+                                 <assignment id="js2fvyvw">
+                                    <title>Assign Custom Form to temp Field</title>
+                                    <operation source="field" to="temp.temp_calcNS_customFormInternalId">temp.temp_SFDC_CustomForm_IntMapObject.Attribute_3__c</operation>
+                                 </assignment>
+                                 <link id="js2fvyus" targetId="js2fvyun" type="containerLink"/>
+                              </flow>
+                              <flow id="js2fvyuu">
+                                 <link id="js2fvyuv" targetId="js2fvyun" type="containerLink"/>
+                              </flow>
+                              <link id="js2fvyuq" targetId="js2fvyur" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="set">
+                                       <arg name="field">{$temp.temp_SFDC_CustomForm_IntMapObject}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="js2fvyut" targetId="js2fvyuu" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="unset">
+                                       <arg name="field">{$temp.temp_SFDC_CustomForm_IntMapObject}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="js4zm4zo" targetId="jqq6vywl"/>
+                           </container>
+                           <service id="jy7pur54">
+                              <title>Get Order</title>
+                              <serviceName>NetSuite-AppDynamics:searchSalesOrderHeader</serviceName>
+                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="salesOrder_NS_tranId" source="field" updatable="true">Sales_Order__r.OrderReferenceNumber</parameter>
+                              </serviceInput>
+                              <link id="jy7pur56" targetId="js2cztln"/>
+                           </service>
+                           <service id="js2cztln">
+                              <title>Get Order Customer</title>
+                              <serviceName>NetSuite-AppDynamics:Get Customer Info</serviceName>
+                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="InternalID" source="field" updatable="true">Account__r.NetSuite_Id__c</parameter>
+                              </serviceInput>
+                              <link id="js2fvyp4" targetId="js2fvyp3"/>
+                           </service>
+                           <eventContainer id="jqq6vz0w">
+                              <service id="jqq6vyu8">
+                                 <title>Create Invoice</title>
+                                 <serviceName>NetSuite-AppDynamics:createInvoice</serviceName>
+                                 <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                 <serviceInput>
+                                    <parameter name="Invoice" source="field">temp.temp_NS_thisInvoice</parameter>
+                                    <parameter name="InvoiceHeader_startDate" source="field" updatable="true">temp.temp_calcNS_startDate</parameter>
+                                    <parameter name="InvoiceHeader_endDate" source="field" updatable="true">temp.temp_calcNS_endDate</parameter>
+                                    <parameter name="InvoiceHeader_subsidiary" source="field" updatable="true">temp.temp_calcNS_subsidiaryInternalId</parameter>
+                                    <parameter name="InvoiceHeader_customForm" source="field" updatable="true">temp.temp_calcNS_customFormInternalId</parameter>
+                                    <parameter name="InvoiceHeader_customerInternalId"
+                                               source="field"
+                                               updatable="true">temp.temp_calcNS_entityInternalId</parameter>
+                                    <parameter name="InvoiceHeader_memo" source="field" updatable="true">temp.temp_calcNS_memo</parameter>
+                                    <parameter name="InvoiceHeader_purchaseOrderNumber"
+                                               source="field"
+                                               updatable="true">temp.temp_calcNS_poNumber</parameter>
+                                    <parameter name="InvoiceHeader_paymentTerms" source="field" updatable="true">temp.temp_calcNS_paymentTerms</parameter>
+                                    <parameter name="InvoiceHeader_sfdcSyncId" source="field" updatable="true">temp.temp_calcNS_sfdcSyncId</parameter>
+                                    <parameter name="InvoiceHeader_sfdcType" source="field" updatable="true">Type__c</parameter>
+                                    <parameter name="InvoiceHeader_project" source="field" updatable="true">temp.temp_calcNS_sfdcProjects</parameter>
+                                 </serviceInput>
+                              </service>
+                              <flow id="jqq6vz0y">
+                                 <container id="jqq6vz3b" type="exclusive">
+                                    <title>Invoice Created Successfully?</title>
+                                    <flow id="jqq6vz3d">
+                                       <service id="jw84ikzt">
+                                          <title>Get Invoice</title>
+                                          <serviceName>NetSuite-AppDynamics:Get Invoice</serviceName>
+                                          <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                          <serviceInput>
+                                             <parameter name="InternalID" source="field" updatable="true">output.Invoice_NSinternalID</parameter>
+                                          </serviceInput>
+                                          <link id="jw84il0t" targetId="jw84il0s"/>
+                                       </service>
+                                       <assignment id="jw84il0s">
+                                          <title>Assign Invoice Number to temp &amp; out  Field</title>
+                                          <operation source="field" to="temp.temp_calcNS_successfullyCreatedInvoiceNumber">output.NStranId</operation>
+                                          <operation source="field" to="output.out_invoiceNumber">temp.temp_calcNS_successfullyCreatedInvoiceNumber</operation>
+                                          <link id="jw84il1s" targetId="jw84il1r"/>
+                                       </assignment>
+                                       <assignment id="jw84il1r">
+                                          <title>Update SFDC Header with Success Details</title>
+                                          <operation source="field" to="NS_Invoice__c">temp.temp_calcNS_successfullyCreatedInvoiceNumber</operation>
+                                          <operation source="constant" to="Status__c">Integrated</operation>
+                                          <operation source="constant" to="Sent_to_NetSuite__c">true</operation>
+                                          <operation source="constant" to="Integration_Exception__c"/>
+                                          <link id="jw84il2t" targetId="jw84il2s"/>
+                                       </assignment>
+                                       <create id="jw84il2s">
+                                          <title>Add Integration Queue - Success</title>
+                                          <entityName>Salesforce:Integration_Queue__c</entityName>
+                                          <createInput>
+                                             <parameter name="Process_Name__c" source="constant" updatable="true">SalesforceToNetsuite-LoadInvoices</parameter>
+                                             <parameter name="Source_System__c" source="constant" updatable="true">Salesforce</parameter>
+                                             <parameter name="Status__c" source="constant" updatable="true">Success</parameter>
+                                             <parameter name="Target_System__c" source="constant" updatable="true">NetSuite</parameter>
+                                             <parameter name="Transaction_Id__c" source="field">Id</parameter>
+                                             <parameter name="Transaction_Name__c" source="field" updatable="true">Sales_Order__r.OrderReferenceNumber</parameter>
+                                             <parameter name="Transaction_Type__c" source="constant" updatable="true">Invoice</parameter>
+                                             <parameter name="Target_Txn_Id__c" source="field" updatable="true">temp.temp_calcNS_successfullyCreatedInvoiceNumber</parameter>
+                                          </createInput>
+                                       </create>
+                                       <link id="jqq6vz3e" targetId="jqq6vz3b" type="containerLink"/>
+                                    </flow>
+                                    <flow id="jqq6vz3g">
+                                       <create id="js4zm55y">
+                                          <title>Add Integration Queue - Error - 1</title>
+                                          <entityName>Salesforce:Integration_Queue__c</entityName>
+                                          <createInput>
+                                             <parameter name="Exception_Message__c" source="field" updatable="true">output.errorMessages</parameter>
+                                             <parameter name="Process_Name__c" source="constant" updatable="true">SalesforceToNetsuite-LoadInvoices</parameter>
+                                             <parameter name="Source_System__c" source="constant" updatable="true">Salesforce</parameter>
+                                             <parameter name="Status__c" source="constant" updatable="true">Error</parameter>
+                                             <parameter name="Target_System__c" source="constant" updatable="true">NetSuite</parameter>
+                                             <parameter name="Transaction_Id__c" source="field">Id</parameter>
+                                             <parameter name="Transaction_Name__c" source="field" updatable="true">Sales_Order__r.OrderReferenceNumber</parameter>
+                                             <parameter name="Transaction_Type__c" source="constant" updatable="true">Invoice</parameter>
+                                          </createInput>
+                                          <link id="js4zm560" targetId="jqx900rt"/>
+                                       </create>
+                                       <assignment id="jqx900rt">
+                                          <title>Update SFDC Header with Error Details - 1</title>
+                                          <operation source="constant" to="Status__c">Error</operation>
+                                          <operation source="field" to="Integration_Exception__c">output.errorMessages</operation>
+                                       </assignment>
+                                       <link id="jqq6vz3h" targetId="jqq6vz3b" type="containerLink"/>
+                                    </flow>
+                                    <link id="jqq6vz3c" targetId="jqq6vz3d" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="string-equals">
+                                             <arg name="left">{$output.isInvoiceCreationSuccess}</arg>
+                                             <arg name="right">true</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="jqq6vz3f" targetId="jqq6vz3g" type="containerLink"/>
+                                 </container>
+                                 <link id="jqq6vz0z" targetId="jqq6vz0w" type="containerLink"/>
+                              </flow>
+                              <flow id="jqq6vz11">
+                                 <assignment id="jqx900vw">
+                                    <title>Update SFDC Header with Error Details - 2</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <operation source="formula" to="Integration_Exception__c">
+                                       <expression language="XQuery">fn:substring($output.faultInfoInvoiceCreation[1]/reason,1,2056)</expression>
+                                    </operation>
+                                    <link id="js4zm5pm" targetId="js4zm5pl"/>
+                                 </assignment>
+                                 <create id="js4zm5pl">
+                                    <title>Add Integration Queue - Error - 2</title>
+                                    <entityName>Salesforce:Integration_Queue__c</entityName>
+                                    <createInput>
+                                       <parameter name="Exception_Message__c" source="field" updatable="true">output.faultInfoInvoiceCreation[1]/reason</parameter>
+                                       <parameter name="Process_Name__c" source="constant" updatable="true">SalesforceToNetsuite-LoadInvoices</parameter>
+                                       <parameter name="Source_System__c" source="constant" updatable="true">Salesforce</parameter>
+                                       <parameter name="Status__c" source="constant" updatable="true">Error</parameter>
+                                       <parameter name="Target_System__c" source="constant" updatable="true">NetSuite</parameter>
+                                       <parameter name="Transaction_Id__c" source="field">Id</parameter>
+                                       <parameter name="Transaction_Name__c" source="field" updatable="true">Sales_Order__r.OrderReferenceNumber</parameter>
+                                       <parameter name="Transaction_Type__c" source="constant" updatable="true">Invoice</parameter>
+                                    </createInput>
+                                 </create>
+                                 <link id="jqq6vz12" targetId="jqq6vz0w" type="containerLink"/>
+                              </flow>
+                              <link id="jqq6vz0x" targetId="jqq6vz0y" type="containerLink"/>
+                              <events>
+                                 <catch faultField="faultInfoInvoiceCreation"
+                                        id="jqq6vz0p"
+                                        interrupting="true">
+                                    <link id="jqq6vz10" targetId="jqq6vz11" type="containerLink"/>
+                                 </catch>
+                              </events>
+                           </eventContainer>
+                           <link id="jqq6vyt2" targetId="jqq6vysz" type="containerLink"/>
+                        </flow>
+                        <flow id="jqq6vyt4">
+                           <create id="js4zm66y">
+                              <title>Add Integration Queue - Error - No Items Found</title>
+                              <entityName>Salesforce:Integration_Queue__c</entityName>
+                              <createInput>
+                                 <parameter name="Exception_Message__c" source="constant" updatable="true">No sales order and items items were found to create the invoice &amp; invoice items</parameter>
+                                 <parameter name="Process_Name__c" source="constant" updatable="true">SalesforceToNetsuite-LoadInvoices</parameter>
+                                 <parameter name="Source_System__c" source="constant" updatable="true">Salesforce</parameter>
+                                 <parameter name="Status__c" source="constant" updatable="true">Error</parameter>
+                                 <parameter name="Target_System__c" source="constant" updatable="true">NetSuite</parameter>
+                                 <parameter name="Transaction_Id__c" source="field">Id</parameter>
+                                 <parameter name="Transaction_Name__c" source="field" updatable="true">Sales_Order__r.OrderReferenceNumber</parameter>
+                                 <parameter name="Transaction_Type__c" source="constant" updatable="true">Billing Event Invoice</parameter>
+                              </createInput>
+                           </create>
+                           <link id="jqq6vyt5" targetId="jqq6vysz" type="containerLink"/>
+                        </flow>
+                        <link id="jqq6vyt0" targetId="jqq6vyt1" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_NS_thisInvoiceItemList}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jqq6vyt3" targetId="jqq6vyt4" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_NS_thisInvoiceItemList}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jqq6vyoj" targetId="jqq6vyob" type="containerLink"/>
+                  </flow>
+                  <link id="jqq6vyoe" targetId="jqq6vyof" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_SFDC_InvoiceItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jqq6vyoh" targetId="jqq6vyoi" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_SFDC_InvoiceItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jqq6vyod" targetId="c"/>
+               </container>
+               <assignment id="jqq6vynb">
+                  <title>Get Invoice Lines</title>
+                  <operation source="list" to="temp.temp_SFDC_InvoiceItemList">
+                     <query from="Salesforce:NS_Invoice_Line__c">
+                        <where>NS_Invoice_Header__c = '{$Id}' LIMIT 2000</where>
+                     </query>
+                  </operation>
+                  <link id="jqq6vyo3" targetId="jqq6vyo2"/>
+               </assignment>
+               <assignment id="jqq6vyo2">
+                  <title>Assign Invoice Lines</title>
+                  <operation source="formula" to="temp.temp_SFDC_InvoiceItem">
+                     <expression language="XQuery">list:head($temp.temp_SFDC_InvoiceItemList )</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_SFDC_InvoiceItemList">
+                     <expression language="XQuery">list:tail($temp.temp_SFDC_InvoiceItemList )</expression>
+                  </operation>
+                  <link id="js4zm51t" targetId="jqq6vyob"/>
+               </assignment>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>3haBSu29hhDek5zuPREMeR</types1:GUID>
+      <types1:DisplayName>SalesforceToNetsuite-CreateEachInvoice-T&amp;E</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T17:57:10.141Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

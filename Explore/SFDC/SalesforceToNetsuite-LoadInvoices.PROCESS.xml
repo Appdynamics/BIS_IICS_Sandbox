@@ -1,0 +1,169 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>P4tciSrZMSPfXBi-gt-73045590-2019-02-14T20:58:56.662Z::pd.xml</types1:EntryId>
+      <types1:Name>SalesforceToNetsuite-LoadInvoices</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-02-14T20:58:57Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-10-26T00:34:48Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-03-17T18:06:38Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SalesforceToNetsuite-LoadInvoices/SalesforceToNetsuite-LoadInvoices.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SalesforceToNetsuite-LoadInvoices"
+                  name="SalesforceToNetsuite-LoadInvoices">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <tempFields>
+               <field description="" name="temp_sfdc_InvoiceList_TM" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:NS_Invoice_Header__c</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_sfdc_InvoiceList_TE" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:NS_Invoice_Header__c</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="terse">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="js53swyi" targetId="js53swyh"/>
+               </start>
+               <assignment id="js53swyh">
+                  <title>Get Invoices from Salesforce</title>
+                  <operation source="list" to="temp.temp_sfdc_InvoiceList_TM">
+                     <query from="Salesforce:NS_Invoice_Header__c">
+                        <where>Sent_to_NetSuite__c = false AND NS_Invoice__c = '' AND Status__c = 'Submitted' AND Type__c != 'Expenses' LIMIT 2000</where>
+                     </query>
+                  </operation>
+                  <operation source="list" to="temp.temp_sfdc_InvoiceList_TE">
+                     <query from="Salesforce:NS_Invoice_Header__c">
+                        <where>Sent_to_NetSuite__c = false AND NS_Invoice__c = '' AND Status__c = 'Submitted' AND Type__c = 'Expenses' LIMIT 2000</where>
+                     </query>
+                  </operation>
+                  <link id="jy579hb2" targetId="jy579hb1"/>
+               </assignment>
+               <container id="jy579hb1" type="parallel">
+                  <title>T&amp;E and T&amp;M</title>
+                  <flow id="jy579hb5">
+                     <container id="jy579hc7" type="exclusive">
+                        <title>Are T&amp;M Invoices Found?</title>
+                        <flow id="jy579hca">
+                           <subflow id="jy579hcu">
+                              <title>Create Each Invoice - T&amp;M</title>
+                              <subflowGUID>9tcz01Qwgp6eIl8mJK5mCw</subflowGUID>
+                              <subflowPath>SalesforceToNetsuite-CreateEachInvoice-T_M</subflowPath>
+                              <appliesTo>Salesforce:NS_Invoice_Header__c</appliesTo>
+                              <appliesToDataName source="field">temp.temp_sfdc_InvoiceList_TM</appliesToDataName>
+                              <runForEach>true</runForEach>
+                              <input/>
+                              <outputDef>
+                                 <field name="out_invoiceNumber" type="string">
+                                    <options>
+                                       <option name="required">false</option>
+                                    </options>
+                                 </field>
+                              </outputDef>
+                           </subflow>
+                           <link id="jy579hcb" targetId="jy579hc7" type="containerLink"/>
+                        </flow>
+                        <flow id="jy579hcd">
+                           <link id="jy579hce" targetId="jy579hc7" type="containerLink"/>
+                        </flow>
+                        <link id="jy579hc9" targetId="jy579hca" type="containerLink">
+                           <condition source="formula">
+                              <function name="not-empty">
+                                 <arg name="field">{$temp.temp_sfdc_InvoiceList_TM}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jy579hcc" targetId="jy579hcd" type="containerLink">
+                           <condition source="formula">
+                              <function name="empty">
+                                 <arg name="field">{$temp.temp_sfdc_InvoiceList_TM}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jy579hb6" targetId="jy579hb1" type="containerLink"/>
+                  </flow>
+                  <flow id="jy579hb8">
+                     <container id="jy579hey" type="exclusive">
+                        <title>Are T&amp;E Invoices Found?</title>
+                        <flow id="jy579hf0">
+                           <subflow id="jy579hfz">
+                              <title>Create Each Invoice - T&amp;E</title>
+                              <subflowGUID>3haBSu29hhDek5zuPREMeR</subflowGUID>
+                              <subflowPath>SalesforceToNetsuite-CreateEachInvoice-T_E</subflowPath>
+                              <appliesTo>Salesforce:NS_Invoice_Header__c</appliesTo>
+                              <appliesToDataName source="field">temp.temp_sfdc_InvoiceList_TE</appliesToDataName>
+                              <runForEach>true</runForEach>
+                              <input/>
+                              <outputDef>
+                                 <field name="out_invoiceNumber" type="string">
+                                    <options>
+                                       <option name="required">false</option>
+                                    </options>
+                                 </field>
+                              </outputDef>
+                           </subflow>
+                           <link id="jy579hf1" targetId="jy579hey" type="containerLink"/>
+                        </flow>
+                        <flow id="jy579hf3">
+                           <link id="jy579hf4" targetId="jy579hey" type="containerLink"/>
+                        </flow>
+                        <link id="jy579hez" targetId="jy579hf0" type="containerLink">
+                           <condition source="formula">
+                              <function name="not-empty">
+                                 <arg name="field">{$temp.temp_sfdc_InvoiceList_TE}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jy579hf2" targetId="jy579hf3" type="containerLink">
+                           <condition source="formula">
+                              <function name="empty">
+                                 <arg name="field">{$temp.temp_sfdc_InvoiceList_TE}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="jy579hb9" targetId="jy579hb1" type="containerLink"/>
+                  </flow>
+                  <link id="jy579hb4" targetId="jy579hb5" type="containerLink"/>
+                  <link id="jy579hb7" targetId="jy579hb8" type="containerLink"/>
+                  <link id="jy579hhk" targetId="c"/>
+               </container>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>7IISi1NEJ1DioMWxMJTi05</types1:GUID>
+      <types1:DisplayName>SalesforceToNetsuite-LoadInvoices</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T17:57:10.539Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
