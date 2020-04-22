@@ -1,0 +1,430 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>QPSFCAGE7pppppp-gt-4746541-2020-01-09T00:20:36.683Z::pd.xml</types1:EntryId>
+      <types1:Name>Invoke_RevPro_Journal_Entries_FF_Process_From_SFDC</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:Integration_Queue__c</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>sri.battu@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-01-09T00:20:37Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-02-20T20:20:27Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-20T20:20:39Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.Invoke_RevPro_Journal_Entries_FF_Process_From_SFDC/Invoke_RevPro_Journal_Entries_FF_Process_From_SFDC.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="Invoke_RevPro_Journal Entries_FF_Process_From_SFDC"
+                  name="Invoke_RevPro_Journal_Entries_FF_Process_From_SFDC"
+                  overrideAPIName="false">
+            <appliesTo>Salesforce:Integration_Queue__c</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <tempFields>
+               <field description="" name="temp_Parent_Var" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_Task_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_FF_Task_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_FF_Upload_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_FF_MS_Task_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_FF_MS_Upload_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k2c3k0gp" targetId="k2c3k0go"/>
+               </start>
+               <container id="k2c3k0go" type="exclusive">
+                  <title>Transaction Type</title>
+                  <flow id="k2c3k0gs">
+                     <assignment id="k2cbdumb">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">In Progress</operation>
+                        <link id="k2cbdumc" targetId="k2wys25r"/>
+                     </assignment>
+                     <eventContainer id="k2wys25r">
+                        <subflow id="k2cav1ea">
+                           <title>RevPro-JournalEntries-GetTransferBatchFiles</title>
+                           <subflowGUID>168ZrXWizSRkvNwsWIkKYF</subflowGUID>
+                           <subflowPath>RevPro-JournalEntries-GetTransferBatchFiles</subflowPath>
+                           <runForEach>false</runForEach>
+                           <input/>
+                           <outputDef>
+                              <field name="out_Cloud_Task_Status" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                           </outputDef>
+                        </subflow>
+                        <flow id="k2wys25t">
+                           <link id="k2wys25u" targetId="k2wys25r" type="containerLink"/>
+                        </flow>
+                        <flow id="k2wys25w">
+                           <wait id="k37uytme">
+                              <title>Wait_till_process_complete</title>
+                              <duration source="formula">
+                                 <function name="duration_expression">
+                                    <arg name="value">35</arg>
+                                    <arg name="scale">M</arg>
+                                    <arg name="businessDays"/>
+                                 </function>
+                              </duration>
+                           </wait>
+                           <link id="k37uytm5" targetId="k2wys25r" type="containerLink"/>
+                        </flow>
+                        <link id="k2wys25s" targetId="k2wys25t" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo-RevproJE" id="k2wys25o" interrupting="true">
+                              <link id="k2wys25v" targetId="k2wys25w" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <link id="k2c3k0gt" targetId="k2c3k0go" type="containerLink"/>
+                  </flow>
+                  <flow id="k2c3k0gv">
+                     <container id="k4hefes3" type="exclusive">
+                        <title>Transaction Type</title>
+                        <flow id="k4hefes6">
+                           <assignment id="k4hefetg">
+                              <title>Assignment to Status, Transaction Id</title>
+                              <operation source="constant" to="Status__c">In Progress</operation>
+                              <operation source="constant" to="Transaction_Id__c">{$CreatedBy.EmployeeNumber}</operation>
+                              <link id="k4hefeuz" targetId="k4hefeuy"/>
+                           </assignment>
+                           <assignment id="k4hefews">
+                              <title>Assignment to temp_FF_Task_Status</title>
+                              <operation source="constant" to="temp.temp_FF_Task_Status">{$output.TaskStatus}</operation>
+                              <link id="k4hefexz" targetId="k4hefexy"/>
+                           </assignment>
+                           <service id="k4hefeuy">
+                              <title>Run Cloud Task</title>
+                              <serviceName>ICSExecuteTask</serviceName>
+                              <serviceGUID/>
+                              <serviceInput>
+                                 <parameter name="Task Name" source="constant">TF_Salesforce_To_RevProFile_LoadEvents_TimeCards [SAAS_LINEAR_TASKFLOW]</parameter>
+                                 <parameter name="Wait for Task to Complete" source="constant">true</parameter>
+                                 <parameter name="Max Wait" source="constant">1800</parameter>
+                                 <parameter name="Fail on Cloud Task Errors" source="constant">true</parameter>
+                                 <parameter name="GUID" source="constant">21yiacVRpPLbXydHYDlKAK</parameter>
+                              </serviceInput>
+                              <link id="k4hefewt" targetId="k4hefews"/>
+                           </service>
+                           <container id="k4hefexy" type="exclusive">
+                              <title>temp_FF_Task_Status</title>
+                              <flow id="k4hefey1">
+                                 <wait id="k4hs3upk">
+                                    <title>Wait</title>
+                                    <duration source="formula">
+                                       <function name="duration_expression">
+                                          <arg name="value">8</arg>
+                                          <arg name="scale">M</arg>
+                                          <arg name="businessDays"/>
+                                       </function>
+                                    </duration>
+                                    <link id="k4hs3utc" targetId="k4hs3utb"/>
+                                 </wait>
+                                 <subflow id="k4hs3utb">
+                                    <title>Invoke_shellCommand</title>
+                                    <subflowGUID>hd6eEh7qledgIDRM4mqqa7</subflowGUID>
+                                    <subflowPath>Invoke_shellCommand</subflowPath>
+                                    <runForEach>false</runForEach>
+                                    <input/>
+                                    <outputDef>
+                                       <field name="out_Script_Status" type="string">
+                                          <options>
+                                             <option name="required">false</option>
+                                          </options>
+                                       </field>
+                                    </outputDef>
+                                    <link id="k4hs3utd" targetId="k4hs3up7"/>
+                                 </subflow>
+                                 <assignment id="k4hs3up7">
+                                    <title>Assignment to temp_FF_Upload_Status</title>
+                                    <operation source="constant" to="temp.temp_FF_Upload_Status">{$output.out_Script_Status}</operation>
+                                    <link id="k4htmyvy" targetId="k4htmyvx"/>
+                                 </assignment>
+                                 <container id="k4htmyvx" type="exclusive">
+                                    <title>IsSuccess</title>
+                                    <flow id="k4htmyw1">
+                                       <assignment id="k4htmyxo">
+                                          <title>Assignment to Queue Status</title>
+                                          <operation source="constant" to="Status__c">Success</operation>
+                                          <link id="k4htmyya" targetId="k4htmyy9"/>
+                                       </assignment>
+                                       <end id="k4htmyy9">
+                                          <title>End</title>
+                                       </end>
+                                    </flow>
+                                    <flow id="k4htmyw4">
+                                       <assignment id="k4htmz16">
+                                          <title>Assignment to Status</title>
+                                          <operation source="constant" to="Status__c">Error</operation>
+                                          <link id="k4htmz17" targetId="k4htmywj"/>
+                                       </assignment>
+                                       <end id="k4htmywj">
+                                          <title>End</title>
+                                       </end>
+                                    </flow>
+                                    <link id="k4htmyw0" targetId="k4htmyw1" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="contains">
+                                             <arg name="left">{$temp.temp_FF_Upload_Status}</arg>
+                                             <arg name="right">SUCCESS</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="k4htmyw3" targetId="k4htmyw4" type="containerLink"/>
+                                 </container>
+                              </flow>
+                              <flow id="k4hefey4">
+                                 <assignment id="k4heff05">
+                                    <title>Assignment to Queue Status</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <link id="k4heff06" targetId="k4hefeyh"/>
+                                 </assignment>
+                                 <end id="k4hefeyh">
+                                    <title>End</title>
+                                 </end>
+                              </flow>
+                              <link id="k4hefey0" targetId="k4hefey1" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$temp.temp_FF_Task_Status}</arg>
+                                       <arg name="right">1</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k4hefey3" targetId="k4hefey4" type="containerLink"/>
+                           </container>
+                        </flow>
+                        <flow id="k4hefes9">
+                           <container id="k6v2lpmk" type="exclusive">
+                              <title>Transaction Type</title>
+                              <flow id="k6v2lpmn">
+                                 <assignment id="k6v2lpph">
+                                    <title>Assignment to Status, Transaction Id</title>
+                                    <operation source="constant" to="Status__c">In Progress</operation>
+                                    <operation source="constant" to="Transaction_Id__c">{$CreatedBy.EmployeeNumber}</operation>
+                                    <link id="k6v34gft" targetId="k6v34gfs"/>
+                                 </assignment>
+                                 <assignment id="k6v46h84">
+                                    <title>Assignment to temp_FF_MS_Task_Status</title>
+                                    <operation source="constant" to="temp.temp_FF_MS_Task_Status">{$output.TaskStatus}</operation>
+                                    <link id="k6v46h86" targetId="k6v34gir"/>
+                                 </assignment>
+                                 <service id="k6v34gfs">
+                                    <title>Run Cloud Task</title>
+                                    <serviceName>ICSExecuteTask</serviceName>
+                                    <serviceGUID/>
+                                    <serviceInput>
+                                       <parameter name="Task Name" source="constant">TF_Salesforce_To_RevProFile_LoadEvents_Milestones [SAAS_LINEAR_TASKFLOW]</parameter>
+                                       <parameter name="Wait for Task to Complete" source="constant">true</parameter>
+                                       <parameter name="Max Wait" source="constant">1200</parameter>
+                                       <parameter name="Fail on Cloud Task Errors" source="constant">true</parameter>
+                                       <parameter name="GUID" source="constant">gDXcsEzuMSYgQAjClo1Lq3</parameter>
+                                    </serviceInput>
+                                    <link id="k6v46h85" targetId="k6v46h84"/>
+                                 </service>
+                                 <container id="k6v34gir" type="exclusive">
+                                    <title>temp_FF_MS_Task_Status</title>
+                                    <flow id="k6v34giu">
+                                       <wait id="k6v34go6">
+                                          <title>Wait_Time_File_Upload_Task</title>
+                                          <duration source="formula">
+                                             <function name="duration_expression">
+                                                <arg name="value">8</arg>
+                                                <arg name="scale">M</arg>
+                                                <arg name="businessDays"/>
+                                             </function>
+                                          </duration>
+                                          <link id="k6v46gxo" targetId="k6v46gxn"/>
+                                       </wait>
+                                       <subflow id="k6v46gxn">
+                                          <title>Invoke_Shell_FF_MileStones</title>
+                                          <subflowGUID>6nU9Zo5wFGjfuqDBPn4fWz</subflowGUID>
+                                          <subflowPath>Invoke_Shell_FF_MileStones</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input/>
+                                          <outputDef>
+                                             <field name="out_FF_MileStones_Ouput" type="string">
+                                                <options>
+                                                   <option name="required">false</option>
+                                                </options>
+                                             </field>
+                                          </outputDef>
+                                          <link id="k6v46h1e" targetId="k6v46h1d"/>
+                                       </subflow>
+                                       <assignment id="k6v46h1d">
+                                          <title>Assignment to temp_FF_MS_Upload_Status</title>
+                                          <operation source="constant" to="temp.temp_FF_MS_Upload_Status">{$output.out_FF_MileStones_Ouput}</operation>
+                                          <link id="k6v46h1z" targetId="k6v46h1y"/>
+                                       </assignment>
+                                       <container id="k6v46h1y" type="exclusive">
+                                          <title>IsSuccess</title>
+                                          <flow id="k6v46h21">
+                                             <assignment id="k6v46h3g">
+                                                <title>Assignment to Status</title>
+                                                <operation source="constant" to="Status__c">Success</operation>
+                                             </assignment>
+                                             <link id="k6v46h22" targetId="k6v46h1y" type="containerLink"/>
+                                          </flow>
+                                          <flow id="k6v46h24">
+                                             <assignment id="k6v46h3t">
+                                                <title>Assignment to Status</title>
+                                                <operation source="constant" to="Status__c">Error</operation>
+                                             </assignment>
+                                             <link id="k6v46h25" targetId="k6v46h1y" type="containerLink"/>
+                                          </flow>
+                                          <link id="k6v46h20" targetId="k6v46h21" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="contains">
+                                                   <arg name="left">{$temp.temp_FF_MS_Upload_Status}</arg>
+                                                   <arg name="right">SUCCESS</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                          <link id="k6v46h23" targetId="k6v46h24" type="containerLink"/>
+                                          <link id="k6v46h2m" targetId="k6v46h2l"/>
+                                       </container>
+                                       <end id="k6v46h2l">
+                                          <title>End</title>
+                                       </end>
+                                    </flow>
+                                    <flow id="k6v34gix">
+                                       <assignment id="k6v46gyj">
+                                          <title>Assignment to Queue Status</title>
+                                          <operation source="constant" to="Status__c">Error</operation>
+                                          <link id="k6v46gyk" targetId="k6v34gme"/>
+                                       </assignment>
+                                       <end id="k6v34gme">
+                                          <title>End</title>
+                                       </end>
+                                    </flow>
+                                    <link id="k6v34git" targetId="k6v34giu" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="string-equals">
+                                             <arg name="left">{$temp.temp_FF_MS_Task_Status}</arg>
+                                             <arg name="right">1</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="k6v34giw" targetId="k6v34gix" type="containerLink"/>
+                                 </container>
+                              </flow>
+                              <flow id="k6v2lpmq">
+                                 <end id="k6v2lpn3">
+                                    <title>End</title>
+                                 </end>
+                              </flow>
+                              <link id="k6v2lpmm" targetId="k6v2lpmn" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="included">
+                                       <arg name="left">{$Transaction_Type__c}</arg>
+                                       <arg name="right">Infa-FF-RevPro-BEI-MileStones</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k6v2lpmp" targetId="k6v2lpmq" type="containerLink"/>
+                           </container>
+                        </flow>
+                        <link id="k4hefes5" targetId="k4hefes6" type="containerLink">
+                           <condition source="formula">
+                              <function name="included">
+                                 <arg name="left">{$Transaction_Type__c}</arg>
+                                 <arg name="right">Infa-FF-RevPro-BEI</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k4hefes8" targetId="k4hefes9" type="containerLink"/>
+                     </container>
+                  </flow>
+                  <link id="k2c3k0gr" targetId="k2c3k0gs" type="containerLink">
+                     <condition source="formula">
+                        <function name="included">
+                           <arg name="left">{$Transaction_Type__c}</arg>
+                           <arg name="right">Infa-RevPro-NS-Journal</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k2c3k0gu" targetId="k2c3k0gv" type="containerLink"/>
+                  <link id="k2cav1f4" targetId="k2cav1f3"/>
+               </container>
+               <container id="k2cbdumu" type="exclusive">
+                  <title>temp_Task_Status</title>
+                  <flow id="k2cbdumy">
+                     <assignment id="k2cbduo8">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">Success</operation>
+                     </assignment>
+                     <link id="k2cbdumz" targetId="k2cbdumu" type="containerLink"/>
+                  </flow>
+                  <flow id="k2cbdun1">
+                     <assignment id="k2cbduoh">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">Error</operation>
+                     </assignment>
+                     <link id="k2cbdun2" targetId="k2cbdumu" type="containerLink"/>
+                  </flow>
+                  <link id="k2cbdumx" targetId="k2cbdumy" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$temp.temp_Task_Status}</arg>
+                           <arg name="right">1</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k2cbdun0" targetId="k2cbdun1" type="containerLink"/>
+                  <link id="k2cbdumw" targetId="c"/>
+               </container>
+               <assignment id="k2cav1f3">
+                  <title>Assignment to temp_Task_Status</title>
+                  <operation source="constant" to="temp.temp_Task_Status">{$output.out_Cloud_Task_Status}</operation>
+                  <link id="k2cbdumv" targetId="k2cbdumu"/>
+               </assignment>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>7yamw1mgsxSbJw5iN5kU49</types1:GUID>
+      <types1:DisplayName>Invoke_RevPro_Journal Entries_FF_Process_From_SFDC</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T16:22:20.389Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
