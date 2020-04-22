@@ -1,0 +1,250 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>nbdoEFsWTzIf6ri-gt-4598275-2018-08-14T00:10:10.224Z::pd.xml</types1:EntryId>
+      <types1:Name>RevPro-JournalEntries-GetTransferBatchFiles</types1:Name>
+      <types1:ParentFlowIds>QPSFCAGE7pppppp-gt-4746541-2020-01-09T00:20:36.683Z::pd.xml,SQciSrZMSPfXBiV-gt-439209953-2019-11-11T20:58:00.172Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-08-14T00:10:10Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-11-13T17:54:43Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-20T20:20:39Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.RevPro-JournalEntries-GetTransferBatchFiles/RevPro-JournalEntries-GetTransferBatchFiles.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="RevPro-JournalEntries-GetTransferBatchFiles"
+                  name="RevPro-JournalEntries-GetTransferBatchFiles">
+            <appliesTo/>
+            <description/>
+            <tags>.agent:INFA-AWS-DEV</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_Cloud_Task_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_calcBatchCount" type="int">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jl1j8m9y" targetId="jwc3qq26"/>
+               </start>
+               <eventContainer id="jwc3qq26">
+                  <service id="jl1j8m9x">
+                     <title>Remove Transfer Batch Files from Previous Session</title>
+                     <serviceName>avShellService</serviceName>
+                     <serviceGUID/>
+                     <serviceInput>
+                        <parameter name="command" source="constant">rm -f FF_TransferBatchFile_RP_JournalEntries_*.csv</parameter>
+                        <parameter name="workingDirPath" source="constant">/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT/RevPro/</parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="jwc3qq28">
+                     <link id="jwc3qq29" targetId="jwc3qq26" type="containerLink"/>
+                  </flow>
+                  <flow id="jwc3qq2b">
+                     <service id="jwc3qq2y">
+                        <title>Send Failure Notification</title>
+                        <serviceName>Salesforce:sfSendFreeFormEmailService</serviceName>
+                        <serviceGUID>58gj2o5v8OacYp4U1C0Jw0</serviceGUID>
+                        <serviceInput>
+                           <parameter name="Subject" source="constant">RevPro - Journal Entry - Get Batch Files - Process Failure!!</parameter>
+                           <parameter name="Body" source="constant">&lt;p&gt;The CAI process to get the transfer batch files from RevPro to Informatica agent server failed.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Please check the logs.&lt;/p&gt;
+&lt;p&gt;Error Message: {$output.faultInfo/Reason}&lt;/p&gt;</parameter>
+                           <parameter name="Recipient Address" source="constant">bishelp@appdynamics.com;phani.baddam@appdynamics.com;sri.battu@appdynamics.com</parameter>
+                        </serviceInput>
+                        <link id="jwc3qq34" targetId="jwc3qq2o"/>
+                     </service>
+                     <end id="jwc3qq2o">
+                        <title>End</title>
+                     </end>
+                  </flow>
+                  <link id="jwc3qq27" targetId="jwc3qq28" type="containerLink"/>
+                  <link id="jl2vvusf" targetId="jwc3qqfx"/>
+                  <events>
+                     <catch faultField="faultInfo" id="jwc3qq25" interrupting="true">
+                        <link id="jwc3qq2a" targetId="jwc3qq2b" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <eventContainer id="jwc3qqfx">
+                  <service id="jl2vvuse">
+                     <title>Remove temp Transfer Batch Files from Previous Session</title>
+                     <serviceName>avShellService</serviceName>
+                     <serviceGUID/>
+                     <serviceInput>
+                        <parameter name="command" source="constant">rm -f temp_FF_TransferBatchFile_RP_JournalEntries*.csv</parameter>
+                        <parameter name="workingDirPath" source="constant">/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT/RevPro/</parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="jwc3qqfz">
+                     <link id="jwc3qqg0" targetId="jwc3qqfx" type="containerLink"/>
+                  </flow>
+                  <flow id="jwc3qqg2">
+                     <jumpTo id="jwc3qqgd">
+                        <link id="jwc3qqge" targetId="jwc3qq2y"/>
+                     </jumpTo>
+                  </flow>
+                  <link id="jwc3qqfy" targetId="jwc3qqfz" type="containerLink"/>
+                  <link id="jl2vvusk" targetId="jwc3qqf2"/>
+                  <events>
+                     <catch faultField="faultInfo" id="jwc3qqfw" interrupting="true">
+                        <link id="jwc3qqg1" targetId="jwc3qqg2" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <eventContainer id="jwc3qqf2">
+                  <service id="c">
+                     <title>Get Authentication Token</title>
+                     <serviceName>RevPro-DataIntegration:Authentication</serviceName>
+                     <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                     <serviceInput/>
+                  </service>
+                  <flow id="jwc3qqf4">
+                     <link id="jwc3qqf5" targetId="jwc3qqf2" type="containerLink"/>
+                  </flow>
+                  <flow id="jwc3qqf7">
+                     <jumpTo id="jwc3qqfh">
+                        <link id="jwc3qqfi" targetId="jwc3qq2y"/>
+                     </jumpTo>
+                  </flow>
+                  <link id="jwc3qqf3" targetId="jwc3qqf4" type="containerLink"/>
+                  <link id="jkzhi7rz" targetId="jwc3qqdl"/>
+                  <events>
+                     <catch faultField="faultInfo" id="jwc3qqf1" interrupting="true">
+                        <link id="jwc3qqf6" targetId="jwc3qqf7" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <eventContainer id="jwc3qqdl">
+                  <service id="jkzhi7ry">
+                     <title>Get List of Batches from RevPro</title>
+                     <serviceName>RevPro-DataIntegration:GetTransferBatchList</serviceName>
+                     <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                     <serviceInput>
+                        <parameter name="Token" source="field" updatable="true">output.Token</parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="jwc3qqdn">
+                     <assignment id="jxxgqvze">
+                        <title>Calculate Transfer Batch Count</title>
+                        <operation source="formula" to="temp.temp_calcBatchCount">
+                           <expression language="XQuery">list:count($output.ListOfTransferBatches)</expression>
+                        </operation>
+                     </assignment>
+                     <link id="jwc3qqdo" targetId="jwc3qqdl" type="containerLink"/>
+                  </flow>
+                  <flow id="jwc3qqdq">
+                     <jumpTo id="jwc3qqdy">
+                        <link id="jwc3qqdz" targetId="jwc3qq2y"/>
+                     </jumpTo>
+                  </flow>
+                  <link id="jwc3qqdm" targetId="jwc3qqdn" type="containerLink"/>
+                  <link id="jl2qss89" targetId="jwc3qqec"/>
+                  <events>
+                     <catch faultField="faultInfo" id="jwc3qqdk" interrupting="true">
+                        <link id="jwc3qqdp" targetId="jwc3qqdq" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <eventContainer id="jwc3qqec">
+                  <subflow id="jl2qss88">
+                     <title>RevPro-GetJournalEntries-processEachBatch</title>
+                     <subflowGUID>4awF6xd5lSofbSIslLnM4E</subflowGUID>
+                     <subflowPath>RevPro-GetJournalEntries-processEachBatch</subflowPath>
+                     <appliesTo>RevPro-DataIntegration:Result</appliesTo>
+                     <appliesToDataName source="field">output.ListOfTransferBatches</appliesToDataName>
+                     <runForEach>true</runForEach>
+                     <input>
+                        <parameter name="in_token" source="field" updatable="true">output.Token</parameter>
+                     </input>
+                     <outputDef/>
+                  </subflow>
+                  <flow id="jwc3qqee">
+                     <container id="jxxgqw07" type="exclusive">
+                        <title>Is List Count &gt; 0</title>
+                        <flow id="jxxgqw09">
+                           <service id="jxxgqw1m">
+                              <title>Run Cloud Task - TF_RevProFile_To_Netsuite_LoadTransactions_JournalEntries</title>
+                              <serviceName>ICSExecuteTask</serviceName>
+                              <serviceGUID/>
+                              <serviceInput>
+                                 <parameter name="Task Name" source="constant">TF_RevProFile_To_Netsuite_LoadTransactions_JournalEntries [SAAS_LINEAR_TASKFLOW]</parameter>
+                                 <parameter name="Wait for Task to Complete" source="constant">true</parameter>
+                                 <parameter name="Max Wait" source="constant">1800</parameter>
+                                 <parameter name="Fail on Cloud Task Errors" source="constant">true</parameter>
+                                 <parameter name="GUID" source="constant">hCq6Ufkk72LcjaSBXqjImw</parameter>
+                              </serviceInput>
+                              <link id="k2uvnwft" targetId="k2uvnwfs"/>
+                           </service>
+                           <assignment id="k2uvnwfs">
+                              <title>Assignment to out_Cloud_Task_Status</title>
+                              <operation source="constant" to="output.out_Cloud_Task_Status">{$output.TaskStatus}</operation>
+                           </assignment>
+                           <link id="jxxgqw0a" targetId="jxxgqw07" type="containerLink"/>
+                        </flow>
+                        <flow id="jxxgqw0c">
+                           <assignment id="k2uvnwhs">
+                              <title>Assignment to out_Cloud_Task_Status</title>
+                              <operation source="constant" to="output.out_Cloud_Task_Status">1</operation>
+                           </assignment>
+                           <link id="jxxgqw0d" targetId="jxxgqw07" type="containerLink"/>
+                        </flow>
+                        <link id="jxxgqw08" targetId="jxxgqw09" type="containerLink">
+                           <condition source="formula">
+                              <function name="greater-than">
+                                 <arg name="left">{$temp.temp_calcBatchCount}</arg>
+                                 <arg name="right">{0}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jxxgqw0b" targetId="jxxgqw0c" type="containerLink"/>
+                     </container>
+                     <link id="jwc3qqef" targetId="jwc3qqec" type="containerLink"/>
+                  </flow>
+                  <flow id="jwc3qqeh">
+                     <jumpTo id="jwc3qqeq">
+                        <link id="jwc3qqer" targetId="jwc3qq2y"/>
+                     </jumpTo>
+                  </flow>
+                  <link id="jwc3qqed" targetId="jwc3qqee" type="containerLink"/>
+                  <link id="k2uvnwfk" targetId="d"/>
+                  <events>
+                     <catch faultField="faultInfo" id="jwc3qqe6" interrupting="true">
+                        <link id="jwc3qqeg" targetId="jwc3qqeh" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>168ZrXWizSRkvNwsWIkKYF</types1:GUID>
+      <types1:DisplayName>RevPro-JournalEntries-GetTransferBatchFiles</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T17:45:58.241Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

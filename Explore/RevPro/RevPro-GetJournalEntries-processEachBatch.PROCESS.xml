@@ -1,0 +1,230 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>ci9zhFtybduaa-gt-10645060-2018-08-19T11:05:30.037Z::pd.xml</types1:EntryId>
+      <types1:Name>RevPro-GetJournalEntries-processEachBatch</types1:Name>
+      <types1:ParentFlowIds>nbdoEFsWTzIf6ri-gt-4598275-2018-08-14T00:10:10.224Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>RevPro-DataIntegration:Result</types1:AppliesTo>
+      <types1:Tags>.agent:INFA-AWS-DEV</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-08-19T11:05:30Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-08-27T00:57:15Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-20T20:20:39Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.RevPro-GetJournalEntries-processEachBatch/RevPro-GetJournalEntries-processEachBatch.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="RevPro-GetJournalEntries-processEachBatch"
+                  name="RevPro-GetJournalEntries-processEachBatch">
+            <appliesTo isCopy="true">RevPro-DataIntegration:Result</appliesTo>
+            <description/>
+            <tags>.agent:INFA-AWS-DEV</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="in_token" required="true" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description=""
+                      name="temp_RP_JournalEntry_FileWriter"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">File-RevPro-JournalEntryBatchFile:FileWriteTask</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">hlFtt6NkHclguMTMLz0viB</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_RP_JournalEntry_FileInfo"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">File-RevPro-JournalEntryBatchFile:FileInformation</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">hlFtt6NkHclguMTMLz0viB</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisBatchId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="normal">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jl2t97ao" targetId="jl2t97an"/>
+               </start>
+               <assignment id="jl2t97an">
+                  <title>Assign Batch Id to temp Field</title>
+                  <operation source="formula" to="temp.temp_thisBatchId">
+                     <expression language="XQuery">$id </expression>
+                  </operation>
+                  <link id="jl2t97ap" targetId="jeln1j6a"/>
+               </assignment>
+               <assignment id="jl0rgv9o">
+                  <title>Assign File Writer - Content &amp; File Name</title>
+                  <operation source="constant" to="temp.temp_RP_JournalEntry_FileWriter[1]/format">Attachment</operation>
+                  <operation source="formula" to="temp.temp_RP_JournalEntry_FileWriter[1]/fileName">
+                     <expression language="XQuery">fn:concat('FF_TransferBatchFile_RP_JournalEntries_',$temp.temp_thisBatchId,'.csv')</expression>
+                  </operation>
+                  <link id="jl0rgva0" targetId="jl2qzh6w"/>
+               </assignment>
+               <service id="jeln1j6a">
+                  <title>Get Transfer Batch File from RevPro</title>
+                  <serviceName>RevPro-DataIntegration:GetTransferBatchFile</serviceName>
+                  <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                  <serviceInput>
+                     <parameter name="batchId" source="field" updatable="true">temp.temp_thisBatchId</parameter>
+                     <parameter name="token" source="field" updatable="true">input.in_token</parameter>
+                  </serviceInput>
+                  <link id="jl0rgv9p" targetId="jl0rgv9o"/>
+               </service>
+               <eventContainer id="jl2qzh6w">
+                  <service id="jl0rgv9z">
+                     <title>Get the File onto Server</title>
+                     <serviceName>File-RevPro-JournalEntryBatchFile:RevProFileWriter-JournalEntries</serviceName>
+                     <serviceGUID>hlFtt6NkHclguMTMLz0viB</serviceGUID>
+                     <serviceInput>
+                        <parameter name="fileWriteTask" source="field" updatable="true">temp.temp_RP_JournalEntry_FileWriter</parameter>
+                        <parameter name="attachment" source="field" updatable="true">output.RP_JE_Attachment</parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="jl2qzh6z">
+                     <eventContainer id="jl2vvx6u">
+                        <service id="jl2vvx75">
+                           <title>Remove Header Footer from the File and Create temp File</title>
+                           <serviceName>avShellService</serviceName>
+                           <serviceGUID/>
+                           <serviceInput>
+                              <parameter name="command" source="formula">
+                                 <expression language="XQuery">fn:concat('tail -n +12 ','FF_TransferBatchFile_RP_JournalEntries_',$temp.temp_thisBatchId,'.csv | head -n -2 &gt; temp_FF_TransferBatchFile_RP_JournalEntries.csv')</expression>
+                              </parameter>
+                              <parameter name="workingDirPath" source="constant">/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT/RevPro/</parameter>
+                           </serviceInput>
+                        </service>
+                        <flow id="jl2vvx6v">
+                           <eventContainer id="jl2vymur">
+                              <service id="jl2vymtp">
+                                 <title>Move temp File Back to Original Batch File</title>
+                                 <serviceName>avShellService</serviceName>
+                                 <serviceGUID/>
+                                 <serviceInput>
+                                    <parameter name="command" source="formula">
+                                       <expression language="XQuery">fn:concat('mv temp_FF_TransferBatchFile_RP_JournalEntries.csv FF_TransferBatchFile_RP_JournalEntries_',$temp.temp_thisBatchId,'.csv')</expression>
+                                    </parameter>
+                                    <parameter name="workingDirPath" source="constant">/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT/RevPro/</parameter>
+                                 </serviceInput>
+                              </service>
+                              <flow id="jl2vymuu">
+                                 <service id="jwcr0ppt">
+                                    <title>Get Refresh Token</title>
+                                    <serviceName>RevPro-DataIntegration:Authentication</serviceName>
+                                    <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                                    <serviceInput/>
+                                    <link id="jwcr0pq6" targetId="jwcr0pq5"/>
+                                 </service>
+                                 <service id="jwcr0pq5">
+                                    <title>Update the batch status to 'Transferred' in RevPro</title>
+                                    <serviceName>RevPro-DataIntegration:UpdateTransferBatchStatus</serviceName>
+                                    <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="token" source="field" updatable="true">output.Token</parameter>
+                                       <parameter name="batchId" source="field" updatable="true">temp.temp_thisBatchId</parameter>
+                                    </serviceInput>
+                                    <link id="jwcr0pqw" targetId="jwcr0pqo"/>
+                                 </service>
+                                 <container id="jwcr0pqo" type="exclusive">
+                                    <title>Is the batch updated successfully</title>
+                                    <flow id="jwcr0pqp">
+                                       <link id="jwcr0pqu" targetId="jwcr0pqo" type="containerLink"/>
+                                    </flow>
+                                    <flow id="jwcr0pqq">
+                                       <service id="jwcr0pqr">
+                                          <title>Second Attempt - Update the batch status to 'Transferred' in RevPro</title>
+                                          <serviceName>RevPro-DataIntegration:UpdateTransferBatchStatus</serviceName>
+                                          <serviceGUID>8pKTvEmfxGRlPbZTxBc2uY</serviceGUID>
+                                          <serviceInput>
+                                             <parameter name="token" source="field" updatable="true">output.Token</parameter>
+                                             <parameter name="batchId" source="field" updatable="true">temp.temp_thisBatchId</parameter>
+                                          </serviceInput>
+                                       </service>
+                                       <link id="jwcr0pqv" targetId="jwcr0pqo" type="containerLink"/>
+                                    </flow>
+                                    <link id="jwcr0pqs" targetId="jwcr0pqp" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="string-equals">
+                                             <arg name="left">{$output.transferredBatch_httpResposneCode}</arg>
+                                             <arg name="right">200</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="jwcr0pqt" targetId="jwcr0pqq" type="containerLink"/>
+                                 </container>
+                                 <link id="jl2vymuv" targetId="jl2vymur" type="containerLink"/>
+                              </flow>
+                              <flow id="jl2vymuy">
+                                 <end id="jl2vymux"/>
+                              </flow>
+                              <link id="jl2vymus" targetId="jl2vymuu" type="containerLink"/>
+                              <link id="jwcr0pp2" targetId="jl2vvx72"/>
+                              <events>
+                                 <catch faultField="faultInfo-MovingTempFile"
+                                        id="jl2vymum"
+                                        interrupting="true">
+                                    <link id="jl2vymuw" targetId="jl2vymuy" type="containerLink"/>
+                                 </catch>
+                              </events>
+                           </eventContainer>
+                           <end id="jl2vvx72"/>
+                        </flow>
+                        <flow id="jl2vvx73">
+                           <end id="jl2vvx74"/>
+                        </flow>
+                        <link id="jl2vvx76" targetId="jl2vvx6v" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo-RemoveHeaderFooter"
+                                  id="jl2qzh95"
+                                  interrupting="true">
+                              <link id="jl2vvx77" targetId="jl2vvx73" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                  </flow>
+                  <flow id="jl2qzh73">
+                     <end id="jl2qzh72"/>
+                  </flow>
+                  <link id="jl2qzh6x" targetId="jl2qzh6z" type="containerLink"/>
+                  <events>
+                     <catch faultField="faultInfo-WritingFile"
+                            id="jl2qzh6t"
+                            interrupting="true">
+                        <link id="jl2qzh71" targetId="jl2qzh73" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>4awF6xd5lSofbSIslLnM4E</types1:GUID>
+      <types1:DisplayName>RevPro-GetJournalEntries-processEachBatch</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T17:45:58.14Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
