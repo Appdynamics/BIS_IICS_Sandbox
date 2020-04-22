@@ -1,0 +1,496 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>G06kck8jKBmeK3j-gt-7011859-2018-06-22T20:15:51.529Z::pd.xml</types1:EntryId>
+      <types1:Name>SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate</types1:Name>
+      <types1:ParentFlowIds>GRvDINciZBpDUQb-gt-120271-2017-01-15T04:43:52.6Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:pse__Proj__c</types1:AppliesTo>
+      <types1:Tags>.anonymous,NetSuite</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-06-22T20:15:51Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-10-01T22:01:41Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-21T22:48:00Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate/SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate"
+                  name="SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate">
+            <appliesTo>Salesforce:pse__Proj__c</appliesTo>
+            <description/>
+            <tags>NetSuite,.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_error" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_thisSalesOrder" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-SalesOrderUpdate:SalesOrder</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">6FawEgUNz2kckZ0oegYZea</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisItemList" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-SalesOrderUpdate:itemList</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">6FawEgUNz2kckZ0oegYZea</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisMilestoneList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:pse__Milestone__c</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisOrderProduct" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisItem" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-SalesOrderUpdate:item</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">6FawEgUNz2kckZ0oegYZea</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisMilestone" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:pse__Milestone__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_validateOrderSearchFields" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_search_custcol_sfdc_order_line_id"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_search_Line_internalId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_search_Line_Number" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_search_custcol_expiry_date" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_search_SalesOrder_internalId"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_lookupSFDC_MilestoneList"
+                      type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:pse__Milestone__c</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_currentOrderProduct" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_previousOrderProduct" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_areOrderProductsSame" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_lookupSFDC_ParentOrderProduct"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_lookupSFDC_currentProjectMileSone"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:pse__Milestone__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcOrderProductString" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisCalcOrderProductString" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_queryOrderProductString" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_thisOrderProductList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcUpdateDate" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jxn31v0a" targetId="jxn31uxg"/>
+               </start>
+               <assignment id="jxn31uxg">
+                  <title>Get MileStones from Salesforce</title>
+                  <operation source="list" to="temp.temp_lookupSFDC_MilestoneList">
+                     <query from="Salesforce:pse__Milestone__c">
+                        <where>pse__Project__c = '{$Id}' AND Order_Product__c != '' Order By Order_Product__c LIMIT 2000</where>
+                     </query>
+                  </operation>
+                  <operation source="field" to="temp.temp_thisMilestoneList">temp.temp_lookupSFDC_MilestoneList</operation>
+                  <link id="jxn31uxi" targetId="jivefh0m"/>
+               </assignment>
+               <assignment id="jivefh0m">
+                  <title>Assign - Milestones</title>
+                  <operation source="formula" to="temp.temp_thisMilestone">
+                     <expression language="XQuery">list:head($temp.temp_thisMilestoneList)</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_thisMilestoneList">
+                     <expression language="XQuery">list:tail($temp.temp_thisMilestoneList)</expression>
+                  </operation>
+                  <link id="jivefh2g" targetId="jivefh0z"/>
+               </assignment>
+               <container id="jivefh0z" type="exclusive">
+                  <title>Is Milestone Set?</title>
+                  <flow id="jivefh10">
+                     <assignment id="jxn1wmy4">
+                        <title>Calculate Order Product String</title>
+                        <operation source="formula" to="temp.temp_thisCalcOrderProductString">
+                           <expression language="XQuery">let $orderProduct := $temp.temp_thisMilestone.Order_Product__c
+let $orderProductParent := $temp.temp_thisMilestone.Order_Product__r.Parent_Id__c 
+return 
+if(fn:string-length($orderProduct)&gt;0 and fn:string-length($orderProductParent)&gt;0) then 
+fn:concat("'",$orderProduct,"','",$orderProductParent,"'") else fn:concat("'",$orderProduct,"'")</expression>
+                        </operation>
+                        <operation source="formula" to="temp.temp_calcOrderProductString">
+                           <expression language="XQuery">if(fn:string-length($temp.temp_calcOrderProductString)&gt;0) then fn:concat($temp.temp_calcOrderProductString,",",$temp.temp_thisCalcOrderProductString) else $temp.temp_thisCalcOrderProductString </expression>
+                        </operation>
+                        <link id="jxn31u1i" targetId="jxn31tz8"/>
+                     </assignment>
+                     <jumpTo id="jxn31tz8">
+                        <link id="jxn31tz9" targetId="jivefh0m"/>
+                     </jumpTo>
+                  </flow>
+                  <flow id="jivefh1g">
+                     <assignment id="jxn31u21">
+                        <title>Query Order Product String</title>
+                        <operation source="formula" to="temp.temp_queryOrderProductString">
+                           <expression language="XQuery">fn:concat("Id in (",$temp.temp_calcOrderProductString,") OR Parent_Id__c in ","(",$temp.temp_calcOrderProductString,")")</expression>
+                        </operation>
+                        <operation source="formula" to="temp.temp_calcUpdateDate">
+                           <expression language="XQuery">let $currentPSTDate := infa:format(xs:string(fn:current-dateTime()),"yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "America/Los_Angeles", 'us') 
+return 
+fn:substring(xs:string($currentPSTDate),1,10)</expression>
+                        </operation>
+                        <link id="jxn31u22" targetId="jxn31to5"/>
+                     </assignment>
+                     <assignment id="jxn31to5">
+                        <title>Get All Order Products</title>
+                        <operation source="list" to="temp.temp_thisOrderProductList">
+                           <query from="Salesforce:OrderItem">
+                              <where>{$temp.temp_queryOrderProductString}</where>
+                           </query>
+                        </operation>
+                        <link id="jxn31ua5" targetId="jxn31ua4"/>
+                     </assignment>
+                     <assignment id="jxn31ua4">
+                        <title>Assign - Order Products</title>
+                        <operation source="formula" to="temp.temp_thisOrderProduct">
+                           <expression language="XQuery">list:head($temp.temp_thisOrderProductList)</expression>
+                        </operation>
+                        <operation source="formula" to="temp.temp_thisOrderProductList">
+                           <expression language="XQuery">list:tail($temp.temp_thisOrderProductList)</expression>
+                        </operation>
+                        <link id="jxn31uep" targetId="jxn31ueo"/>
+                     </assignment>
+                     <container id="jxn31ueo" type="exclusive">
+                        <title>Is Order Product Set?</title>
+                        <flow id="jxn31ues">
+                           <assignment id="jxn31uhe">
+                              <title>Assign Values to temp Search fields</title>
+                              <operation source="formula" to="temp.temp_search_custcol_expiry_date">
+                                 <expression language="XQuery">()</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_search_custcol_sfdc_order_line_id">
+                                 <expression language="XQuery">()</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_search_Line_internalId">
+                                 <expression language="XQuery">()</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_search_Line_Number">
+                                 <expression language="XQuery">()</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_search_SalesOrder_internalId">
+                                 <expression language="XQuery">()</expression>
+                              </operation>
+                              <link id="jxn31ujm" targetId="jxn31ujl"/>
+                           </assignment>
+                           <assignment id="jxn31uma">
+                              <title>Assign NS Fields to temp Fields &amp; expiration Date Check</title>
+                              <operation source="field" to="temp.temp_search_custcol_expiry_date">output.search_custcol_expiry_date</operation>
+                              <operation source="field" to="temp.temp_search_custcol_sfdc_order_line_id">output.search_custcol_sfdc_order_line_id</operation>
+                              <operation source="field" to="temp.temp_search_Line_internalId">output.search_Line_internalId</operation>
+                              <operation source="field" to="temp.temp_search_Line_Number">output.search_Line_Number</operation>
+                              <operation source="field" to="temp.temp_search_SalesOrder_internalId">output.search_SalesOrder_internalId</operation>
+                              <operation source="formula" to="temp.temp_validateOrderSearchFields">
+                                 <expression language="XQuery">if(fn:exists($temp.temp_search_custcol_sfdc_order_line_id) and fn:exists($temp.temp_search_SalesOrder_internalId) and fn:exists($temp.temp_search_Line_Number) and fn:exists($temp.temp_search_Line_internalId) and 
+fn:exists($Service_Expiration_Date__c)) then true() else false()</expression>
+                              </operation>
+                              <link id="jxn31uqj" targetId="jxn31uq8"/>
+                           </assignment>
+                           <service id="jxn31ujl">
+                              <title>NS Service &amp; Get the Order Product  Line Item</title>
+                              <serviceName>NetSuite-SalesOrderUpdate:searchSalesOrder</serviceName>
+                              <serviceGUID>6FawEgUNz2kckZ0oegYZea</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="salesOrder_tranId_search" source="field" updatable="true">temp.temp_thisOrderProduct.Order.OrderReferenceNumber</parameter>
+                                 <parameter name="sfdcOrderLineId_search" source="field">temp.temp_thisOrderProduct.Id</parameter>
+                              </serviceInput>
+                              <link id="jxn31umb" targetId="jxn31uma"/>
+                           </service>
+                           <container id="jxn31uq8" type="exclusive">
+                              <title>Is Order Line Found?</title>
+                              <flow id="jxn31uq9">
+                                 <assignment id="jxn31uqa">
+                                    <title>Assign Values to Item</title>
+                                    <operation source="field" to="temp.temp_thisItem[1]/internalId">temp.temp_search_Line_internalId</operation>
+                                    <operation source="formula" to="temp.temp_thisItem[1]/custcol_expiry_date">
+                                       <expression language="XQuery">fn:concat($Service_Expiration_Date__c, 'T00:00:00.000-08:00')</expression>
+                                    </operation>
+                                    <operation source="field" to="temp.temp_thisItem[1]/line">temp.temp_search_Line_Number</operation>
+                                    <operation source="formula"
+                                               to="temp.temp_thisItem[1]/custcol_expirydate_lastupdate">
+                                       <expression language="XQuery">fn:concat($temp.temp_calcUpdateDate , 'T00:00:00.000-08:00')</expression>
+                                    </operation>
+                                    <link id="jxn31uqh" targetId="jxn31uqb"/>
+                                 </assignment>
+                                 <assignment id="jxn31uqb">
+                                    <title>Assign Values to Items</title>
+                                    <operation source="formula" to="temp.temp_thisItemList[1]/item">
+                                       <function name="list:append">
+                                          <arg name="dest_field">{$temp.temp_thisItemList[1]/item}</arg>
+                                          <arg name="new_field">{$temp.temp_thisItem}</arg>
+                                       </function>
+                                    </operation>
+                                 </assignment>
+                                 <link id="jxn31uqg" targetId="jxn31uq8" type="containerLink"/>
+                              </flow>
+                              <flow id="jxn31uqc">
+                                 <link id="jxn31uqi" targetId="jxn31uq8" type="containerLink"/>
+                              </flow>
+                              <link id="jxn31uqe" targetId="jxn31uq9" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="true">
+                                       <arg name="field">{$temp.temp_validateOrderSearchFields}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jxn31uqf" targetId="jxn31uqc" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="false">
+                                       <arg name="field">{$temp.temp_validateOrderSearchFields}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jxn31urx" targetId="jxn31urv"/>
+                           </container>
+                           <jumpTo id="jxn31urv">
+                              <link id="jxn31urw" targetId="jxn31ua4"/>
+                           </jumpTo>
+                        </flow>
+                        <flow id="jxn31uev">
+                           <container id="jxn31unn" type="exclusive">
+                              <title>Are all Items Found &amp; Done?</title>
+                              <flow id="jxn31uno">
+                                 <assignment id="jxn31unp">
+                                    <title>Assign Values to SO</title>
+                                    <operation source="field" to="temp.temp_thisSalesOrder[1]/internalId">temp.temp_search_SalesOrder_internalId</operation>
+                                    <operation source="field" to="temp.temp_thisSalesOrder[1]/itemList">temp.temp_thisItemList</operation>
+                                    <link id="jxn31uo3" targetId="jxn31unq"/>
+                                 </assignment>
+                                 <eventContainer id="jxn31unq">
+                                    <service id="jxn31uny">
+                                       <title>Update SalesOrder</title>
+                                       <serviceName>NetSuite-SalesOrderUpdate:updateSalesOrder</serviceName>
+                                       <serviceGUID>6FawEgUNz2kckZ0oegYZea</serviceGUID>
+                                       <serviceInput>
+                                          <parameter name="SalesOrder_internalId" source="field" updatable="true">temp.temp_search_SalesOrder_internalId</parameter>
+                                          <parameter name="SalesOrder" source="field">temp.temp_thisSalesOrder</parameter>
+                                       </serviceInput>
+                                    </service>
+                                    <flow id="jxn31unr">
+                                       <container id="jxn31uns" type="exclusive">
+                                          <title>Is SO Updated Successfully</title>
+                                          <flow id="jxn31unt">
+                                             <link id="jxn31uo9" targetId="jxn31uns" type="containerLink"/>
+                                          </flow>
+                                          <flow id="jxn31unu">
+                                             <assignment id="jxn31unv">
+                                                <title>Assign Error to Output - Update Error</title>
+                                                <operation source="field" to="output.out_error">output.errorMessages</operation>
+                                             </assignment>
+                                             <link id="jxn31uoa" targetId="jxn31uns" type="containerLink"/>
+                                          </flow>
+                                          <link id="jxn31uo7" targetId="jxn31unt" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="string-equals">
+                                                   <arg name="left">{$output.isUpdateSOSuccess}</arg>
+                                                   <arg name="right">true</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                          <link id="jxn31uo8" targetId="jxn31unu" type="containerLink"/>
+                                       </container>
+                                       <link id="jxn31uo6" targetId="jxn31unq" type="containerLink"/>
+                                    </flow>
+                                    <flow id="jxn31unw">
+                                       <assignment id="jxn31unx">
+                                          <title>Assign Error to Output</title>
+                                          <operation source="field" to="output.out_error">output.faultInfo-SalesOrderUpdate[1]/reason</operation>
+                                       </assignment>
+                                       <link id="jxn31uob" targetId="jxn31unq" type="containerLink"/>
+                                    </flow>
+                                    <link id="jxn31uo4" targetId="jxn31unr" type="containerLink"/>
+                                    <events>
+                                       <catch faultField="faultInfo-SalesOrderUpdate"
+                                              id="jivcrowv"
+                                              interrupting="true">
+                                          <link id="jxn31uo5" targetId="jxn31unw" type="containerLink"/>
+                                       </catch>
+                                    </events>
+                                 </eventContainer>
+                                 <link id="jxn31uo2" targetId="jxn31unn" type="containerLink"/>
+                              </flow>
+                              <flow id="jxn31unz">
+                                 <link id="jxn31uoc" targetId="jxn31unn" type="containerLink"/>
+                              </flow>
+                              <link id="jxn31uo0" targetId="jxn31uno" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="set">
+                                       <arg name="field">{$temp.temp_thisItemList}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jxn31uo1" targetId="jxn31unz" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="unset">
+                                       <arg name="field">{$temp.temp_thisItemList}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jxn31uus" targetId="jxn31uur"/>
+                           </container>
+                           <end id="jxn31uur"/>
+                        </flow>
+                        <link id="jxn31uer" targetId="jxn31ues" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_thisOrderProduct}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="jxn31ueu" targetId="jxn31uev" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_thisOrderProduct}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                  </flow>
+                  <link id="jivefh1r" targetId="jivefh10" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_thisMilestone}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jivefh1s" targetId="jivefh1g" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_thisMilestone}</arg>
+                        </function>
+                     </condition>
+                  </link>
+               </container>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>5k33i3pUu7AfiAPpvdgkyW</types1:GUID>
+      <types1:DisplayName>SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-22T17:59:24.207Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
