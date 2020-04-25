@@ -1,0 +1,65 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>sGRvDINciZBpDUQ-gt-41717969-2019-01-22T19:00:15.292Z::conn.xml</types1:EntryId>
+      <types1:Name>Attachments-UserImageDownload</types1:Name>
+      <types1:ParentFlowIds>2hAGE7ppppppppp-gt-28807105-2019-01-31T06:11:56.855Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-01-22T19:00:15Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-01-22T19:00:42Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-01-31T05:59:47Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/Attachments-UserImageDownload/Attachments-UserImageDownload.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     displayName="Attachments-UserImageDownload"
+                     label="Attachments-UserImageDownload"
+                     name="Attachments-UserImageDownload">
+            <description/>
+            <tags>.agent:INFA-AWS-DEV</tags>
+            <agent>INFA-AWS-DEV</agent>
+            <attributes/>
+            <producers>
+               <producer enabled="true" name="UserImageWriter" typeName="FileWriter">
+                  <attributes>
+                     <attribute encrypted="false"
+                                name="directoryName"
+                                value="/opt/infaagent/apps/Data_Integration_Server/data/stage/OrgChartNow/images"/>
+                     <attribute encrypted="false" name="fileExist" value="Override"/>
+                     <attribute encrypted="false" name="moveExisting" value=""/>
+                     <attribute encrypted="false" name="eagerDeleteTargetFile" value="true"/>
+                     <attribute encrypted="false" name="tempPrefix" value=""/>
+                     <attribute encrypted="false" name="tempFileName" value=""/>
+                     <attribute encrypted="false" name="forceWrites" value="true"/>
+                     <attribute encrypted="false" name="bufferSize" value=""/>
+                     <attribute encrypted="false" name="charset" value=""/>
+                  </attributes>
+               </producer>
+            </producers>
+            <javaConnector xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                           agentOnly="true"
+                           plugin="Camel"
+                           supportsConnectionTest="true"
+                           supportsDataPreview="false"
+                           supportsOData="false"
+                           type="File"
+                           uuid="ac000300-d9fe-11e4-8830-0800200c9a66">
+               <description>Provides connections to file monitoring brokers.</description>
+            </javaConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>5IxYnq4YWVNkCfGAznNiKn</types1:GUID>
+      <types1:DisplayName>Attachments-UserImageDownload</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:24:23.739Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
