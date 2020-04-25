@@ -1,0 +1,66 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>SGzqzm5Y6tMFygl-gt-214473-2019-02-16T01:07:27.178Z::pd.xml</types1:EntryId>
+      <types1:Name>SFDCOpportunityCreateContract</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:Opportunity</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>keo.zaiger@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-02-16T01:07:27Z</types1:CreationDate>
+      <types1:ModifiedBy>keo.zaiger@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-03-01T21:26:24Z</types1:ModificationDate>
+      <types1:PublicationStatus>unpublished</types1:PublicationStatus>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SFDCOpportunityCreateContract"
+                  name="SFDCOpportunityCreateContract">
+            <appliesTo>Salesforce:Opportunity</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 10</generator>
+            <notes/>
+            <deployment suspendOnFault="true" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jsf7xpg6" targetId="jsf7xpg5"/>
+               </start>
+               <milestone id="jsf7xpg5">
+                  <title>200 OK</title>
+                  <link id="jsf7xpg7" targetId="js6s6v26"/>
+               </milestone>
+               <wait id="js6s6v26">
+                  <title>Wait 10 minutes</title>
+                  <duration source="formula">
+                     <function name="duration_expression">
+                        <arg name="value">10</arg>
+                        <arg name="scale">M</arg>
+                        <arg name="businessDays"/>
+                     </function>
+                  </duration>
+                  <link id="js6s6v2c" targetId="js6s6v2b"/>
+               </wait>
+               <assignment id="js6s6v2b">
+                  <title>Create Contract from Opportunity</title>
+                  <operation source="constant" to="SBQQ__Contracted__c">true</operation>
+                  <link id="js6s6v2d" targetId="c"/>
+               </assignment>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>jrtIkOOyyKZdEaPgefBJyZ</types1:GUID>
+      <types1:DisplayName>SFDCOpportunityCreateContract</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T16:21:59.846Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
