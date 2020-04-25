@@ -1,0 +1,187 @@
+{
+  "objectInfo" : {
+    "id" : "hS1MB8v8wgMg5Bz7KFT7U0",
+    "name" : "TF_ManualRuns_EmployeeSync_FromCiscoART_To_Netsuite",
+    "type" : "WORKFLOW",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0N00000000003M"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "zip",
+  "objectRefs" : [ {
+    "id" : "2ML0nCLVWAtlxTgStID9WO",
+    "name" : "mct_EmployeeSync_FromCiscoART_04_ExtractCiscoDeptLookupTable",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FF"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  }, {
+    "id" : "0rbGebiAdIvgupxJFfr7kA",
+    "name" : "mct_EmployeeSync_FromCiscoART_06a_File_To_Netsuite_Upsert",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FH"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  }, {
+    "id" : "0B80tosKVRxhkS4yfWAFOk",
+    "name" : "mct_EmployeeSync_FromCiscoART_03_ExtractNetsuiteEmployees",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FE"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  }, {
+    "id" : "jsK7VLJDjuRd9tWDk3r9A8",
+    "name" : "mct_EmployeeSync_FromCiscoART_08_File_To_Netsuite_SupervisorUpdate",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FJ"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  }, {
+    "id" : "8I5akWOqn6rcRU73nE2gyf",
+    "name" : "mct_EmployeeSync_FromCiscoART_05_CreateNetsuiteFile",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FG"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  }, {
+    "id" : "1ht3LDUWmlrhe3Af58vz2d",
+    "name" : "mct_EmployeeSync_FromCiscoART_06b_File_To_Netsuite_UpsertErrors",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FN"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  }, {
+    "id" : "1xr2RLK4ERbhoBB4QxhVA7",
+    "name" : "mct_EmployeeSync_FromCiscoART_09_File_To_Netsuite_SupervisorUpdateErrors",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FK"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  }, {
+    "id" : "9WVKFb3hnpXgyb5XXXBgi7",
+    "name" : "mct_EmployeeSync_FromCiscoART_07_ExtractNetsuiteEmployees_ForHierarchy",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000FI"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/EmployeeSync"
+  } ]
+}
