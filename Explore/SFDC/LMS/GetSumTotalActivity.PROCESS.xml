@@ -1,0 +1,122 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>R3DnHrWLU6S6fPA-gt-22157637-2017-11-23T04:37:07.706Z::pd.xml</types1:EntryId>
+      <types1:Name>GetSumTotalActivity</types1:Name>
+      <types1:ParentFlowIds>x6I1dq2ME9paabd-gt-1137199-2017-12-19T05:48:29.386Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:AppDynamics_University_Voucher__c</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-11-23T04:37:07Z</types1:CreationDate>
+      <types1:ModifiedBy>justin.wong@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2017-12-06T18:28:45Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-03-17T23:42:28Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.GetSumTotalActivity/GetSumTotalActivity.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="GetSumTotalActivity"
+                  name="GetSumTotalActivity">
+            <appliesTo>Salesforce:AppDynamics_University_Voucher__c</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 8</generator>
+            <output>
+               <field name="activityId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="link1" targetId="c"/>
+               </start>
+               <service id="c">
+                  <title>Login</title>
+                  <serviceName>SumTotal:Login</serviceName>
+                  <serviceGUID>8jyOm35xCAXdXSPy5xRYCg</serviceGUID>
+                  <serviceInput/>
+                  <link id="javdbucz" targetId="javdbucy"/>
+               </service>
+               <container id="javdbucy" type="exclusive">
+                  <title>httpStatus</title>
+                  <flow id="javdbudc">
+                     <service id="javdbudm">
+                        <title>SearchActivities</title>
+                        <serviceName>SumTotal:SearchActivities</serviceName>
+                        <serviceGUID>8jyOm35xCAXdXSPy5xRYCg</serviceGUID>
+                        <serviceInput>
+                           <parameter name="UserToken" source="field" updatable="true">output.UserToken</parameter>
+                           <parameter name="code" source="field">Voucher_Code__c</parameter>
+                        </serviceInput>
+                        <link id="javdbuen" targetId="javdbued"/>
+                     </service>
+                     <container id="javdbued" type="exclusive">
+                        <title>Id</title>
+                        <flow id="javdbuee">
+                           <link id="javdbuek" targetId="javdbued" type="containerLink"/>
+                        </flow>
+                        <flow id="javdbuef">
+                           <assignment id="javdbueg">
+                              <title>Assignment to activityId</title>
+                              <operation source="formula" to="output.activityId">
+                                 <expression language="XQuery">fn:substring-after($output.Id, '.')</expression>
+                              </operation>
+                              <link id="javdbuem" targetId="javdbueh"/>
+                           </assignment>
+                           <assignment id="javdbueh">
+                              <title>Assignment to Registration URL</title>
+                              <operation source="field" to="Registration_URL__c">output.activityId</operation>
+                           </assignment>
+                           <link id="javdbuel" targetId="javdbued" type="containerLink"/>
+                        </flow>
+                        <link id="javdbuei" targetId="javdbuee" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$output.Id}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="javdbuej" targetId="javdbuef" type="containerLink"/>
+                     </container>
+                     <link id="javdbudd" targetId="javdbucy" type="containerLink"/>
+                  </flow>
+                  <flow id="javdbudf">
+                     <link id="javdbudg" targetId="javdbucy" type="containerLink"/>
+                  </flow>
+                  <link id="javdbud9" targetId="javdbudc" type="containerLink">
+                     <condition source="formula">
+                        <function name="contains">
+                           <arg name="left">{$output.httpStatus}</arg>
+                           <arg name="right">200</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="javdbuev" targetId="d"/>
+                  <link id="javdbuda" targetId="javdbudf" type="containerLink"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>4QtNFkQ0eH1gc41Af2P3WL</types1:GUID>
+      <types1:DisplayName>GetSumTotalActivity</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T16:20:32.431Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
