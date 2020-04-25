@@ -1,0 +1,52 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>ZQELaabclvAhrsw-gt-595319-2017-01-16T22:08:03.834Z::conn.xml</types1:EntryId>
+      <types1:Name>Coupa-Users</types1:Name>
+      <types1:ParentFlowIds>9yCEx9dwMbgbdoP-gt-14057092-2017-04-22T23:18:05.998Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-01-16T22:08:03Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-07-30T20:04:48Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-07-30T20:04:58Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/Coupa-Users/Coupa-Users.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     displayName="Coupa-Users"
+                     label="Coupa-Users"
+                     name="Coupa-Users">
+            <description/>
+            <tags/>
+            <agent/>
+            <attributes>
+               <attribute encrypted="true" name="X_COUPA_API_KEY" value=""/>
+               <attribute encrypted="false"
+                          name="URL"
+                          value="https://appdynamics-dev.coupahost.com/api/users"/>
+            </attributes>
+            <businessConnector xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                               agentOnly="false"
+                               connectorPath="project:/rt.connector/Coupa_Users/Coupa_Users_svcDef.xml"
+                               guid="fWP8bYoCF82hMTIsLpdukf"
+                               name="Coupa-Users"
+                               supportsConnectionTest="false"
+                               uuid="52ea3274-c002-4703-9b26-c22af46d7567">
+               <description/>
+            </businessConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>7cNlvwZoDZ4gUGMRFmYYql</types1:GUID>
+      <types1:DisplayName>Coupa-Users</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:22:47.305Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

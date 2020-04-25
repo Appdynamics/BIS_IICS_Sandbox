@@ -1,0 +1,640 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>y8NTYglxbdypKwK-gt-4550704-2016-06-01T19:40:25.399Z::svc.xml</types1:EntryId>
+      <types1:Name>CoupaConnector</types1:Name>
+      <types1:ParentFlowIds>6cmkbclopz4KhPV-gt-4477732-2016-05-13T15:29:33.922Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-06-01T19:40:25Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-07-30T20:02:21Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-07-30T20:02:32Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/CoupaConnector/CoupaConnector_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="false"
+                            displayName="CoupaConnector"
+                            label=""
+                            name="CoupaConnector"
+                            uuid="9120f4a1-dd6f-4f88-8e0e-6a7ffd61d761">
+            <description/>
+            <tags/>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description="This is the mandatory key for Coupa API"
+                                    masked="true"
+                                    name="X_COUPA_API_KEY"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+            </connectionAttributes>
+            <actions>
+               <action category="POST"
+                       failOnError="true"
+                       forSearch="false"
+                       label="ExchangeRatePOST"
+                       maxRedirects="100"
+                       name="ExchangeRatePOST"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="From_Currency_Code"
+                                name="From_Currency_Code"
+                                required="true"
+                                testWith="USD"
+                                type="string"/>
+                     <parameter label="To_Currency_Code"
+                                name="To_Currency_Code"
+                                required="true"
+                                testWith="GBP"
+                                type="string"/>
+                     <parameter label="Rate"
+                                name="Rate"
+                                required="true"
+                                testWith="0.6845095442226741"
+                                type="double"/>
+                     <parameter label="Rate_Date"
+                                name="Rate_Date"
+                                required="true"
+                                testWith="2016-06-02T04:25:33.066Z"
+                                type="date"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/exchange_rates"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;exchange-rate&gt;
+    &lt;from-currency&gt;
+        &lt;code&gt;{$From_Currency_Code}&lt;/code&gt;
+    &lt;/from-currency&gt;
+    &lt;to-currency&gt;
+        &lt;code&gt;{$To_Currency_Code}&lt;/code&gt;
+    &lt;/to-currency&gt;
+    &lt;rate&gt;{$Rate}&lt;/rate&gt;
+    &lt;rate-date&gt;{$Rate_Date}&lt;/rate-date&gt;
+&lt;/exchange-rate&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="status"
+                            responseStatusCode="true"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category="GET"
+                       failOnError="true"
+                       forSearch="false"
+                       label="ActiveCurrencyGET"
+                       maxRedirects="100"
+                       name="ActiveCurrencyGET"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input/>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/currencies"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="code" property="code" type="string"/>
+                     <field description=""
+                            name="currency"
+                            type="objectlist"
+                            xmlElement="currency">
+                        <options>
+                           <option name="referenceTo">currency</option>
+                        </options>
+                     </field>
+                     <field description="" name="currencyList" type="string">
+                        <xquery>{//code/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="GET"
+                       failOnError="false"
+                       forSearch="false"
+                       label="LookupValuesGET"
+                       maxRedirects="100"
+                       name="LookupValuesGET"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter name="external-ref-num"
+                                required="true"
+                                testWith="1151"
+                                type="string"/>
+                     <parameter description="In Sandbox:&#xA;Location - '1'&#xA;Companies - '2'  &#xA;Departments - '3'  &#xA;Accounts - '4'&#xA;&#xA;In PROD:&#xA;Companies - '1'&#xA;Accounts - '2'  &#xA;Departments - '3'  &#xA;Location - '4'"
+                                label="Coupa Lookup Type Id"
+                                name="lookup-id"
+                                required="true"
+                                testWith="2"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/lookup_values"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="name" property="name" type="string"/>
+                     <field description=""
+                            name="description"
+                            property="description"
+                            type="string"/>
+                     <field description="" name="active" property="active" type="string"/>
+                     <field description=""
+                            name="external_ref_num"
+                            property="external-ref-num"
+                            type="string"/>
+                     <field description=""
+                            name="external_ref_code"
+                            property="external_ref_code"
+                            type="string"/>
+                     <field description=""
+                            name="lookupType_id"
+                            property="lookup-id"
+                            type="string"/>
+                     <field description=""
+                            name="lookupType_name"
+                            property="name"
+                            type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                  </output>
+               </action>
+               <action category="POST"
+                       failOnError="true"
+                       forSearch="false"
+                       label="LookupValuesPOST"
+                       maxRedirects="100"
+                       name="LookupValuesPOST"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="name"
+                                name="name"
+                                required="true"
+                                testWith="test Account1"
+                                type="string"/>
+                     <parameter label="description"
+                                name="description"
+                                required="true"
+                                testWith="test description1"
+                                type="string"/>
+                     <parameter label="active"
+                                name="active"
+                                required="true"
+                                testWith="true"
+                                type="string"/>
+                     <parameter label="external_ref_num"
+                                name="external_ref_num"
+                                required="true"
+                                testWith="999998"
+                                type="string"/>
+                     <parameter description="In Sandbox:&#xA;Location - '1'&#xA;Companies - '2'  &#xA;Departments - '3'  &#xA;Accounts - '4'&#xA;&#xA;In PROD:&#xA;Companies - '1'&#xA;Accounts - '2'  &#xA;Departments - '3'  &#xA;Location - '4'"
+                                label="lookupType_Id"
+                                name="lookupType_id"
+                                required="true"
+                                testWith="2"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/lookup_values"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X_COUPA_API_KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;lookup-value&gt;
+        &lt;active&gt;{$active}&lt;/active&gt;
+        &lt;name&gt;{$name}&lt;/name&gt;
+        &lt;description&gt;{$description}&lt;/description&gt;
+        &lt;external-ref-num&gt;{$external_ref_num}&lt;/external-ref-num&gt;
+        &lt;lookup-id&gt;{$lookupType_id}&lt;/lookup-id&gt;
+&lt;/lookup-value&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="name" property="name" type="string"/>
+                     <field description=""
+                            name="description"
+                            property="description"
+                            type="string"/>
+                     <field description=""
+                            name="external_ref_num"
+                            property="external-ref-num"
+                            type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                  </output>
+               </action>
+               <action category="PUT"
+                       failOnError="true"
+                       forSearch="false"
+                       label="LookupValuesPUT"
+                       maxRedirects="100"
+                       name="LookupValuesPUT"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="id"
+                                name="id"
+                                required="true"
+                                testWith="239"
+                                type="string"/>
+                     <parameter label="name"
+                                name="name"
+                                required="true"
+                                testWith="test Account 1"
+                                type="string"/>
+                     <parameter label="description"
+                                name="description"
+                                required="true"
+                                testWith="test description 1"
+                                type="string"/>
+                     <parameter label="active"
+                                name="active"
+                                required="true"
+                                testWith="true"
+                                type="string"/>
+                     <parameter label="external_ref_num"
+                                name="external_ref_num"
+                                required="true"
+                                testWith="999998"
+                                type="string"/>
+                     <parameter description="In Sandbox:&#xA;Location - '1'&#xA;Companies - '2'  &#xA;Departments - '3'  &#xA;Accounts - '4'&#xA;&#xA;In PROD:&#xA;Companies - '1'&#xA;Accounts - '2'  &#xA;Departments - '3'  &#xA;Location - '4'"
+                                label="lookupType_id"
+                                name="lookupType_id"
+                                required="true"
+                                testWith="2"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/lookup_values/{$id}"
+                                        verb="PUT">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X_COUPA_API_KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;lookup-value&gt;
+        &lt;active&gt;{$active}&lt;/active&gt;
+        &lt;name&gt;{$name}&lt;/name&gt;
+        &lt;description&gt;{$description}&lt;/description&gt;
+        &lt;external-ref-num&gt;{$external_ref_num}&lt;/external-ref-num&gt;
+        &lt;lookup-id&gt;{$lookupType_id}&lt;/lookup-id&gt;
+&lt;/lookup-value&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="name" property="name" type="string"/>
+                     <field description=""
+                            name="description"
+                            property="description"
+                            type="string"/>
+                     <field description=""
+                            name="external_ref_num"
+                            property="external-ref-num"
+                            type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                  </output>
+               </action>
+               <action category="GET"
+                       failOnError="false"
+                       forSearch="false"
+                       label="DepartmentGETbyDeptCode"
+                       maxRedirects="100"
+                       name="DepartmentGETbyDeptCode"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="dept-code"
+                                name="dept_code"
+                                required="false"
+                                testWith="25"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/departments"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="name" property="name" type="string"/>
+                     <field description=""
+                            name="dept_code"
+                            property="dept-code"
+                            type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                  </output>
+               </action>
+               <action category="POST"
+                       failOnError="true"
+                       forSearch="false"
+                       label="DepartmentPOST"
+                       maxRedirects="100"
+                       name="DepartmentPOST"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="name"
+                                name="name"
+                                required="true"
+                                testWith="G&amp;A-1"
+                                type="string"/>
+                     <parameter label="active"
+                                name="active"
+                                required="true"
+                                testWith="true"
+                                type="string"/>
+                     <parameter description="netsuite internal id"
+                                label="dept-code"
+                                name="dept_code"
+                                required="true"
+                                testWith="1"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/departments"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X_COUPA_API_KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;department&gt;
+        &lt;active&gt;{$active}&lt;/active&gt;
+        &lt;name&gt;{$name}&lt;/name&gt;
+        &lt;dept-code&gt;{$dept_code}&lt;/dept-code&gt;
+&lt;/department&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="name" property="name" type="string"/>
+                     <field description="" name="active" property="active" type="string"/>
+                     <field description="NS internal id"
+                            name="dept_code"
+                            property="dept-code"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category="PUT"
+                       failOnError="true"
+                       forSearch="false"
+                       label="DepartmentPUT"
+                       maxRedirects="100"
+                       name="DepartmentPUT"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="id"
+                                name="id"
+                                required="true"
+                                testWith="52"
+                                type="string"/>
+                     <parameter label="name"
+                                name="name"
+                                required="true"
+                                testWith="S&amp;M: Marketing: Marketing"
+                                type="string"/>
+                     <parameter label="active"
+                                name="active"
+                                required="true"
+                                testWith="true"
+                                type="string"/>
+                     <parameter description="Netsuite internal id"
+                                label="dept-code"
+                                name="dept_code"
+                                required="true"
+                                testWith="4"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/departments/{$id}"
+                                        verb="PUT">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X_COUPA_API_KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;department&gt;
+        &lt;id&gt;{$id}&lt;/id&gt;
+        &lt;active&gt;{$active}&lt;/active&gt;
+        &lt;name&gt;{$name}&lt;/name&gt;
+        &lt;dept-code&gt;{$dept_code}&lt;/dept-code&gt;
+&lt;/department&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="name" property="name" type="string"/>
+                     <field description="" name="active" property="active" type="string"/>
+                     <field description="netsuite internal id"
+                            name="dept_code"
+                            property="dept-code"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category="GET"
+                       failOnError="false"
+                       forSearch="false"
+                       label="DepartmentGETbyId"
+                       maxRedirects="100"
+                       name="DepartmentGETbyId"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter name="id" required="false" testWith="1" type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://appdynamics-dev.coupahost.com/api/departments"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="id" property="id" type="string"/>
+                     <field description="" name="name" property="name" type="string"/>
+                     <field description=""
+                            name="dept_code"
+                            property="dept-code"
+                            type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="currencies">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="type" type="string"/>
+                     <field name="currency" type="objectlist">
+                        <options>
+                           <option name="referenceTo">currency</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="currency">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="id" type="reference">
+                        <options>
+                           <option name="referenceTo">id</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="code" type="string"/>
+                     <field name="decimals" type="reference">
+                        <options>
+                           <option name="referenceTo">decimals</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="updated-by" type="reference">
+                        <options>
+                           <option name="referenceTo">updated-by</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="id">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="type" type="string"/>
+                     <field name="text" type="int"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="decimals">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="type" type="string"/>
+                     <field name="text" type="int"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="updated-by">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="id" type="reference">
+                        <options>
+                           <option name="referenceTo">id</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="login" type="string"/>
+                     <field name="email" type="string"/>
+                     <field name="employee-number" type="reference">
+                        <options>
+                           <option name="referenceTo">employee-number</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="firstname" type="string"/>
+                     <field name="lastname" type="string"/>
+                     <field name="salesforce-id" type="reference">
+                        <options>
+                           <option name="referenceTo">salesforce-id</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="avatar-thumb-url" type="reference">
+                        <options>
+                           <option name="referenceTo">avatar-thumb-url</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="company-code" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="employee-number">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="nil" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="salesforce-id">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="nil" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="avatar-thumb-url">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="nil" type="string"/>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>jyjjjqked06lGJCRnfZ7m1</types1:GUID>
+      <types1:DisplayName>CoupaConnector</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:22:47.222Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

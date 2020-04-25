@@ -1,0 +1,564 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>xMXdzWztZK0CYyb-gt-566112-2017-01-16T21:04:02.382Z::svc.xml</types1:EntryId>
+      <types1:Name>Coupa-Users</types1:Name>
+      <types1:ParentFlowIds>ZQELaabclvAhrsw-gt-595319-2017-01-16T22:08:03.834Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-01-16T21:04:02Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2018-02-22T20:09:11Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2018-02-22T20:09:17Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/Coupa_Users/Coupa_Users_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="false"
+                            label=""
+                            name="Coupa-Users"
+                            uuid="52ea3274-c002-4703-9b26-c22af46d7567">
+            <description/>
+            <tags/>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description="This is the mandatory key for Coupa API"
+                                    masked="true"
+                                    name="X_COUPA_API_KEY"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="URL"
+                                    required="true"
+                                    testWith="https://appdynamics-dev.coupahost.com/api/users"
+                                    type="string"/>
+            </connectionAttributes>
+            <actions>
+               <action category="GET"
+                       failOnError="false"
+                       forSearch="false"
+                       label="UsersGET"
+                       maxRedirects="100"
+                       name="UsersGET"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="in_emloyee_number"
+                                name="employee_number"
+                                nogen="true"
+                                required="true"
+                                testWith="101229"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}?employee-number={$employee_number}"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="out_employee_Coupa_id"
+                            property="id"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category="PUT"
+                       failOnError="false"
+                       forSearch="false"
+                       label="UsersPUT"
+                       maxRedirects="100"
+                       name="UsersPUT"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="in_id"
+                                name="id"
+                                nogen="true"
+                                required="true"
+                                testWith="9999"
+                                type="string"/>
+                     <parameter label="in_login"
+                                name="login"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_email"
+                                name="email"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_employee_number"
+                                name="employee_number"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_phone_work"
+                                name="phone_work"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_phone_mobile"
+                                name="phone_mobile"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_first_name"
+                                name="first_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_last_name"
+                                name="last_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_active"
+                                name="active"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_authentication_method"
+                                name="authentication_method"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_sso_identifier"
+                                name="sso_identifier"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_company_code"
+                                name="company_code"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_company_name"
+                                name="company_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_default_currency"
+                                name="default_currency"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_department"
+                                name="department"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_default_address_name"
+                                name="default_address_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_requisition_approval_limit"
+                                name="requisition_approval_limit"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_requisition_approval_currency_code"
+                                name="requisition_approval_currency_code"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_invoice_approval_limit"
+                                name="invoice_approval_limit"
+                                nogen="true"
+                                required="true"
+                                type="string"/>
+                     <parameter label="in_invoice_approval_currency_code"
+                                name="invoice_approval_currency_code"
+                                nogen="true"
+                                required="true"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}/{$id}" verb="PUT">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;user&gt;
+  &lt;login&gt;{$login}&lt;/login&gt;
+  &lt;email&gt;{$email}&lt;/email&gt;
+  &lt;employee-number&gt;{$employee_number}&lt;/employee-number&gt;
+  &lt;phone-work&gt;{$phone_work}&lt;/phone-work&gt;
+  &lt;phone-mobile&gt;{$phone_mobile}&lt;/phone-mobile&gt;
+  &lt;firstname&gt;{$first_name}&lt;/firstname&gt;
+  &lt;lastname&gt;{$last_name}&lt;/lastname&gt;
+  &lt;active&gt;{$active}&lt;/active&gt;
+  &lt;company-code&gt;{$company_code}&lt;/company-code&gt;
+  &lt;authentication-method&gt;{$authentication_method}&lt;/authentication-method&gt;
+  &lt;sso-identifier&gt;{$sso_identifier}&lt;/sso-identifier&gt;
+  &lt;default-account&gt;
+    &lt;account-type&gt;
+      &lt;name&gt;{$company_name}&lt;/name&gt;
+    &lt;/account-type&gt;
+  &lt;/default-account&gt;
+  &lt;default-address&gt;
+     &lt;name&gt;{$default_address_name}&lt;/name&gt;
+  &lt;/default-address&gt;
+  &lt;default-currency&gt;
+    &lt;code&gt;{$default_currency}&lt;/code&gt;
+  &lt;/default-currency&gt;
+  &lt;department&gt;
+    &lt;id&gt;{$department}&lt;/id&gt;
+  &lt;/department&gt;
+    &lt;requisition-approval-limit&gt;
+        &lt;amount&gt;{$requisition_approval_limit}&lt;/amount&gt;
+        &lt;currency&gt;
+            &lt;code&gt;{$requisition_approval_currency_code}&lt;/code&gt;
+        &lt;/currency&gt;
+  &lt;/requisition-approval-limit&gt;
+  &lt;invoice-approval-limit&gt;
+  &lt;amount&gt;{$invoice_approval_limit}&lt;/amount&gt;
+        &lt;currency&gt;
+            &lt;code&gt;{$invoice_approval_currency_code}&lt;/code&gt;
+        &lt;/currency&gt;
+&lt;/invoice-approval-limit&gt;
+&lt;/user&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="status"
+                            responseStatusCode="true"
+                            type="string"/>
+                     <field description=""
+                            name="out_employee_number"
+                            property="employee-number"
+                            type="string"/>
+                     <field description=""
+                            name="faultcode"
+                            property="faultcode"
+                            type="string"/>
+                     <field description=""
+                            name="faultstring"
+                            property="faultstring"
+                            type="string"/>
+                     <field description="" name="out_Coupa_Id" property="id" type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                  </output>
+               </action>
+               <action category="POST"
+                       failOnError="false"
+                       forSearch="false"
+                       label="UsersPOST"
+                       maxRedirects="100"
+                       name="UsersPOST"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="in_login"
+                                name="login"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_email"
+                                name="email"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_employee_number"
+                                name="employee_number"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_phone_work"
+                                name="phone_work"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_phone_mobile"
+                                name="phone_mobile"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_first_name"
+                                name="first_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_last_name"
+                                name="last_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_active"
+                                name="active"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_authentication_method"
+                                name="authentication_method"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_sso_identifier"
+                                name="sso_identifier"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_company_code"
+                                name="company_code"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_company_name"
+                                name="company_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_default_currency"
+                                name="default_currency"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_default_address_name"
+                                name="default_address_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_department"
+                                name="department"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_role_name"
+                                name="role_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_account_security_type"
+                                name="account_security_type"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_account_group_name"
+                                name="account_group_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_requisition_approval_limit"
+                                name="requisition_approval_limit"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="in_requisition_approval_currency_code"
+                                name="requisition_approval_currency_code"
+                                nogen="true"
+                                required="true"
+                                testWith="USD"
+                                type="string"/>
+                     <parameter label="in_invoice_approval_limit"
+                                name="invoice_approval_limit"
+                                nogen="true"
+                                required="true"
+                                type="string"/>
+                     <parameter label="in_invoice_approval_currency_code"
+                                name="invoice_approval_currency_code"
+                                nogen="true"
+                                required="true"
+                                testWith="USD"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;user&gt;
+  &lt;login&gt;{$login}&lt;/login&gt;
+  &lt;email&gt;{$email}&lt;/email&gt;
+  &lt;employee-number&gt;{$employee_number}&lt;/employee-number&gt;
+  &lt;phone-work&gt;{$phone_work}&lt;/phone-work&gt;
+  &lt;phone-mobile&gt;{$phone_mobile}&lt;/phone-mobile&gt;
+  &lt;firstname&gt;{$first_name}&lt;/firstname&gt;
+  &lt;lastname&gt;{$last_name}&lt;/lastname&gt;
+  &lt;active&gt;{$active}&lt;/active&gt;
+  &lt;company-code&gt;{$company_code}&lt;/company-code&gt;
+  &lt;authentication-method&gt;{$authentication_method}&lt;/authentication-method&gt;
+  &lt;sso-identifier&gt;{$sso_identifier}&lt;/sso-identifier&gt;
+  &lt;account-security-type&gt;{$account_security_type}&lt;/account-security-type&gt;
+  &lt;account-groups&gt;
+    &lt;account-group&gt;
+     &lt;name&gt;{$account_group_name}&lt;/name&gt;
+    &lt;/account-group&gt;
+  &lt;/account-groups&gt;
+  &lt;default-account&gt;
+    &lt;account-type&gt;
+      &lt;name&gt;{$company_name}&lt;/name&gt;
+    &lt;/account-type&gt;
+  &lt;/default-account&gt;
+  &lt;roles&gt;
+   &lt;role&gt;
+    &lt;name&gt;{$role_name}&lt;/name&gt; 
+   &lt;/role&gt;
+  &lt;/roles&gt;
+  &lt;default-address&gt;
+     &lt;name&gt;{$default_address_name}&lt;/name&gt;
+  &lt;/default-address&gt;
+  &lt;default-currency&gt;
+    &lt;code&gt;{$default_currency}&lt;/code&gt;
+  &lt;/default-currency&gt;
+  &lt;department&gt;
+    &lt;id&gt;{$department}&lt;/id&gt;
+  &lt;/department&gt;
+    &lt;requisition-approval-limit&gt;
+        &lt;amount&gt;{$requisition_approval_limit}&lt;/amount&gt;
+        &lt;currency&gt;
+            &lt;code&gt;{$requisition_approval_currency_code}&lt;/code&gt;
+        &lt;/currency&gt;
+  &lt;/requisition-approval-limit&gt;
+  &lt;invoice-approval-limit&gt;
+  &lt;amount&gt;{$invoice_approval_limit}&lt;/amount&gt;
+        &lt;currency&gt;
+            &lt;code&gt;{$invoice_approval_currency_code}&lt;/code&gt;
+        &lt;/currency&gt;
+&lt;/invoice-approval-limit&gt;
+&lt;/user&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="status"
+                            responseStatusCode="true"
+                            type="string"/>
+                     <field description=""
+                            name="out_employee_number"
+                            property="employee-number"
+                            type="string"/>
+                     <field description=""
+                            name="faultcode"
+                            property="faultcode"
+                            type="string"/>
+                     <field description=""
+                            name="faultstring"
+                            property="faultstring"
+                            type="string"/>
+                     <field description="" name="out_Coupa_Id" property="id" type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                  </output>
+               </action>
+               <action category="PUT"
+                       failOnError="false"
+                       forSearch="false"
+                       label="ManagerUpdatePUT"
+                       maxRedirects="100"
+                       name="ManagerUpdatePUT"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="in_id"
+                                name="id"
+                                nogen="true"
+                                required="false"
+                                testWith="389"
+                                type="string"/>
+                     <parameter label="in_manager_login"
+                                name="manager_login"
+                                nogen="true"
+                                required="false"
+                                testWith="nathan.abercrombie@appdynamics.com"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}/{$id}" verb="PUT">
+                        <httpHeaders>
+                           <header name="Accept">application/xml</header>
+                           <header name="X-COUPA-API-KEY">{$X_COUPA_API_KEY}</header>
+                        </httpHeaders>
+                        <body>&lt;user&gt;
+  &lt;manager&gt;
+    &lt;login&gt;{$manager_login}&lt;/login&gt;
+  &lt;/manager&gt;
+&lt;/user&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="status"
+                            responseStatusCode="true"
+                            type="string"/>
+                     <field description=""
+                            name="faultcode"
+                            property="faultcode"
+                            type="string"/>
+                     <field description=""
+                            name="faultstring"
+                            property="faultstring"
+                            type="string"/>
+                     <field description="" name="error" property="error" type="string"/>
+                     <field description=""
+                            name="out_employeeNumber"
+                            property="employee-number"
+                            type="string"/>
+                     <field description="" name="out_id" property="id" type="string"/>
+                  </output>
+               </action>
+            </actions>
+            <objects/>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>fWP8bYoCF82hMTIsLpdukf</types1:GUID>
+      <types1:DisplayName>Coupa-Users</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:22:47.233Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

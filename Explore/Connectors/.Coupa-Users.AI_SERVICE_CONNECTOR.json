@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "fWP8bYoCF82hMTIsLpdukf",
+    "name" : "Coupa-Users",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "xMXdzWztZK0CYyb-gt-566112-2017-01-16T21:04:02.382Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}
