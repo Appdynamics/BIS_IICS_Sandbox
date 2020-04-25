@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "5SrNAllyD79iuwayOTuoGd",
+    "name" : "EmailConnection-SendAttachments",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "owoGsciQlBWlD2p-gt-24148364-2017-11-30T06:03:22.316Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}
