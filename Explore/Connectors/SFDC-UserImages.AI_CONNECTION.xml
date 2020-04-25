@@ -1,0 +1,56 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>qAhrswVYx8R8WrY-gt-1043433-2019-01-31T05:50:04.272Z::conn.xml</types1:EntryId>
+      <types1:Name>SFDC-UserImages</types1:Name>
+      <types1:ParentFlowIds>2hAGE7ppppppppp-gt-28807105-2019-01-31T06:11:56.855Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-01-31T05:50:04Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-04-06T23:49:19Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-06T23:49:41Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/SFDC-UserImages/SFDC-UserImages.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     displayName="SFDC-UserImages"
+                     label="SFDC-UserImages"
+                     name="SFDC-UserImages">
+            <description/>
+            <tags/>
+            <agent/>
+            <attributes>
+               <attribute encrypted="false"
+                          name="URL"
+                          value="https://test.salesforce.com/services/Soap/c/39.0"/>
+               <attribute encrypted="false"
+                          name="userName"
+                          value="infa@appdynamics.com.sbfull"/>
+               <attribute encrypted="true" name="password" value=""/>
+               <attribute encrypted="true" name="securityToken" value=""/>
+            </attributes>
+            <businessConnector xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                               agentOnly="false"
+                               connectorPath="project:/rt.connector/SFDC_UserImages/SFDC_UserImages_svcDef.xml"
+                               guid="5hOY9oIgwehi1dIRhdcUwM"
+                               name="SFDC-UserImages"
+                               supportsConnectionTest="false"
+                               uuid="4a35ef50-0406-442a-8f5e-c144a406cf78">
+               <description/>
+            </businessConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>0ccYqKKWOLaklppnFpTL4f</types1:GUID>
+      <types1:DisplayName>SFDC-UserImages</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:30:39.767Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

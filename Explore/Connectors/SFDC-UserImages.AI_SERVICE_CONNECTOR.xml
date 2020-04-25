@@ -1,0 +1,143 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>KqUlLnzYLnzYLnz-gt-41586899-2019-01-22T19:08:25.93Z::svc.xml</types1:EntryId>
+      <types1:Name>SFDC-UserImages</types1:Name>
+      <types1:ParentFlowIds>qAhrswVYx8R8WrY-gt-1043433-2019-01-31T05:50:04.272Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-01-22T19:08:26Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-02-21T16:58:20Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-02-21T16:58:24Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/SFDC_UserImages/SFDC_UserImages_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="false"
+                            displayName="SFDC-UserImages"
+                            label=""
+                            name="SFDC-UserImages"
+                            uuid="4a35ef50-0406-442a-8f5e-c144a406cf78">
+            <description/>
+            <tags/>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="URL"
+                                    required="true"
+                                    testWith="https://test.salesforce.com/services/Soap/c/39.0"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="userName"
+                                    required="true"
+                                    testWith="xyz"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="password"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="securityToken"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+            </connectionAttributes>
+            <actions>
+               <action category=""
+                       failOnError="true"
+                       forSearch="false"
+                       label="GetAuthToken"
+                       maxRedirects="100"
+                       name="GetAuthToken"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input/>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="Content-Type">text/xml;charset=UTF-8</header>
+                           <header name="SOAPAction">""</header>
+                        </httpHeaders>
+                        <body>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:enterprise.soap.sforce.com"&gt;
+   &lt;soapenv:Body&gt;
+      &lt;urn:login&gt;
+         &lt;urn:username&gt;{$userName}&lt;/urn:username&gt;
+         &lt;urn:password&gt;{$password}{$securityToken}&lt;/urn:password&gt;
+      &lt;/urn:login&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="serverUrl"
+                            property="serverUrl"
+                            type="string"/>
+                     <field description=""
+                            name="sessionId"
+                            property="sessionId"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="true"
+                       forSearch="false"
+                       label="GetUserImage"
+                       maxRedirects="100"
+                       name="GetUserImage"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="sessionToken"
+                                name="sessionToken"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="fullPhotoUrl"
+                                name="fullPhotoUrl"
+                                nogen="true"
+                                required="true"
+                                testWith="https://appdynamics--c.na29.content.force.com/profilephoto/72934000000Q6jK/F"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$fullPhotoUrl}" verb="POST">
+                        <httpHeaders>
+                           <header name="Authorization">Bearer {$sessionToken}</header>
+                        </httpHeaders>
+                        <body/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field attachment="true"
+                            description=""
+                            name="out_userImage"
+                            type="image"/>
+                  </output>
+               </action>
+            </actions>
+            <objects/>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>5hOY9oIgwehi1dIRhdcUwM</types1:GUID>
+      <types1:DisplayName>SFDC-UserImages</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:30:39.683Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
