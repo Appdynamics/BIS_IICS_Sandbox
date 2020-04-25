@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "8AJ9kX6qAh3isLDx1lNdyd",
+    "name" : "File-Okta-UserExtract",
+    "type" : "PROCESS_OBJECT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "yD7tyGoQwg74Rpf-gt-21226125-2018-04-30T22:31:53.393Z::po.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}
