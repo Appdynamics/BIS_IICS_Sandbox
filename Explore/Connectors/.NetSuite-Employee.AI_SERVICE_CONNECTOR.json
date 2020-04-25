@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "kCPRQZjBkc3ijN7YSx7eUw",
+    "name" : "NetSuite-Employee",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "0dx8AyNnQMMnGbc-gt-9449049-2017-04-13T13:39:55.995Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite services: Get/Create Actions for Employee",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

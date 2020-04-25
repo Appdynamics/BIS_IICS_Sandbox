@@ -1,0 +1,2028 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>0dx8AyNnQMMnGbc-gt-9449049-2017-04-13T13:39:55.995Z::svc.xml</types1:EntryId>
+      <types1:Name>NetSuite-Employee</types1:Name>
+      <types1:ParentFlowIds>X769eE1KoJBUhty-gt-11916950-2017-04-19T15:45:36.793Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description>NetSuite services: Get/Create Actions for Employee</types1:Description>
+      <types1:AppliesTo/>
+      <types1:Tags>NetSuite</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-04-13T13:39:55Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-09-06T23:45:18Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-09-06T23:45:26Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/NetSuite_Employee/NetSuite_Employee_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="true"
+                            displayName="NetSuite-Employee"
+                            label=""
+                            name="NetSuite-Employee"
+                            uuid="06a40708-c61e-40d4-9357-77601af06bb6">
+            <description>NetSuite services: Get/Create Actions for Employee</description>
+            <tags>NetSuite</tags>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="username"
+                                    required="true"
+                                    testWith="ns.service@appdynamics.com"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="password"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="account"
+                                    required="true"
+                                    testWith="3501352_SB3"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="URL"
+                                    required="true"
+                                    testWith="https://webservices.netsuite.com/services/NetSuitePort_2018_1?c=3501352_SB3"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="applicationId"
+                                    required="true"
+                                    testWith="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"
+                                    type="string"/>
+               <connectionAttribute description="AD Human Resources Generalist"
+                                    masked="false"
+                                    name="role"
+                                    required="true"
+                                    testWith="1070"
+                                    type="string"/>
+            </connectionAttributes>
+            <namespaces>
+               <namespace prefix="listRel"
+                          uri="urn:relationships_2013_1.lists.webservices.netsuite.com"/>
+            </namespaces>
+            <actions>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetEmployees"
+                       maxRedirects="100"
+                       name="GetEmployees"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="email"
+                                name="email"
+                                nogen="true"
+                                required="true"
+                                testWith="martin.mares@appdynamics.com"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <authentication>
+                           <username>ns.webservice@appdynamics.com</username>
+                           <password/>
+                           <isExpressionInPassword>false</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;1000&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+            &lt;S:Body&gt;
+        &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns13:EmployeeSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns13:basic&gt;
+                    &lt;ns2:email operator="is"&gt;
+                        &lt;searchValue&gt;{$email}&lt;/searchValue&gt;
+                    &lt;/ns2:email&gt;
+                &lt;/ns13:basic&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="employeeInternalId" type="string">
+                        <xquery>{//*:record[1]/@internalId}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Update"
+                       failOnError="true"
+                       forSearch="false"
+                       label="UpdateEmployees"
+                       maxRedirects="100"
+                       name="UpdateEmployees"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="firstName"
+                                name="firstName"
+                                nogen="true"
+                                required="false"
+                                testWith="Shreyas"
+                                type="string"/>
+                     <parameter label="middleName"
+                                name="middleName"
+                                nogen="true"
+                                required="false"
+                                testWith="Makarand"
+                                type="string"/>
+                     <parameter label="lastName"
+                                name="lastName"
+                                nogen="true"
+                                required="false"
+                                testWith="Joshi"
+                                type="string"/>
+                     <parameter label="email"
+                                name="email"
+                                nogen="true"
+                                required="false"
+                                testWith="shreyas.joshi@appdynamics.com"
+                                type="string"/>
+                     <parameter label="subsidiary_internalId"
+                                name="subsidiary_internalId"
+                                nogen="true"
+                                required="false"
+                                testWith="1"
+                                type="string"/>
+                     <parameter label="supervisor_internalId"
+                                name="supervisor_internalId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="internalId"
+                                name="internalId"
+                                nogen="true"
+                                required="true"
+                                testWith="1506341"
+                                type="string"/>
+                     <parameter label="department_internalId"
+                                name="department_internalId"
+                                nogen="true"
+                                required="false"
+                                testWith="64"
+                                type="string"/>
+                     <parameter label="externalID_CiscoEmployeeNumber"
+                                name="externalId_CiscoEmployeeNumber"
+                                nogen="true"
+                                required="false"
+                                testWith="839095-shreyjos"
+                                type="string"/>
+                     <parameter label="isInactive"
+                                name="isInactive"
+                                nogen="true"
+                                required="false"
+                                testWith="false"
+                                type="string"/>
+                     <parameter label="releaseDate"
+                                name="releaseDate"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoEmail"
+                                name="ciscoEmail"
+                                nogen="true"
+                                required="false"
+                                testWith="shreyjos@cisco.co"
+                                type="string"/>
+                     <parameter label="ciscoEmployeeNumber"
+                                name="ciscoEmployeeNumber"
+                                nogen="true"
+                                required="false"
+                                testWith="839095"
+                                type="string"/>
+                     <parameter label="ciscoEmployeeLevel"
+                                name="ciscoEmployeeLevel"
+                                nogen="true"
+                                required="false"
+                                testWith="Individual Contributor"
+                                type="string"/>
+                     <parameter label="ciscoJobGrade"
+                                name="ciscoJobGrade"
+                                nogen="true"
+                                required="false"
+                                testWith="008"
+                                type="string"/>
+                     <parameter label="ciscoCompanyCode"
+                                name="ciscoCompanyCode"
+                                nogen="true"
+                                required="false"
+                                testWith="020.USA.United States"
+                                type="string"/>
+                     <parameter label="ciscoDepartment"
+                                name="ciscoDepartment"
+                                nogen="true"
+                                required="false"
+                                testWith="123027872.AppDynamics R&amp;D : Engineering : Platform India"
+                                type="string"/>
+                     <parameter label="ciscoTransactionEffectiveDate"
+                                name="ciscoTransactionEffectiveDate"
+                                nogen="true"
+                                required="false"
+                                testWith="2018-01-15T00:00:00.000"
+                                type="string"/>
+                     <parameter label="ciscoBaseSalary"
+                                name="ciscoBaseSalary"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="customForm"
+                                name="customForm"
+                                nogen="true"
+                                required="false"
+                                testWith="10"
+                                type="string"/>
+                     <parameter label="isSalesRep"
+                                name="isSalesRep"
+                                nogen="true"
+                                required="false"
+                                testWith="T"
+                                type="string"/>
+                     <parameter label="ciscoCustomUserStatus"
+                                name="ciscoCustomUserStatus"
+                                nogen="true"
+                                required="false"
+                                testWith="ACTIVE"
+                                type="string"/>
+                     <parameter label="ciscoCustomDefaultCurrency"
+                                name="ciscoCustomDefaultCurrency"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomJobTitle"
+                                name="ciscoCustomJobTitle"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomLocation"
+                                name="ciscoCustomLocation"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkerType"
+                                name="ciscoCustomWorkerType"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomHireDate"
+                                name="ciscoCustomHireDate"
+                                nogen="true"
+                                required="false"
+                                testWith="2018-06-06T00:00:00.000"
+                                type="string"/>
+                     <parameter label="ciscoCustomAcqHireDate"
+                                name="ciscoCustomAcqHireDate"
+                                nogen="true"
+                                required="false"
+                                testWith="2018-06-06T00:00:00.000"
+                                type="string"/>
+                     <parameter label="ciscoCustomCiscoJobTitle"
+                                name="ciscoCustomCiscoJobTitle"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomCiscoJobTitlePublic"
+                                name="ciscoCustomCiscoJobTitlePublic"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkCountry"
+                                name="ciscoCustomWorkCountry"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkLocationCity"
+                                name="ciscoCustomWorkLocationCity"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomHRWorkRegion"
+                                name="ciscoCustomHRWorkRegion"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomHRWorkState"
+                                name="ciscoCustomHRWorkState"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomStatusCode"
+                                name="ciscoCustomStatusCode"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomTrsnferDateFromCiscoToAppD"
+                                name="ciscoCustomTrsnferDateFromCiscoToAppD"
+                                nogen="true"
+                                required="false"
+                                testWith="2018-06-06T00:00:00.000"
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkerCategory"
+                                name="ciscoCustomWorkerCategory"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomPreferredJobTitle"
+                                name="ciscoCustomPreferredJobTitle"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkLocationType"
+                                name="ciscoCustomWorkLocationType"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomRehireFlag"
+                                name="ciscoCustomRehireFlag"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomRemoteWorker"
+                                name="ciscoCustomRemoteWorker"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomGenericWorkLocation"
+                                name="ciscoCustomGenericWorkLocation"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">updateList</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+            &lt;ns99:role xmlns:ns99="urn:core_2018_1.platform.webservices.netsuite.com" internalId="{$role}"/&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;50&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns24:updateList xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns17="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns16="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns15="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns13="urn:bank_2018_1.transactions.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns10="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:marketing_2018_1.lists.webservices.netsuite.com"&gt;
+            
+            &lt;ns24:record xsi:type="ns17:Employee" internalId="{$internalId}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+             { if (fn:exists($releaseDate))
+               then () else if(fn:exists($supervisor_internalId)) then () else 
+            &lt;nullFieldList xmlns="urn:core_2018_1.platform.webservices.netsuite.com"&gt;
+                  &lt;name&gt;releaseDate&lt;/name&gt;
+            &lt;/nullFieldList&gt; 
+             }
+             { if (fn:exists($firstName))
+               then
+                &lt;ns17:firstName&gt;{$firstName}&lt;/ns17:firstName&gt;
+               else ()
+             }     
+             { if (fn:exists($middleName))
+               then
+                &lt;ns17:middleName&gt;{$middleName}&lt;/ns17:middleName&gt;
+               else ()
+             }
+             { if (fn:exists($lastName))
+               then
+                &lt;ns17:lastName&gt;{$lastName}&lt;/ns17:lastName&gt;
+               else ()
+             }    
+             { if (fn:exists($email))
+               then   
+                &lt;ns17:email&gt;{$email}&lt;/ns17:email&gt;
+               else ()
+             } 
+             { if (fn:exists($subsidiary_internalId))
+               then   
+                &lt;ns17:subsidiary internalId="{$subsidiary_internalId}"/&gt;
+               else ()
+             } 
+             { if (fn:exists($supervisor_internalId))
+               then   
+                &lt;ns17:supervisor internalId="{$supervisor_internalId}"/&gt;
+               else ()
+             }
+             { if (fn:exists($department_internalId))
+               then   
+                &lt;ns17:department internalId="{$department_internalId}"/&gt;
+               else ()
+             }  
+             { if (fn:exists($externalId_CiscoEmployeeNumber))
+               then   
+                &lt;ns17:externalId&gt;{$externalId_CiscoEmployeeNumber}&lt;/ns17:externalId&gt;
+               else ()
+             } 
+             { if (fn:exists($isInactive))
+               then   
+                &lt;ns17:isInactive&gt;{$isInactive}&lt;/ns17:isInactive&gt;
+               else ()
+             } 
+             { if (fn:exists($releaseDate))
+               then 
+                 &lt;ns17:releaseDate&gt;{$releaseDate}&lt;/ns17:releaseDate&gt;
+               else ()
+             }  
+             { if (fn:exists($customForm))
+               then   
+                &lt;ns17:customForm internalId="{$customForm}"/&gt;
+               else ()
+             }
+             { if (fn:exists($isSalesRep))
+               then   
+                &lt;ns17:isSalesRep&gt;{$isSalesRep}&lt;/ns17:isSalesRep&gt;
+               else ()
+             }  
+             
+             &lt;ns17:customFieldList&gt;
+                           { if (fn:exists($ciscoEmail))
+                           then 
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_employee_email"&gt;
+                        &lt;value&gt;{$ciscoEmail}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           } 
+                           { if (fn:exists($ciscoEmployeeNumber))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_employee_id"&gt;
+                        &lt;value&gt;{$ciscoEmployeeNumber}&lt;/value&gt;
+                    &lt;/customField&gt;
+                            else ()
+                            }
+                            { if (fn:exists($ciscoEmployeeLevel))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_employee_level"&gt;
+                        &lt;value&gt;{$ciscoEmployeeLevel}&lt;/value&gt;
+                    &lt;/customField&gt;
+                             else ()
+                           }
+                            { if (fn:exists($ciscoJobGrade))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_job_grade"&gt;
+                        &lt;value&gt;{$ciscoJobGrade}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoCompanyCode))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_company_code"&gt;
+                        &lt;value&gt;{$ciscoCompanyCode}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoDepartment))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_dept"&gt;
+                        &lt;value&gt;{$ciscoDepartment}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoTransactionEffectiveDate))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentity_effective_date"&gt;
+                        &lt;value&gt;{$ciscoTransactionEffectiveDate}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoBaseSalary))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_base_pay_amount"&gt;
+                        &lt;value&gt;{$ciscoBaseSalary}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoCustomUserStatus))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_user_status"&gt;
+                        &lt;value&gt;{$ciscoCustomUserStatus}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomDefaultCurrency))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_default_curren"&gt;
+                        &lt;value&gt;{$ciscoCustomDefaultCurrency}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomJobTitle))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_job_title"&gt;
+                        &lt;value&gt;{$ciscoCustomJobTitle}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomLocation))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_location"&gt;
+                        &lt;value&gt;{$ciscoCustomLocation}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkerType))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_worker_type"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkerType}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomHireDate))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentitycustfiled_cisco_hire_date"&gt;
+                        &lt;value&gt;{$ciscoCustomHireDate}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomAcqHireDate))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentitycustfield_cisco_aqa_hire_date"&gt;
+                        &lt;value&gt;{$ciscoCustomAcqHireDate}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomCiscoJobTitle))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_aqa_job_title"&gt;
+                        &lt;value&gt;{$ciscoCustomCiscoJobTitle}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomCiscoJobTitlePublic))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_job_title_public"&gt;
+                        &lt;value&gt;{$ciscoCustomCiscoJobTitlePublic}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkCountry))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_work_country"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkCountry}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkLocationCity))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_work_loc_city"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkLocationCity}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomHRWorkRegion))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_hr_work_region"&gt;
+                        &lt;value&gt;{$ciscoCustomHRWorkRegion}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomHRWorkState))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_hr_wrk_state"&gt;
+                        &lt;value&gt;{$ciscoCustomHRWorkState}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomStatusCode))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_status_code"&gt;
+                        &lt;value&gt;{$ciscoCustomStatusCode}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomTrsnferDateFromCiscoToAppD))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentitycustfiled_cisc_tx_dt_appd"&gt;
+                        &lt;value&gt;{$ciscoCustomTrsnferDateFromCiscoToAppD}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkerCategory))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_wrk_ctgy"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkerCategory}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomPreferredJobTitle))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustield_cisco_pref_job_title"&gt;
+                        &lt;value&gt;{$ciscoCustomPreferredJobTitle}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkLocationType))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfied_cisco_work_loc_type"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkLocationType}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomGenericWorkLocation))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_generic_wok_lo"&gt;
+                        &lt;value&gt;{$ciscoCustomGenericWorkLocation}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomRehireFlag))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_rehire"&gt;
+                        &lt;value&gt;{$ciscoCustomRehireFlag}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomRemoteWorker))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_remote_worker"&gt;
+                        &lt;value&gt;{$ciscoCustomRemoteWorker}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+            &lt;/ns17:customFieldList&gt;
+            
+          &lt;/ns24:record&gt;
+            
+            
+            
+            
+            
+        &lt;/ns24:updateList&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="NSinternalID" type="string">
+                        <xquery>{//*:baseRef/@internalId}</xquery>
+                     </field>
+                     <field description="" name="isSuccess" type="string">
+                        <xquery>{//*:writeResponse/*:status/@isSuccess}</xquery>
+                     </field>
+                     <field description="" name="errorMessage" type="string">
+                        <xquery>{//*:writeResponse/*:status/*:statusDetail[@*:type="ERROR"]/*:message/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Create"
+                       failOnError="true"
+                       forSearch="false"
+                       label="CreateEmployees"
+                       maxRedirects="100"
+                       name="CreateEmployees"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="firstName"
+                                name="firstName"
+                                nogen="true"
+                                required="true"
+                                testWith="Ayush11"
+                                type="string"/>
+                     <parameter label="middleName"
+                                name="middleName"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="lastName"
+                                name="lastName"
+                                nogen="true"
+                                required="true"
+                                testWith="Shukla11"
+                                type="string"/>
+                     <parameter label="email"
+                                name="email"
+                                nogen="true"
+                                required="true"
+                                testWith="ayush.shukla11@appdynamics.com"
+                                type="string"/>
+                     <parameter label="subsidiary_internalId"
+                                name="subsidiary_internalId"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="department_internalId"
+                                name="department_internalId"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="externalId_CiscoEmployeeNumber"
+                                name="externalId_CiscoEmployeeNumber"
+                                nogen="true"
+                                required="true"
+                                testWith="4861471111"
+                                type="string"/>
+                     <parameter label="isInactive"
+                                name="isInactive"
+                                nogen="true"
+                                required="true"
+                                testWith="0"
+                                type="string"/>
+                     <parameter label="releaseDate"
+                                name="releaseDate"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoEmail"
+                                name="ciscoEmail"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoEmployeeNumber"
+                                name="ciscoEmployeeNumber"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoEmployeeLevel"
+                                name="ciscoEmployeeLevel"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoJobGrade"
+                                name="ciscoJobGrade"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCompanyCode"
+                                name="ciscoCompanyCode"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoDepartment"
+                                name="ciscoDepartment"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoTransactionEffectiveDate"
+                                name="ciscoTransactionEffectiveDate"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoBaseSalary"
+                                name="ciscoBaseSalary"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="customForm"
+                                name="customForm"
+                                nogen="true"
+                                required="true"
+                                testWith="10"
+                                type="string"/>
+                     <parameter label="isSalesRep"
+                                name="isSalesRep"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomUserStatus"
+                                name="ciscoCustomUserStatus"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomDefaultCurrency"
+                                name="ciscoCustomDefaultCurrency"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomJobTitle"
+                                name="ciscoCustomJobTitle"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomLocation"
+                                name="ciscoCustomLocation"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkerType"
+                                name="ciscoCustomWorkerType"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomHireDate"
+                                name="ciscoCustomHireDate"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomAcqHireDate"
+                                name="ciscoCustomAcqHireDate"
+                                nogen="true"
+                                required="true"
+                                testWith="2018-06-06T00:00:00.000"
+                                type="string"/>
+                     <parameter label="ciscoCustomCiscoJobTitle"
+                                name="ciscoCustomCiscoJobTitle"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomCiscoJobTitlePublic"
+                                name="ciscoCustomCiscoJobTitlePublic"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkCountry"
+                                name="ciscoCustomWorkCountry"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkLocationCity"
+                                name="ciscoCustomWorkLocationCity"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomHRWorkRegion"
+                                name="ciscoCustomHRWorkRegion"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomHRWorkState"
+                                name="ciscoCustomHRWorkState"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomStatusCode"
+                                name="ciscoCustomStatusCode"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomTrsnferDateFromCiscoToAppD"
+                                name="ciscoCustomTrsnferDateFromCiscoToAppD"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkerCategory"
+                                name="ciscoCustomWorkerCategory"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomPreferredJobTitle"
+                                name="ciscoCustomPreferredJobTitle"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomWorkLocationType"
+                                name="ciscoCustomWorkLocationType"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomRehireFlag"
+                                name="ciscoCustomRehireFlag"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomRemoteWorker"
+                                name="ciscoCustomRemoteWorker"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ciscoCustomGenericWorkLocation"
+                                name="ciscoCustomGenericWorkLocation"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">addList</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+            &lt;ns99:role xmlns:ns99="urn:core_2018_1.platform.webservices.netsuite.com" internalId="{$role}"/&gt;            
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;50&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns24:addList xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns17="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns16="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns15="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns13="urn:bank_2018_1.transactions.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns10="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:marketing_2018_1.lists.webservices.netsuite.com"&gt;
+            &lt;ns24:record xsi:type="ns17:Employee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns17:firstName&gt;{$firstName}&lt;/ns17:firstName&gt;
+                &lt;ns17:middleName&gt;{$middleName}&lt;/ns17:middleName&gt;
+                &lt;ns17:lastName&gt;{$lastName}&lt;/ns17:lastName&gt;
+                &lt;ns17:email&gt;{$email}&lt;/ns17:email&gt;
+                &lt;ns17:subsidiary internalId="{$subsidiary_internalId}"/&gt;
+                &lt;ns17:department internalId="{$department_internalId}"/&gt;
+                &lt;ns17:externalId&gt;{$externalId_CiscoEmployeeNumber}&lt;/ns17:externalId&gt;
+                &lt;ns17:isInactive&gt;{$isInactive}&lt;/ns17:isInactive&gt;
+                &lt;ns17:customForm internalId="{$customForm}"/&gt;
+                &lt;ns17:isSalesRep&gt;{$isSalesRep}&lt;/ns17:isSalesRep&gt;
+                               
+             { if ($releaseDate != '')
+               then   
+                &lt;ns17:releaseDate&gt;{$releaseDate}&lt;/ns17:releaseDate&gt;
+               else ()
+             }  
+             
+             
+             &lt;ns17:customFieldList&gt;
+                           { if ($ciscoEmail != '')
+                           then 
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_employee_email"&gt;
+                        &lt;value&gt;{$ciscoEmail}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           } 
+                           { if ($ciscoEmployeeNumber != '')
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_employee_id"&gt;
+                        &lt;value&gt;{$ciscoEmployeeNumber}&lt;/value&gt;
+                    &lt;/customField&gt;
+                            else ()
+                            }
+                            { if ($ciscoEmployeeLevel != '')
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_employee_level"&gt;
+                        &lt;value&gt;{$ciscoEmployeeLevel}&lt;/value&gt;
+                    &lt;/customField&gt;
+                             else ()
+                           }
+                            { if ($ciscoJobGrade != '')
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_job_grade"&gt;
+                        &lt;value&gt;{$ciscoJobGrade}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if ($ciscoCompanyCode != '')
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_company_code"&gt;
+                        &lt;value&gt;{$ciscoCompanyCode}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoDepartment))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_cisco_dept"&gt;
+                        &lt;value&gt;{$ciscoDepartment}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoTransactionEffectiveDate))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentity_effective_date"&gt;
+                        &lt;value&gt;{$ciscoTransactionEffectiveDate}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoBaseSalary))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentity_base_pay_amount"&gt;
+                        &lt;value&gt;{$ciscoBaseSalary}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+                           { if (fn:exists($ciscoCustomUserStatus))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_user_status"&gt;
+                        &lt;value&gt;{$ciscoCustomUserStatus}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomDefaultCurrency))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_default_curren"&gt;
+                        &lt;value&gt;{$ciscoCustomDefaultCurrency}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomJobTitle))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_job_title"&gt;
+                        &lt;value&gt;{$ciscoCustomJobTitle}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomLocation))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_location"&gt;
+                        &lt;value&gt;{$ciscoCustomLocation}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkerType))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_worker_type"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkerType}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomHireDate))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentitycustfiled_cisco_hire_date"&gt;
+                        &lt;value&gt;{$ciscoCustomHireDate}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomAcqHireDate))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentitycustfield_cisco_aqa_hire_date"&gt;
+                        &lt;value&gt;{$ciscoCustomAcqHireDate}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomCiscoJobTitle))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_aqa_job_title"&gt;
+                        &lt;value&gt;{$ciscoCustomCiscoJobTitle}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomCiscoJobTitlePublic))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_job_title_public"&gt;
+                        &lt;value&gt;{$ciscoCustomCiscoJobTitlePublic}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkCountry))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_work_country"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkCountry}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkLocationCity))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_work_loc_city"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkLocationCity}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomHRWorkRegion))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_hr_work_region"&gt;
+                        &lt;value&gt;{$ciscoCustomHRWorkRegion}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomHRWorkState))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_hr_wrk_state"&gt;
+                        &lt;value&gt;{$ciscoCustomHRWorkState}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomStatusCode))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_status_code"&gt;
+                        &lt;value&gt;{$ciscoCustomStatusCode}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomTrsnferDateFromCiscoToAppD))
+                           then
+                    &lt;customField xsi:type="DateCustomFieldRef" scriptId="custentitycustfiled_cisc_tx_dt_appd"&gt;
+                        &lt;value&gt;{$ciscoCustomTrsnferDateFromCiscoToAppD}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkerCategory))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_wrk_ctgy"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkerCategory}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomPreferredJobTitle))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustield_cisco_pref_job_title"&gt;
+                        &lt;value&gt;{$ciscoCustomPreferredJobTitle}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomWorkLocationType))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfied_cisco_work_loc_type"&gt;
+                        &lt;value&gt;{$ciscoCustomWorkLocationType}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomGenericWorkLocation))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfield_cisco_generic_wok_lo"&gt;
+                        &lt;value&gt;{$ciscoCustomGenericWorkLocation}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomRehireFlag))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_rehire"&gt;
+                        &lt;value&gt;{$ciscoCustomRehireFlag}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+						   { if (fn:exists($ciscoCustomRemoteWorker))
+                           then
+                    &lt;customField xsi:type="StringCustomFieldRef" scriptId="custentitycustfiled_cisco_remote_worker"&gt;
+                        &lt;value&gt;{$ciscoCustomRemoteWorker}&lt;/value&gt;
+                    &lt;/customField&gt;
+                           else ()
+                           }
+            &lt;/ns17:customFieldList&gt;
+             
+             
+             &lt;/ns24:record&gt;
+        &lt;/ns24:addList&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="NSinternalID" type="string">
+                        <xquery>{
+//*:baseRef/@internalId
+}</xquery>
+                     </field>
+                     <field description="" name="isSuccess" type="string">
+                        <xquery>{//*:writeResponse/*:status/@isSuccess}</xquery>
+                     </field>
+                     <field description="" name="errorMessage" type="string">
+                        <xquery>{//*:writeResponse/*:status/*:statusDetail[@*:type="ERROR"]/*:message/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetSubsidiary"
+                       maxRedirects="100"
+                       name="GetSubsidiary"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="in_cisco_dept_number"
+                                name="cisco_dept_number"
+                                nogen="true"
+                                required="true"
+                                testWith="99999999999"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;100&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns17="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns16="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns15="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns13="urn:bank_2018_1.transactions.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns10="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:marketing_2018_1.lists.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns8:SubsidiarySearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns8:basic&gt;
+                    &lt;ns3:customFieldList&gt;
+                        &lt;customField xsi:type="SearchStringCustomField" operator="is" scriptId="custrecord_cisco_entity_number"&gt;
+                            &lt;searchValue&gt;{$cisco_dept_number}&lt;/searchValue&gt;
+                        &lt;/customField&gt;
+                    &lt;/ns3:customFieldList&gt;
+                &lt;/ns8:basic&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="subsidiary_NSinternalID" type="string">
+                        <xquery>{//*:record/@internalId}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetDepartment"
+                       maxRedirects="100"
+                       name="GetDepartment"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="in_dept_internalId"
+                                name="dept_internalId"
+                                nogen="true"
+                                required="false"
+                                testWith="11"
+                                type="string"/>
+                     <parameter label="in_cisco_Department_Number"
+                                name="cisco_Department_Number"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;100&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns17="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns16="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns15="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns13="urn:bank_2018_1.transactions.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns10="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:marketing_2018_1.lists.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns8:DepartmentSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns8:basic&gt;
+                     { if ($dept_internalId != '')
+                              then
+                    &lt;ns3:internalId operator="anyOf"&gt;
+                        &lt;searchValue internalId="{$dept_internalId}"/&gt;
+                    &lt;/ns3:internalId&gt;
+                         else ()
+                            }
+                            { if ($cisco_Department_Number != '')
+                              then
+                    &lt;ns3:customFieldList&gt;
+                        &lt;customField xsi:type="SearchStringCustomField" operator="is" scriptId="custrecord_cisco_department_number"&gt;
+                            &lt;searchValue&gt;{$cisco_Department_Number}&lt;/searchValue&gt;
+                        &lt;/customField&gt;
+                    &lt;/ns3:customFieldList&gt;
+                          else ()
+                              }
+                &lt;/ns8:basic&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="department_NSinternalID" type="string">
+                        <xquery>{//*:record/@internalId}</xquery>
+                     </field>
+                     <field description="" name="department_NSexternalID" type="string">
+                        <xquery>{//*:record/@externalId}</xquery>
+                     </field>
+                     <field description="" name="department_ParentName" type="string">
+                        <xquery>{//*:parent/*:name/text()}</xquery>
+                     </field>
+                     <field description="" name="department_Name" type="string">
+                        <xquery>{//*:record/*:name/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetManager"
+                       maxRedirects="100"
+                       name="GetManager"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="manager_email"
+                                name="manager_email"
+                                nogen="true"
+                                required="false"
+                                testWith="justin.wong@appdynamics.com"
+                                type="string"/>
+                     <parameter label="manager_internalId"
+                                name="manager_internalId"
+                                nogen="true"
+                                required="false"
+                                testWith="737378"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <authentication>
+                           <username>ns.webservice@appdynamics.com</username>
+                           <password/>
+                           <isExpressionInPassword>false</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;1000&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+            &lt;S:Body&gt;
+        &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns13:EmployeeSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns13:basic&gt;
+                
+                         { if ($manager_email != '')
+                            then
+                    &lt;ns2:email operator="is"&gt;
+                        &lt;searchValue&gt;{$manager_email}&lt;/searchValue&gt;
+                    &lt;/ns2:email&gt;
+                          else ()
+                            }
+                            
+                            { if ($manager_internalId != '')
+                            then
+                    &lt;ns2:internalId operator="anyOf"&gt;
+                        &lt;searchValue internalId="{$manager_internalId}"/&gt;
+                    &lt;/ns2:internalId&gt;
+                            else ()
+                            }
+                                        
+                &lt;/ns13:basic&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="ManagerInternalId" type="string">
+                        <xquery>{//*:record[1]/@internalId}</xquery>
+                     </field>
+                     <field description="" name="ManagerEmail" type="string">
+                        <xquery>{//*:email/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetEmployeesByModifiedDate"
+                       maxRedirects="100"
+                       name="GetEmployeesByModifiedDate"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="LastModifiedDate"
+                                name="LastModifiedDate"
+                                nogen="true"
+                                required="false"
+                                testWith="2018-03-27T00:00:00.000-07:00"
+                                type="string"/>
+                     <parameter label="coupa_access"
+                                name="coupa_access"
+                                nogen="true"
+                                required="false"
+                                testWith="true"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <authentication>
+                           <username>ns.webservice@appdynamics.com</username>
+                           <password/>
+                           <isExpressionInPassword>false</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;1000&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+            &lt;S:Body&gt;
+        &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns13:EmployeeSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns13:basic&gt;
+                    &lt;ns2:lastModifiedDate operator="onOrAfter"&gt;
+                        &lt;searchValue&gt;{$LastModifiedDate}&lt;/searchValue&gt;
+                    &lt;/ns2:lastModifiedDate&gt;
+                
+                         { if ($coupa_access != '')
+                            then
+                    &lt;ns2:customFieldList&gt;
+                        &lt;customField xsi:type="SearchBooleanCustomField" scriptId="custentity_coupa_access"&gt;
+                            &lt;searchValue&gt;true&lt;/searchValue&gt;
+                        &lt;/customField&gt;
+                    &lt;/ns2:customFieldList&gt;
+                          else ()
+                            }
+                            
+                &lt;/ns13:basic&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="objectList_employees"
+                            type="objectlist"
+                            xmlElement="record">
+                        <options>
+                           <option name="referenceTo">record</option>
+                        </options>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetEmployeesUsingCiscoID"
+                       maxRedirects="100"
+                       name="GetEmployeesUsingCiscoID"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="ciscoID_employeeNumber"
+                                name="ciscoID_employeeNumber"
+                                nogen="true"
+                                required="true"
+                                testWith="479265"
+                                type="string"/>
+                     <parameter label="CiscoEmail_fromHRMS"
+                                name="CiscoEmail_fromHRMS"
+                                nogen="true"
+                                required="true"
+                                testWith="prakaar@cisco.com"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;1000&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+            &lt;S:Body&gt;
+               &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns13:EmployeeSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns13:basic&gt;
+                   &lt;ns2:customFieldList&gt;
+                        &lt;customField xsi:type="SearchStringCustomField" operator="is" scriptId="custentity_cisco_employee_id"&gt;
+                            &lt;searchValue&gt;{$ciscoID_employeeNumber}&lt;/searchValue&gt;
+                        &lt;/customField&gt;
+                        &lt;customField xsi:type="SearchStringCustomField" operator="is" scriptId="custentity_cisco_employee_email"&gt;
+                            &lt;searchValue&gt;{$CiscoEmail_fromHRMS}&lt;/searchValue&gt;
+                        &lt;/customField&gt;
+                    &lt;/ns2:customFieldList&gt;
+                &lt;/ns13:basic&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+     &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="employeeInternalId" type="string">
+                        <xquery>{//*:record[1]/@internalId}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetDupEmployeeWithSameEmailOrCiscoID"
+                       maxRedirects="100"
+                       name="GetDupEmployeeWithSameEmailOrCiscoID"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="appD_email"
+                                name="appD_email"
+                                nogen="true"
+                                required="false"
+                                testWith="phani.baddam@appdynamics.com"
+                                type="string"/>
+                     <parameter label="cisco_employeeNumber"
+                                name="cisco_employeeNumber"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <authentication>
+                           <username>ns.webservice@appdynamics.com</username>
+                           <password/>
+                           <isExpressionInPassword>false</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+        &lt;passport&gt;
+            &lt;ns6:email xmlns:ns6="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$username}&lt;/ns6:email&gt;
+            &lt;ns7:password xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$password}&lt;/ns7:password&gt;
+            &lt;ns8:account xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&gt;{$account}&lt;/ns8:account&gt;
+        &lt;/passport&gt;
+        &lt;ns1:preferences xmlns:ns1="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns2:ignoreReadOnlyFields xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns2:ignoreReadOnlyFields&gt;
+        &lt;/ns1:preferences&gt;
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:pageSize xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;1000&lt;/ns5:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/S:Header&gt;
+            &lt;S:Body&gt;
+               &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns13:EmployeeSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns13:basic&gt;
+                    
+                    
+                    { if ($appD_email != '')
+                            then
+                    &lt;ns2:email operator="is"&gt;
+                        &lt;searchValue&gt;{$appD_email}&lt;/searchValue&gt;
+                    &lt;/ns2:email&gt;
+                     else ()
+                     }
+                     
+                     { if ($cisco_employeeNumber != '')
+                            then
+                   &lt;ns2:customFieldList&gt;
+                        &lt;customField xsi:type="SearchStringCustomField" operator="is" scriptId="custentity_cisco_employee_id"&gt;
+                            &lt;searchValue&gt;{$cisco_employeeNumber}&lt;/searchValue&gt;
+                        &lt;/customField&gt;
+                    &lt;/ns2:customFieldList&gt;
+                    else ()
+                     }
+                    
+                &lt;/ns13:basic&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+     &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="duplicate_employeeInternalId" type="string">
+                        <xquery>{//*:record[1]/@internalId}</xquery>
+                     </field>
+                     <field description=""
+                            name="totalRecords_basedOnCiscoId"
+                            property="totalRecords"
+                            type="string"/>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Envelope">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="Header" type="reference">
+                        <options>
+                           <option name="referenceTo">Header</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="Body" type="reference">
+                        <options>
+                           <option name="referenceTo">Body</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Header">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="documentInfo" type="reference">
+                        <options>
+                           <option name="referenceTo">documentInfo</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="documentInfo">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="nsId" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Body">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="searchResponse" type="reference">
+                        <options>
+                           <option name="referenceTo">searchResponse</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="searchResponse">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="searchResult" type="reference">
+                        <options>
+                           <option name="referenceTo">searchResult</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="searchResult">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="status" type="reference">
+                        <options>
+                           <option name="referenceTo">status</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="totalRecords" type="int"/>
+                     <field name="pageSize" type="int"/>
+                     <field name="totalPages" type="int"/>
+                     <field name="pageIndex" type="int"/>
+                     <field name="searchId" type="string"/>
+                     <field name="recordList" type="reference">
+                        <options>
+                           <option name="referenceTo">recordList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="status">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="isSuccess" type="boolean"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="recordList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="record" type="objectlist">
+                        <options>
+                           <option name="referenceTo">record</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="record">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="type" type="string"/>
+                     <field name="entityId" type="string"/>
+                     <field name="firstName" type="string"/>
+                     <field name="lastName" type="string"/>
+                     <field name="email" type="string"/>
+                     <field name="defaultAddress" type="string"/>
+                     <field name="isInactive" type="boolean"/>
+                     <field name="lastModifiedDate" type="datetime"/>
+                     <field name="dateCreated" type="string"/>
+                     <field name="initials" type="string"/>
+                     <field name="department" type="reference">
+                        <options>
+                           <option name="referenceTo">department</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="location" type="reference">
+                        <options>
+                           <option name="referenceTo">location</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="subsidiary" type="reference">
+                        <options>
+                           <option name="referenceTo">subsidiary</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="comments" type="string"/>
+                     <field name="currency" type="reference">
+                        <options>
+                           <option name="referenceTo">currency</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="purchaseOrderLimit" type="double"/>
+                     <field name="purchaseOrderApprovalLimit" type="double"/>
+                     <field name="supervisor" type="reference">
+                        <options>
+                           <option name="referenceTo">supervisor</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="approver" type="reference">
+                        <options>
+                           <option name="referenceTo">approver</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="isSalesRep" type="boolean"/>
+                     <field name="hireDate" type="datetime"/>
+                     <field name="title" type="string"/>
+                     <field name="purchaseOrderApprover" type="reference">
+                        <options>
+                           <option name="referenceTo">purchaseOrderApprover</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="giveAccess" type="string"/>
+                     <field name="concurrentWebServicesUser" type="string"/>
+                     <field name="commissionPaymentPreference" type="string"/>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="externalId" type="int"/>
+                     <field name="expenseLimit" type="double"/>
+                     <field name="approvalLimit" type="double"/>
+                     <field name="middleName" type="string"/>
+                     <field name="mobilePhone" type="string"/>
+                     <field name="officePhone" type="string"/>
+                     <field name="releaseDate" type="date"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="department">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="location">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="subsidiary">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="currency">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="supervisor">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="approver">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="purchaseOrderApprover">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="customFieldList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="customField" type="objectlist">
+                        <options>
+                           <option name="referenceTo">customField</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="customField">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="scriptId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="value" type="string"/>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>kCPRQZjBkc3ijN7YSx7eUw</types1:GUID>
+      <types1:DisplayName>NetSuite-Employee</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:28:33.459Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

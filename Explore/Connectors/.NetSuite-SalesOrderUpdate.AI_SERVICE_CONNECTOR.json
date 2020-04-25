@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "8ft4bbmvLCkdlKqV4Xwtck",
+    "name" : "NetSuite-SalesOrderUpdate",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "6nCKwKBqRi92qBb-gt-1760926-2018-06-20T02:17:21.923Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

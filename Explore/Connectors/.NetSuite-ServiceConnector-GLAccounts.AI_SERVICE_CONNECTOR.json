@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "4CkOqh8cDv1grwFRRdO5wI",
+    "name" : "NetSuite-ServiceConnector-GLAccounts",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "5fQ5Hhwq9bdsreK-gt-1520053-2016-06-23T01:51:35.911Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite services: Get/Create Actions for JournalEntry",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

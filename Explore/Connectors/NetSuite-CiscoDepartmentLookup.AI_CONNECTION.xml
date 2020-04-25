@@ -1,0 +1,59 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>LyCnNZPD4ARW8UB-gt-16936543-2017-04-26T22:54:58.611Z::conn.xml</types1:EntryId>
+      <types1:Name>NetSuite-CiscoDepartmentLookup</types1:Name>
+      <types1:ParentFlowIds>8KwkiPiTk08jIw8-gt-389259542-2019-11-04T19:48:20.967Z::pd.xml,dy8NTYglxbdypKw-gt-12766280-2019-11-04T22:32:06.406Z::pd.xml,msZvPP8KnBQ9WYz-gt-10194245-2020-04-17T20:30:31.207Z::pd.xml,qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,xvOdsreK8ZAZf5k-gt-10738983-2017-07-06T16:07:10.378Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-04-26T22:54:58Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-07-18T20:46:38Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-07-18T20:46:48Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/NetSuite-CiscoDepartmentLookup/NetSuite-CiscoDepartmentLookup.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     displayName="NetSuite-CiscoDepartmentLookup"
+                     label="NetSuite-CiscoDepartmentLookup"
+                     name="NetSuite-CiscoDepartmentLookup">
+            <description/>
+            <tags/>
+            <agent/>
+            <attributes>
+               <attribute encrypted="false"
+                          name="username"
+                          value="ns.webservice@appdynamics.com"/>
+               <attribute encrypted="true" name="password" value=""/>
+               <attribute encrypted="false" name="account" value="3501352_SB3"/>
+               <attribute encrypted="false"
+                          name="URL"
+                          value="https://3501352-sb3.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"/>
+               <attribute encrypted="false"
+                          name="applicationId"
+                          value="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"/>
+            </attributes>
+            <businessConnector xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                               agentOnly="false"
+                               connectorPath="project:/rt.connector/NetSuite_CiscoDepartmentLookup/NetSuite_CiscoDepartmentLookup_svcDef.xml"
+                               guid="2ZAVRnwYFcXbep5svHoKUu"
+                               name="NetSuite-CiscoDepartmentLookup"
+                               supportsConnectionTest="false"
+                               uuid="ba395f70-fef7-48df-97b5-b6470a33ccd6">
+               <description>NetSuite services: Get Cisco Department Lookup Object</description>
+            </businessConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>gPD9ex60xIIkSd9IzZgAmL</types1:GUID>
+      <types1:DisplayName>NetSuite-CiscoDepartmentLookup</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:28:33.596Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

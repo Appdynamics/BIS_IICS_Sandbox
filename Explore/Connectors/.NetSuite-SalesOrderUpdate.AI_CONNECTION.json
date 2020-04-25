@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "6FawEgUNz2kckZ0oegYZea",
+    "name" : "NetSuite-SalesOrderUpdate",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "nP31abck0Kn7wpo-gt-6995761-2018-06-22T20:11:54.216Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "8ft4bbmvLCkdlKqV4Xwtck",
+    "name" : "NetSuite-SalesOrderUpdate",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "6nCKwKBqRi92qBb-gt-1760926-2018-06-20T02:17:21.923Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}

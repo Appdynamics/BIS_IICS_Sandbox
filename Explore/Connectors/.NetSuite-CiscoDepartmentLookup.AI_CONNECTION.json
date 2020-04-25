@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "gPD9ex60xIIkSd9IzZgAmL",
+    "name" : "NetSuite-CiscoDepartmentLookup",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "LyCnNZPD4ARW8UB-gt-16936543-2017-04-26T22:54:58.611Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "2ZAVRnwYFcXbep5svHoKUu",
+    "name" : "NetSuite-CiscoDepartmentLookup",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "y2uI5CUP9WYVMPI-gt-16910753-2017-04-26T22:27:52.398Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite services: Get Cisco Department Lookup Object",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}

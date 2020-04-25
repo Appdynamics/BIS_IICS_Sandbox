@@ -1,0 +1,478 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>5fQ5Hhwq9bdsreK-gt-1520053-2016-06-23T01:51:35.911Z::svc.xml</types1:EntryId>
+      <types1:Name>NetSuite-ServiceConnector-GLAccounts</types1:Name>
+      <types1:ParentFlowIds>H1reK8ZAZf5kck8-gt-1544744-2016-06-23T05:38:24.546Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description>NetSuite services: Get/Create Actions for JournalEntry</types1:Description>
+      <types1:AppliesTo/>
+      <types1:Tags>NetSuite</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2016-06-23T01:51:35Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-06-17T23:38:58Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-06-17T23:39:04Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/NetSuite_ServiceConnector_GLAccounts/NetSuite_ServiceConnector_GLAccounts_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="true"
+                            displayName="NetSuite-ServiceConnector-GLAccounts"
+                            label=""
+                            name="NetSuite-ServiceConnector-GLAccounts"
+                            uuid="a6241f78-4025-41cd-92a5-784be823a2d7">
+            <description>NetSuite services: Get/Create Actions for JournalEntry</description>
+            <tags>NetSuite</tags>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="username"
+                                    required="true"
+                                    testWith="ns.webservice@appdynamics.com"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="password"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="account"
+                                    required="true"
+                                    testWith="3501352_SB2"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="URL"
+                                    required="true"
+                                    testWith="https://webservices.netsuite.com/services/NetSuitePort_2018_1?c=3501352_SB3"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="applicationId"
+                                    required="false"
+                                    testWith="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"
+                                    type="string"/>
+            </connectionAttributes>
+            <namespaces>
+               <namespace prefix="listRel"
+                          uri="urn:relationships_2015_1.lists.webservices.netsuite.com"/>
+            </namespaces>
+            <actions>
+               <action category=""
+                       failOnError="true"
+                       forSearch="false"
+                       label="Create File"
+                       maxRedirects="100"
+                       name="Create File"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="File Name"
+                                name="fileName"
+                                required="true"
+                                testWith="test123123.txt"
+                                type="string"/>
+                     <parameter label="File Content"
+                                name="fileContent"
+                                required="false"
+                                testWith=""
+                                type="attachments"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">add</header>
+                        </httpHeaders>
+                        <body>&amp;lt;Envelope xmlns:ns4="ns" xmlns:ns3="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:aetgt="http://schemas.activebpel.org/REST/2007/12/01/aeREST.xsd" xmlns:rest="http://schemas.activebpel.org/REST/2007/12/01/aeREST.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;
+    &amp;lt;Header&amp;gt;
+        &amp;lt;passport xsi:type="Passport"&amp;gt;
+            &amp;lt;email&amp;gt;{$username}&amp;lt;/email&amp;gt;
+            &amp;lt;password&amp;gt;{$password}&amp;lt;/password&amp;gt;
+            &amp;lt;account&amp;gt;{$account}&amp;lt;/account&amp;gt;
+        &amp;lt;/passport&amp;gt;
+		&amp;lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;
+            &amp;lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;{$applicationId}&amp;lt;/urn:applicationId&amp;gt;
+        &amp;lt;/urn:applicationInfo&amp;gt;
+    &amp;lt;/Header&amp;gt;
+     &amp;lt;Body&amp;gt;
+        &amp;lt;add&amp;gt;
+&amp;lt;record xsi:type="q1:File" xmlns:q1="urn:filecabinet_2018_1.documents.webservices.netsuite.com"&amp;gt;
+			&amp;lt;q1:name&amp;gt;{$fileName}&amp;lt;/q1:name&amp;gt;
+			&amp;lt;q1:attachFrom&amp;gt;_computer&amp;lt;/q1:attachFrom&amp;gt;
+			&amp;lt;q1:content&amp;gt;{$fileContent}&amp;lt;/q1:content&amp;gt;
+			&amp;lt;q1:folder internalId="7628"/&amp;gt;
+		&amp;lt;/record&amp;gt;
+ &amp;lt;/add&amp;gt;
+    &amp;lt;/Body&amp;gt;
+&amp;lt;/Envelope&amp;gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="internalId" type="string">
+                        <xquery>{//*/*/*/@internalId}</xquery>
+                     </field>
+                     <field description="" name="isSuccess" type="string">
+                        <xquery>{
+//*:status/@isSuccess
+}</xquery>
+                     </field>
+                     <field description="" name="errorMessages" type="string">
+                        <xquery>{
+//*:status/*:statusDetail[@*:type="ERROR"]/*:message/text()
+}</xquery>
+                     </field>
+                     <field description=""
+                            name="faultcode"
+                            property="faultcode"
+                            type="string"/>
+                     <field description=""
+                            name="faultstring"
+                            property="faultstring"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="true"
+                       forSearch="false"
+                       label="Attach File"
+                       maxRedirects="100"
+                       name="Attach File"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="Sales Order Id"
+                                name="salesOrderId"
+                                required="false"
+                                testWith="792031"
+                                type="string"/>
+                     <parameter label="File Id"
+                                name="fileId"
+                                required="true"
+                                testWith="508951"
+                                type="string"/>
+                     <parameter label="Type"
+                                name="type"
+                                required="true"
+                                testWith="salesOrder"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">attach</header>
+                        </httpHeaders>
+                        <body>&amp;lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:platformCommon="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:platformCore="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:platformMsgs="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:tranSales="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&amp;gt;
+  &amp;lt;soap:Header&amp;gt;
+    &amp;lt;platformMsgs:passport&amp;gt;
+      &amp;lt;platformCore:email&amp;gt;{$username}&amp;lt;/platformCore:email&amp;gt;
+      &amp;lt;platformCore:password&amp;gt;{$password}&amp;lt;/platformCore:password&amp;gt;
+      &amp;lt;platformCore:account&amp;gt;{$account}&amp;lt;/platformCore:account&amp;gt;
+    &amp;lt;/platformMsgs:passport&amp;gt;
+	&amp;lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;
+       &amp;lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;{$applicationId}&amp;lt;/urn:applicationId&amp;gt;
+    &amp;lt;/urn:applicationInfo&amp;gt;
+  &amp;lt;/soap:Header&amp;gt;
+  &amp;lt;soap:Body&amp;gt;
+    &amp;lt;platformMsgs:attach&amp;gt;
+      &amp;lt;platformMsgs:attachReference xsi:type="platformCore:AttachBasicReference"&amp;gt;
+     &amp;lt;platformCore:attachTo xsi:type="platformCore:RecordRef" type="{$type}" internalId="{$salesOrderId}"/&amp;gt;
+     &amp;lt;platformCore:attachedRecord xsi:type="platformCore:RecordRef" type="file" internalId="{$fileId}"/&amp;gt;
+   &amp;lt;/platformMsgs:attachReference&amp;gt;      
+    &amp;lt;/platformMsgs:attach&amp;gt;
+  &amp;lt;/soap:Body&amp;gt;
+&amp;lt;/soap:Envelope&amp;gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="fileInternalId" type="string">
+                        <xquery>{
+//*/*/*/@internalId
+}</xquery>
+                     </field>
+                     <field description="" name="isSuccess" type="string">
+                        <xquery>{
+//*:status/@isSuccess
+}</xquery>
+                     </field>
+                     <field description=""
+                            name="faultcode"
+                            property="faultcode"
+                            type="string"/>
+                     <field description=""
+                            name="faultstring"
+                            property="faultstring"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="true"
+                       forSearch="false"
+                       label="Get GL Accounts"
+                       maxRedirects="100"
+                       name="Get GL Accounts"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input/>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&amp;lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&amp;gt;
+    &amp;lt;S:Header&amp;gt;
+        &amp;lt;passport&amp;gt;
+            &amp;lt;ns7:email xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&amp;gt;{$username}&amp;lt;/ns7:email&amp;gt;
+            &amp;lt;ns8:password xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&amp;gt;{$password}&amp;lt;/ns8:password&amp;gt;
+            &amp;lt;ns9:account xmlns:ns9="urn:core_2018_1.platform.webservices.netsuite.com"&amp;gt;{$account}&amp;lt;/ns9:account&amp;gt;
+        &amp;lt;/passport&amp;gt;
+        &amp;lt;ns3:searchPreferences xmlns:ns3="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;
+            &amp;lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;true&amp;lt;/ns4:bodyFieldsOnly&amp;gt;
+            &amp;lt;ns5:returnSearchColumns xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;false&amp;lt;/ns5:returnSearchColumns&amp;gt;
+            &amp;lt;ns6:pageSize xmlns:ns6="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;1000&amp;lt;/ns6:pageSize&amp;gt;
+        &amp;lt;/ns3:searchPreferences&amp;gt;
+        &amp;lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;
+            &amp;lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;{$applicationId}&amp;lt;/urn:applicationId&amp;gt;
+        &amp;lt;/urn:applicationInfo&amp;gt;
+    &amp;lt;/S:Header&amp;gt;
+    &amp;lt;S:Body&amp;gt;
+        &amp;lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&amp;gt;
+            &amp;lt;ns24:searchRecord xsi:type="ns8:AccountSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&amp;gt;
+                &amp;lt;ns8:basic/&amp;gt;
+            &amp;lt;/ns24:searchRecord&amp;gt;
+        &amp;lt;/ns24:search&amp;gt;
+    &amp;lt;/S:Body&amp;gt;
+&amp;lt;/S:Envelope&amp;gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="record"
+                            type="objectlist"
+                            xmlElement="recordList">
+                        <options>
+                           <option name="referenceTo">recordList</option>
+                        </options>
+                     </field>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Envelope">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="Header" type="reference">
+                        <options>
+                           <option name="referenceTo">Header</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="Body" type="reference">
+                        <options>
+                           <option name="referenceTo">Body</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Header">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="documentInfo" type="reference">
+                        <options>
+                           <option name="referenceTo">documentInfo</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="documentInfo">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="nsId" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Body">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="searchResponse" type="reference">
+                        <options>
+                           <option name="referenceTo">searchResponse</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="searchResponse">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="searchResult" type="reference">
+                        <options>
+                           <option name="referenceTo">searchResult</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="searchResult">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="status" type="reference">
+                        <options>
+                           <option name="referenceTo">status</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="totalRecords" type="int"/>
+                     <field name="pageSize" type="int"/>
+                     <field name="totalPages" type="int"/>
+                     <field name="pageIndex" type="int"/>
+                     <field name="searchId" type="string"/>
+                     <field name="recordList" type="reference">
+                        <options>
+                           <option name="referenceTo">recordList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="status">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="isSuccess" type="boolean"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="recordList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="record" type="objectlist">
+                        <options>
+                           <option name="referenceTo">record</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="record">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="type" type="string"/>
+                     <field name="acctType" type="string"/>
+                     <field name="acctNumber" type="int"/>
+                     <field name="acctName" type="string"/>
+                     <field name="includeChildren" type="string"/>
+                     <field name="currency" type="reference">
+                        <options>
+                           <option name="referenceTo">currency</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="generalRate" type="string"/>
+                     <field name="cashFlowRate" type="string"/>
+                     <field name="isInactive" type="boolean"/>
+                     <field name="eliminate" type="string"/>
+                     <field name="revalue" type="string"/>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="parent" type="reference">
+                        <options>
+                           <option name="referenceTo">parent</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="currency">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="customFieldList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="customField" type="objectlist">
+                        <options>
+                           <option name="referenceTo">customField</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="customField">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="scriptId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="value" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="parent">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="value">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="int"/>
+                     <field name="typeId" type="int"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>4CkOqh8cDv1grwFRRdO5wI</types1:GUID>
+      <types1:DisplayName>NetSuite-ServiceConnector-GLAccounts</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:28:33.417Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

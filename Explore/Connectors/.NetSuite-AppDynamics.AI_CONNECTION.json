@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "14LuGs1g15zcZeyDsfoMSl",
+    "name" : "NetSuite-AppDynamics",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "juLlpgneO0fXs3C-gt-71439-2015-07-29T13:52:10.152Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite Connection for Infa dev",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "7offrQ1KPBxfkH2EHDn0gI",
+    "name" : "NetSuite Service Connector",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "IDkcmgaabclvAhr-gt-648466-2015-07-28T09:18:33.552Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite services(Infa dev): Get, Create, Update, Search - Items, Records, and Transactions.",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}

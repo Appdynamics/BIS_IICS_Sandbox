@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "2DSl46x3pucicB9XBc1rAu",
+    "name" : "NetSuite-ServiceConnector-List",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "eL3C7snSDg8SOlA-gt-1078806-2016-06-22T18:42:40.077Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "68KFglWMvhZeDf5rbveTa7",
+    "name" : "NetSuite-ServiceConnector-List",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "Kf3TPdqRi92qBbb-gt-1037367-2016-06-22T18:09:50.583Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite services: Get Actions for Currency",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}

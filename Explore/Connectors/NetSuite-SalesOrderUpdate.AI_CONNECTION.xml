@@ -1,0 +1,59 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>nP31abck0Kn7wpo-gt-6995761-2018-06-22T20:11:54.216Z::conn.xml</types1:EntryId>
+      <types1:Name>NetSuite-SalesOrderUpdate</types1:Name>
+      <types1:ParentFlowIds>G06kck8jKBmeK3j-gt-7011859-2018-06-22T20:15:51.529Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-06-22T20:11:54Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-04-10T15:09:27Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-10T15:09:39Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/NetSuite-SalesOrderUpdate/NetSuite-SalesOrderUpdate.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     displayName="NetSuite-SalesOrderUpdate"
+                     label="NetSuite-SalesOrderUpdate"
+                     name="NetSuite-SalesOrderUpdate">
+            <description/>
+            <tags/>
+            <agent/>
+            <attributes>
+               <attribute encrypted="false"
+                          name="username"
+                          value="ns.webservice@appdynamics.com"/>
+               <attribute encrypted="true" name="password" value=""/>
+               <attribute encrypted="false" name="account" value="3501352_SB3"/>
+               <attribute encrypted="false"
+                          name="URL"
+                          value="https://3501352-SB3.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"/>
+               <attribute encrypted="false"
+                          name="applicationId"
+                          value="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"/>
+            </attributes>
+            <businessConnector xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                               agentOnly="false"
+                               connectorPath="project:/rt.connector/NetSuite_SalesOrderUpdate/NetSuite_SalesOrderUpdate_svcDef.xml"
+                               guid="8ft4bbmvLCkdlKqV4Xwtck"
+                               name="NetSuite-SalesOrderUpdate"
+                               supportsConnectionTest="false"
+                               uuid="40dcaa40-ee5d-45d9-99c3-f68cd3ed801a">
+               <description/>
+            </businessConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>6FawEgUNz2kckZ0oegYZea</types1:GUID>
+      <types1:DisplayName>NetSuite-SalesOrderUpdate</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:28:33.613Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "2ZAVRnwYFcXbep5svHoKUu",
+    "name" : "NetSuite-CiscoDepartmentLookup",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "y2uI5CUP9WYVMPI-gt-16910753-2017-04-26T22:27:52.398Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite services: Get Cisco Department Lookup Object",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

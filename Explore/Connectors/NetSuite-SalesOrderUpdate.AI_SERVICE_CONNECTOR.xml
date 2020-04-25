@@ -1,0 +1,1694 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>6nCKwKBqRi92qBb-gt-1760926-2018-06-20T02:17:21.923Z::svc.xml</types1:EntryId>
+      <types1:Name>NetSuite-SalesOrderUpdate</types1:Name>
+      <types1:ParentFlowIds>nP31abck0Kn7wpo-gt-6995761-2018-06-22T20:11:54.216Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-06-20T02:17:21Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-10-29T13:35:53Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-10-29T13:36:03Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/NetSuite_SalesOrderUpdate/NetSuite_SalesOrderUpdate_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="true"
+                            displayName="NetSuite-SalesOrderUpdate"
+                            label=""
+                            name="NetSuite-SalesOrderUpdate"
+                            uuid="40dcaa40-ee5d-45d9-99c3-f68cd3ed801a">
+            <description/>
+            <tags/>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="username"
+                                    required="true"
+                                    testWith="ns.webservice@appdynamics.com"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="password"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="account"
+                                    required="true"
+                                    testWith="3501352_SB3"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="URL"
+                                    required="true"
+                                    testWith="https://webservices.netsuite.com/services/NetSuitePort_2018_1?c=3501352_SB3"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="applicationId"
+                                    required="false"
+                                    testWith="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"
+                                    type="string"/>
+            </connectionAttributes>
+            <namespaces>
+               <namespace prefix="listRel"
+                          uri="urn:relationships_2015_1.lists.webservices.netsuite.com"/>
+            </namespaces>
+            <actions>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="searchSalesOrder"
+                       maxRedirects="100"
+                       name="searchSalesOrder"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="salesOrder_tranId_search"
+                                name="salesOrder_tranId_search"
+                                nogen="true"
+                                required="true"
+                                testWith="SO010-5826"
+                                type="string"/>
+                     <parameter label="sfdcOrderLineId_search"
+                                name="sfdcOrderLineId_search"
+                                nogen="true"
+                                required="true"
+                                testWith="802340000015irOAAQ"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;soapenv:Envelope
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'
+    xmlns:platformCore='urn:core_2018_1.platform.webservices.netsuite.com'
+    xmlns:tranSales='urn:sales_2018_1.transactions.webservices.netsuite.com'
+    xmlns:platformCommon='urn:common_2018_1.platform.webservices.netsuite.com'
+    xmlns:platformMsgs='urn:messages_2018_1.platform.webservices.netsuite.com'&gt;
+    &lt;soapenv:Header&gt;
+        &lt;passport xsi:type='platformCore:Passport'&gt;
+            &lt;email xsi:type='xsd:string'&gt;{$username}&lt;/email&gt;
+            &lt;password xsi:type='xsd:string'&gt;{$password}&lt;/password&gt;
+            &lt;account xsi:type='xsd:string'&gt;{$account}&lt;/account&gt;            
+        &lt;/passport&gt;
+		&lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+       &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+    &lt;/urn:applicationInfo&gt;
+    &lt;/soapenv:Header&gt;
+    &lt;soapenv:Body&gt;
+        &lt;search xsi:type='platformMsgs:SearchRequest'&gt;
+            &lt;searchRecord xsi:type='tranSales:TransactionSearchAdvanced'&gt;
+                &lt;criteria xsi:type='tranSales:TransactionSearch'&gt;
+                    &lt;basic xsi:type='platformCommon:TransactionSearchBasic'&gt;
+                        &lt;tranId operator='is' xsi:type='platformCore:SearchStringField'&gt;
+                            &lt;searchValue xsi:type='xsd:string'&gt;{$salesOrder_tranId_search}&lt;/searchValue&gt;
+                        &lt;/tranId&gt;
+                        &lt;customFieldList xsi:type='platformCore:SearchCustomFieldList'&gt;
+                            &lt;customField scriptId='custcol_sfdc_order_line_id' xsi:type='platformCore:SearchStringCustomField' operator='is'&gt;
+                                &lt;searchValue xsi:type='xsd:string'&gt;{$sfdcOrderLineId_search}&lt;/searchValue&gt;
+                            &lt;/customField&gt;
+                        &lt;/customFieldList&gt;
+                    &lt;/basic&gt;
+                &lt;/criteria&gt;
+                &lt;columns xsi:type="tranSales:TransactionSearchRow"&gt;
+                    &lt;basic xsi:type="platformCommon:TransactionSearchRowBasic"&gt;  
+                        &lt;internalId xsi:type="platformCore:SearchColumnSelectField"&gt;
+                        &lt;/internalId&gt;
+                        &lt;item xsi:type="platformCore:SearchColumnSelectField"&gt;                           
+                        &lt;/item&gt;
+                        &lt;line xsi:type="platformCore:SearchColumnLongField"&gt;                           
+                        &lt;/line&gt;                                                   
+                        &lt;customFieldList xsi:type="platformCore:SearchColumnCustomFieldList"&gt;
+                            &lt;customField scriptId="custcol_sfdc_order_line_id" xsi:type="platformCore:SearchColumnStringCustomField"&gt;&lt;/customField&gt;
+                            &lt;customField scriptId="custcol_expiry_date" xsi:type="platformCore:SearchColumnDateCustomField"&gt;&lt;/customField&gt;
+                        &lt;/customFieldList&gt;
+                    &lt;/basic&gt;
+                &lt;/columns&gt; 
+            &lt;/searchRecord&gt;            
+        &lt;/search&gt;
+    &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="search_custcol_sfdc_order_line_id"
+                            type="string">
+                        <xquery>{//*:customFieldList/*:customField[@scriptId="custcol_sfdc_order_line_id"]/*:searchValue/text()}</xquery>
+                     </field>
+                     <field description="" name="search_Line_internalId" type="string">
+                        <xquery>{//*:item/*:searchValue/@internalId/data()}</xquery>
+                     </field>
+                     <field description="" name="search_Line_Number" type="string">
+                        <xquery>{//*:line/*:searchValue/data()}</xquery>
+                     </field>
+                     <field description="" name="search_custcol_expiry_date" type="string">
+                        <xquery>{//*:customFieldList/*:customField[@scriptId="custcol_expiry_date"]/*:searchValue/text()}</xquery>
+                     </field>
+                     <field description="" name="search_SalesOrder_internalId" type="string">
+                        <xquery>{//*:internalId/*:searchValue/@internalId/data()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Update"
+                       failOnError="false"
+                       forSearch="false"
+                       label="updateSalesOrder"
+                       maxRedirects="100"
+                       name="updateSalesOrder"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="SalesOrder_internalId"
+                                name="SalesOrder_internalId"
+                                nogen="true"
+                                required="true"
+                                testWith="634150"
+                                type="string"/>
+                     <parameter label="SalesOrder"
+                                name="SalesOrder"
+                                nogen="true"
+                                required="true"
+                                testWith="&lt;SalesOrder&gt;&#xA;     &lt;internalId&gt;634150&lt;/internalId&gt;&#xA;     &lt;itemList&gt;&#xA;        &lt;item&gt;&#xA;            &lt;internalId&gt;1585&lt;/internalId&gt;&#xA;             &lt;line&gt;1&lt;/line&gt;                &#xA;             &lt;custcol_expiry_date&gt;2019-06-15T00:00:00.000-07:00&lt;/custcol_expiry_date&gt;&#xA;             &lt;custcol_expirydate_lastupdate&gt;2019-06-15T00:00:00.000-07:00&lt;/custcol_expirydate_lastupdate&gt;&#xA;        &lt;/item&gt;&#xA;        &lt;item&gt;&#xA;            &lt;internalId&gt;1089&lt;/internalId&gt;&#xA;             &lt;line&gt;2&lt;/line&gt;                &#xA;             &lt;custcol_expiry_date&gt;2019-06-14T00:00:00.000-07:00&lt;/custcol_expiry_date&gt;&#xA;             &lt;custcol_expirydate_lastupdate&gt;2019-06-15T00:00:00.000-07:00&lt;/custcol_expirydate_lastupdate&gt;&#xA;        &lt;/item&gt;&#xA;     &lt;/itemList&gt;&#xA;&lt;/SalesOrder&gt;"
+                                type="reference">
+                        <options>
+                           <option name="referenceTo">SalesOrder</option>
+                        </options>
+                     </parameter>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <authentication>
+                           <username>ns.webservice@appdynamics.com</username>
+                           <password/>
+                           <isExpressionInPassword>false</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="SOAPAction">update</header>
+                        </httpHeaders>
+                        <body>&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
+               xmlns:platformCommon="urn:common_2018_1.platform.webservices.netsuite.com" 
+               xmlns:platformCore="urn:core_2018_1.platform.webservices.netsuite.com" 
+               xmlns:platformMsgs="urn:messages_2018_1.platform.webservices.netsuite.com" 
+               xmlns:tranSales="urn:sales_2018_1.transactions.webservices.netsuite.com" 
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;soap:Header&gt;
+  &lt;platformMsgs:preferences&gt;        
+         &lt;platformMsgs:warningAsError&gt;false&lt;/platformMsgs:warningAsError&gt;
+         &lt;platformMsgs:disableMandatoryCustomFieldValidation&gt;true&lt;/platformMsgs:disableMandatoryCustomFieldValidation&gt;
+         &lt;platformMsgs:disableSystemNotesForCustomFields&gt;false&lt;/platformMsgs:disableSystemNotesForCustomFields&gt;
+         &lt;platformMsgs:ignoreReadOnlyFields&gt;true&lt;/platformMsgs:ignoreReadOnlyFields&gt;
+      &lt;/platformMsgs:preferences&gt;  
+    &lt;platformMsgs:passport&gt;
+      &lt;platformCore:email&gt;{$username}&lt;/platformCore:email&gt;
+      &lt;platformCore:password&gt;{$password}&lt;/platformCore:password&gt;
+      &lt;platformCore:account&gt;{$account}&lt;/platformCore:account&gt;
+    &lt;/platformMsgs:passport&gt;
+	&lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+       &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+    &lt;/urn:applicationInfo&gt;
+  &lt;/soap:Header&gt;
+  &lt;soap:Body&gt;
+    &lt;platformMsgs:update&gt;
+      &lt;platformMsgs:record xsi:type="tranSales:SalesOrder" internalId="{$SalesOrder_internalId}"&gt;
+        &lt;tranSales:itemList replaceAll="false"&gt;
+              {
+          for $i at $pos in ($SalesOrder/itemList/item) 
+          return 
+           &lt;tranSales:item&gt;
+            &lt;tranSales:item internalId="{$i/internalId/text()}"/&gt;                       
+            &lt;tranSales:line&gt;{$i/line/text()}&lt;/tranSales:line&gt;
+            &lt;tranSales:customFieldList&gt; 
+               { 
+               if(exists($i/custcol_expiry_date/text())) 
+               then 
+            &lt;platformCore:customField scriptId="custcol_expiry_date" xsi:type="platformCore:DateCustomFieldRef"&gt;
+                           &lt;platformCore:value&gt;{$i/custcol_expiry_date/text()}&lt;/platformCore:value&gt;
+              &lt;/platformCore:customField&gt; 	
+               else() }
+			   { 
+               if(exists($i/custcol_expirydate_lastupdate/text())) 
+               then 
+            &lt;platformCore:customField scriptId="custcol_expirydate_lastupdate" xsi:type="platformCore:DateCustomFieldRef"&gt;
+                           &lt;platformCore:value&gt;{$i/custcol_expirydate_lastupdate/text()}&lt;/platformCore:value&gt;
+              &lt;/platformCore:customField&gt; 	
+               else() }
+            &lt;/tranSales:customFieldList&gt;		
+          &lt;/tranSales:item&gt;   
+              }
+          &lt;/tranSales:itemList&gt;   
+          &lt;tranSales:customFieldList xmlns:platformCore="urn:core_2018_1.platform.webservices.netsuite.com"&gt;
+              &lt;platformCore:customField scriptId="custbody_ps_extension" xsi:type="platformCore:StringCustomFieldRef"&gt;
+                  &lt;platformCore:value&gt;T&lt;/platformCore:value&gt;
+              &lt;/platformCore:customField&gt; 
+          &lt;/tranSales:customFieldList&gt;   
+      &lt;/platformMsgs:record&gt;
+    &lt;/platformMsgs:update&gt;  
+  &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="Internal ID number for Sales Order returned by Netsuite"
+                            name="NSinternalID"
+                            type="string">
+                        <xquery>{
+//*:baseRef/@internalId
+}</xquery>
+                     </field>
+                     <field description="" name="isUpdateSOSuccess" type="string">
+                        <xquery>{
+//*:status/@isSuccess
+}</xquery>
+                     </field>
+                     <field description=""
+                            name="status"
+                            type="reference"
+                            xmlElement="status">
+                        <options>
+                           <option name="referenceTo">status</option>
+                        </options>
+                     </field>
+                     <field description="" name="errorMessages" type="string">
+                        <xquery>{
+//*:status/*:statusDetail[@*:type="ERROR"]/*:message/text()
+}</xquery>
+                     </field>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Envelope">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="Header" type="reference">
+                        <options>
+                           <option name="referenceTo">Header</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="Body" type="reference">
+                        <options>
+                           <option name="referenceTo">Body</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Header">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="documentInfo" type="reference">
+                        <options>
+                           <option name="referenceTo">documentInfo</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="documentInfo">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="nsId" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Body">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="getResponse" type="reference">
+                        <options>
+                           <option name="referenceTo">getResponse</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="addResponse" type="reference">
+                        <options>
+                           <option name="referenceTo">addResponse</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="searchResponse" type="reference">
+                        <options>
+                           <option name="referenceTo">searchResponse</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="getResponse">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="readResponse" type="reference">
+                        <options>
+                           <option name="referenceTo">readResponse</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="readResponse">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="status" type="reference">
+                        <options>
+                           <option name="referenceTo">status</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="record" type="reference">
+                        <options>
+                           <option name="referenceTo">SalesOrder</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="status">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="isSuccess" type="string"/>
+                     <field name="statusDetail" type="objectlist">
+                        <options>
+                           <option name="referenceTo">statusDetail</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="SalesOrder">
+                  <description>Process Object for "record" entity: Transaction-&gt;_salesOrder</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="createdDate" type="string"/>
+                     <field name="customForm" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="entity" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="currency" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="drAccount" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="fxAccount" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="tranDate" type="string"/>
+                     <field name="tranId" type="string"/>
+                     <field name="orderStatus" type="string"/>
+                     <field name="salesRep" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="startDate" type="string"/>
+                     <field name="endDate" type="string"/>
+                     <field name="exchangeRate" type="string"/>
+                     <field name="currencyName" type="string"/>
+                     <field name="discountItem" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="discountRate" type="string"/>
+                     <field name="toBePrinted" type="string"/>
+                     <field name="toBeEmailed" type="string"/>
+                     <field name="toBeFaxed" type="string"/>
+                     <field name="fax" type="string"/>
+                     <field name="transactionBillAddress" type="reference">
+                        <options>
+                           <option name="referenceTo">transactionBillAddress</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="billAddressList" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="billAddress" type="string"/>
+                     <field name="transactionShipAddress" type="reference">
+                        <options>
+                           <option name="referenceTo">transactionShipAddress</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="shipAddressList" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="shipAddress" type="string"/>
+                     <field name="saveOnAuthDecline" type="string"/>
+                     <field name="revenueStatus" type="string"/>
+                     <field name="recognizedRevenue" type="string"/>
+                     <field name="deferredRevenue" type="string"/>
+                     <field name="revRecOnRevCommitment" type="string"/>
+                     <field name="revCommitStatus" type="string"/>
+                     <field name="ccApproved" type="string"/>
+                     <field name="getAuth" type="string"/>
+                     <field name="subTotal" type="string"/>
+                     <field name="discountTotal" type="string"/>
+                     <field name="taxTotal" type="string"/>
+                     <field name="total" type="string"/>
+                     <field name="balance" type="string"/>
+                     <field name="class" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="subsidiary" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="lastModifiedDate" type="string"/>
+                     <field name="status" type="string"/>
+                     <field name="terms" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="tranIsVsoeBundle" type="string"/>
+                     <field name="itemList" type="reference">
+                        <options>
+                           <option name="referenceTo">itemList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="otherRefNum" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="transactionBillAddress">
+                  <description>An automatically generated process object.  From Version 2013_2, the way addresses were handled changed in Version 2015_1.</description>
+                  <detail>
+                     <field name="billAddressee" type="string"/>
+                     <field name="billAddr1" type="string"/>
+                     <field name="billCity" type="string"/>
+                     <field name="billState" type="string"/>
+                     <field name="billZip" type="string"/>
+                     <field name="billCountry" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="transactionShipAddress">
+                  <description>An automatically generated process object.  From Version 2013_2, the way addresses were handled changed in Version 2015_1.</description>
+                  <detail>
+                     <field name="shipAddressee" type="string"/>
+                     <field name="shipAddr1" type="string"/>
+                     <field name="shipCity" type="string"/>
+                     <field name="shipState" type="string"/>
+                     <field name="shipZip" type="string"/>
+                     <field name="shipCountry" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="itemList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="item" type="objectlist">
+                        <options>
+                           <option name="referenceTo">item</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="item">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="item" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="quantity" type="string"/>
+                     <field name="description" type="string"/>
+                     <field name="price" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="rate" type="string"/>
+                     <field name="amount" type="string"/>
+                     <field name="revRecSchedule" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="revRecStartDate" type="string"/>
+                     <field name="revRecTermInMonths" type="string"/>
+                     <field name="revRecEndDate" type="string"/>
+                     <field name="deferRevRec" type="string"/>
+                     <field name="isClosed" type="string"/>
+                     <field name="grossAmt" type="string"/>
+                     <field name="line" type="string"/>
+                     <field name="quantityFulfilled" type="string"/>
+                     <field name="tax1Amt" type="string"/>
+                     <field name="taxCode" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="taxRate1" type="string"/>
+                     <field name="vsoeSopGroup" type="string"/>
+                     <field name="vsoeIsEstimate" type="string"/>
+                     <field name="vsoeDeferral" type="string"/>
+                     <field name="vsoePermitDiscount" type="string"/>
+                     <field name="vsoeDelivered" type="string"/>
+                     <field name="units" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="custcol_list_price" type="string"/>
+                     <field name="custcol_one_time_discount_percent" type="string"/>
+                     <field name="custcol_total_price" type="string"/>
+                     <field name="custcol_monthly_perpetual_support_ren" type="string"/>
+                     <field name="custcol_months" type="string"/>
+                     <field name="custcol_product_name" type="string"/>
+                     <field name="custcol_volume_discount_percent" type="string"/>
+                     <field name="custcol_subscription_duration" type="string"/>
+                     <field name="custcol_qty" type="string"/>
+                     <field name="custcol_line_type" type="string"/>
+                     <field name="custcol_so_line_end_date" type="date"/>
+                     <field name="custcol_so_line_start_date" type="date"/>
+                     <field name="custcol_coterm_oppty_id" type="string"/>
+                     <field name="custcol_one_time_disc_amt" type="string"/>
+                     <field name="custcol_ext_list_price" type="string"/>
+                     <field name="custcol_monthly_ext_list_price" type="string"/>
+                     <field name="custcol_monthly_list_unit_price" type="string"/>
+                     <field name="custcol_sfdc_order_line_id" type="string"/>
+                     <field name="custcol_sfdc_parent_line_id" type="string"/>
+                     <field name="custcol_acceptance_language" type="boolean"/>
+                     <field name="custcol_expiry_date" type="string"/>
+                     <field name="custcol_contract_mod_opp_id" type="string"/>
+                     <field name="custcol_referral_fee" type="string"/>
+                     <field name="custcol_bill_in_arrears" type="string"/>
+                     <field name="internalId" type="string"/>
+                     <field name="custcol_expirydate_lastupdate" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="customFieldList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="customField" type="objectlist">
+                        <options>
+                           <option name="referenceTo">customField</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="customField">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="value" type="reference">
+                        <options>
+                           <option name="referenceTo">value</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="scriptId" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="value">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="typeId" type="string"/>
+                     <field name="name" type="string"/>
+                     <field name="value" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="refType">
+                  <description>Reusable Reference Type for that provides: internalId &amp; name</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="name" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="statusDetail">
+                  <description>For Capturing Error Messages</description>
+                  <detail>
+                     <field name="type" type="string"/>
+                     <field name="code" type="string"/>
+                     <field name="message" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="writeResponse">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="status" type="reference">
+                        <options>
+                           <option name="referenceTo">status</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="baseRef" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="addResponse">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="writeResponse" type="reference">
+                        <options>
+                           <option name="referenceTo">writeResponse</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="searchResponse">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="searchResult" type="reference">
+                        <options>
+                           <option name="referenceTo">searchResult</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="searchResult">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="status" type="reference">
+                        <options>
+                           <option name="referenceTo">status</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="totalRecords" type="string"/>
+                     <field name="pageSize" type="string"/>
+                     <field name="totalPages" type="string"/>
+                     <field name="pageIndex" type="string"/>
+                     <field name="searchId" type="string"/>
+                     <field name="recordList" type="reference">
+                        <options>
+                           <option name="referenceTo">recordList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="recordList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="Invoice" type="objectlist">
+                        <options>
+                           <option name="referenceTo">Record-Invoice</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="Payment" type="objectlist">
+                        <options>
+                           <option name="referenceTo">Record-Payment</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="Item" type="objectlist">
+                        <options>
+                           <option name="referenceTo">Record-Item</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Record-Payment">
+                  <description>Process Object for "record" entity: Transaction-&gt;_payment</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="createdDate" type="datetime"/>
+                     <field name="lastModifiedDate" type="datetime"/>
+                     <field name="customer" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="pending" type="string"/>
+                     <field name="currency" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="payment" type="string"/>
+                     <field name="tranDate" type="datetime"/>
+                     <field name="postingPeriod" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="currencyName" type="string"/>
+                     <field name="exchangeRate" type="string"/>
+                     <field name="ccApproved" type="string"/>
+                     <field name="account" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="applied" type="string"/>
+                     <field name="unapplied" type="string"/>
+                     <field name="status" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Record-Invoice">
+                  <description>Process Object for "record" entity: Transaction-&gt;_invoice</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="createdDate" type="datetime"/>
+                     <field name="lastModifiedDate" type="datetime"/>
+                     <field name="entity" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="tranDate" type="datetime"/>
+                     <field name="tranId" type="string"/>
+                     <field name="source" type="string"/>
+                     <field name="postingPeriod" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="terms" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="subsidiary" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="currency" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="dueDate" type="datetime"/>
+                     <field name="salesRep" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="account" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="exchangeRate" type="string"/>
+                     <field name="currencyName" type="string"/>
+                     <field name="toBePrinted" type="string"/>
+                     <field name="toBeEmailed" type="string"/>
+                     <field name="toBeFaxed" type="string"/>
+                     <field name="billAddress" type="string"/>
+                     <field name="transactionShipAddress" type="reference">
+                        <options>
+                           <option name="referenceTo">transactionShipAddress</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="shipAddress" type="string"/>
+                     <field name="subTotal" type="string"/>
+                     <field name="revenueStatus" type="string"/>
+                     <field name="recognizedRevenue" type="string"/>
+                     <field name="deferredRevenue" type="string"/>
+                     <field name="revRecOnRevCommitment" type="string"/>
+                     <field name="taxTotal" type="string"/>
+                     <field name="total" type="string"/>
+                     <field name="status" type="string"/>
+                     <field name="email" type="string"/>
+                     <field name="itemCostDiscPrint" type="string"/>
+                     <field name="expCostDiscPrint" type="string"/>
+                     <field name="tranIsVsoeBundle" type="string"/>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="memo" type="string"/>
+                     <field name="transactionBillAddress" type="reference">
+                        <options>
+                           <option name="referenceTo">transactionBillAddress</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Record-Item">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="externalId" type="string"/>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="createdDate" type="datetime"/>
+                     <field name="lastModifiedDate" type="datetime"/>
+                     <field name="purchaseDescription" type="string"/>
+                     <field name="copyDescription" type="string"/>
+                     <field name="cogsAccount" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="salesDescription" type="string"/>
+                     <field name="incomeAccount" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="isTaxable" type="boolean"/>
+                     <field name="assetAccount" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="matchBillToReceipt" type="string"/>
+                     <field name="billQtyVarianceAcct" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="billPriceVarianceAcct" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="billExchRateVarianceAcct" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="weight" type="string"/>
+                     <field name="weightUnit" type="string"/>
+                     <field name="costingMethodDisplay" type="string"/>
+                     <field name="trackLandedCost" type="string"/>
+                     <field name="isDropShipItem" type="boolean"/>
+                     <field name="isSpecialOrderItem" type="boolean"/>
+                     <field name="roundUpAsComponent" type="string"/>
+                     <field name="enforceMinQtyInternally" type="string"/>
+                     <field name="shipIndividually" type="string"/>
+                     <field name="costCategory" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="useMarginalRates" type="string"/>
+                     <field name="costEstimateType" type="string"/>
+                     <field name="overallQuantityPricingType" type="string"/>
+                     <field name="preferredLocation" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="cost" type="string"/>
+                     <field name="totalValue" type="string"/>
+                     <field name="averageCost" type="string"/>
+                     <field name="useBins" type="string"/>
+                     <field name="autoLeadTime" type="string"/>
+                     <field name="lastPurchasePrice" type="string"/>
+                     <field name="autoPreferredStockLevel" type="string"/>
+                     <field name="seasonalDemand" type="string"/>
+                     <field name="autoReorderPoint" type="string"/>
+                     <field name="excludeFromSitemap" type="string"/>
+                     <field name="sitemapPriority" type="string"/>
+                     <field name="isDonationItem" type="boolean"/>
+                     <field name="showDefaultDonationAmount" type="string"/>
+                     <field name="dontShowPrice" type="string"/>
+                     <field name="outOfStockBehavior" type="string"/>
+                     <field name="itemId" type="string"/>
+                     <field name="displayName" type="string"/>
+                     <field name="parent" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="isOnline" type="boolean"/>
+                     <field name="offerSupport" type="string"/>
+                     <field name="isInactive" type="boolean"/>
+                     <field name="availableToPartners" type="string"/>
+                     <field name="currency" type="string"/>
+                     <field name="pricingMatrix" type="reference">
+                        <options>
+                           <option name="referenceTo">pricingMatrix</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="supplyReplenishmentMethod" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="productFeedList" type="reference">
+                        <options>
+                           <option name="referenceTo">productFeedList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="itemVendorList" type="reference">
+                        <options>
+                           <option name="referenceTo">itemVendorList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="translationsList" type="reference">
+                        <options>
+                           <option name="referenceTo">translationsList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="locationsList" type="reference">
+                        <options>
+                           <option name="referenceTo">locationsList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="shippingCostUnits" type="string"/>
+                     <field name="handlingCostUnits" type="string"/>
+                     <field name="weightUnits" type="string"/>
+                     <field name="unitsType" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="stockUnit" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="purchaseUnit" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="saleUnit" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="minimumQuantityUnits" type="string"/>
+                     <field name="costEstimateUnits" type="string"/>
+                     <field name="costUnits" type="string"/>
+                     <field name="quantityReorderUnits" type="string"/>
+                     <field name="storeDisplayName" type="string"/>
+                     <field name="storeDisplayThumbnail" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="storeDisplayImage" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="storeDetailedDescription" type="string"/>
+                     <field name="isFulfillable" type="boolean"/>
+                     <field name="onSpecial" type="string"/>
+                     <field name="department" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="class" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="pricingMatrix">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="pricing" type="objectlist">
+                        <options>
+                           <option name="referenceTo">pricing</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="pricing">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="currency" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="priceLevel" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="priceList" type="reference">
+                        <options>
+                           <option name="referenceTo">priceList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="discount" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="priceList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="price" type="objectlist">
+                        <options>
+                           <option name="referenceTo">price</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="price">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="value" type="string"/>
+                     <field name="quantity" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="productFeedList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="productFeed" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="itemVendorList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="itemVendor" type="reference">
+                        <options>
+                           <option name="referenceTo">itemVendor</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="itemVendor">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="vendor" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="purchasePrice" type="string"/>
+                     <field name="preferredVendor" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="translationsList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="translation" type="reference">
+                        <options>
+                           <option name="referenceTo">translation</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="translation">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="locale" type="string"/>
+                     <field name="language" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="locationsList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="locations" type="objectlist">
+                        <options>
+                           <option name="referenceTo">locations</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="locations">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="location" type="string"/>
+                     <field name="quantityOnHand" type="string"/>
+                     <field name="onHandValueMli" type="string"/>
+                     <field name="averageCostMli" type="string"/>
+                     <field name="lastPurchasePriceMli" type="string"/>
+                     <field name="reorderPoint" type="string"/>
+                     <field name="preferredStockLevel" type="string"/>
+                     <field name="leadTime" type="string"/>
+                     <field name="quantityOnOrder" type="string"/>
+                     <field name="quantityCommitted" type="string"/>
+                     <field name="quantityAvailable" type="string"/>
+                     <field name="quantityBackOrdered" type="string"/>
+                     <field name="locationId" type="reference">
+                        <options>
+                           <option name="referenceTo">locationId</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="locationId">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="SearchMatchingItem">
+                  <description>Process Object for Item returned by reference to NetSuite Saved Search</description>
+                  <detail>
+                     <field name="displayName" type="string"/>
+                     <field name="basePrice" type="string"/>
+                     <field name="itemId" type="string"/>
+                     <field name="quantityAvailable" type="string"/>
+                     <field name="parentName" type="string"/>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Record-Case">
+                  <description>AppDynamics POC Process Object for NetSuite Tickets</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="title" type="string"/>
+                     <field name="caseNumber" type="string"/>
+                     <field name="createdDate" type="datetime"/>
+                     <field name="lastModifiedDate" type="datetime"/>
+                     <field name="company" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="email" type="string"/>
+                     <field name="phone" type="string"/>
+                     <field name="issue" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="status" type="reference">
+                        <options>
+                           <option name="referenceTo">status</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="assigned" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="incomingMessage" type="string"/>
+                     <field name="searchSolution" type="string"/>
+                     <field name="emailForm" type="string"/>
+                     <field name="newSolutionFromMsg" type="string"/>
+                     <field name="internalOnly" type="string"/>
+                     <field name="customForm" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="lastMessageDate" type="datetime"/>
+                     <field name="origin" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="category" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Record-Contact">
+                  <description>AppDynamics POC Process Object for NetSuite Contacts</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="entityId" type="string"/>
+                     <field name="company" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="firstName" type="string"/>
+                     <field name="lastName" type="string"/>
+                     <field name="phone" type="string"/>
+                     <field name="email" type="string"/>
+                     <field name="defaultAddress" type="string"/>
+                     <field name="isInactive" type="boolean"/>
+                     <field name="subsidiary" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="globalSubscriptionStatus" type="string"/>
+                     <field name="dateCreated" type="string"/>
+                     <field name="lastModifiedDate" type="datetime"/>
+                     <field name="addressbookList" type="reference">
+                        <options>
+                           <option name="referenceTo">addressbookList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="subscriptionsList" type="reference">
+                        <options>
+                           <option name="referenceTo">subscriptionsList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="externalId" type="string"/>
+                     <field name="title" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="addressbookList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="addressbook" type="objectlist">
+                        <options>
+                           <option name="referenceTo">addressbook</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="addressbook">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="defaultShipping" type="string"/>
+                     <field name="defaultBilling" type="string"/>
+                     <field name="label" type="string"/>
+                     <field name="addressbookAddress" type="reference">
+                        <options>
+                           <option name="referenceTo">addressbookAddress</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="internalId" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="addressbookAddress">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="country" type="string"/>
+                     <field name="addressee" type="string"/>
+                     <field name="addr1" type="string"/>
+                     <field name="city" type="string"/>
+                     <field name="state" type="string"/>
+                     <field name="zip" type="string"/>
+                     <field name="addrText" type="string"/>
+                     <field name="override" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="subscriptionsList">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="subscriptions" type="objectlist">
+                        <options>
+                           <option name="referenceTo">subscriptions</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="subscriptions">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="subscribed" type="string"/>
+                     <field name="subscription" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="lastModifiedDate" type="datetime"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="creditCard">
+                  <description>AppDynamics POC Process Object</description>
+                  <detail>
+                     <field name="cardName" type="string"/>
+                     <field name="cardType" type="string"/>
+                     <field name="cardNumber" type="string"/>
+                     <field name="cardExpireMonth" type="string"/>
+                     <field name="cardExpireYear" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="billingAddress">
+                  <description>AppDynamics POC Process Object</description>
+                  <detail>
+                     <field name="billingAddress1" type="string"/>
+                     <field name="billingAddress2" type="string"/>
+                     <field name="billingCity" type="string"/>
+                     <field name="billingState" type="string"/>
+                     <field name="billingZip" type="string"/>
+                     <field name="billingCountry" type="string"/>
+                     <field name="billingAddressee" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="shippingAddress">
+                  <description>AppDynamics POC Process Object</description>
+                  <detail>
+                     <field name="shippingAddress1" type="string"/>
+                     <field name="shippingAddress2" type="string"/>
+                     <field name="shippingCity" type="string"/>
+                     <field name="shippingState" type="string"/>
+                     <field name="shippingZip" type="string"/>
+                     <field name="shippingCountry" type="string"/>
+                     <field name="shippingAddressee" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="NSHeaderCustomFields">
+                  <description>AppDynamics POC Process Object</description>
+                  <detail>
+                     <field name="custbody_sfdc_start_date" type="date"/>
+                     <field name="custbody_opportunity_record_type" type="string"/>
+                     <field name="custbody_contract_start_date" type="date"/>
+                     <field name="custbody_license_term_in_months" type="string"/>
+                     <field name="custbody_salesforce_currency" type="string"/>
+                     <field name="custbody_order_type" type="string"/>
+                     <field name="custbody_netsuite_entity" type="string"/>
+                     <field name="custbody_end_user" type="string"/>
+                     <field name="custbody_opportunity_name" type="string"/>
+                     <field name="custbody_type" type="string"/>
+                     <field name="custbody_channel_tier" type="string"/>
+                     <field name="custbody_otd_from_synced_quote" type="string"/>
+                     <field name="custbody_partner_margin_discount" type="string"/>
+                     <field name="custbody_opportunity_currency" type="string"/>
+                     <field name="custbody_celigo_ns_sfdc_sync_id" type="string"/>
+                     <field name="Custbody_SFDC_Booked_Date" type="date"/>
+                     <field name="custbody_celigo_ns_sfdc_sync" type="string"/>
+                     <field name="custbody_region" type="string"/>
+                     <field name="custbody_quote" type="string"/>
+                     <field name="custbody_cotermed_oppty" type="string"/>
+                     <field name="custbody_aws_margin" type="string"/>
+                     <field name="custbody_customer_credit_status" type="string"/>
+                     <field name="custbody_deal_source" type="string"/>
+                     <field name="custbody_titan_rebate" type="boolean"/>
+                     <field name="custbody_gsp" type="string"/>
+                     <field name="custbody_ad_enterprise_flag" type="string"/>
+                     <field name="custbody_ad_other_modification" type="string"/>
+                     <field name="custbody_cancellation_rights" type="string"/>
+                     <field name="custbody_retroactive_swap" type="string"/>
+                     <field name="custbody_one_time_swap" type="string"/>
+                     <field name="custbody_ps_conversion" type="string"/>
+                     <field name="custbody_federal_deal" type="string"/>
+                     <field name="custbody_deployment_license_conversion" type="string"/>
+                     <field name="custbody_future_purchase_option" type="string"/>
+                     <field name="custbody_volume_discount_table" type="string"/>
+                     <field name="custbody_ad_unique_purchase_price_lock" type="string"/>
+                     <field name="custbody_ad_unique_renewal_price_lock" type="string"/>
+                     <field name="custbody_purchase_price_lock" type="string"/>
+                     <field name="custbody_renewal_price_lock" type="string"/>
+                     <field name="custbody_ps_extension" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="NSLineItemCustomFields">
+                  <description>AppDynamics POC Process Object</description>
+                  <detail>
+                     <field name="custcol_list_price" type="string"/>
+                     <field name="custcol_one_time_discount_percent" type="string"/>
+                     <field name="custcol_total_price" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="Invoice">
+                  <description>Process Object for "record" entity: Transaction-&gt;_invoice</description>
+                  <detail>
+                     <field name="internalId" type="string"/>
+                     <field name="type" type="string"/>
+                     <field name="createdDate" type="string"/>
+                     <field name="tranDate" type="string"/>
+                     <field name="tranId" type="string"/>
+                     <field name="startDate" type="string"/>
+                     <field name="endDate" type="string"/>
+                     <field name="customForm" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="currency" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="createdFrom" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="department" type="reference">
+                        <options>
+                           <option name="referenceTo">refType</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="customFieldList" type="reference">
+                        <options>
+                           <option name="referenceTo">customFieldList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="itemList" type="reference">
+                        <options>
+                           <option name="referenceTo">itemList</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>8ft4bbmvLCkdlKqV4Xwtck</types1:GUID>
+      <types1:DisplayName>NetSuite-SalesOrderUpdate</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:28:33.383Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
