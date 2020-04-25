@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "4vtylpf61MbcnUGYbG1Ocu",
+    "name" : "OKTA-User",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "KZhHwzZsMBw8jIw-gt-14041650-2017-04-21T23:17:00.358Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "6AoasrrS1QZjbil2HKnBQP",
+    "name" : "OKTA-User",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "ukfRLdqcgm8lnCm-gt-13899744-2017-04-21T18:39:47.334Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}

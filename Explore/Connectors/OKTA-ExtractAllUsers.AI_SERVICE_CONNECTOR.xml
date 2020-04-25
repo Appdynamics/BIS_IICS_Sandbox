@@ -1,0 +1,172 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>6RqXpIW7WHK80FI-gt-21076867-2018-04-30T21:11:01.993Z::svc.xml</types1:EntryId>
+      <types1:Name>OKTA-ExtractAllUsers</types1:Name>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>ns.webservice@appdynamics.com</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-04-30T21:11:01Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2018-05-01T19:25:17Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2018-05-01T19:25:23Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/OKTA_ExtractAllUsers/OKTA_ExtractAllUsers_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="false"
+                            label=""
+                            name="OKTA-ExtractAllUsers"
+                            uuid="1de00fb6-eb39-43aa-a7fa-7ffd8d2dce9f">
+            <description/>
+            <tags>ns.webservice@appdynamics.com</tags>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="Authorization"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="false"
+                                    name="URL"
+                                    required="true"
+                                    testWith="https://appdynamics.okta.com/api/v1/users"
+                                    type="string"/>
+            </connectionAttributes>
+            <actions>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetAllUsers"
+                       maxRedirects="100"
+                       name="GetAllUsers"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input/>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="GET">
+                        <authentication>
+                           <username>ns.webservice@appdynamics.com</username>
+                           <password/>
+                           <isExpressionInPassword>false</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="nextValue" type="string">
+                        <xquery>{let $x := &lt;root&gt;{$ResponseHeaders}&lt;/root&gt;
+return fn:substring-before(fn:substring-after($x/header[@name='link'][fn:contains(.,'next')]/text(),'after='),'&amp;amp;')}</xquery>
+                     </field>
+                     <field description=""
+                            name="profileList"
+                            type="objectlist"
+                            xmlElement="profile">
+                        <options>
+                           <option name="referenceTo"/>
+                        </options>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="false"
+                       forSearch="false"
+                       label="GetAllUsersNext"
+                       maxRedirects="100"
+                       name="GetAllUsersNext"
+                       preemptiveAuth="false"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="lastId"
+                                name="nextValue"
+                                nogen="true"
+                                required="true"
+                                testWith="200u14nqzqgsNZ16N81d8"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}?after={$nextValue}"
+                                        verb="GET">
+                        <authentication>
+                           <username>ns.webservice@appdynamics.com</username>
+                           <password/>
+                           <isExpressionInPassword>false</isExpressionInPassword>
+                        </authentication>
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="nextValue_Next" type="string">
+                        <xquery>{let $x := &lt;root&gt;{$ResponseHeaders}&lt;/root&gt;
+return fn:substring-before(fn:substring-after($x/header[@name='link'][fn:contains(.,'next')]/text(),'after='),'&amp;amp;')}</xquery>
+                     </field>
+                     <field description=""
+                            name="profileList_Next"
+                            type="objectlist"
+                            xmlElement="profile">
+                        <options>
+                           <option name="referenceTo"/>
+                        </options>
+                     </field>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="profile">
+                  <description/>
+                  <detail>
+                     <field name="lastName" type="string"/>
+                     <field name="zipCode" type="string"/>
+                     <field name="manager" type="string"/>
+                     <field name="city" type="string"/>
+                     <field name="secondEmail" type="string"/>
+                     <field name="title" type="string"/>
+                     <field name="locale" type="string"/>
+                     <field name="login" type="string"/>
+                     <field name="CEmail" type="string"/>
+                     <field name="CDepartment" type="string"/>
+                     <field name="employeeNumber" type="string"/>
+                     <field name="CTitle" type="string"/>
+                     <field name="firstName" type="string"/>
+                     <field name="primaryPhone" type="string"/>
+                     <field name="mobilePhone" type="string"/>
+                     <field name="streetAddress" type="string"/>
+                     <field name="countryCode" type="string"/>
+                     <field name="CManager" type="string"/>
+                     <field name="userType" type="string"/>
+                     <field name="state" type="string"/>
+                     <field name="department" type="string"/>
+                     <field name="email" type="string"/>
+                     <field name="CEID" type="string"/>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>llSZPWKfzwkjqujN1hvbGI</types1:GUID>
+      <types1:DisplayName>OKTA-ExtractAllUsers</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:29:46.245Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

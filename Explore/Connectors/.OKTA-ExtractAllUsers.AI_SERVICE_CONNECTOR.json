@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "llSZPWKfzwkjqujN1hvbGI",
+    "name" : "OKTA-ExtractAllUsers",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "6RqXpIW7WHK80FI-gt-21076867-2018-04-30T21:11:01.993Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

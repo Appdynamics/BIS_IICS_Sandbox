@@ -1,0 +1,51 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>R3DnHrWLU6S6fPA-gt-21233755-2018-04-30T22:39:28.706Z::conn.xml</types1:EntryId>
+      <types1:Name>OKTA-ExtractAllUsers</types1:Name>
+      <types1:ParentFlowIds>O8lwnHUPAZf5kck-gt-21237342-2018-04-30T22:44:54.655Z::pd.xml,VMTonQYWeIssjql-gt-21254673-2018-04-30T23:06:04.765Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-04-30T22:39:28Z</types1:CreationDate>
+      <types1:ModifiedBy/>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2018-05-01T19:25:46Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/OKTA-ExtractAllUsers/OKTA-ExtractAllUsers.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     xmlns:ns2="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                     displayName="OKTA-ExtractAllUsers"
+                     label="OKTA-ExtractAllUsers"
+                     name="OKTA-ExtractAllUsers">
+            <description/>
+            <tags/>
+            <agent/>
+            <attributes>
+               <attribute encrypted="true" name="Authorization" value=""/>
+               <attribute encrypted="false"
+                          name="URL"
+                          value="https://appdynamics.okta.com/api/v1/users"/>
+            </attributes>
+            <ns2:businessConnector agentOnly="false"
+                                   connectorPath="project:/rt.connector/OKTA_ExtractAllUsers/OKTA_ExtractAllUsers_svcDef.xml"
+                                   guid="llSZPWKfzwkjqujN1hvbGI"
+                                   name="OKTA-ExtractAllUsers"
+                                   supportsConnectionTest="false"
+                                   uuid="1de00fb6-eb39-43aa-a7fa-7ffd8d2dce9f">
+               <ns2:description/>
+            </ns2:businessConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>cLoS2QObiQejCuznynQXUm</types1:GUID>
+      <types1:DisplayName>OKTA-ExtractAllUsers</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:29:46.34Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
