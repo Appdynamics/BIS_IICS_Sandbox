@@ -1,0 +1,132 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>Ni7A7vNljLYqBGZ-gt-29524424-2019-01-31T06:44:45.641Z::pd.xml</types1:EntryId>
+      <types1:Name>SalesforceToOrgChartNow-EmployeeImages</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-01-31T06:44:46Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-05-01T22:50:27Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-05-01T22:50:38Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SalesforceToOrgChartNow-EmployeeImages/SalesforceToOrgChartNow-EmployeeImages.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SalesforceToOrgChartNow-EmployeeImages"
+                  name="SalesforceToOrgChartNow-EmployeeImages">
+            <appliesTo/>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <tempFields>
+               <field description="" name="temp_lookupSFDC_ListOfUsers" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:User</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="normal">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jrk9ke9s" targetId="jrk93rkx"/>
+               </start>
+               <assignment id="jrk93rkx">
+                  <title>Get Salesforce User List</title>
+                  <operation source="list" to="temp.temp_lookupSFDC_ListOfUsers">
+                     <query from="Salesforce:User">
+                        <where>(NOT(FullPhotoUrl like '%profilephoto/005/F')) AND Netsuite_Id__c != '' AND IsActive = true LIMIT 5000</where>
+                     </query>
+                  </operation>
+                  <link id="jrk93rm2" targetId="jrk93rm1"/>
+               </assignment>
+               <container id="jrk93rm1" type="exclusive">
+                  <title>Are Employees Found?</title>
+                  <flow id="jrk93rm5">
+                     <subflow id="jrk9ke7x">
+                        <title>Download Employee Images</title>
+                        <subflowGUID>5T2tR0R3EHHid3wDhDpYmQ</subflowGUID>
+                        <subflowPath>Salesforce-getEachUserImage</subflowPath>
+                        <appliesTo>Salesforce:User</appliesTo>
+                        <appliesToDataName source="field">temp.temp_lookupSFDC_ListOfUsers</appliesToDataName>
+                        <runForEach>true</runForEach>
+                        <input/>
+                        <outputDef>
+                           <field name="isSuccess" type="string">
+                              <options>
+                                 <option name="required">false</option>
+                              </options>
+                           </field>
+                        </outputDef>
+                        <link id="jruuuzg3" targetId="jruuuzg2"/>
+                     </subflow>
+                     <service id="jruuuzg2">
+                        <title>Encrypt the Images</title>
+                        <serviceName>ICSExecuteTask</serviceName>
+                        <serviceGUID/>
+                        <serviceInput>
+                           <parameter name="Task Name" source="constant">DSS_Netsuite_To_OrgChartNow_SFTP_EmployeeImages_PGP_Encryption [SAAS_DSS]</parameter>
+                           <parameter name="Wait for Task to Complete" source="constant">true</parameter>
+                           <parameter name="Fail on Cloud Task Errors" source="constant">true</parameter>
+                           <parameter name="GUID" source="constant">2v0g69hzNDMessT6vfnbq2</parameter>
+                        </serviceInput>
+                        <link id="jruuuzgy" targetId="jruuuzgx"/>
+                     </service>
+                     <service id="jruuuzgx">
+                        <title>Send Encrypted Images to OCN sFTP</title>
+                        <serviceName>ICSExecuteTask</serviceName>
+                        <serviceGUID/>
+                        <serviceInput>
+                           <parameter name="Task Name" source="constant">DSS_Netsuite_To_OrgChartNow_SFTP_PUT_EmployeeImages [SAAS_DSS]</parameter>
+                           <parameter name="Wait for Task to Complete" source="constant">true</parameter>
+                           <parameter name="Fail on Cloud Task Errors" source="constant">true</parameter>
+                           <parameter name="GUID" source="constant">6mMtc19IQGolFUeaU74nWv</parameter>
+                        </serviceInput>
+                     </service>
+                     <link id="jrk93rm6" targetId="jrk93rm1" type="containerLink"/>
+                  </flow>
+                  <flow id="jrk93rm8">
+                     <link id="jrk93rm9" targetId="jrk93rm1" type="containerLink"/>
+                  </flow>
+                  <link id="jrk93rm4" targetId="jrk93rm5" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_lookupSFDC_ListOfUsers}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jrk93rm7" targetId="jrk93rm8" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_lookupSFDC_ListOfUsers}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jrk93rmk" targetId="c"/>
+               </container>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>273fmkHD9JndnQvetgKuoV</types1:GUID>
+      <types1:DisplayName>SalesforceToOrgChartNow-EmployeeImages</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:54:11.083Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

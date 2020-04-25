@@ -1,0 +1,175 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>2hAGE7ppppppppp-gt-28807105-2019-01-31T06:11:56.855Z::pd.xml</types1:EntryId>
+      <types1:Name>Salesforce-getEachUserImage</types1:Name>
+      <types1:ParentFlowIds>8qUlLnzYLnzYLnz-gt-1958419-2019-08-19T01:33:00.955Z::pd.xml,Ni7A7vNljLYqBGZ-gt-29524424-2019-01-31T06:44:45.641Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:User</types1:AppliesTo>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-01-31T06:11:57Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-05-01T14:23:00Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-08-25T07:31:03Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.Salesforce-getEachUserImage/Salesforce-getEachUserImage.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="Salesforce-getEachUserImage"
+                  name="Salesforce-getEachUserImage">
+            <appliesTo>Salesforce:User</appliesTo>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="isSuccess" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_imageWriter" type="reference">
+                  <options>
+                     <option name="referenceTo">Attachments-UserImageDownload:FileWriteTask</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">5IxYnq4YWVNkCfGAznNiKn</option>
+                  </options>
+               </field>
+               <field description="" name="temp_imageInfo" type="reference">
+                  <options>
+                     <option name="referenceTo">Attachments-UserImageDownload:FileInformation</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">5IxYnq4YWVNkCfGAznNiKn</option>
+                  </options>
+               </field>
+               <field description="" name="temp_isUserImageFound" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="normal">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jrk7vj9e" targetId="jrk7vj9d"/>
+               </start>
+               <service id="jrk7vj9d">
+                  <title>Get Token</title>
+                  <serviceName>SFDC-UserImages:GetAuthToken</serviceName>
+                  <serviceGUID>0ccYqKKWOLaklppnFpTL4f</serviceGUID>
+                  <serviceInput/>
+                  <link id="jrk7vj9l" targetId="jrka34hy"/>
+               </service>
+               <eventContainer id="jrka34hy">
+                  <service id="jrk7vj9k">
+                     <title>Get User Image</title>
+                     <serviceName>SFDC-UserImages:GetUserImage</serviceName>
+                     <serviceGUID>0ccYqKKWOLaklppnFpTL4f</serviceGUID>
+                     <serviceInput>
+                        <parameter name="sessionToken" source="field" updatable="true">output.sessionId</parameter>
+                        <parameter name="fullPhotoUrl" source="formula">
+                           <expression language="XQuery">if($Photo_Opt_Out__c='Yes') then 
+fn:concat(fn:substring-before($FullPhotoUrl,'profilephoto'),"profilephoto/005/F") else  $FullPhotoUrl </expression>
+                        </parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="jrka34i0">
+                     <link id="jrka34i1" targetId="jrka34hy" type="containerLink"/>
+                  </flow>
+                  <flow id="jrka34i3">
+                     <jumpTo id="jrka34ib">
+                        <link id="jrka34ic" targetId="jrk84e7z"/>
+                     </jumpTo>
+                  </flow>
+                  <link id="jrka34hz" targetId="jrka34i0" type="containerLink"/>
+                  <link id="jrk84e55" targetId="jrk84e54"/>
+                  <events>
+                     <catch faultField="faultInfo" id="jrka34hx" interrupting="true">
+                        <link id="jrka34i2" targetId="jrka34i3" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <assignment id="jrk84e54">
+                  <title>Calculate If Image Found</title>
+                  <operation source="formula" to="temp.temp_isUserImageFound">
+                     <expression language="XQuery">fn:exists($output.out_userImage )</expression>
+                  </operation>
+                  <link id="jrk84e56" targetId="jrk84e4e"/>
+               </assignment>
+               <container id="jrk84e4e" type="exclusive">
+                  <title>Is Image Found?</title>
+                  <flow id="jrk84e4i">
+                     <assignment id="jrk84e5u">
+                        <title>Assign Image Writer</title>
+                        <operation source="constant" to="temp.temp_imageWriter[1]/format">Attachment</operation>
+                        <operation source="formula" to="temp.temp_imageWriter[1]/fileName">
+                           <expression language="XQuery">fn:concat($Netsuite_ID__c,'.jpeg')</expression>
+                        </operation>
+                        <link id="jrk84e6e" targetId="jrk84e6d"/>
+                     </assignment>
+                     <assignment id="jrk84e72">
+                        <title>Assign Success</title>
+                        <operation source="constant" to="output.isSuccess">true</operation>
+                     </assignment>
+                     <service id="jrk84e6d">
+                        <title>Download Image</title>
+                        <serviceName>Attachments-UserImageDownload:UserImageWriter</serviceName>
+                        <serviceGUID>5IxYnq4YWVNkCfGAznNiKn</serviceGUID>
+                        <serviceInput>
+                           <parameter name="fileWriteTask" source="field" updatable="true">temp.temp_imageWriter</parameter>
+                           <parameter name="attachment" source="formula">
+                              <expression language="XQuery">$output.out_userImage </expression>
+                           </parameter>
+                        </serviceInput>
+                        <link id="jrk84e73" targetId="jrk84e72"/>
+                     </service>
+                     <link id="jrk84e4j" targetId="jrk84e4e" type="containerLink"/>
+                  </flow>
+                  <flow id="jrk84e4l">
+                     <assignment id="jrk84e7z">
+                        <title>Assign Error</title>
+                        <operation source="constant" to="output.isSuccess">false</operation>
+                     </assignment>
+                     <link id="jrk84e4m" targetId="jrk84e4e" type="containerLink"/>
+                  </flow>
+                  <link id="jrk84e4h" targetId="jrk84e4i" type="containerLink">
+                     <condition source="formula">
+                        <function name="true">
+                           <arg name="field">{$temp.temp_isUserImageFound}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jrk84e4k" targetId="jrk84e4l" type="containerLink">
+                     <condition source="formula">
+                        <function name="false">
+                           <arg name="field">{$temp.temp_isUserImageFound}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jrk84e4g" targetId="c"/>
+               </container>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>5T2tR0R3EHHid3wDhDpYmQ</types1:GUID>
+      <types1:DisplayName>Salesforce-getEachUserImage</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:54:11.005Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
