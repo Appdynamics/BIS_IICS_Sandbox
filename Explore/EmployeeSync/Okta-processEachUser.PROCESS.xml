@@ -1,0 +1,140 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>VMTonQYWeIssjql-gt-21254673-2018-04-30T23:06:04.765Z::pd.xml</types1:EntryId>
+      <types1:Name>Okta-processEachUser</types1:Name>
+      <types1:ParentFlowIds>O8lwnHUPAZf5kck-gt-21237342-2018-04-30T22:44:54.655Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>OKTA-ExtractAllUsers:profile</types1:AppliesTo>
+      <types1:Tags>.agent:INFA-AWS-DEV,.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-04-30T23:06:04Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-10-04T17:59:55Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2019-10-04T18:00:05Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.Okta-processEachUser/Okta-processEachUser.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="Okta-processEachUser"
+                  name="Okta-processEachUser">
+            <appliesTo isCopy="true">OKTA-ExtractAllUsers:profile</appliesTo>
+            <description/>
+            <tags>.agent:INFA-AWS-DEV,.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <tempFields>
+               <field description="" name="temp_po_OktaUserList" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:File-Okta-UserExtractList</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">9GHndv5wisvbRFYsGCEmCc</option>
+                  </options>
+               </field>
+               <field description="" name="temp_po_OktaUser" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:File-Okta-UserExtract</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">8AJ9kX6qAh3isLDx1lNdyd</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_Okta_DelimitedContentWriterTask"
+                      type="reference">
+                  <options>
+                     <option name="referenceTo">File-Okta-UserExtract:SerializeToDelimitedContentTask</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">1GazRlVT4ZMeipxsP1rOGX</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="jf2uk0gd" targetId="jf2uk0gc"/>
+               </start>
+               <assignment id="jf2uk0gc">
+                  <title>Assign Fields to User PO</title>
+                  <operation source="field" to="temp.temp_po_OktaUser[1]/FirstName">firstName</operation>
+                  <operation source="field" to="temp.temp_po_OktaUser[1]/LastName">lastName</operation>
+                  <operation source="field" to="temp.temp_po_OktaUser[1]/Email">email</operation>
+                  <operation source="field" to="temp.temp_po_OktaUser[1]/CiscoID">CEID</operation>
+                  <operation source="field" to="temp.temp_po_OktaUser[1]/CiscoEmail">CEmail</operation>
+                  <link id="jf2uk0gk" targetId="jf2uk0gj"/>
+               </assignment>
+               <assignment id="jf2uk0gj">
+                  <title>Assign Users to List</title>
+                  <operation source="formula" to="temp.temp_po_OktaUserList[1]/User">
+                     <function name="list:append">
+                        <arg name="dest_field">{$temp.temp_po_OktaUserList[1]/User}</arg>
+                        <arg name="new_field">{$temp.temp_po_OktaUser}</arg>
+                     </function>
+                  </operation>
+                  <link id="jf2uk0h2" targetId="jf2uk0h1"/>
+               </assignment>
+               <assignment id="jf2uk0h1">
+                  <title>Assign File Content Writer - Objects &amp; FileName</title>
+                  <operation source="field"
+                             to="temp.temp_Okta_DelimitedContentWriterTask[1]/customObjects">temp.temp_po_OktaUser</operation>
+                  <operation source="constant"
+                             to="temp.temp_Okta_DelimitedContentWriterTask[1]/fileName">FF_Okta_UserExtract.csv</operation>
+                  <operation source="formula"
+                             to="temp.temp_Okta_DelimitedContentWriterTask[1]/header">
+                     <expression language="XQuery">(
+&lt;Header&gt;
+   &lt;fieldIndex&gt;1&lt;/fieldIndex&gt;
+   &lt;name&gt;FirstName&lt;/name&gt;
+&lt;/Header&gt;,
+&lt;Header&gt;
+   &lt;fieldIndex&gt;2&lt;/fieldIndex&gt;
+   &lt;name&gt;LastName&lt;/name&gt;
+&lt;/Header&gt;,
+&lt;Header&gt;
+   &lt;fieldIndex&gt;3&lt;/fieldIndex&gt;
+   &lt;name&gt;Email&lt;/name&gt;
+&lt;/Header&gt;,
+&lt;Header&gt;
+   &lt;fieldIndex&gt;4&lt;/fieldIndex&gt;
+   &lt;name&gt;CiscoID&lt;/name&gt;
+&lt;/Header&gt;,
+&lt;Header&gt;
+   &lt;fieldIndex&gt;5&lt;/fieldIndex&gt;
+   &lt;name&gt;CiscoEmail&lt;/name&gt;
+&lt;/Header&gt;
+)</expression>
+                  </operation>
+                  <link id="jf2uk0hi" targetId="jf2uk0hh"/>
+               </assignment>
+               <service id="jf2uk0hh">
+                  <title>DelimitedContentWriter - Write To CSV - serializationTask</title>
+                  <serviceName>File-Okta-UserExtract:OktaUserFileDelimitedContentWriter</serviceName>
+                  <serviceGUID>1GazRlVT4ZMeipxsP1rOGX</serviceGUID>
+                  <serviceInput>
+                     <parameter name="serializationTask" source="field" updatable="true">temp.temp_Okta_DelimitedContentWriterTask</parameter>
+                  </serviceInput>
+                  <link id="jf2uk0ho" targetId="jf2uk0hn"/>
+               </service>
+               <end id="jf2uk0hn"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>5enxYyx3pYxldU9WoJuo8J</types1:GUID>
+      <types1:DisplayName>Okta-processEachUser</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:53:34.567Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
