@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "7oMRq6gXF70jZN3JBI1XI5",
+    "name" : "File-NetsuiteUserHierarchyFromCiscoHR",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "eD3eIsoZduD2L5S-gt-11909371-2017-04-19T15:41:40.068Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

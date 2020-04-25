@@ -1,0 +1,90 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>eD3eIsoZduD2L5S-gt-11909371-2017-04-19T15:41:40.068Z::conn.xml</types1:EntryId>
+      <types1:Name>File-NetsuiteUserHierarchyFromCiscoHR</types1:Name>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-04-19T15:41:40Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2018-09-27T16:29:04Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2018-09-27T16:29:20Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/File-NetsuiteUserHierarchyFromCiscoHR/File-NetsuiteUserHierarchyFromCiscoHR.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     xmlns:ns2="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                     displayName="File-NetsuiteUserHierarchyFromCiscoHR"
+                     label="File-NetsuiteUserHierarchyFromCiscoHR"
+                     name="File-NetsuiteUserHierarchyFromCiscoHR">
+            <description/>
+            <tags>.agent:INFA-AWS-DEV</tags>
+            <agent>INFA-AWS-DEV</agent>
+            <attributes/>
+            <consumers>
+               <consumer enabled="true"
+                         name="DelimitedContentParser-File-NetsuiteUserHierarchyFromCiscoHR"
+                         typeName="DelimitedContentParser">
+                  <description>This event source file contains the coma delimited &amp; double quote user file from Cisco HR IT</description>
+                  <attributes>
+                     <attribute encrypted="false"
+                                name="directoryName"
+                                value="/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT/UserHierarchy"/>
+                     <attribute encrypted="false" name="recursive" value="false"/>
+                     <attribute encrypted="false"
+                                name="include"
+                                value="FF_CiscoHR_UsersForNetsuite*\.csv"/>
+                     <attribute encrypted="false" name="exclude" value=""/>
+                     <attribute encrypted="false" name="noop" value="false"/>
+                     <attribute encrypted="false" name="delete" value="true"/>
+                     <attribute encrypted="false" name="preMove" value=""/>
+                     <attribute encrypted="false" name="move" value=""/>
+                     <attribute encrypted="false" name="moveFailed" value=""/>
+                     <attribute encrypted="false" name="initialDelay" value="5"/>
+                     <attribute encrypted="false" name="delay" value="5"/>
+                     <attribute encrypted="false" name="maxMessagesPerPoll" value=""/>
+                     <attribute encrypted="false" name="readLock" value="rename"/>
+                     <attribute encrypted="false" name="readLockTimeout" value="60"/>
+                     <attribute encrypted="false" name="readLockCheckInterval" value=""/>
+                     <attribute encrypted="false" name="readLockMinLength" value=""/>
+                     <attribute encrypted="false" name="readLockLoggingLevel" value="WARN"/>
+                     <attribute encrypted="false" name="charset" value=""/>
+                     <attribute encrypted="false" name="otherAttributes" value=""/>
+                     <attribute encrypted="false" name="contentFormat" value="DelimitedContent"/>
+                     <attribute encrypted="false" name="columnsDescriptor" value=""/>
+                     <attribute encrypted="false" name="ignoreFirstRecord" value="true"/>
+                     <attribute encrypted="false" name="ignoreColumnInconsistency" value="false"/>
+                     <attribute encrypted="false" name="delimiter" value=","/>
+                     <attribute encrypted="false" name="textQualifier" value="&#34;"/>
+                     <attribute encrypted="false" name="splitRows" value="true"/>
+                     <attribute encrypted="false" name="useBuiltInProcessObject" value="false"/>
+                     <attribute encrypted="false"
+                                name="customObjectFields"
+                                value="FirstName,LastName,MiddleName,Login,Email,ApprovalLimit,CiscoSubsidiaryName,CiscoDepartmentName,externalIdCiscoEmployeeNumber,IsInactive,ManagerUsername,HireDate,TerminationDate,BusinessTitle,CiscoJobGrade,CiscoEmployeeLevel,ManagerLogin,TransactionEffectiveDate,BaseSalary,UserStatus,DefaultCurrency,JobTitle,Location,WorkerType,AcquisitionHireDate,CiscoJobTitle,CiscoJobTitlePublic,WorkCountry,WorkLocationCity,HRWorkRegion,HRWorkState,StatusCode,TransferDateFromCiscoToAppD,WorkCategory,PreferredJobTitle,WorkLocationType,GenericWorkLocation,RehireFlag,RemoteWorker"/>
+                  </attributes>
+               </consumer>
+            </consumers>
+            <ns2:javaConnector agentOnly="true"
+                               plugin="Camel"
+                               supportsConnectionTest="true"
+                               supportsDataPreview="false"
+                               supportsOData="false"
+                               type="File"
+                               uuid="ac000300-d9fe-11e4-8830-0800200c9a66">
+               <ns2:description>Provides connections to file monitoring brokers.</ns2:description>
+            </ns2:javaConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>7oMRq6gXF70jZN3JBI1XI5</types1:GUID>
+      <types1:DisplayName>File-NetsuiteUserHierarchyFromCiscoHR</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:26:25.359Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

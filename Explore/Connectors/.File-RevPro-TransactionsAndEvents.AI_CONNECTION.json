@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "7DhXoMclMaFi2jq8G9vhQX",
+    "name" : "File-RevPro-TransactionsAndEvents",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "lwnHUPAZf5kck8j-gt-26412504-2017-12-04T17:41:14.183Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

@@ -1,0 +1,72 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>TCOshBnJKoJBUht-gt-21217198-2018-04-30T22:26:59.731Z::conn.xml</types1:EntryId>
+      <types1:Name>File-Okta-UserExtract</types1:Name>
+      <types1:ParentFlowIds>VMTonQYWeIssjql-gt-21254673-2018-04-30T23:06:04.765Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2018-04-30T22:26:59Z</types1:CreationDate>
+      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2018-05-01T01:26:53Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2018-05-01T01:35:30Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/File-Okta-UserExtract/File-Okta-UserExtract.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     xmlns:ns2="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                     displayName="File-Okta-UserExtract"
+                     label="File-Okta-UserExtract"
+                     name="File-Okta-UserExtract">
+            <description/>
+            <tags>.agent:INFA-AWS-DEV</tags>
+            <agent>INFA-AWS-DEV</agent>
+            <attributes/>
+            <producers>
+               <producer enabled="true"
+                         name="OktaUserFileDelimitedContentWriter"
+                         typeName="DelimitedContentWriter">
+                  <description>This event target can be used to serialize process objects to delimited content files such as CSV and save them to files on a disk.</description>
+                  <attributes>
+                     <attribute encrypted="false"
+                                name="directoryName"
+                                value="/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT/Okta/"/>
+                     <attribute encrypted="false" name="fileExist" value="Append"/>
+                     <attribute encrypted="false" name="moveExisting" value=""/>
+                     <attribute encrypted="false" name="eagerDeleteTargetFile" value="true"/>
+                     <attribute encrypted="false" name="tempPrefix" value=""/>
+                     <attribute encrypted="false" name="tempFileName" value=""/>
+                     <attribute encrypted="false" name="forceWrites" value="true"/>
+                     <attribute encrypted="false" name="bufferSize" value=""/>
+                     <attribute encrypted="false" name="charset" value=""/>
+                     <attribute encrypted="false" name="delimiter" value=","/>
+                     <attribute encrypted="false" name="textQualifier" value="&#34;"/>
+                     <attribute encrypted="false" name="skipHeaders" value="true"/>
+                     <attribute encrypted="false" name="lineEnding" value="Windows"/>
+                  </attributes>
+               </producer>
+            </producers>
+            <ns2:javaConnector agentOnly="true"
+                               plugin="Camel"
+                               supportsConnectionTest="true"
+                               supportsDataPreview="false"
+                               supportsOData="false"
+                               type="File"
+                               uuid="ac000300-d9fe-11e4-8830-0800200c9a66">
+               <ns2:description>Provides connections to file monitoring brokers.</ns2:description>
+            </ns2:javaConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>1GazRlVT4ZMeipxsP1rOGX</types1:GUID>
+      <types1:DisplayName>File-Okta-UserExtract</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-25T15:26:25.323Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
