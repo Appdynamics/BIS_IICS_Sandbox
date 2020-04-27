@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "6nU9Zo5wFGjfuqDBPn4fWz",
+    "name" : "Invoke_Shell_FF_MileStones",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "chzt1Y6tMFyglsO-gt-287412-2020-02-20T18:59:12.034Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

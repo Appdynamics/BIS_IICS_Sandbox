@@ -1,0 +1,72 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>chzt1Y6tMFyglsO-gt-287412-2020-02-20T18:59:12.034Z::pd.xml</types1:EntryId>
+      <types1:Name>Invoke_Shell_FF_MileStones</types1:Name>
+      <types1:ParentFlowIds>QPSFCAGE7pppppp-gt-4746541-2020-01-09T00:20:36.683Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-DEV</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>sri.battu@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-02-20T18:59:12Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-02-20T19:52:51Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-20T20:20:39Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.Invoke_Shell_FF_MileStones/Invoke_Shell_FF_MileStones.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="Invoke_Shell_FF_MileStones"
+                  name="Invoke_Shell_FF_MileStones"
+                  overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags>.agent:INFA-AWS-DEV</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_FF_MileStones_Ouput" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="none">
+               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k6v3v3y0" targetId="k6v3v3xz"/>
+               </start>
+               <service id="k6v3v3xz">
+                  <title>Run a Shell Command</title>
+                  <serviceName>avShellService</serviceName>
+                  <serviceGUID/>
+                  <serviceInput>
+                     <parameter name="command" source="constant">sh checkFile_MileStones.sh</parameter>
+                     <parameter name="workingDirPath" source="constant">/opt/infaagent/apps/Data_Integration_Server/data/stage/Scripts/</parameter>
+                  </serviceInput>
+                  <link id="k6v3v3y7" targetId="k6v3v3y6"/>
+               </service>
+               <assignment id="k6v3v3y6">
+                  <title>Assignment to out_FF_MileStones_Ouput</title>
+                  <operation source="constant" to="output.out_FF_MileStones_Ouput">{$output.outputString}</operation>
+                  <link id="k6v3v3y8" targetId="c"/>
+               </assignment>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>6nU9Zo5wFGjfuqDBPn4fWz</types1:GUID>
+      <types1:DisplayName>Invoke_Shell_FF_MileStones</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-27T19:23:12.249Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

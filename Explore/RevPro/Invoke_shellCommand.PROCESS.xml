@@ -1,0 +1,71 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>abcgm8lnCmp6oIu-gt-2117411-2019-12-23T01:54:57.013Z::pd.xml</types1:EntryId>
+      <types1:Name>Invoke_shellCommand</types1:Name>
+      <types1:ParentFlowIds>QPSFCAGE7pppppp-gt-4746541-2020-01-09T00:20:36.683Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>sri.battu@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2019-12-23T01:54:57Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2019-12-23T01:56:58Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-02-20T20:20:39Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.Invoke_shellCommand/Invoke_shellCommand.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="Invoke_shellCommand"
+                  name="Invoke_shellCommand">
+            <appliesTo/>
+            <description/>
+            <tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_Script_Status" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <targetLocation>ip-172-31-19-150.us-west-2.compute.internal</targetLocation>
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k4hsdyln" targetId="k4hsdylm"/>
+               </start>
+               <service id="k4hsdylm">
+                  <title>Run a Shell Command</title>
+                  <serviceName>avShellService</serviceName>
+                  <serviceGUID/>
+                  <serviceInput>
+                     <parameter name="command" source="constant">sh checkFile.sh</parameter>
+                     <parameter name="workingDirPath" source="constant">/opt/infaagent/apps/Data_Integration_Server/data/stage/Scripts/</parameter>
+                  </serviceInput>
+                  <link id="k4hsdylx" targetId="k4hsdylw"/>
+               </service>
+               <assignment id="k4hsdylw">
+                  <title>Assignment to out_Script_Status</title>
+                  <operation source="constant" to="output.out_Script_Status">{$output.outputString}</operation>
+                  <link id="k4hsdyly" targetId="c"/>
+               </assignment>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>hd6eEh7qledgIDRM4mqqa7</types1:GUID>
+      <types1:DisplayName>Invoke_shellCommand</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-27T19:23:12.193Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
