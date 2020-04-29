@@ -1,0 +1,176 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>icjumf6S3wOLIFv-gt-242729992-2020-03-24T21:08:30.142Z::pd.xml</types1:EntryId>
+      <types1:Name>SFDC_Docebo_CreateUpdateVouchers-1</types1:Name>
+      <types1:ParentFlowIds>GRvDINciZBpDUQb-gt-120271-2017-01-15T04:43:52.6Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:AppDynamics_University_Voucher__c</types1:AppliesTo>
+      <types1:Tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-03-24T21:08:30Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-04-24T20:37:09Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-24T20:37:20Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SFDC_Docebo_CreateUpdateVouchers-1/SFDC_Docebo_CreateUpdateVouchers-1.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SFDC_Docebo_CreateUpdateVouchers"
+                  name="SFDC_Docebo_CreateUpdateVouchers-1"
+                  overrideAPIName="false">
+            <appliesTo>Salesforce:AppDynamics_University_Voucher__c</appliesTo>
+            <description/>
+            <tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_VoucherError" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <targetLocation>ip-172-31-19-150.us-west-2.compute.internal</targetLocation>
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k8q51jaz" targetId="k8p0lum8"/>
+               </start>
+               <eventContainer id="k8p0lum8">
+                  <service id="k869hvj9">
+                     <title>GenerateToken</title>
+                     <serviceName>VoucherAPIConnection:GenerateToken</serviceName>
+                     <serviceGUID>7xTawl6y8oniHSusyrxP8d</serviceGUID>
+                     <serviceInput>
+                        <parameter name="username" source="constant">informatica-voucher-write@appdynamics.com</parameter>
+                        <parameter name="password" source="constant">appd@123</parameter>
+                        <parameter name="scopes" source="constant">["learn.voucher.write"]</parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="k8p0luma">
+                     <link id="k8p0lumb" targetId="k8p0lum8" type="containerLink"/>
+                  </flow>
+                  <flow id="k8p0lumd">
+                     <assignment id="k8q51j6x">
+                        <title>Assign Fault to out_Message 1</title>
+                        <operation source="formula" to="output.out_VoucherError">
+                           <expression language="XQuery">fn:concat("Unable to Generate Authentication token. There was an error in the GenerateToken API. ", $output.faultInfo )
+</expression>
+                        </operation>
+                     </assignment>
+                     <link id="k8p0lume" targetId="k8p0lum8" type="containerLink"/>
+                  </flow>
+                  <link id="k8p0lum9" targetId="k8p0luma" type="containerLink"/>
+                  <link id="k8oswzs6" targetId="k8oswzs5"/>
+                  <events>
+                     <catch faultField="faultInfo" id="k8p0lum7" interrupting="true">
+                        <link id="k8p0lumc" targetId="k8p0lumd" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <container id="k8oswzs5" type="exclusive">
+                  <title>Http Status Code for Token API</title>
+                  <flow id="k8oswzs9">
+                     <service id="k8otz713">
+                        <title>InformaticaVoucher</title>
+                        <serviceName>VoucherAPIConnection:InformaticaVoucher</serviceName>
+                        <serviceGUID>7xTawl6y8oniHSusyrxP8d</serviceGUID>
+                        <serviceInput>
+                           <parameter name="Authorization" source="field" updatable="true">output.access_token</parameter>
+                           <parameter name="voucher_Id" source="field">Id</parameter>
+                           <parameter name="voucher_code" source="field">Voucher_Code__c</parameter>
+                           <parameter name="subscription_type" source="field" updatable="true">Type__c</parameter>
+                           <parameter name="purchased_units" source="field" updatable="true">Purchased_Quantity__c</parameter>
+                           <parameter name="booked_date" source="formula">
+                              <expression language="XQuery">if(empty($Voucher_Booked_Date__c )) then ()
+else ((infa:format($Voucher_Booked_Date__c, "yyyy-MM-dd"))
+)</expression>
+                           </parameter>
+                           <parameter name="expiration_date" source="formula">
+                              <expression language="XQuery">if(empty($Voucher_Expiration_Date__c  )) then ()
+else ((infa:format($Voucher_Expiration_Date__c, "yyyy-MM-dd"))
+)</expression>
+                           </parameter>
+                           <parameter name="sfdc_account_id" source="field">Account_Id_18_digit__c</parameter>
+                           <parameter name="sfdc_account_name" source="field" updatable="true">Account__r.Name</parameter>
+                        </serviceInput>
+                        <link id="k8otz734" targetId="k8otz733"/>
+                     </service>
+                     <container id="k8otz733" type="exclusive">
+                        <title>Http Status Code for Voucher API</title>
+                        <flow id="k8p0luod">
+                           <link id="k8p0luoe" targetId="k8otz733" type="containerLink"/>
+                        </flow>
+                        <flow id="k8p0luof">
+                           <assignment id="k8q51j9j">
+                              <title>Add error message to out_Message</title>
+                              <operation source="formula" to="output.out_VoucherError">
+                                 <expression language="XQuery">fn:concat("Unable to create the Voucher in LMS. There was an error in the CreateVoucher API and it returned the http status code ", $output.httpStatusCode_Token )</expression>
+                              </operation>
+                           </assignment>
+                           <link id="k8p0luog" targetId="k8otz733" type="containerLink"/>
+                        </flow>
+                        <link id="k8p0luob" targetId="k8p0luod" type="containerLink">
+                           <condition source="formula">
+                              <function name="contains">
+                                 <arg name="left">{$output.httpStatusCode_Voucher}</arg>
+                                 <arg name="right">200</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k8p0luoc" targetId="k8p0luof" type="containerLink"/>
+                     </container>
+                     <link id="k8oswzsa" targetId="k8oswzs5" type="containerLink"/>
+                  </flow>
+                  <flow id="k8oswzsc">
+                     <assignment id="k8q51j7c">
+                        <title>Add error message to out_Message</title>
+                        <operation source="formula" to="output.out_VoucherError">
+                           <expression language="XQuery">fn:concat("Unable to Generate Authentication token. There was an error in the GenerateToken API and it returned the http status code ", $output.httpStatusCode_Token )</expression>
+                        </operation>
+                     </assignment>
+                     <link id="k8oswzsd" targetId="k8oswzs5" type="containerLink"/>
+                  </flow>
+                  <link id="k8oswzs8" targetId="k8oswzs9" type="containerLink">
+                     <condition source="formula">
+                        <function name="contains">
+                           <arg name="left">{$output.httpStatusCode_Token}</arg>
+                           <arg name="right">200</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k8oswzsb" targetId="k8oswzsc" type="containerLink"/>
+                  <link id="k8oswzs7" targetId="c"/>
+               </container>
+               <end id="c"/>
+            </flow>
+         </process>
+         <ns1:sample-data-sets xmlns:ns1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/sampleData.xsd">
+            <ns1:SampleData>
+               <ns1:Id>dac8f400-37ca-44c1-ac9a-2e7f2029415a</ns1:Id>
+               <ns1:Name>GenerateToken</ns1:Name>
+               <ns1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</ns1:CreatedBy>
+               <ns1:CreationDate>2020-04-07T17:07:21Z</ns1:CreationDate>
+               <ns1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</ns1:ModifiedBy>
+               <ns1:ModifiedDate>2020-04-07T17:07:21Z</ns1:ModifiedDate>
+               <ns1:Data format="json">{
+	 "id": ""
+}</ns1:Data>
+            </ns1:SampleData>
+         </ns1:sample-data-sets>
+      </types1:Entry>
+      <types1:GUID>i4xsrQtRqIEclHDqWCpUgR</types1:GUID>
+      <types1:DisplayName>SFDC_Docebo_CreateUpdateVouchers</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-04-29T20:43:39.008Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

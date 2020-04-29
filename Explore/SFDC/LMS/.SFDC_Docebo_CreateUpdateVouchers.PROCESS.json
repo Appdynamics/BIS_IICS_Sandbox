@@ -1,0 +1,44 @@
+{
+  "objectInfo" : {
+    "id" : "i4xsrQtRqIEclHDqWCpUgR",
+    "name" : "SFDC_Docebo_CreateUpdateVouchers",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "icjumf6S3wOLIFv-gt-242729992-2020-03-24T21:08:30.142Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "7xTawl6y8oniHSusyrxP8d",
+    "name" : "VoucherAPIConnection",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "3OzI1dq2ME9paab-gt-134057944-2020-03-24T21:27:32.881Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Docebo LMS connector",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  } ]
+}
