@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-04-17T17:55:53Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:ModificationDate>2020-04-30T18:16:28Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-04-28T03:17:49Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -696,6 +696,7 @@ then 'No' else 'Yes'</expression>
                              to="temp.thisNSHeaderCustomFields[1]/custbody_non_ga_terms">
                      <expression language="XQuery">if($Non_GA_Terms__c = 'true') then 'T' else 'F'</expression>
                   </operation>
+                  <operation source="field" to="temp.thisNSHeaderCustomFields[1]/custbody_sfdc_memo">Opportunity.Order_Ops_Comments__c</operation>
                   <link id="iydvxbey" targetId="iaj27kfk"/>
                </assignment>
                <assignment id="iaj27kfk">
@@ -802,7 +803,7 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                <container id="jk8jkuys" type="exclusive">
                   <title>Order Amount &gt;= 0</title>
                   <flow id="jk8jkv1m">
-                     <service id="k0ehc7o0">
+                     <service id="k9mzinf5">
                         <title>Check for Existing Opportunity in NS</title>
                         <serviceName>NetSuite-AppDynamics:searchSalesOrderHeader</serviceName>
                         <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
@@ -811,33 +812,33 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                            <parameter name="salesOrder_NS_statusNotCancelled" source="constant">_salesOrderCancelled</parameter>
                            <parameter name="salesOrder_sfdcOppId" source="field">Opportunity_18_Digit_ID__c</parameter>
                         </serviceInput>
-                        <link id="k0zwjiuv" targetId="k0zwjiuu"/>
+                        <link id="k9mzinln" targetId="k9mzinlm"/>
                      </service>
-                     <assignment id="k0zwjiuu">
+                     <assignment id="k9mzinlm">
                         <title>Assign Order Count</title>
                         <operation source="formula" to="temp.temp_existingOppOrderCount">
                            <expression language="XQuery">if($output.search_SalesOrder_count=0 or $output.search_SalesOrder_count='') then '' else 'X'</expression>
                         </operation>
-                        <link id="k0zwjiuw" targetId="k0ehc801"/>
+                        <link id="k9mzinq9" targetId="k9mzinpz"/>
                      </assignment>
-                     <container id="k0ehc801" type="exclusive">
+                     <container id="k9mzinpz" type="exclusive">
                         <title>Opportunity (order)doesn't exists in NS?</title>
-                        <flow id="k0ehc804">
-                           <link id="k0ehc805" targetId="k0ehc801" type="containerLink"/>
+                        <flow id="k9mzinq0">
+                           <link id="k9mzinq6" targetId="k9mzinpz" type="containerLink"/>
                         </flow>
-                        <flow id="k0ehc807">
-                           <assignment id="k0ehc8om">
+                        <flow id="k9mzinq1">
+                           <assignment id="k9mzinq2">
                               <title>Assign Exception - Opp Already Exists</title>
                               <operation source="constant" to="output.out_error">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
                               <operation source="constant" to="temp.exception">Yes</operation>
                               <operation source="constant" to="temp.exceptionOrder">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
-                              <link id="k0ehc92l" targetId="k0ehc92j"/>
+                              <link id="k9mzinq7" targetId="k9mzinq3"/>
                            </assignment>
-                           <jumpTo id="k0ehc92j">
-                              <link id="k0ehc92k" targetId="jerndxei"/>
+                           <jumpTo id="k9mzinq3">
+                              <link id="k9mzinq8" targetId="jerndxei"/>
                            </jumpTo>
                         </flow>
-                        <link id="k0ehc803" targetId="k0ehc804" type="containerLink">
+                        <link id="k9mzinq4" targetId="k9mzinq0" type="containerLink">
                            <condition source="formula">
                               <function name="string-equals">
                                  <arg name="left">{$temp.temp_existingOppOrderCount}</arg>
@@ -845,7 +846,7 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                               </function>
                            </condition>
                         </link>
-                        <link id="k0ehc806" targetId="k0ehc807" type="containerLink"/>
+                        <link id="k9mzinq5" targetId="k9mzinq1" type="containerLink"/>
                      </container>
                      <link id="jk8jkv1n" targetId="jk8jkuys" type="containerLink"/>
                   </flow>
@@ -2551,5 +2552,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-17T19:00:48.404Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-04-30T18:19:20.243Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
