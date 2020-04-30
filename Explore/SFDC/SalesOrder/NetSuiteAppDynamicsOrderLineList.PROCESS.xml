@@ -3,7 +3,7 @@
    <types1:Item>
       <types1:EntryId>SdqVIKchzt1Y6tM-gt-11721732-2016-11-21T06:52:43.714Z::pd.xml</types1:EntryId>
       <types1:Name>NetSuiteAppDynamicsOrderLineList</types1:Name>
-      <types1:ParentFlowIds>8KwkiPiTk08jIw8-gt-389259542-2019-11-04T19:48:20.967Z::pd.xml,dy8NTYglxbdypKw-gt-12766280-2019-11-04T22:32:06.406Z::pd.xml,qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
+      <types1:ParentFlowIds>8KwkiPiTk08jIw8-gt-389259542-2019-11-04T19:48:20.967Z::pd.xml,dy8NTYglxbdypKw-gt-12766280-2019-11-04T22:32:06.406Z::pd.xml,msZvPP8KnBQ9WYz-gt-10194245-2020-04-17T20:30:31.207Z::pd.xml,qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
       <types1:MimeType>application/xml+process</types1:MimeType>
       <types1:Description>Infa Dev-Iterate through Order Products to create itemList for NetSuite Sales Order</types1:Description>
       <types1:AppliesTo>Salesforce:OrderItem</types1:AppliesTo>
@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T06:52:43Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-04-14T22:09:32Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-04-28T04:35:41Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-04-28T04:35:55Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.NetSuiteAppDynamicsOrderLineList/NetSuiteAppDynamicsOrderLineList.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -186,7 +186,7 @@ $SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote_
                                  <assignment id="k90gc446">
                                     <title>Assignment to cotermOpptyId</title>
                                     <operation source="formula" to="temp.cotermOpptyId">
-                                       <expression language="XQuery">if ($Order.Opportunity.Deal_Type__c = 'Add On Early Renewal')
+                                       <expression language="XQuery">if ($Order.Opportunity.Deal_Type__c = 'Add On Early Renewal' and $Line_Type__c  = 'Renewal')
 then
 $Order.Opportunity.Original_Contract__r.SBQQ__Opportunity__r.Id else
 if ($Order.Opportunity.Deal_Type__c = 'Renewal - Subscription' or $Order.Opportunity.Deal_Type__c = 'Renewal - Perpetual')
@@ -420,5 +420,5 @@ fn:concat($Payment_Schedule_Details__c, ' ', $Subscription_Month_Duration__c)</e
       <types1:GUID>kqG4HNhic2Kk0kGc19ss2T</types1:GUID>
       <types1:DisplayName>NetSuiteAppDynamicsOrderLineList</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-17T19:00:47.781Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-04-30T18:20:38.152Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
