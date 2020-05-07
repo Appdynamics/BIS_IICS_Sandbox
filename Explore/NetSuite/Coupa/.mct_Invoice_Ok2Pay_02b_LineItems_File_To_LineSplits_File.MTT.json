@@ -17,33 +17,13 @@
       } ],
       "additionalInfo" : {
         "description" : "",
-        "contentType" : null,
+        "contentType" : "JSON",
         "documentState" : "VALID"
       }
     }
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "7EUyCoF6aL2fkWEneZzQAd",
-    "name" : "m_Invoice_Ok2Pay_02b_LineItems_File_To_LineSplits_File",
-    "type" : "DTEMPLATE",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB170000000000HW"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : "",
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/Explore/~SBattu"
-  }, {
     "id" : "3qLOIwmEi8HlSgV9ggzWkn",
     "name" : "ip-172-31-19-150.us-west-2.compute.internal",
     "type" : "AgentGroup",
@@ -63,6 +43,26 @@
       }
     },
     "path" : "/SYS"
+  }, {
+    "id" : "2B9BOS1jckQl88ULXgbUGU",
+    "name" : "m_Invoice_Ok2Pay_02b_LineItems_File_To_LineSplits_File",
+    "type" : "DTEMPLATE",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB170000000000I0"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : null,
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/NetSuite/Coupa"
   }, {
     "id" : "6ey2Cmo3PaHcsThnJ0TYui",
     "name" : "FlatFile_Stage_Coupa_And_NetSuite",
