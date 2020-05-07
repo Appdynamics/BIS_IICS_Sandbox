@@ -17,14 +17,14 @@
       } ],
       "additionalInfo" : {
         "description" : "",
-        "contentType" : null,
+        "contentType" : "JSON",
         "documentState" : "VALID"
       }
     }
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "4dIOdVZS1W5jP5PzOPqV8S",
+    "id" : "7pplXaKYE3bigjL4Mf8bWp",
     "name" : "m_DLS_Senior_Leaders_Deletions",
     "type" : "DTEMPLATE",
     "metadata" : {
@@ -33,16 +33,16 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB170000000000I3"
+        "repoHandle" : "000TPB170000000000I7"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "",
-        "contentType" : "JSON",
+        "contentType" : null,
         "documentState" : "VALID"
       }
     },
-    "path" : "/Explore/~SBattu/Test_SB_Bkup"
+    "path" : "/Explore/DLS"
   }, {
     "id" : "3qLOIwmEi8HlSgV9ggzWkn",
     "name" : "ip-172-31-19-150.us-west-2.compute.internal",
