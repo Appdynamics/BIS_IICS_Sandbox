@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-04-30T18:16:28Z</types1:ModificationDate>
-      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:ModificationDate>2020-05-05T18:00:30Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-28T03:17:49Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-05-05T18:00:55Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -803,50 +803,73 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                <container id="jk8jkuys" type="exclusive">
                   <title>Order Amount &gt;= 0</title>
                   <flow id="jk8jkv1m">
-                     <service id="k9mzinf5">
-                        <title>Check for Existing Opportunity in NS</title>
-                        <serviceName>NetSuite-AppDynamics:searchSalesOrderHeader</serviceName>
-                        <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                        <serviceInput>
-                           <parameter name="salesOrder_NS_statusNotClosed" source="constant">_salesOrderClosed</parameter>
-                           <parameter name="salesOrder_NS_statusNotCancelled" source="constant">_salesOrderCancelled</parameter>
-                           <parameter name="salesOrder_sfdcOppId" source="field">Opportunity_18_Digit_ID__c</parameter>
-                        </serviceInput>
-                        <link id="k9mzinln" targetId="k9mzinlm"/>
-                     </service>
-                     <assignment id="k9mzinlm">
-                        <title>Assign Order Count</title>
-                        <operation source="formula" to="temp.temp_existingOppOrderCount">
-                           <expression language="XQuery">if($output.search_SalesOrder_count=0 or $output.search_SalesOrder_count='') then '' else 'X'</expression>
-                        </operation>
-                        <link id="k9mzinq9" targetId="k9mzinpz"/>
-                     </assignment>
-                     <container id="k9mzinpz" type="exclusive">
-                        <title>Opportunity (order)doesn't exists in NS?</title>
-                        <flow id="k9mzinq0">
-                           <link id="k9mzinq6" targetId="k9mzinpz" type="containerLink"/>
+                     <container id="k9u7n6ro" type="exclusive">
+                        <title>Lambda Registration</title>
+                        <flow id="k9u7n6rr">
+                           <link id="k9u7n6rs" targetId="k9u7n6ro" type="containerLink"/>
                         </flow>
-                        <flow id="k9mzinq1">
-                           <assignment id="k9mzinq2">
-                              <title>Assign Exception - Opp Already Exists</title>
-                              <operation source="constant" to="output.out_error">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
-                              <operation source="constant" to="temp.exception">Yes</operation>
-                              <operation source="constant" to="temp.exceptionOrder">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
-                              <link id="k9mzinq7" targetId="k9mzinq3"/>
+                        <flow id="k9u7n6ru">
+                           <service id="k9u7n6wi">
+                              <title>Check for Existing Opportunity in NS</title>
+                              <serviceName>NetSuite-AppDynamics:searchSalesOrderHeader</serviceName>
+                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="salesOrder_NS_statusNotClosed" source="constant">_salesOrderClosed</parameter>
+                                 <parameter name="salesOrder_NS_statusNotCancelled" source="constant">_salesOrderCancelled</parameter>
+                                 <parameter name="salesOrder_sfdcOppId" source="field">Opportunity_18_Digit_ID__c</parameter>
+                              </serviceInput>
+                              <link id="k9u7n70z" targetId="k9u7n70y"/>
+                           </service>
+                           <assignment id="k9u7n70y">
+                              <title>Assign Order Count</title>
+                              <operation source="formula" to="temp.temp_existingOppOrderCount">
+                                 <expression language="XQuery">if($output.search_SalesOrder_count=0 or $output.search_SalesOrder_count='') then '' else 'X'</expression>
+                              </operation>
+                              <link id="k9u7n75k" targetId="k9u7n75a"/>
                            </assignment>
-                           <jumpTo id="k9mzinq3">
-                              <link id="k9mzinq8" targetId="jerndxei"/>
-                           </jumpTo>
+                           <container id="k9u7n75a" type="exclusive">
+                              <title>Opportunity (order)doesn't exists in NS?</title>
+                              <flow id="k9u7n75b">
+                                 <link id="k9u7n75h" targetId="k9u7n75a" type="containerLink"/>
+                              </flow>
+                              <flow id="k9u7n75c">
+                                 <assignment id="k9u7n75d">
+                                    <title>Assign Exception - Opp Already Exists</title>
+                                    <operation source="constant" to="output.out_error">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
+                                    <operation source="constant" to="temp.exception">Yes</operation>
+                                    <operation source="constant" to="temp.exceptionOrder">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
+                                    <link id="k9u7n75i" targetId="k9u7n75e"/>
+                                 </assignment>
+                                 <jumpTo id="k9u7n75e">
+                                    <link id="k9u7n75j" targetId="jerndxei"/>
+                                 </jumpTo>
+                              </flow>
+                              <link id="k9u7n75f" targetId="k9u7n75b" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$temp.temp_existingOppOrderCount}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k9u7n75g" targetId="k9u7n75c" type="containerLink"/>
+                           </container>
+                           <link id="k9u7n6rv" targetId="k9u7n6ro" type="containerLink"/>
                         </flow>
-                        <link id="k9mzinq4" targetId="k9mzinq0" type="containerLink">
+                        <link id="k9u7n6rq" targetId="k9u7n6rr" type="containerLink">
                            <condition source="formula">
-                              <function name="string-equals">
-                                 <arg name="left">{$temp.temp_existingOppOrderCount}</arg>
-                                 <arg name="right"/>
+                              <function name="set">
+                                 <arg name="field">{$Lambda_Registration__c}</arg>
                               </function>
                            </condition>
                         </link>
-                        <link id="k9mzinq5" targetId="k9mzinq1" type="containerLink"/>
+                        <link id="k9u7n6rt" targetId="k9u7n6ru" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$Lambda_Registration__c}</arg>
+                              </function>
+                           </condition>
+                        </link>
                      </container>
                      <link id="jk8jkv1n" targetId="jk8jkuys" type="containerLink"/>
                   </flow>
@@ -2552,5 +2575,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-30T18:19:20.243Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-05-07T04:04:53.254Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
