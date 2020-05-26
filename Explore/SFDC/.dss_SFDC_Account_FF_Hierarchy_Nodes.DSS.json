@@ -24,8 +24,8 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "1zNjc6xOdiJi47rVWuySAv",
-    "name" : "SFDC_MT_SB",
+    "id" : "2CjV79tAT4nicr3VedQp4y",
+    "name" : "SFDC_1",
     "type" : "Connection",
     "metadata" : {
       "modelVersion" : {
@@ -33,13 +33,13 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB0B000000000078"
+        "repoHandle" : "000TPB0B000000000016"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
         "description" : null,
         "contentType" : "JSON",
-        "documentState" : "COMPLETE"
+        "documentState" : "VALID"
       }
     },
     "path" : "/SYS"
