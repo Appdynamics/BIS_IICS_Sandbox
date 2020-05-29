@@ -16,7 +16,7 @@
         "value" : "@1"
       } ],
       "additionalInfo" : {
-        "description" : "This mapping is used to update the status and reason for a contact when status remains in the Marketing Qualified: Sales Accepted  for longer than 30 days or 75 days.",
+        "description" : "This mapping is used to update the status and reason for a contact when status remains in the Marketing Qualified: Sales Accepted  for longer than 30 days or 75 days.\nMapped the o_Status field from FCRM__FCR_Status__c to Contact_Status__c for JIRA ticket BISAP-11607",
         "contentType" : "JSON",
         "documentState" : "VALID"
       }
