@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-05-05T18:00:30Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-05-26T22:54:17Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-05-05T18:00:55Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-06-03T19:26:53Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -457,7 +457,7 @@
                   <title>Get Negative Amount Items</title>
                   <operation source="list" to="temp.temp_orderProducts">
                      <query advanceQuery="false" from="Salesforce:OrderItem">
-                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND Net_Total_Price__c &lt; 0</where>
+                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND Net_Total_Price__c &lt; 0 AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') LIMIT 2000</where>
                      </query>
                   </operation>
                   <link id="jx232sa7" targetId="jx232sa6"/>
@@ -579,7 +579,7 @@ then 'No' else 'Yes'</expression>
                   <operation source="field"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_otd_from_synced_quote">One_Time_Discount__c</operation>
                   <operation source="field"
-                             to="temp.thisNSHeaderCustomFields[1]/custbody_partner_margin_discount">Primary_Quote__r.SBQQ__PartnerDiscount__c</operation>
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_partner_margin_discount">SBQQ__Quote__r.SBQQ__PartnerDiscount__c</operation>
                   <operation source="field"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_salesforce_currency">CurrencyIsoCode</operation>
                   <operation source="field" to="temp.thisNSHeaderCustomFields[1]/custbody_type">Type</operation>
@@ -596,7 +596,7 @@ then 'No' else 'Yes'</expression>
                   <operation source="field"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_celigo_ns_sfdc_sync">Id</operation>
                   <operation source="field" to="temp.thisNSHeaderCustomFields[1]/custbody_region">output.region</operation>
-                  <operation source="field" to="temp.thisNSHeaderCustomFields[1]/custbody_quote">Primary_Quote__r.Name</operation>
+                  <operation source="field" to="temp.thisNSHeaderCustomFields[1]/custbody_quote">SBQQ__Quote__r.Name</operation>
                   <operation source="field"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_customer_credit_status">Bill_To__r.Account__r.Credit_Status__c</operation>
                   <operation source="field"
@@ -697,6 +697,8 @@ then 'No' else 'Yes'</expression>
                      <expression language="XQuery">if($Non_GA_Terms__c = 'true') then 'T' else 'F'</expression>
                   </operation>
                   <operation source="field" to="temp.thisNSHeaderCustomFields[1]/custbody_sfdc_memo">Opportunity.Order_Ops_Comments__c</operation>
+                  <operation source="field"
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_cisco_manual_tracking">Opportunity.Cisco_Manual_Tracking__c</operation>
                   <link id="iydvxbey" targetId="iaj27kfk"/>
                </assignment>
                <assignment id="iaj27kfk">
@@ -752,12 +754,12 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                   <title>Query for Order Products</title>
                   <operation source="list" to="temp.thisOrderProductList">
                      <query advanceQuery="false" from="Salesforce:OrderItem">
-                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true LIMIT 2000</where>
+                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') LIMIT 2000</where>
                      </query>
                   </operation>
                   <operation source="query" to="temp.temp_sfdcGetCustomScheduleLine">
                      <query advanceQuery="false" from="Salesforce:OrderItem">
-                        <where>OrderId = '{$Id}' AND Payment_Schedule_Details__c = 'Custom' Limit 1</where>
+                        <where>OrderId = '{$Id}' AND Payment_Schedule_Details__c = 'Custom' AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') Limit 1</where>
                      </query>
                   </operation>
                   <link id="jyiv1dmn" targetId="jyiv1dmm"/>
@@ -782,6 +784,74 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                      </jumpTo>
                   </flow>
                   <flow id="jx232sad">
+                     <container id="k9w9fak0" type="exclusive">
+                        <title>Lambda Registration</title>
+                        <flow id="k9w9fak1">
+                           <link id="k9w9fakc" targetId="k9w9fak0" type="containerLink"/>
+                        </flow>
+                        <flow id="k9w9fak2">
+                           <service id="k9w9fak3">
+                              <title>Check for Existing Opportunity in NS</title>
+                              <serviceName>NetSuite-AppDynamics:searchSalesOrderHeader</serviceName>
+                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="salesOrder_NS_statusNotClosed" source="constant">_salesOrderClosed</parameter>
+                                 <parameter name="salesOrder_NS_statusNotCancelled" source="constant">_salesOrderCancelled</parameter>
+                                 <parameter name="salesOrder_sfdcOppId" source="field">Opportunity_18_Digit_ID__c</parameter>
+                              </serviceInput>
+                              <link id="k9w9fake" targetId="k9w9fak4"/>
+                           </service>
+                           <assignment id="k9w9fak4">
+                              <title>Assign Order Count</title>
+                              <operation source="formula" to="temp.temp_existingOppOrderCount">
+                                 <expression language="XQuery">if($output.search_SalesOrder_count=0 or $output.search_SalesOrder_count='') then '' else 'X'</expression>
+                              </operation>
+                              <link id="k9w9fakf" targetId="k9w9fak5"/>
+                           </assignment>
+                           <container id="k9w9fak5" type="exclusive">
+                              <title>Opportunity (order)doesn't exists in NS?</title>
+                              <flow id="k9w9fak6">
+                                 <link id="k9w9faki" targetId="k9w9fak5" type="containerLink"/>
+                              </flow>
+                              <flow id="k9w9fak7">
+                                 <assignment id="k9w9fak8">
+                                    <title>Assign Exception - Opp Already Exists</title>
+                                    <operation source="constant" to="output.out_error">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
+                                    <operation source="constant" to="temp.exception">Yes</operation>
+                                    <operation source="constant" to="temp.exceptionOrder">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
+                                    <link id="k9w9fakj" targetId="k9w9fak9"/>
+                                 </assignment>
+                                 <jumpTo id="k9w9fak9">
+                                    <link id="k9w9fakk" targetId="jerndxei"/>
+                                 </jumpTo>
+                              </flow>
+                              <link id="k9w9fakg" targetId="k9w9fak6" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$temp.temp_existingOppOrderCount}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k9w9fakh" targetId="k9w9fak7" type="containerLink"/>
+                           </container>
+                           <link id="k9w9fakd" targetId="k9w9fak0" type="containerLink"/>
+                        </flow>
+                        <link id="k9w9faka" targetId="k9w9fak1" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$Lambda_Registration__c}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k9w9fakb" targetId="k9w9fak2" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$Lambda_Registration__c}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
                      <link id="jx232u2m" targetId="jx232sa6" type="containerLink"/>
                   </flow>
                   <link id="jx232sa9" targetId="jx232saa" type="containerLink">
@@ -798,99 +868,7 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                         </function>
                      </condition>
                   </link>
-                  <link id="jx232sa8" targetId="jk8jkuys"/>
-               </container>
-               <container id="jk8jkuys" type="exclusive">
-                  <title>Order Amount &gt;= 0</title>
-                  <flow id="jk8jkv1m">
-                     <container id="k9u7n6ro" type="exclusive">
-                        <title>Lambda Registration</title>
-                        <flow id="k9u7n6rr">
-                           <link id="k9u7n6rs" targetId="k9u7n6ro" type="containerLink"/>
-                        </flow>
-                        <flow id="k9u7n6ru">
-                           <service id="k9u7n6wi">
-                              <title>Check for Existing Opportunity in NS</title>
-                              <serviceName>NetSuite-AppDynamics:searchSalesOrderHeader</serviceName>
-                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                              <serviceInput>
-                                 <parameter name="salesOrder_NS_statusNotClosed" source="constant">_salesOrderClosed</parameter>
-                                 <parameter name="salesOrder_NS_statusNotCancelled" source="constant">_salesOrderCancelled</parameter>
-                                 <parameter name="salesOrder_sfdcOppId" source="field">Opportunity_18_Digit_ID__c</parameter>
-                              </serviceInput>
-                              <link id="k9u7n70z" targetId="k9u7n70y"/>
-                           </service>
-                           <assignment id="k9u7n70y">
-                              <title>Assign Order Count</title>
-                              <operation source="formula" to="temp.temp_existingOppOrderCount">
-                                 <expression language="XQuery">if($output.search_SalesOrder_count=0 or $output.search_SalesOrder_count='') then '' else 'X'</expression>
-                              </operation>
-                              <link id="k9u7n75k" targetId="k9u7n75a"/>
-                           </assignment>
-                           <container id="k9u7n75a" type="exclusive">
-                              <title>Opportunity (order)doesn't exists in NS?</title>
-                              <flow id="k9u7n75b">
-                                 <link id="k9u7n75h" targetId="k9u7n75a" type="containerLink"/>
-                              </flow>
-                              <flow id="k9u7n75c">
-                                 <assignment id="k9u7n75d">
-                                    <title>Assign Exception - Opp Already Exists</title>
-                                    <operation source="constant" to="output.out_error">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
-                                    <operation source="constant" to="temp.exception">Yes</operation>
-                                    <operation source="constant" to="temp.exceptionOrder">An Order already exists in Netsuite for that opportunity, {$output.search_SalesOrder_tranId}. Either update the Order Reference Number in SFDC with Netsuite SO number or cancel the order in Netsuite and re-sync again from SFDC.</operation>
-                                    <link id="k9u7n75i" targetId="k9u7n75e"/>
-                                 </assignment>
-                                 <jumpTo id="k9u7n75e">
-                                    <link id="k9u7n75j" targetId="jerndxei"/>
-                                 </jumpTo>
-                              </flow>
-                              <link id="k9u7n75f" targetId="k9u7n75b" type="containerLink">
-                                 <condition source="formula">
-                                    <function name="string-equals">
-                                       <arg name="left">{$temp.temp_existingOppOrderCount}</arg>
-                                       <arg name="right"/>
-                                    </function>
-                                 </condition>
-                              </link>
-                              <link id="k9u7n75g" targetId="k9u7n75c" type="containerLink"/>
-                           </container>
-                           <link id="k9u7n6rv" targetId="k9u7n6ro" type="containerLink"/>
-                        </flow>
-                        <link id="k9u7n6rq" targetId="k9u7n6rr" type="containerLink">
-                           <condition source="formula">
-                              <function name="set">
-                                 <arg name="field">{$Lambda_Registration__c}</arg>
-                              </function>
-                           </condition>
-                        </link>
-                        <link id="k9u7n6rt" targetId="k9u7n6ru" type="containerLink">
-                           <condition source="formula">
-                              <function name="unset">
-                                 <arg name="field">{$Lambda_Registration__c}</arg>
-                              </function>
-                           </condition>
-                        </link>
-                     </container>
-                     <link id="jk8jkv1n" targetId="jk8jkuys" type="containerLink"/>
-                  </flow>
-                  <flow id="jk8jkv1p">
-                     <assignment id="jr7ta0gg">
-                        <title>Assign Exception - Order Amount &lt; 0</title>
-                        <operation source="constant" to="output.out_error">Order Amount &lt; 0, Netsuite does not accept negative amounts.</operation>
-                        <link id="jr7ta0gh" targetId="jk8jkv1o"/>
-                     </assignment>
-                     <end id="jk8jkv1o"/>
-                  </flow>
-                  <link id="jk8jkv1j" targetId="jk8jkv1m" type="containerLink">
-                     <condition source="formula">
-                        <function name="greater-or-equals">
-                           <arg name="left">{$TotalAmount}</arg>
-                           <arg name="right">{0}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="jk8jkv1k" targetId="jk8jkv1p" type="containerLink"/>
-                  <link id="jk8jkuyu" targetId="j0o5o28r"/>
+                  <link id="k9w9faov" targetId="j0o5o28r"/>
                </container>
                <container id="j0o5o28r" type="exclusive">
                   <title>Opportunity Type</title>
@@ -942,7 +920,7 @@ else $Opportunity.Opportunity_Type__c</expression>
                      <assignment id="j2s01hua">
                         <title>Assign Channel Tier Exception</title>
                         <operation source="constant" to="Integration_Exception_Message__c">No Channel Tier mapping</operation>
-                        <operation source="constant" to="Status">Error</operation>
+                        <operation source="constant" to="SO_Integration_Status__c">Error</operation>
                         <operation source="formula" to="Sync_Time__c">
                            <function name="time_from_now">
                               <arg name="value">0</arg>
@@ -985,7 +963,7 @@ else $Opportunity.Opportunity_Type__c</expression>
                      <assignment id="j2s4c471">
                         <title>Assign Payment Term Exception</title>
                         <operation source="constant" to="Integration_Exception_Message__c">No Payment Term mapping</operation>
-                        <operation source="constant" to="Status">Error</operation>
+                        <operation source="constant" to="SO_Integration_Status__c">Error</operation>
                         <operation source="formula" to="Sync_Time__c">
                            <function name="time_from_now">
                               <arg name="value">0</arg>
@@ -1028,7 +1006,7 @@ else $Opportunity.Opportunity_Type__c</expression>
                      <assignment id="j2s4c4g9">
                         <title>Assign Deal Type Exception</title>
                         <operation source="constant" to="Integration_Exception_Message__c">No Deal Type mapping</operation>
-                        <operation source="constant" to="Status">Error</operation>
+                        <operation source="constant" to="SO_Integration_Status__c">Error</operation>
                         <operation source="formula" to="Sync_Time__c">
                            <function name="time_from_now">
                               <arg name="value">0</arg>
@@ -2425,8 +2403,49 @@ else
                         <title>Assignment to order exception</title>
                         <operation source="constant" to="temp.exception">Yes</operation>
                         <operation source="constant" to="temp.exceptionOrder">Sales Order # not returned</operation>
-                        <link id="j58f49l5" targetId="j58f49eg"/>
+                        <link id="k9waj16q" targetId="k9waj16p"/>
                      </assignment>
+                     <assignment id="k9waj16p">
+                        <title>Assign Error to Order Lines</title>
+                        <operation source="formula" to="temp.temp_orderProduct">
+                           <expression language="XQuery">list:head($temp.thisOrderProductList)</expression>
+                        </operation>
+                        <operation source="formula" to="temp.thisOrderProductList">
+                           <expression language="XQuery">list:tail($temp.thisOrderProductList)</expression>
+                        </operation>
+                        <link id="k9waj1mf" targetId="k9waj1me"/>
+                     </assignment>
+                     <container id="k9waj1me" type="exclusive">
+                        <title>Is Order Product Set?</title>
+                        <flow id="k9waj1mi">
+                           <assignment id="k9waj1tn">
+                              <title>Update Error status on Order line</title>
+                              <operation source="constant" to="temp.temp_orderProduct.NS_Integration_Status__c">Error</operation>
+                              <link id="k9waj20r" targetId="k9waj20p"/>
+                           </assignment>
+                           <jumpTo id="k9waj20p">
+                              <link id="k9waj20q" targetId="k9waj16p"/>
+                           </jumpTo>
+                        </flow>
+                        <flow id="k9waj1ml">
+                           <link id="k9waj1mm" targetId="k9waj1me" type="containerLink"/>
+                        </flow>
+                        <link id="k9waj1mh" targetId="k9waj1mi" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_orderProduct}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k9waj1mk" targetId="k9waj1ml" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_orderProduct}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k9waj1mg" targetId="j58f49eg"/>
+                     </container>
                      <jumpTo id="j58f49eg">
                         <link id="j58f49ik" targetId="jerndxei"/>
                      </jumpTo>
@@ -2442,8 +2461,18 @@ else
                               <arg name="HM_flag">M</arg>
                            </function>
                         </operation>
-                        <operation source="constant" to="Status">Integrated</operation>
-                        <link id="jrc67sny" targetId="jrc67snx"/>
+                        <operation source="constant" to="SO_Integration_Status__c">Integrated</operation>
+                        <link id="k9waj2vl" targetId="k9waj2vk"/>
+                     </assignment>
+                     <assignment id="k9waj2vk">
+                        <title>Assign Order Lines</title>
+                        <operation source="formula" to="temp.temp_orderProduct">
+                           <expression language="XQuery">list:head($temp.thisOrderProductList)</expression>
+                        </operation>
+                        <operation source="formula" to="temp.thisOrderProductList">
+                           <expression language="XQuery">list:tail($temp.thisOrderProductList)</expression>
+                        </operation>
+                        <link id="k9waj39j" targetId="k9waj39i"/>
                      </assignment>
                      <assignment id="jerndxei">
                         <title>Update Order Exception</title>
@@ -2456,7 +2485,7 @@ else
                               <arg name="HM_flag">M</arg>
                            </function>
                         </operation>
-                        <operation source="formula" to="Status">
+                        <operation source="formula" to="SO_Integration_Status__c">
                            <expression language="XQuery">if ($temp.exception = 'Yes')
 then 'Error'
 else 'Integrated'</expression>
@@ -2474,6 +2503,38 @@ else 'Integrated'</expression>
                         </operation>
                         <link id="jerndxk4" targetId="jerndxk3"/>
                      </assignment>
+                     <container id="k9waj39i" type="exclusive">
+                        <title>Is Order Product Set?</title>
+                        <flow id="k9waj39m">
+                           <assignment id="k9waj3iv">
+                              <title>Ns Order Reference Number</title>
+                              <operation source="field" to="temp.temp_orderProduct.NS_Reference_Number__c">output.NSsalesOrder[1]/tranId</operation>
+                              <operation source="constant" to="temp.temp_orderProduct.NS_Integration_Status__c">Integrated</operation>
+                              <link id="k9waj3wu" targetId="k9waj3ws"/>
+                           </assignment>
+                           <jumpTo id="k9waj3ws">
+                              <link id="k9waj3wt" targetId="k9waj2vk"/>
+                           </jumpTo>
+                        </flow>
+                        <flow id="k9waj39p">
+                           <link id="k9waj39q" targetId="k9waj39i" type="containerLink"/>
+                        </flow>
+                        <link id="k9waj39l" targetId="k9waj39m" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_orderProduct}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k9waj39o" targetId="k9waj39p" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_orderProduct}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k9waj39k" targetId="jrc67snx"/>
+                     </container>
                      <container id="jrc67snx" type="exclusive">
                         <title>Sales Order - Newly Created &amp; Not Already Existing?</title>
                         <flow id="jrc67so1">
@@ -2575,5 +2636,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-05-07T04:04:53.254Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-06-06T15:10:17.101Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
