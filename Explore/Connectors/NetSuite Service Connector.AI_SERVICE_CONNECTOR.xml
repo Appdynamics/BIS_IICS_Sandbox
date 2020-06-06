@@ -14,10 +14,10 @@
       <types1:CreatedBy>gykumar@informatica.com.appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-28T09:18:33Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-04-22T17:34:22Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-06-01T21:49:37Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-22T17:41:07Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-06-01T21:49:43Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_Service_Connector/NetSuite_Service_Connector_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -1046,6 +1046,16 @@
                                                     scriptId="custbody_sfdc_memo"
                                                     xsi:type="platformCore:StringCustomFieldRef"&gt;
                             &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_sfdc_memo/text()}&lt;/platformCore:value&gt;
+                        &lt;/platformCore:customField&gt;
+                else ()
+                }
+                {
+                        if(exists($NSHeaderCustomFields/*:custbody_cisco_manual_tracking/text()))
+                                then
+                		&lt;platformCore:customField 
+                                                    scriptId="custbody_cisco_manual_tracking"
+                                                    xsi:type="platformCore:StringCustomFieldRef"&gt;
+                            &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_cisco_manual_tracking/text()}&lt;/platformCore:value&gt;
                         &lt;/platformCore:customField&gt;
                 else ()
                 }
@@ -5271,6 +5281,561 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      </field>
                   </output>
                </action>
+               <action category="Get"
+                       failOnError="true"
+                       forSearch="false"
+                       label="searchReturnAuth"
+                       maxRedirects="100"
+                       name="searchReturnAuth"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description>Search for Return Authorization</description>
+                  <input>
+                     <parameter name="RA_NS_internalId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter name="RA_NS_tranId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter name="RA_NS_statusNotRejected"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter name="RA_sfdcId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>&lt;soapenv:Envelope
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'
+    xmlns:platformCore='urn:core_2018_1.platform.webservices.netsuite.com'
+    xmlns:platformMsgs='urn:messages_2018_1.platform.webservices.netsuite.com'
+    xmlns:tranSales='urn:sales_2018_1.transactions.webservices.netsuite.com'
+    xmlns:platformCommon='urn:common_2018_1.platform.webservices.netsuite.com'&gt;
+    &lt;soapenv:Header&gt;
+        &lt;passport xsi:type='platformCore:Passport'&gt;
+            &lt;email xsi:type='xsd:string'&gt;{$username}&lt;/email&gt;
+            &lt;password xsi:type='xsd:string'&gt;{$password}&lt;/password&gt;
+            &lt;account xsi:type='xsd:string'&gt;{$account}&lt;/account&gt;            
+        &lt;/passport&gt;
+		&lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/soapenv:Header&gt;
+    &lt;soapenv:Body&gt;
+        &lt;search xsi:type='platformMsgs:SearchRequest'&gt;
+            &lt;searchRecord xsi:type='tranSales:TransactionSearchAdvanced'&gt;
+                &lt;criteria xsi:type='tranSales:TransactionSearch'&gt;
+                    &lt;basic xsi:type='platformCommon:TransactionSearchBasic'&gt; 
+                        {
+                        if(fn:string-length($RA_NS_internalId)&gt;0) then 
+                        &lt;internalIdNumber operator='equalTo' xsi:type='platformCore:SearchLongField'&gt;
+                            &lt;searchValue xsi:type='xsd:long'&gt;{$RA_NS_internalId }&lt;/searchValue&gt;
+                        &lt;/internalIdNumber&gt; 
+                        else ()
+                        }
+                         {
+                        if(fn:string-length($RA_NS_tranId)&gt;0) then 
+                        &lt;tranId operator='is' xsi:type='platformCore:SearchStringField'&gt;
+                            &lt;searchValue xsi:type='xsd:string'&gt;{$RA_NS_tranId}&lt;/searchValue&gt;
+                        &lt;/tranId&gt;
+                        else ()
+                        }
+                        {
+                        if(fn:string-length($RA_NS_statusNotRejected)&gt;0) then 
+                        &lt;status operator='noneOf' xsi:type='platformCore:SearchEnumMultiSelectField'&gt;
+                            &lt;searchValue xsi:type='xsd:string'&gt;{$RA_NS_statusNotRejected}&lt;/searchValue&gt;
+                        &lt;/status&gt;
+                        else ()
+                        }
+                         {
+                         if(fn:string-length($RA_sfdcId)&gt;0) then 
+                        &lt;customFieldList xsi:type='platformCore:SearchCustomFieldList'&gt;
+                            &lt;customField scriptId='custbody_celigo_ns_sfdc_sync_id' xsi:type='platformCore:SearchStringCustomField' operator='is'&gt;
+                                &lt;searchValue xsi:type='xsd:string'&gt;{$RA_sfdcId }&lt;/searchValue&gt;
+                            &lt;/customField&gt;
+                        &lt;/customFieldList&gt;
+                        else()
+                        }
+                        &lt;mainLine xsi:type='platformCore:SearchBooleanField'&gt;
+                            &lt;searchValue xsi:type='xsd:boolean'&gt;true&lt;/searchValue&gt;
+                        &lt;/mainLine&gt;
+                        &lt;recordType operator='is' xsi:type='platformCore:SearchStringField'&gt;
+                            &lt;searchValue xsi:type='xsd:string'&gt;ReturnAuthorization&lt;/searchValue&gt;
+                        &lt;/recordType&gt;                       
+                    &lt;/basic&gt;
+                &lt;/criteria&gt;                
+            &lt;/searchRecord&gt;
+        &lt;/search&gt;
+    &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="search_RA_internalId" type="string">
+                        <xquery>{//*:record/@internalId/data()}</xquery>
+                     </field>
+                     <field description="" name="search_RA_subsidiaryInternalId" type="string">
+                        <xquery>{//*:record/*:subsidiary/@internalId/data()}</xquery>
+                     </field>
+                     <field description="" name="search_RA_tranId" type="string">
+                        <xquery>{//*:record/*:tranId/data()}</xquery>
+                     </field>
+                     <field description="" name="search_RA_count" type="string">
+                        <xquery>{//*:totalRecords/data()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Create"
+                       failOnError="true"
+                       forSearch="false"
+                       label="createReturnAuth"
+                       maxRedirects="100"
+                       name="createReturnAuth"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description>Create Return Authorization</description>
+                  <input>
+                     <parameter label="SalesOrder_internalId"
+                                name="SalesOrder_internalId"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RAHeader_customForm"
+                                name="RAHeader_customForm"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RAHeader_sfdcOppId"
+                                name="RAHeader_sfdcOppId"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RAHeader_subsidiary"
+                                name="RAHeader_subsidiary"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="ReturnAuthorization"
+                                name="ReturnAuthorization"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="reference">
+                        <options>
+                           <option name="referenceTo">Record-Invoice</option>
+                        </options>
+                     </parameter>
+                     <parameter label="RAHeader_entity"
+                                name="RAHeader_entity"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RAHeader_sfdcOrderId"
+                                name="RAHeader_sfdcOrderId"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RAHeader_sfdcOriginalOrderId"
+                                name="RAHeader_sfdcOriginalOrderId"
+                                nogen="true"
+                                required="true"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RAHeader_bookedDate"
+                                name="RAHeader_bookedDate"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">add</header>
+                        </httpHeaders>
+                        <body>{&lt;soap:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:platformCommon="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:rest="http://schemas.activebpel.org/REST/2007/12/01/aeREST.xsd" xmlns:platformCore="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:platformMsgs="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:aetgt="http://schemas.activebpel.org/REST/2007/12/01/aeREST.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tranSales="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:tranCust="urn:customers_2018_1.transactions.webservices.netsuite.com"&gt;
+    &lt;soap:Header&gt;
+        &lt;platformMsgs:preferences&gt;
+            &lt;platformMsgs:warningAsError&gt;false&lt;/platformMsgs:warningAsError&gt;
+            &lt;platformMsgs:disableMandatoryCustomFieldValidation&gt;true&lt;/platformMsgs:disableMandatoryCustomFieldValidation&gt;
+            &lt;platformMsgs:disableSystemNotesForCustomFields&gt;false&lt;/platformMsgs:disableSystemNotesForCustomFields&gt;
+            &lt;platformMsgs:ignoreReadOnlyFields&gt;true&lt;/platformMsgs:ignoreReadOnlyFields&gt;
+        &lt;/platformMsgs:preferences&gt;
+        &lt;platformMsgs:passport&gt;
+            &lt;platformCore:email&gt;{$username}&lt;/platformCore:email&gt;
+            &lt;platformCore:password&gt;{$password}&lt;/platformCore:password&gt;
+            &lt;platformCore:account&gt;{$account}&lt;/platformCore:account&gt;
+        &lt;/platformMsgs:passport&gt;
+        &lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/soap:Header&gt;
+    &lt;soap:Body&gt;
+        &lt;platformMsgs:add&gt;
+            &lt;platformMsgs:record xsi:type="tranCust:ReturnAuthorization"&gt; 			       
+                &lt;tranCust:createdFrom internalId="{$SalesOrder_internalId}"/&gt;                                         					   
+                &lt;tranCust:subsidiary internalId="{$RAHeader_subsidiary}"/&gt; 	
+                &lt;tranCust:entity internalId="{$RAHeader_entity}" /&gt;
+                &lt;tranCust:customForm internalId="{$RAHeader_customForm}"/&gt; 				                              
+                &lt;tranCust:customFieldList&gt; 
+				    {
+		           if(exists($RAHeader_sfdcOppId))
+		           then 
+                    &lt;platformCore:customField xsi:type="platformCore:StringCustomFieldRef" scriptId="custbody_celigo_ns_sfdc_sync_id"&gt;
+                        &lt;platformCore:value&gt;{$RAHeader_sfdcOppId}&lt;/platformCore:value&gt;
+                    &lt;/platformCore:customField&gt; 
+					else () 
+                    }
+                    {
+		           if(exists($RAHeader_sfdcOrderId))
+		           then 
+                    &lt;platformCore:customField xsi:type="platformCore:StringCustomFieldRef" scriptId="custbody_celigo_ns_sfdc_sync"&gt;
+                        &lt;platformCore:value&gt;{$RAHeader_sfdcOrderId}&lt;/platformCore:value&gt;
+                    &lt;/platformCore:customField&gt; 
+					else () 
+                    }
+                    {
+		           if(exists($RAHeader_sfdcOriginalOrderId))
+		           then 
+                    &lt;platformCore:customField xsi:type="platformCore:StringCustomFieldRef" scriptId="custbody_orig_order_object_id"&gt;
+                        &lt;platformCore:value&gt;{$RAHeader_sfdcOriginalOrderId}&lt;/platformCore:value&gt;
+                    &lt;/platformCore:customField&gt; 
+					else () 
+                    }
+					{				 
+				   if(exists($RAHeader_bookedDate))
+                        then
+					&lt;platformCore:customField scriptId="Custbody_SFDC_Booked_Date" xsi:type="platformCore:DateCustomFieldRef"&gt;
+                     &lt;platformCore:value&gt;{$RAHeader_bookedDate}&lt;/platformCore:value&gt;
+                    &lt;/platformCore:customField&gt;
+				    else ()
+				    }
+                    {
+		           if(exists($ReturnAuthorization/*:custbody_order_childless_bundle/text()))
+		           then 
+                    &lt;platformCore:customField xsi:type="platformCore:StringCustomFieldRef" scriptId="custbody_order_childless_bundle"&gt;
+                        &lt;platformCore:value&gt;{$ReturnAuthorization/*:custbody_order_childless_bundle/text()}&lt;/platformCore:value&gt;
+                    &lt;/platformCore:customField&gt; 
+					else () 
+                    }
+                &lt;/tranCust:customFieldList&gt;
+                &lt;tranCust:itemList&gt; 
+				       {
+                       for $i at $pos in ($ReturnAuthorization/itemList/item) 
+                       return
+                    &lt;tranCust:item&gt; 					      
+                        &lt;tranCust:item internalId="{$i/item/internalId/text()}"/&gt; 						
+                        &lt;tranCust:orderLine&gt;{$i/line/text()}&lt;/tranCust:orderLine&gt;		
+                        &lt;tranCust:amount&gt;{$i/amount/data()}&lt;/tranCust:amount&gt; 						
+                        &lt;tranCust:rate&gt;{$i/rate/text()}&lt;/tranCust:rate&gt; 
+                        &lt;tranCust:quantity&gt;{$i/quantity/text()}&lt;/tranCust:quantity&gt; 
+						{
+		                if(fn:string-length($i/description/text())&gt;0) 
+		                 then 
+                        &lt;tranCust:description&gt;{$i/description/text()}&lt;/tranCust:description&gt;
+						else () 
+                         }
+                          &lt;tranCust:customFieldList&gt;                               
+                             &lt;platformCore:customField scriptId="custcol_contract_mod_opp_id" xsi:type="platformCore:StringCustomFieldRef"&gt;
+                                &lt;platformCore:value&gt;&lt;/platformCore:value&gt;
+                             &lt;/platformCore:customField&gt;
+                             {
+                             if(exists($i/custcol_so_line_start_date/text()))
+                             then
+                            &lt;platformCore:customField scriptId="custcol_so_line_start_date" xsi:type="platformCore:DateCustomFieldRef"&gt;
+                                 &lt;platformCore:value&gt;{$i/custcol_so_line_start_date/text()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                             else ()
+                             } 
+                             {
+                             if(exists($i/custcol_so_line_end_date/text()))
+                             then
+                            &lt;platformCore:customField scriptId="custcol_so_line_end_date" xsi:type="platformCore:DateCustomFieldRef"&gt;
+                                 &lt;platformCore:value&gt;{$i/custcol_so_line_end_date/text()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                             else ()
+                             }
+                             {
+                             if(exists($i/custcol_sfdc_transaction_id/text()))
+                             then
+                             &lt;platformCore:customField scriptId="custcol_sfdc_transaction_id" xsi:type="platformCore:StringCustomFieldRef"&gt;
+                                &lt;platformCore:value&gt;{$i/custcol_sfdc_transaction_id/text()}&lt;/platformCore:value&gt;
+                             &lt;/platformCore:customField&gt;    
+                             else ()
+                             }
+                            {
+                             if(exists($i/custcol_sfdc_order_line_id/text()))
+                             then
+                             &lt;platformCore:customField scriptId="custcol_sfdc_order_line_id" xsi:type="platformCore:StringCustomFieldRef"&gt;
+                                &lt;platformCore:value&gt;{$i/custcol_sfdc_order_line_id/text()}&lt;/platformCore:value&gt;
+                             &lt;/platformCore:customField&gt;    
+                             else ()
+                             }
+                             {
+              
+                            if(exists($i/custcol_qty/text()))
+                                        then
+                            &lt;platformCore:customField scriptId="custcol_qty" xsi:type="platformCore:LongCustomFieldRef"&gt;
+                                        &lt;platformCore:value&gt;{$i/custcol_qty/data()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                            else ()
+              			    }
+
+                            {
+                            if(exists($i/custcol_list_price/text()))
+                            then
+                            &lt;platformCore:customField scriptId="custcol_list_price" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+                                    &lt;platformCore:value&gt;{$i/custcol_list_price/data()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                            else ()
+                            }
+                            {
+                            if(exists($i/custcol_total_price/text()))
+                            then
+                            &lt;platformCore:customField scriptId="custcol_total_price" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+                                &lt;platformCore:value&gt;{$i/custcol_total_price/data()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                            else ()
+                            }
+                            {
+                            if(exists($i/custcol_ext_list_price/text()))
+                            then
+                            &lt;platformCore:customField scriptId="custcol_ext_list_price" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+                                        &lt;platformCore:value&gt;{$i/custcol_ext_list_price/text()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                            else ()
+                            }
+			                {
+                            if(exists($i/custcol_appd_ssp_sp/text()))
+                            then
+                            &lt;platformCore:customField scriptId="custcol_appd_ssp_sp" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+                                        &lt;platformCore:value&gt;{$i/custcol_appd_ssp_sp/text()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                            else ()
+                            }
+			                {
+                            if(exists($i/custcol_childless_bundle_ra/text()))
+                            then
+                            &lt;platformCore:customField scriptId="custcol_childless_bundle_ra" xsi:type="platformCore:StringCustomFieldRef"&gt;
+                                        &lt;platformCore:value&gt;{$i/custcol_childless_bundle_ra/text()}&lt;/platformCore:value&gt;
+                            &lt;/platformCore:customField&gt;
+                            else ()
+                            }
+                            {
+                             if(exists($i/custcol_sfdc_ra_line_id/text()))
+                             then
+                             &lt;platformCore:customField scriptId="custcol_sfdc_ra_line_id" xsi:type="platformCore:StringCustomFieldRef"&gt;
+                                &lt;platformCore:value&gt;{$i/custcol_sfdc_ra_line_id/text()}&lt;/platformCore:value&gt;
+                             &lt;/platformCore:customField&gt;    
+                             else ()
+                             }
+                            {
+                             if(exists($i/custcol_sfdc_ra_parent_line_id/text()))
+                             then
+                             &lt;platformCore:customField scriptId="custcol_sfdc_ra_parent_line_id" xsi:type="platformCore:StringCustomFieldRef"&gt;
+                                &lt;platformCore:value&gt;{$i/custcol_sfdc_ra_parent_line_id/text()}&lt;/platformCore:value&gt;
+                             &lt;/platformCore:customField&gt;    
+                             else ()
+                             }                                                                        
+                         &lt;/tranCust:customFieldList&gt;   
+                    &lt;/tranCust:item&gt;  
+                        }					
+                &lt;/tranCust:itemList&gt;
+            &lt;/platformMsgs:record&gt;
+        &lt;/platformMsgs:add&gt;
+    &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;}</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="RA_NSinternalID" type="string">
+                        <xquery>{
+//*:baseRef/@internalId
+}</xquery>
+                     </field>
+                     <field description="" name="isRACreationSuccess" type="string">
+                        <xquery>{
+//*:status/@isSuccess
+}</xquery>
+                     </field>
+                     <field description=""
+                            name="status"
+                            type="reference"
+                            xmlElement="status">
+                        <options>
+                           <option name="referenceTo">status</option>
+                        </options>
+                     </field>
+                     <field description="" name="errorMessages" type="string">
+                        <xquery>{
+//*:status/*:statusDetail[@*:type="ERROR"]/*:message/text()
+}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category="Get"
+                       failOnError="true"
+                       forSearch="false"
+                       label="searchReturnAuthLines"
+                       maxRedirects="100"
+                       name="searchReturnAuthLines"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description>Search for Return Authorization</description>
+                  <input>
+                     <parameter label="RA_tranId_search"
+                                name="RA_tranId_search"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RA_lineId_search"
+                                name="RA_lineId_search"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RA_lineSfdcId_search"
+                                name="RA_lineSfdcId_search"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="RA_status_search"
+                                name="RA_status_search"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">search</header>
+                        </httpHeaders>
+                        <body>{&lt;soapenv:Envelope
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'
+    xmlns:platformCore='urn:core_2018_1.platform.webservices.netsuite.com'
+    xmlns:tranSales='urn:sales_2018_1.transactions.webservices.netsuite.com'
+    xmlns:platformCommon='urn:common_2018_1.platform.webservices.netsuite.com'
+    xmlns:platformMsgs='urn:messages_2018_1.platform.webservices.netsuite.com'&gt;
+    &lt;soapenv:Header&gt;
+        &lt;passport xsi:type='platformCore:Passport'&gt;
+            &lt;email xsi:type='xsd:string'&gt;{$username}&lt;/email&gt;
+            &lt;password xsi:type='xsd:string'&gt;{$password}&lt;/password&gt;
+            &lt;account xsi:type='xsd:string'&gt;{$account}&lt;/account&gt;
+        &lt;/passport&gt;
+		&lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
+        &lt;/urn:applicationInfo&gt;
+    &lt;/soapenv:Header&gt;
+    &lt;soapenv:Body&gt;
+        &lt;search xsi:type='platformMsgs:SearchRequest'&gt;
+            &lt;searchRecord xsi:type='tranSales:TransactionSearchAdvanced'&gt;
+                &lt;criteria xsi:type='tranSales:TransactionSearch'&gt;
+                    &lt;basic xsi:type='platformCommon:TransactionSearchBasic'&gt;
+					    &lt;recordType operator='is' xsi:type='platformCore:SearchStringField'&gt;
+                            &lt;searchValue xsi:type='xsd:string'&gt;ReturnAuthorization&lt;/searchValue&gt;
+                        &lt;/recordType&gt;
+                        {
+                        if(fn:string-length($RA_tranId_search)&gt;0) then 
+                        &lt;tranId operator='is' xsi:type='platformCore:SearchStringField'&gt;
+                            &lt;searchValue xsi:type='xsd:string'&gt;{$RA_tranId_search}&lt;/searchValue&gt;
+                        &lt;/tranId&gt;
+                        else ()
+                        }   
+                        {
+                        if(fn:string-length($RA_status_search)&gt;0) then 
+                        &lt;status operator='noneOf' xsi:type='platformCore:SearchEnumMultiSelectField'&gt;
+                            &lt;searchValue xsi:type='xsd:string'&gt;{$RA_status_search}&lt;/searchValue&gt;
+                        &lt;/status&gt;
+                        else ()
+                        }
+						&lt;customFieldList xsi:type='platformCore:SearchCustomFieldList'&gt; 
+                        {
+                        if(fn:string-length($RA_lineId_search)&gt;0) then 
+                            &lt;customField scriptId='custcol_sfdc_order_line_id' xsi:type='platformCore:SearchStringCustomField' operator='is'&gt;
+                                &lt;searchValue xsi:type='xsd:string'&gt;{$RA_lineId_search}&lt;/searchValue&gt;
+                            &lt;/customField&gt;
+                        else ()
+                        }
+                        {
+                        if(fn:string-length($RA_lineSfdcId_search)&gt;0) then 
+                            &lt;customField scriptId='custcol_sfdc_transaction_id' xsi:type='platformCore:SearchStringCustomField' operator='is'&gt;
+                                &lt;searchValue xsi:type='xsd:string'&gt;{$RA_lineSfdcId_search}&lt;/searchValue&gt;
+                            &lt;/customField&gt;
+                        else ()
+                        }
+                        &lt;/customFieldList&gt;
+                    &lt;/basic&gt;
+                &lt;/criteria&gt;
+                &lt;columns xsi:type="tranSales:TransactionSearchRow"&gt;
+                    &lt;basic xsi:type="platformCommon:TransactionSearchRowBasic"&gt;  
+                        &lt;internalId xsi:type="platformCore:SearchColumnSelectField"&gt;
+                        &lt;/internalId&gt;
+                        &lt;item xsi:type="platformCore:SearchColumnSelectField"&gt;                           
+                        &lt;/item&gt;
+                        &lt;line xsi:type="platformCore:SearchColumnLongField"&gt;                           
+                        &lt;/line&gt;  
+                        &lt;entity xsi:type="platformCore:SearchColumnSelectField"&gt;                           
+                        &lt;/entity&gt;
+                        &lt;department xsi:type="platformCore:SearchColumnSelectField"&gt;                           
+                        &lt;/department&gt;                        
+                        &lt;subsidiary xsi:type="platformCore:SearchColumnSelectField"&gt;                           
+                        &lt;/subsidiary&gt;
+                        &lt;quantity xsi:type="platformCore:SearchColumnDoubleField"&gt;                           
+                        &lt;/quantity&gt;       
+                        &lt;amount xsi:type="platformCore:SearchColumnDoubleField"&gt;                           
+                        &lt;/amount&gt;
+                        &lt;quantityBilled xsi:type="platformCore:SearchColumnDoubleField"&gt;                           
+                        &lt;/quantityBilled&gt;                        
+                        &lt;customFieldList xsi:type="platformCore:SearchColumnCustomFieldList"&gt;
+                            &lt;customField scriptId="custcol_sfdc_order_line_id" xsi:type="platformCore:SearchColumnStringCustomField"&gt;&lt;/customField&gt;   
+                            &lt;customField scriptId="custcol_sfdc_parent_line_id" xsi:type="platformCore:SearchColumnStringCustomField"&gt;&lt;/customField&gt; 
+                            &lt;customField scriptId="custcol_sfdc_transaction_id" xsi:type="platformCore:SearchColumnStringCustomField"&gt;&lt;/customField&gt; 
+                        &lt;/customFieldList&gt;                        
+                    &lt;/basic&gt;
+                &lt;/columns&gt; 
+            &lt;/searchRecord&gt;            
+        &lt;/search&gt;
+    &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;}</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="search_RA_internalId" type="string">
+                        <xquery>{//*:internalId/*:searchValue/@internalId/data()}</xquery>
+                     </field>
+                     <field description="" name="search_RA_lineTotalQuantity" type="string">
+                        <xquery>{fn:sum(//*:quantity/*:searchValue/data()) * -1}</xquery>
+                     </field>
+                     <field description="" name="search_RA_lineTotalAmount" type="string">
+                        <xquery>{fn:sum(//*:amount/*:searchValue/data()) * -1}</xquery>
+                     </field>
+                  </output>
+               </action>
             </actions>
             <objects>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -5659,6 +6224,11 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                         </options>
                      </field>
                      <field name="custcol_swap_rights_line" type="string"/>
+                     <field name="custcol_appd_ssp_sp" type="string"/>
+                     <field name="custcol_sfdc_transaction_id" type="string"/>
+                     <field name="custcol_childless_bundle_ra" type="string"/>
+                     <field name="custcol_sfdc_ra_line_id" type="string"/>
+                     <field name="custcol_sfdc_ra_parent_line_id" type="string"/>
                   </detail>
                </processObject>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -5977,6 +6547,7 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      </field>
                      <field name="startDate" type="string"/>
                      <field name="endDate" type="string"/>
+                     <field name="custbody_order_childless_bundle" type="string"/>
                   </detail>
                </processObject>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -6651,6 +7222,7 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      <field name="custbody_revrec_others" type="string"/>
                      <field name="custbody_non_ga_terms" type="string"/>
                      <field name="custbody_sfdc_memo" type="string"/>
+                     <field name="custbody_cisco_manual_tracking" type="string"/>
                   </detail>
                </processObject>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -6671,5 +7243,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-30T17:39:41.614Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-06-06T15:17:31.248Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
