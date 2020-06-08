@@ -1,0 +1,480 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>GRvDINciZBpDUQb-gt-120271-2017-01-15T04:43:52.6Z::pd.xml</types1:EntryId>
+      <types1:Name>processIntegrationQueueTxn</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:Integration_Queue__c</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-01-15T04:43:52Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-06-03T18:30:00Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-06-03T19:26:53Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.processIntegrationQueueTxn/processIntegrationQueueTxn.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="processIntegrationQueueTxn"
+                  name="processIntegrationQueueTxn"
+                  overrideAPIName="false">
+            <appliesTo>Salesforce:Integration_Queue__c</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <notes/>
+            <deployment suspendOnFault="true" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="j3c03vf3" targetId="j3c03vf2"/>
+               </start>
+               <container id="j3c03vf2" type="exclusive">
+                  <title>Transaction Type</title>
+                  <flow id="j3c03vfc">
+                     <assignment id="j3c03vgy">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">In Progress</operation>
+                        <link id="j3c03vgz" targetId="j3c03vn1"/>
+                     </assignment>
+                     <eventContainer id="j3c03vn1">
+                        <subflow id="j3c03vfb">
+                           <title>SFDC Order to NS Sales Order</title>
+                           <subflowGUID>7WXKpNZM9P0fHJt7ibcT6B</subflowGUID>
+                           <subflowPath>SFDC_Order_to_NS_Sales_Order</subflowPath>
+                           <appliesTo>Salesforce:Order</appliesTo>
+                           <appliesToDataName source="query">
+                              <query from="Salesforce:Order">
+                                 <where>Id = '{$Transaction_Id__c}' </where>
+                              </query>
+                           </appliesToDataName>
+                           <runForEach>false</runForEach>
+                           <input/>
+                           <outputDef>
+                              <field name="out_NetSuiteId" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                              <field name="out_error" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                           </outputDef>
+                        </subflow>
+                        <flow id="j3c03vn4">
+                           <container id="j3c70vag" type="exclusive">
+                              <title>out_NetSuiteId</title>
+                              <flow id="j3c70vaz">
+                                 <assignment id="j3dhi4r7">
+                                    <title>Assignment to Status, Exception Message</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <operation source="field" to="Exception_Message__c">output.out_error</operation>
+                                 </assignment>
+                                 <link id="j3c70vb0" targetId="j3c70vag" type="containerLink"/>
+                              </flow>
+                              <flow id="j3c70vb2">
+                                 <assignment id="j3dhi4s0">
+                                    <title>Assignment to Status</title>
+                                    <operation source="constant" to="Status__c">Success</operation>
+                                    <operation source="constant" to="Exception_Message__c"/>
+                                 </assignment>
+                                 <link id="j3c70vb3" targetId="j3c70vag" type="containerLink"/>
+                              </flow>
+                              <link id="j3c70vaw" targetId="j3c70vaz" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.out_NetSuiteId}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="j3c70vax" targetId="j3c70vb2" type="containerLink"/>
+                           </container>
+                           <link id="j3c03vn5" targetId="j3c03vn1" type="containerLink"/>
+                        </flow>
+                        <flow id="j3c03vn8">
+                           <assignment id="j3c03vn7">
+                              <title>Assignment to Status, Exception Message</title>
+                              <operation source="constant" to="Status__c">Error</operation>
+                              <operation source="field" to="Exception_Message__c">output.faultInfo-q2c</operation>
+                           </assignment>
+                           <link id="j3c03vn9" targetId="j3c03vn1" type="containerLink"/>
+                        </flow>
+                        <link id="j3c03vn2" targetId="j3c03vn4" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo-q2c" id="j3c03vlu" interrupting="true">
+                              <link id="j3c03vn6" targetId="j3c03vn8" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <link id="j3c03vfd" targetId="j3c03vf2" type="containerLink"/>
+                  </flow>
+                  <flow id="j3d8mpxo">
+                     <assignment id="j3d8mpxn">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">In Progress</operation>
+                        <link id="j3d8mpy3" targetId="j3daei93"/>
+                     </assignment>
+                     <eventContainer id="j3daei93">
+                        <subflow id="j3d8mpy2">
+                           <title>SFDC Account to NetSuite Customer Integration</title>
+                           <subflowGUID>konLkCxoL4obR52R0yGaSS</subflowGUID>
+                           <subflowPath>SFDC_Account_to_NetSuite_Customer_Integration</subflowPath>
+                           <appliesTo>Salesforce:Account</appliesTo>
+                           <appliesToDataName source="query">
+                              <query from="Salesforce:Account">
+                                 <where>Id = '{$Transaction_Id__c}'</where>
+                              </query>
+                           </appliesToDataName>
+                           <runForEach>false</runForEach>
+                           <input/>
+                           <outputDef>
+                              <field name="out_error" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                           </outputDef>
+                        </subflow>
+                        <flow id="j3daei96">
+                           <container id="j3daei95" type="exclusive">
+                              <title>out_error</title>
+                              <flow id="j3daeicr">
+                                 <assignment id="j3daeicq">
+                                    <title>Assignment to Status</title>
+                                    <operation source="constant" to="Status__c">Success</operation>
+                                    <operation source="constant" to="Exception_Message__c"/>
+                                 </assignment>
+                                 <link id="j3daeics" targetId="j3daei95" type="containerLink"/>
+                              </flow>
+                              <flow id="j3daeicu">
+                                 <assignment id="j3daeict">
+                                    <title>Assignment to Status, Exception Message</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <operation source="field" to="Exception_Message__c">output.out_error</operation>
+                                 </assignment>
+                                 <link id="j3daeicv" targetId="j3daei95" type="containerLink"/>
+                              </flow>
+                              <link id="j3daeico" targetId="j3daeicr" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.out_error}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="j3daeicp" targetId="j3daeicu" type="containerLink"/>
+                           </container>
+                           <link id="j3daei97" targetId="j3daei93" type="containerLink"/>
+                        </flow>
+                        <flow id="j3daei9a">
+                           <assignment id="j3daei99">
+                              <title>Assignment to Status, Exception Message</title>
+                              <operation source="constant" to="Status__c">Error</operation>
+                              <operation source="field" to="Exception_Message__c">output.faultInfo-account[1]/detail</operation>
+                           </assignment>
+                           <link id="j3daei9b" targetId="j3daei93" type="containerLink"/>
+                        </flow>
+                        <link id="j3daei94" targetId="j3daei96" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo-account" id="j3daei8o" interrupting="true">
+                              <link id="j3daei98" targetId="j3daei9a" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <link id="j3d8mpxp" targetId="j3c03vf2" type="containerLink"/>
+                  </flow>
+                  <flow id="j3oxqw4d">
+                     <assignment id="j3oxqw4c">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">In Progress</operation>
+                        <link id="j3oxqw4y" targetId="j3oxqw86"/>
+                     </assignment>
+                     <eventContainer id="j3oxqw86">
+                        <subflow id="j3oxqw4x">
+                           <title>SFDC Contact Integration</title>
+                           <subflowGUID>5lcVXjkBx8KcJ1MXdPogMJ</subflowGUID>
+                           <subflowPath>SFDC_Contact_Integration</subflowPath>
+                           <appliesTo>Salesforce:Contact</appliesTo>
+                           <appliesToDataName source="query">
+                              <query from="Salesforce:Contact">
+                                 <where>Id = '{$Transaction_Id__c}'</where>
+                              </query>
+                           </appliesToDataName>
+                           <runForEach>false</runForEach>
+                           <input/>
+                           <outputDef>
+                              <field name="out_error" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                           </outputDef>
+                        </subflow>
+                        <flow id="j3oxqw89">
+                           <container id="j3oxqw88" type="exclusive">
+                              <title>out_error</title>
+                              <flow id="j3oxqwe4">
+                                 <assignment id="j3oxqwe3">
+                                    <title>Assignment to Status</title>
+                                    <operation source="constant" to="Status__c">Success</operation>
+                                    <operation source="constant" to="Exception_Message__c"/>
+                                 </assignment>
+                                 <link id="j3oxqwe5" targetId="j3oxqw88" type="containerLink"/>
+                              </flow>
+                              <flow id="j3oxqwe7">
+                                 <assignment id="j3oxqwe6">
+                                    <title>Assignment to Status, Exception Message</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <operation source="field" to="Exception_Message__c">output.out_error</operation>
+                                 </assignment>
+                                 <link id="j3oxqwe8" targetId="j3oxqw88" type="containerLink"/>
+                              </flow>
+                              <link id="j3oxqwe1" targetId="j3oxqwe4" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.out_error}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="j3oxqwe2" targetId="j3oxqwe7" type="containerLink"/>
+                           </container>
+                           <link id="j3oxqw8a" targetId="j3oxqw86" type="containerLink"/>
+                        </flow>
+                        <flow id="j3oxqw8d">
+                           <assignment id="j3oxqw8c">
+                              <title>Assignment to Status, Exception Message</title>
+                              <operation source="constant" to="Status__c">Error</operation>
+                              <operation source="field" to="Exception_Message__c">output.faultInfo-contact[1]/detail</operation>
+                           </assignment>
+                           <link id="j3oxqw8e" targetId="j3oxqw86" type="containerLink"/>
+                        </flow>
+                        <link id="j3oxqw87" targetId="j3oxqw89" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo-contact" id="j3oxqw7t" interrupting="true">
+                              <link id="j3oxqw8b" targetId="j3oxqw8d" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <link id="j3oxqw4e" targetId="j3c03vf2" type="containerLink"/>
+                  </flow>
+                  <flow id="jivecz7q">
+                     <assignment id="jivecz90">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">In Progress</operation>
+                        <link id="jivecza8" targetId="jiveixxk"/>
+                     </assignment>
+                     <eventContainer id="jiveixxk">
+                        <subflow id="jivecza7">
+                           <title>SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate</title>
+                           <subflowGUID>5k33i3pUu7AfiAPpvdgkyW</subflowGUID>
+                           <subflowPath>SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate</subflowPath>
+                           <appliesTo>Salesforce:pse__Proj__c</appliesTo>
+                           <appliesToDataName source="query">
+                              <query from="Salesforce:pse__Proj__c">
+                                 <where>Id = '{$Transaction_Id__c}'</where>
+                              </query>
+                           </appliesToDataName>
+                           <runForEach>false</runForEach>
+                           <input/>
+                           <outputDef>
+                              <field name="out_error" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                           </outputDef>
+                        </subflow>
+                        <flow id="jiveixxn">
+                           <container id="jiveiy0p" type="exclusive">
+                              <title>out_error</title>
+                              <flow id="jiveiy0q">
+                                 <assignment id="jiveiy0r">
+                                    <title>Assignment to Status</title>
+                                    <operation source="constant" to="Status__c">Success</operation>
+                                    <operation source="constant" to="Exception_Message__c"/>
+                                 </assignment>
+                                 <link id="jiveiy0w" targetId="jiveiy0p" type="containerLink"/>
+                              </flow>
+                              <flow id="jiveiy0s">
+                                 <assignment id="jiveiy0t">
+                                    <title>Assignment to Status, Exception Message</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <operation source="field" to="Exception_Message__c">output.out_error</operation>
+                                 </assignment>
+                                 <link id="jiveiy0x" targetId="jiveiy0p" type="containerLink"/>
+                              </flow>
+                              <link id="jiveiy0u" targetId="jiveiy0q" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.out_error}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="jiveiy0v" targetId="jiveiy0s" type="containerLink"/>
+                           </container>
+                           <link id="jiveixxo" targetId="jiveixxk" type="containerLink"/>
+                        </flow>
+                        <flow id="jiveixxr">
+                           <assignment id="jiveiy3c">
+                              <title>Assignment to Status, Exception Message</title>
+                              <operation source="constant" to="Status__c">Error</operation>
+                              <operation source="field" to="Exception_Message__c">output.faultInfo-SOUpdate-ExpiryDate[1]/detail</operation>
+                           </assignment>
+                           <link id="jiveixxs" targetId="jiveixxk" type="containerLink"/>
+                        </flow>
+                        <link id="jiveixxl" targetId="jiveixxn" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo-SOUpdate-ExpiryDate"
+                                  id="jiveixx3"
+                                  interrupting="true">
+                              <link id="jiveixxp" targetId="jiveixxr" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <link id="jivecz7r" targetId="j3c03vf2" type="containerLink"/>
+                  </flow>
+                  <flow id="k9ae3s3p">
+                     <assignment id="k9ae3s82">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">In Progress</operation>
+                        <link id="k9ae3sbq" targetId="k9afr611"/>
+                     </assignment>
+                     <eventContainer id="k9afr611">
+                        <subflow id="k9ae3sbp">
+                           <title>SFDC_Docebo_CreateUpdateVouchers</title>
+                           <subflowGUID>i4xsrQtRqIEclHDqWCpUgR</subflowGUID>
+                           <subflowPath>SFDC_Docebo_CreateUpdateVouchers-1</subflowPath>
+                           <appliesTo>Salesforce:AppDynamics_University_Voucher__c</appliesTo>
+                           <appliesToDataName source="query">
+                              <query from="Salesforce:AppDynamics_University_Voucher__c">
+                                 <where>Id = '{$Transaction_Id__c}'</where>
+                              </query>
+                           </appliesToDataName>
+                           <runForEach>false</runForEach>
+                           <input/>
+                           <outputDef>
+                              <field name="out_VoucherError" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                           </outputDef>
+                        </subflow>
+                        <flow id="k9afr613">
+                           <container id="k9afr6d9" type="exclusive">
+                              <title>Check if subprocess returned error</title>
+                              <flow id="k9afr6db">
+                                 <assignment id="k9afr6jm">
+                                    <title>Assign Success</title>
+                                    <operation source="constant" to="Status__c">Success</operation>
+                                    <operation source="constant" to="Exception_Message__c"/>
+                                 </assignment>
+                                 <link id="k9afr6dc" targetId="k9afr6d9" type="containerLink"/>
+                              </flow>
+                              <flow id="k9afr6de">
+                                 <assignment id="k9afr6or">
+                                    <title>Assign Error Status &amp; Exception Message</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <operation source="field" to="Exception_Message__c">output.out_VoucherError</operation>
+                                 </assignment>
+                                 <link id="k9afr6df" targetId="k9afr6d9" type="containerLink"/>
+                              </flow>
+                              <link id="k9afr6da" targetId="k9afr6db" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.out_VoucherError}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k9afr6dd" targetId="k9afr6de" type="containerLink"/>
+                           </container>
+                           <link id="k9afr614" targetId="k9afr611" type="containerLink"/>
+                        </flow>
+                        <flow id="k9afr616">
+                           <assignment id="k9afr68h">
+                              <title>Assign Error Status &amp; Exception Message</title>
+                              <operation source="constant" to="Status__c">Error</operation>
+                              <operation source="field" to="Exception_Message__c">output.faultInfo-Voucher[1]/detail</operation>
+                           </assignment>
+                           <link id="k9afr617" targetId="k9afr611" type="containerLink"/>
+                        </flow>
+                        <link id="k9afr612" targetId="k9afr613" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo-Voucher" id="k9afr607" interrupting="true">
+                              <link id="k9afr615" targetId="k9afr616" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <link id="k9ae3s3q" targetId="j3c03vf2" type="containerLink"/>
+                  </flow>
+                  <flow id="j3c03vff">
+                     <link id="j3c03vfg" targetId="j3c03vf2" type="containerLink"/>
+                  </flow>
+                  <link id="j3c03vf9" targetId="j3c03vfc" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$Transaction_Type__c}</arg>
+                           <arg name="right">Quote-to-Cash</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="j3d8mpxm" targetId="j3d8mpxo" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$Transaction_Type__c}</arg>
+                           <arg name="right">Customer Account</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="j3oxqw4b" targetId="j3oxqw4d" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$Transaction_Type__c}</arg>
+                           <arg name="right">Customer Contact</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jivecz7o" targetId="jivecz7q" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$Transaction_Type__c}</arg>
+                           <arg name="right">SalesOrderUpdate-ExpiryDate</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k9ae3s3o" targetId="k9ae3s3p" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$Transaction_Type__c}</arg>
+                           <arg name="right">Voucher</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="j3c03vfa" targetId="j3c03vff" type="containerLink"/>
+                  <link id="j3c03vf4" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>dLPOBuVhwYmkInD5gHJ8W6</types1:GUID>
+      <types1:DisplayName>processIntegrationQueueTxn</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-06-08T16:26:59.376Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

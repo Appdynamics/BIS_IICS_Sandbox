@@ -1,0 +1,124 @@
+{
+  "objectInfo" : {
+    "id" : "dLPOBuVhwYmkInD5gHJ8W6",
+    "name" : "processIntegrationQueueTxn",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "GRvDINciZBpDUQb-gt-120271-2017-01-15T04:43:52.6Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "5lcVXjkBx8KcJ1MXdPogMJ",
+    "name" : "SFDC Contact Integration",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "lDjAqQHhwq9bdsr-gt-957321-2015-08-14T06:36:07.186Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "SFDC Contact Integration",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/~Archive"
+  }, {
+    "id" : "7WXKpNZM9P0fHJt7ibcT6B",
+    "name" : "SFDC_Order_to_NS_Sales_Order",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Create Sales Order in NetSuite(Infa dev).",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/SalesOrder"
+  }, {
+    "id" : "5k33i3pUu7AfiAPpvdgkyW",
+    "name" : "SalesforceToNetsuite-SalesOrderUpdate-ExpiryDate",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "G06kck8jKBmeK3j-gt-7011859-2018-06-22T20:15:51.529Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC"
+  }, {
+    "id" : "i4xsrQtRqIEclHDqWCpUgR",
+    "name" : "SFDC_Docebo_CreateUpdateVouchers",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "icjumf6S3wOLIFv-gt-242729992-2020-03-24T21:08:30.142Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/LMS"
+  }, {
+    "id" : "konLkCxoL4obR52R0yGaSS",
+    "name" : "SFDC Account to NetSuite Customer Integration",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "KV7Pt8nTaaaaa-gt-2159871-2015-10-16T11:10:45.581Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Infa-dev",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Default"
+  } ]
+}
