@@ -7,17 +7,17 @@
       <types1:MimeType>application/xml+process</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo>Salesforce:AppDynamics_University_Voucher__c</types1:AppliesTo>
-      <types1:Tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</types1:Tags>
+      <types1:Tags>.agent:ip-172-31-19-150.us-west-2.compute.internal,.anonymous</types1:Tags>
       <types1:VersionLabel>1.0</types1:VersionLabel>
       <types1:State>CURRENT</types1:State>
       <types1:ProcessGroup/>
       <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2020-03-24T21:08:30Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-04-24T20:37:09Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-06-03T19:26:06Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-24T20:37:20Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-06-03T19:54:23Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Docebo_CreateUpdateVouchers-1/SFDC_Docebo_CreateUpdateVouchers-1.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -28,7 +28,7 @@
                   overrideAPIName="false">
             <appliesTo>Salesforce:AppDynamics_University_Voucher__c</appliesTo>
             <description/>
-            <tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</tags>
+            <tags>.agent:ip-172-31-19-150.us-west-2.compute.internal,.anonymous</tags>
             <generator>Informatica Process Designer 11</generator>
             <output>
                <field description="" name="out_VoucherError" type="string">
@@ -40,7 +40,9 @@
             <notes/>
             <deployment suspendOnFault="false" tracingLevel="verbose">
                <targetLocation>ip-172-31-19-150.us-west-2.compute.internal</targetLocation>
-               <rest/>
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
             </deployment>
             <flow id="a">
                <start id="b">
@@ -172,5 +174,5 @@ else ((infa:format($Voucher_Expiration_Date__c, "yyyy-MM-dd"))
       <types1:GUID>i4xsrQtRqIEclHDqWCpUgR</types1:GUID>
       <types1:DisplayName>SFDC_Docebo_CreateUpdateVouchers</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-29T20:43:39.008Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-06-08T16:25:28.57Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
