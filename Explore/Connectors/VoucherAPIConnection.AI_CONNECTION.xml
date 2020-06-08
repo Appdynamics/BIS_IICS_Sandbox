@@ -1,0 +1,54 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>3OzI1dq2ME9paab-gt-134057944-2020-03-24T21:27:32.881Z::conn.xml</types1:EntryId>
+      <types1:Name>VoucherAPIConnection</types1:Name>
+      <types1:ParentFlowIds>icjumf6S3wOLIFv-gt-242729992-2020-03-24T21:08:30.142Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+connection</types1:MimeType>
+      <types1:Description>Docebo LMS connector</types1:Description>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-03-24T21:27:33Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-04-06T18:21:09Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-06-01T06:48:50Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connection/VoucherAPIConnection/VoucherAPIConnection.conn.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <connection xmlns="http://schemas.informatica.com/socrates/data-services/2014/04/avosConnections.xsd"
+                     displayName="VoucherAPIConnection"
+                     label="VoucherAPIConnection"
+                     name="VoucherAPIConnection">
+            <description>Docebo LMS connector</description>
+            <tags>.agent:ip-172-31-19-150.us-west-2.compute.internal</tags>
+            <agent>ip-172-31-19-150.us-west-2.compute.internal</agent>
+            <attributes>
+               <attribute encrypted="false"
+                          name="generateTokenHostName"
+                          value="identity.msrv.saastest.appdynamics.com"/>
+               <attribute encrypted="false"
+                          name="voucherHostName"
+                          value="voucher-api.saas.appd-test.com"/>
+            </attributes>
+            <businessConnector xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd"
+                               agentOnly="false"
+                               connectorPath="project:/rt.connector/VoucherAPI_Service_Connector_1/VoucherAPI_Service_Connector_1_svcDef.xml"
+                               guid="5xEp5y6nhzSdcbY3rJSdwS"
+                               name="VoucherAPI_Service_Connector-1"
+                               supportsConnectionTest="false"
+                               uuid="cf103366-5cfa-4d16-aa81-65ed52c7c879">
+               <description/>
+            </businessConnector>
+         </connection>
+      </types1:Entry>
+      <types1:GUID>7xTawl6y8oniHSusyrxP8d</types1:GUID>
+      <types1:DisplayName>VoucherAPIConnection</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-06-08T16:24:11.535Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

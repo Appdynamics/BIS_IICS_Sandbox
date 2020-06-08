@@ -1,0 +1,24 @@
+{
+  "objectInfo" : {
+    "id" : "5xEp5y6nhzSdcbY3rJSdwS",
+    "name" : "VoucherAPI Service Connector",
+    "type" : "AI_SERVICE_CONNECTOR",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "4YclFmVSciY3Axt-gt-4948170-2020-03-24T21:08:28.87Z::svc.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ ]
+}

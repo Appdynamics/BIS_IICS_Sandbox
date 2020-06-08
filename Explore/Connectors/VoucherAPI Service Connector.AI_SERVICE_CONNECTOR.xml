@@ -1,0 +1,239 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>4YclFmVSciY3Axt-gt-4948170-2020-03-24T21:08:28.87Z::svc.xml</types1:EntryId>
+      <types1:Name>VoucherAPI_Service_Connector-1</types1:Name>
+      <types1:ParentFlowIds>3OzI1dq2ME9paab-gt-134057944-2020-03-24T21:27:32.881Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-03-24T21:08:29Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-04-23T22:18:59Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-04-23T22:19:06Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/VoucherAPI_Service_Connector_1/VoucherAPI_Service_Connector_1_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="false"
+                            displayName="VoucherAPI Service Connector"
+                            label=""
+                            name="VoucherAPI_Service_Connector-1"
+                            uuid="cf103366-5cfa-4d16-aa81-65ed52c7c879">
+            <description/>
+            <tags/>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description="Generate Token Host Name"
+                                    masked="false"
+                                    name="generateTokenHostName"
+                                    required="true"
+                                    testWith="identity.msrv.saastest.appdynamics.com"
+                                    type="string"/>
+               <connectionAttribute description="Voucher Host Name"
+                                    masked="false"
+                                    name="voucherHostName"
+                                    required="true"
+                                    testWith="voucher-api.saas.appd-test.com"
+                                    type="string"/>
+            </connectionAttributes>
+            <actions>
+               <action category="Misc"
+                       failOnError="true"
+                       forSearch="false"
+                       label="GenerateToken"
+                       maxRedirects="100"
+                       name="GenerateToken"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description>Generate Token</description>
+                  <input>
+                     <parameter label="username"
+                                name="username"
+                                required="true"
+                                testWith="informatica-voucher-write@appdynamics.com"
+                                type="string"/>
+                     <parameter label="password"
+                                name="password"
+                                required="false"
+                                testWith="appd@123"
+                                type="string"/>
+                     <parameter label="scopes"
+                                name="scopes"
+                                required="false"
+                                testWith="[&#34;learn.voucher.write&#34;]"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://{$generateTokenHostName}/v2.0/oauth/token"
+                                        verb="POST">
+                        <body>{{"username": "{$username}", "password": "{$password}", "scopes": {$scopes}}}</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="access_token"
+                            property="access_token"
+                            type="string"/>
+                     <field description=""
+                            name="httpStatusCode_Token"
+                            responseStatusCode="true"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category="Misc"
+                       failOnError="true"
+                       forSearch="false"
+                       label="InformaticaVoucher"
+                       maxRedirects="100"
+                       name="InformaticaVoucher"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description>Informatica Voucher</description>
+                  <input>
+                     <parameter label="Authorization"
+                                name="Authorization"
+                                required="true"
+                                testWith="eyJraWQiOiIxcjRWNHctaU1oZ3h1RlZHOEtlQkVkaFdvSDV5NzYySzUxandnTXA3VGtrIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULlYtbVN2Yk41cUJxZ19DY3BYUlJqT0R2MlJHQlR4QXdOd2VzZWlxMzZRNmciLCJpc3MiOiJodHRwczovL2xvZ2luLXN0YWdpbmctYXBwZC5va3RhLmNvbS9vYXV0aDIvYXVzazVxa3Zmbk9oRUpCQ3IycDYiLCJhdWQiOiJzZXJ2aWNlcyIsImlhdCI6MTU4NzY4MDA2MywiZXhwIjoxNTg3NjgzNjYzLCJjaWQiOiIwb2ExOXNqamhlNkdlTXlINzJwNyIsInVpZCI6IjAwdTZuM3praTJLTTRVb2FBMnA3Iiwic2NwIjpbImxlYXJuLnZvdWNoZXIud3JpdGUiXSwic3ViIjoiaW5mb3JtYXRpY2Etdm91Y2hlci13cml0ZUBhcHBkeW5hbWljcy5jb20ifQ.QppHKtJKTklafpNQ0eJ2eCU0xDUXD8ohgutqNiljzu8MRaNgr7bSLcPXqQI-OY6N1qHhg1VL9d2EZZ8mXcavHhF6X1UvuCTe3wiDL0eJjLqblG85UXUrzkrEjqUI_VduYsp2B9kFN9sFE4krO43vhcTxQfsdVQvT0N2u17Uz1jBXWfGZHuR5JVTAwhIMKHjmF9-c4hTBoyp9nvL3isRVJXh023_glVMnwd8GYg8FoAEhcb4GQMAMjwaykqcc-UKTC8Kt65JU1A7AfopXNK0LhhwWsNZW0FGwPo707JeKqmzlU-8B3EiUgbAwLua6-IYirg0isE_3rR27OQ4b5GHUAg"
+                                type="string"/>
+                     <parameter description="access_token obtained from GenerateToken"
+                                name="voucher_Id"
+                                nogen="true"
+                                required="false"
+                                testWith="a0o1h00000Bj52qAAB"
+                                type="string"/>
+                     <parameter description="Id"
+                                label="voucher_code"
+                                name="voucher_code"
+                                required="false"
+                                testWith="LPa0o1h00000Bj52qAAB"
+                                type="string"/>
+                     <parameter label="subscription_type"
+                                name="subscription_type"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter description="Purchased_Quantity__c"
+                                label="purchased_units"
+                                name="purchased_units"
+                                required="false"
+                                testWith="4.00"
+                                type="double"/>
+                     <parameter description="Voucher_Booked_Date__c"
+                                label="booked_date"
+                                name="booked_date"
+                                required="false"
+                                testWith="2020-04-15"
+                                type="string"/>
+                     <parameter description="Voucher_Expiration_Date__c"
+                                label="expiration_date"
+                                name="expiration_date"
+                                required="false"
+                                testWith="2021-04-14"
+                                type="string"/>
+                     <parameter description="Account__r.Id"
+                                label="sfdc_account_id"
+                                name="sfdc_account_id"
+                                required="false"
+                                testWith="0018000001H3sfgAAB"
+                                type="string"/>
+                     <parameter description="Account__r.Name"
+                                label="sfdc_account_name"
+                                name="sfdc_account_name"
+                                required="false"
+                                testWith="BIS Test Account"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="https://{$voucherHostName}/v1.0/informatica/vouchers"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Accept">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                        <body>{{
+    "voucher_Id": "{$voucher_Id}",
+    "voucher_code": "{$voucher_code}",
+    "subscription_type": "{$subscription_type}",
+    "purchased_units": {$purchased_units},
+    "booked_date": "{$booked_date}",
+    "expiration_date": "{$expiration_date}",
+    "sfdc_account_id": "{$sfdc_account_id}",
+    "sfdc_account_name": "{$sfdc_account_name}"
+}}</body>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description=""
+                            name="httpStatusCode_Voucher"
+                            responseStatusCode="true"
+                            type="string"/>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="GenerateTokenRequest">
+                  <description/>
+                  <detail>
+                     <field name="password" type="string"/>
+                     <field name="scopes" type="objectlist">
+                        <options>
+                           <option name="referenceTo">string</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="username" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="string">
+                  <description/>
+                  <detail>
+                     <field name="string" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="boolean">
+                  <description/>
+                  <detail>
+                     <field name="boolean" type="boolean"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="double">
+                  <description/>
+                  <detail>
+                     <field name="double" type="double"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="integer">
+                  <description/>
+                  <detail>
+                     <field name="integer" type="int"/>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>5xEp5y6nhzSdcbY3rJSdwS</types1:GUID>
+      <types1:DisplayName>VoucherAPI Service Connector</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-06-08T16:24:11.342Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
