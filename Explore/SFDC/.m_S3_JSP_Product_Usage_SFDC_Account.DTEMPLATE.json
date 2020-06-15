@@ -24,8 +24,8 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "1j1bVCIyCHOe86zQh2PGcI",
-    "name" : "AWS_S3_JSP_Product_Usage_V2",
+    "id" : "kzkiwo8pACabDmEYH8IiIW",
+    "name" : "AWS_S3_JSP_Product_Usage",
     "type" : "Connection",
     "metadata" : {
       "modelVersion" : {
@@ -33,13 +33,13 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000006T"
+        "repoHandle" : "000TPB0B00000000005E"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
         "description" : null,
         "contentType" : "JSON",
-        "documentState" : "COMPLETE"
+        "documentState" : "VALID"
       }
     },
     "path" : "/SYS"
