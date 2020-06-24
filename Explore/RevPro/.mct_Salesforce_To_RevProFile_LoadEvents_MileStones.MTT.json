@@ -75,10 +75,7 @@
       "repoInfo" : {
         "repoHandle" : "000TPB170000000000GB"
       },
-      "contextAttributes" : [ {
-        "name" : "id",
-        "value" : "@1"
-      } ],
+      "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "",
         "contentType" : "JSON",
