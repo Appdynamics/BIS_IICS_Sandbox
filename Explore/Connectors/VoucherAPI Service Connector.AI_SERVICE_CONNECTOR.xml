@@ -14,10 +14,10 @@
       <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2020-03-24T21:08:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-04-23T22:18:59Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-06-15T18:16:45Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-23T22:19:06Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-06-15T18:17:28Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/VoucherAPI_Service_Connector_1/VoucherAPI_Service_Connector_1_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -105,7 +105,7 @@
                                 testWith="eyJraWQiOiIxcjRWNHctaU1oZ3h1RlZHOEtlQkVkaFdvSDV5NzYySzUxandnTXA3VGtrIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULlYtbVN2Yk41cUJxZ19DY3BYUlJqT0R2MlJHQlR4QXdOd2VzZWlxMzZRNmciLCJpc3MiOiJodHRwczovL2xvZ2luLXN0YWdpbmctYXBwZC5va3RhLmNvbS9vYXV0aDIvYXVzazVxa3Zmbk9oRUpCQ3IycDYiLCJhdWQiOiJzZXJ2aWNlcyIsImlhdCI6MTU4NzY4MDA2MywiZXhwIjoxNTg3NjgzNjYzLCJjaWQiOiIwb2ExOXNqamhlNkdlTXlINzJwNyIsInVpZCI6IjAwdTZuM3praTJLTTRVb2FBMnA3Iiwic2NwIjpbImxlYXJuLnZvdWNoZXIud3JpdGUiXSwic3ViIjoiaW5mb3JtYXRpY2Etdm91Y2hlci13cml0ZUBhcHBkeW5hbWljcy5jb20ifQ.QppHKtJKTklafpNQ0eJ2eCU0xDUXD8ohgutqNiljzu8MRaNgr7bSLcPXqQI-OY6N1qHhg1VL9d2EZZ8mXcavHhF6X1UvuCTe3wiDL0eJjLqblG85UXUrzkrEjqUI_VduYsp2B9kFN9sFE4krO43vhcTxQfsdVQvT0N2u17Uz1jBXWfGZHuR5JVTAwhIMKHjmF9-c4hTBoyp9nvL3isRVJXh023_glVMnwd8GYg8FoAEhcb4GQMAMjwaykqcc-UKTC8Kt65JU1A7AfopXNK0LhhwWsNZW0FGwPo707JeKqmzlU-8B3EiUgbAwLua6-IYirg0isE_3rR27OQ4b5GHUAg"
                                 type="string"/>
                      <parameter description="access_token obtained from GenerateToken"
-                                name="voucher_Id"
+                                name="voucher_id"
                                 nogen="true"
                                 required="false"
                                 testWith="a0o1h00000Bj52qAAB"
@@ -162,7 +162,7 @@
                            <header name="Authorization">{$Authorization}</header>
                         </httpHeaders>
                         <body>{{
-    "voucher_Id": "{$voucher_Id}",
+    "voucher_id": "{$voucher_id}",
     "voucher_code": "{$voucher_code}",
     "subscription_type": "{$subscription_type}",
     "purchased_units": {$purchased_units},
@@ -235,5 +235,5 @@
       <types1:GUID>5xEp5y6nhzSdcbY3rJSdwS</types1:GUID>
       <types1:DisplayName>VoucherAPI Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-06-08T16:24:11.342Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-07-14T22:52:48.124Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
