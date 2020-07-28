@@ -24,6 +24,26 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
+    "id" : "igjXBevWNu7hSiCsZKoDWh",
+    "name" : "NetSuite_SB_2",
+    "type" : "Connection",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0B000000000076"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "COMPLETE"
+      }
+    },
+    "path" : "/SYS"
+  }, {
     "id" : "3qLOIwmEi8HlSgV9ggzWkn",
     "name" : "ip-172-31-19-150.us-west-2.compute.internal",
     "type" : "AgentGroup",
@@ -64,26 +84,6 @@
     },
     "path" : "/SYS"
   }, {
-    "id" : "b3U4nPCAkmZgKaHvUiQ8w2",
-    "name" : "NetSuite_1",
-    "type" : "Connection",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000000Y"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : null,
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/SYS"
-  }, {
     "id" : "3Hsw8z77Lw8eyRSErmnTuZ",
     "name" : "m_NetSuite_SFDC_Currency_Update",
     "type" : "DTEMPLATE",
@@ -95,10 +95,7 @@
       "repoInfo" : {
         "repoHandle" : "000TPB170000000000HZ"
       },
-      "contextAttributes" : [ {
-        "name" : "id",
-        "value" : "@1"
-      } ],
+      "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "This job is used to update the exchange rate from netsuite to SFDC and runs daily",
         "contentType" : "JSON",
