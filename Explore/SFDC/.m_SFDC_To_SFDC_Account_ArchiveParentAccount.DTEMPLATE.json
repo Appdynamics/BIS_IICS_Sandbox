@@ -16,7 +16,7 @@
         "value" : "@1"
       } ],
       "additionalInfo" : {
-        "description" : "",
+        "description" : "BISAP-12278: Update Account Archive query to exclude Subcontractor record type",
         "contentType" : "JSON",
         "documentState" : "VALID"
       }
