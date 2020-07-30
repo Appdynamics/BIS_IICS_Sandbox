@@ -16,7 +16,7 @@
         "value" : "@1"
       } ],
       "additionalInfo" : {
-        "description" : "",
+        "description" : "BISAP-12357: Changed source query filter to use UNIQUE_IDENTIFIER_2 instead of UNIQUE_IDENTIFIER",
         "contentType" : "JSON",
         "documentState" : "VALID"
       }
