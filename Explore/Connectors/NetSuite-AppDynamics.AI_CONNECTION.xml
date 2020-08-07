@@ -14,10 +14,10 @@
       <types1:CreatedBy>bmathew@informatica.com.appd.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-29T13:52:10Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-05-19T05:26:21Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-07-16T18:03:27Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-05-19T05:28:27Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-07-22T20:16:18Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connection/NetSuite-AppDynamics/NetSuite-AppDynamics.conn.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -33,10 +33,10 @@
                           name="username"
                           value="ns.webservice@appdynamics.com"/>
                <attribute encrypted="true" name="password" value=""/>
-               <attribute encrypted="false" name="account" value="3501352_SB3"/>
+               <attribute encrypted="false" name="account" value="3501352_SB89"/>
                <attribute encrypted="false"
                           name="URL"
-                          value="https://3501352-sb3.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"/>
+                          value="https://3501352-SB89.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"/>
                <attribute encrypted="false"
                           name="applicationId"
                           value="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"/>
@@ -55,5 +55,5 @@
       <types1:GUID>14LuGs1g15zcZeyDsfoMSl</types1:GUID>
       <types1:DisplayName>NetSuite-AppDynamics</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-06-06T15:17:31.593Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-08-07T00:04:27.937Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
