@@ -14,10 +14,10 @@
       <types1:CreatedBy>gykumar@informatica.com.appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-28T09:18:33Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-06-01T21:49:37Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-07-22T20:13:33Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-06-01T21:49:43Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-07-22T20:15:29Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_Service_Connector/NetSuite_Service_Connector_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -47,13 +47,13 @@
                                     masked="false"
                                     name="account"
                                     required="true"
-                                    testWith="3501352_SB3"
+                                    testWith="3501352_SB89"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
                                     name="URL"
                                     required="true"
-                                    testWith="https://3501352-SB3.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"
+                                    testWith="https://3501352-SB89.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
@@ -549,6 +549,22 @@
               then
                &lt;platformCore:customField scriptId="custcol_ad_burstable_months" xsi:type="platformCore:LongCustomFieldRef"&gt;
                            &lt;platformCore:value&gt;{$i/custcol_ad_burstable_months/text()}&lt;/platformCore:value&gt;
+              &lt;/platformCore:customField&gt;
+              else ()
+              }
+              {
+              if(exists($i/custcol_oem_cos_percent/text()))
+              then
+               &lt;platformCore:customField internalId="4810" scriptId="custcol_oem_cos_percent" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+                           &lt;platformCore:value&gt;{$i/custcol_oem_cos_percent/text()}&lt;/platformCore:value&gt;
+              &lt;/platformCore:customField&gt;
+              else ()
+              }
+              {
+              if(exists($i/custcol_referral_percent/text()))
+              then
+               &lt;platformCore:customField internalId="4807" scriptId="custcol_referral_percent" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+                           &lt;platformCore:value&gt;{$i/custcol_referral_percent/text()}&lt;/platformCore:value&gt;
               &lt;/platformCore:customField&gt;
               else ()
               }
@@ -1059,6 +1075,16 @@
                         &lt;/platformCore:customField&gt;
                 else ()
                 }
+                {
+                        if(exists($NSHeaderCustomFields/*:custbody_joint_sell /text()))
+                                then
+                		&lt;platformCore:customField   internalId="5020"
+                                                    scriptId="custbody_joint_sell "
+                                                    xsi:type="platformCore:StringCustomFieldRef"&gt;
+                            &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_joint_sell/text()}&lt;/platformCore:value&gt;
+                        &lt;/platformCore:customField&gt;
+                else ()
+                }                
                &lt;/tranSales:customFieldList&gt;      
       &lt;/platformMsgs:record&gt;
     &lt;/platformMsgs:add&gt;  
@@ -6229,6 +6255,8 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      <field name="custcol_childless_bundle_ra" type="string"/>
                      <field name="custcol_sfdc_ra_line_id" type="string"/>
                      <field name="custcol_sfdc_ra_parent_line_id" type="string"/>
+                     <field name="custcol_oem_cos_percent" type="string"/>
+                     <field name="custcol_referral_percent" type="string"/>
                   </detail>
                </processObject>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -7223,6 +7251,7 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      <field name="custbody_non_ga_terms" type="string"/>
                      <field name="custbody_sfdc_memo" type="string"/>
                      <field name="custbody_cisco_manual_tracking" type="string"/>
+                     <field name="custbody_joint_sell" type="string"/>
                   </detail>
                </processObject>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -7243,5 +7272,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-06-06T15:17:31.248Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-08-07T00:03:59.267Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
