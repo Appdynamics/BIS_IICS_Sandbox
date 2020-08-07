@@ -15,7 +15,7 @@
       "additionalInfo" : {
         "description" : "Infa Dev-Iterate through Order Products to create itemList for NetSuite Sales Order",
         "contentType" : "application/json; charset=utf-8",
-        "documentState" : "VALID"
+        "documentState" : "INVALID"
       }
     }
   },

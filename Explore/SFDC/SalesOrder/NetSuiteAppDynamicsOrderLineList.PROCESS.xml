@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T06:52:43Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-04-28T04:35:41Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-08-05T20:05:55Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-28T04:35:55Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-08-05T21:19:19Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.NetSuiteAppDynamicsOrderLineList/NetSuiteAppDynamicsOrderLineList.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -157,7 +157,11 @@ if($temp.opptyProductLine.SBQQ__QuoteLine__r.Line_Type_Override__c = true() and 
 then 
 $temp.opptyProductLine.Opportunity.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
 else 
-$temp.opptyProductLine.SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id</expression>
+if(xs:integer(days-from-duration(xs:date($temp.opptyProductLine.SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__EndDate__c) - xs:date($Order.Start_Date__c))) &gt;= 92)
+then
+$temp.opptyProductLine.SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id
+else
+''</expression>
                               </operation>
                            </assignment>
                            <link id="jk8kewtc" targetId="jk8kewt1" type="containerLink"/>
@@ -177,7 +181,11 @@ if($SBQQ__QuoteLine__r.Line_Type_Override__c = true() and ( $SBQQ__QuoteLine__r.
 then
 $SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
 else
-$SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id</expression>
+if(xs:integer(days-from-duration(xs:date($SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__EndDate__c) - xs:date($Order.Start_Date__c))) &gt;= 92)
+then
+$SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id
+else
+''</expression>
                                     </operation>
                                  </assignment>
                                  <link id="k90gc438" targetId="k90gc435" type="containerLink"/>
@@ -202,14 +210,14 @@ else ''
                               <link id="k90gc436" targetId="k90gc437" type="containerLink">
                                  <condition source="formula">
                                     <function name="set">
-                                       <arg name="field">{$QuoteLineItemId}</arg>
+                                       <arg name="field">{$SBQQ__QuoteLine__c}</arg>
                                     </function>
                                  </condition>
                               </link>
                               <link id="k90gc439" targetId="k90gc43a" type="containerLink">
                                  <condition source="formula">
                                     <function name="unset">
-                                       <arg name="field">{$QuoteLineItemId}</arg>
+                                       <arg name="field">{$SBQQ__QuoteLine__c}</arg>
                                     </function>
                                  </condition>
                               </link>
@@ -293,11 +301,14 @@ else()</expression>
                   </operation>
                   <operation source="formula" to="temp.temp_calcBillingScheduleName">
                      <expression language="XQuery">let $payment := $Payment_Schedule_Details__c 
-let $divisibleTerm := if($payment='Equal Annual') then 12 else 
-                      if($payment='Equal Semi Annual') then 6 else 
-                      if($payment='Equal Quarterly') then 12 else 
-                      if($payment='Equal Monthly') then 12 else 0   
-                      
+
+let $divisibleTerm := if( $payment ='Equal Annual' or 
+						  $payment ='Equal Semi Annual' or 
+                          $payment ='Equal Quarterly' or 
+                          $payment ='Equal Monthly') 
+                     then 12 else 0 
+                     
+                     
 let $term := if($divisibleTerm&gt;=1 and $Subscription_Month_Duration__c&gt;=1) then fn:round($Subscription_Month_Duration__c  div $divisibleTerm) else 0
 return        
               if(fn:upper-case($payment)='BIA') then $payment else 
@@ -401,6 +412,8 @@ fn:concat($Payment_Schedule_Details__c, ' ', $Subscription_Month_Duration__c)</e
                   <operation source="formula" to="temp.thisItem[1]/custcol_swap_rights_line">
                      <expression language="XQuery">if($Swap_Rights__c  = 'true') then 'T' else 'F'</expression>
                   </operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_oem_cos_percent">Cost_of_Sale__c</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_referral_percent">Referral_Fee_Percent__c</operation>
                   <link id="jk8keww4" targetId="jk8keww3"/>
                </assignment>
                <assignment id="jk8keww3">
@@ -420,5 +433,5 @@ fn:concat($Payment_Schedule_Details__c, ' ', $Subscription_Month_Duration__c)</e
       <types1:GUID>kqG4HNhic2Kk0kGc19ss2T</types1:GUID>
       <types1:DisplayName>NetSuiteAppDynamicsOrderLineList</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-30T18:20:38.152Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-08-07T00:01:47.004Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
