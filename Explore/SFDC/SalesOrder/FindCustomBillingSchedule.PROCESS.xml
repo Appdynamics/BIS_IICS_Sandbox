@@ -3,7 +3,7 @@
    <types1:Item>
       <types1:EntryId>WRi8RVf4VQT53nQ-gt-571625-2019-12-17T00:05:47.855Z::pd.xml</types1:EntryId>
       <types1:Name>FindCustomBillingSchedule</types1:Name>
-      <types1:ParentFlowIds>qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
+      <types1:ParentFlowIds>msZvPP8KnBQ9WYz-gt-10194245-2020-04-17T20:30:31.207Z::pd.xml,qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml,vMKQr3rp3yD7tyG-gt-50929025-2019-12-24T04:03:53.409Z::pd.xml,Z5i4rswVYx8R8Wr-gt-93165014-2020-01-02T20:18:25.836Z::pd.xml</types1:ParentFlowIds>
       <types1:MimeType>application/xml+process</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
@@ -14,10 +14,10 @@
       <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2019-12-17T00:05:48Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-03-03T00:03:56Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-07-20T22:41:16Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-08-05T21:19:19Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.FindCustomBillingSchedule/FindCustomBillingSchedule.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -107,13 +107,14 @@
 
 let $subscriptionDuration := $temp.temp_OrderProductItem.Subscription_Month_Duration__c 
 
-let $divisibleTerm := if($paymentSchedule='Equal Annual') then 12 else 
-                      if($paymentSchedule='Equal Semi Annual') then 6 else 
-                      if($paymentSchedule='Equal Quarterly') then 12 else 
-                      if($paymentSchedule='Equal Monthly') then 12 else 0                         
+let $divisorTerm := if( $paymentSchedule='Equal Annual' or 
+						$paymentSchedule='Equal Semi Annual' or 
+                        $paymentSchedule='Equal Quarterly' or 
+                        $paymentSchedule='Equal Monthly') 
+                     then 12 else 0 
 
 return 
-if ($divisibleTerm &gt;= 1 and $subscriptionDuration mod $divisibleTerm != 0)
+if ($divisorTerm &gt;= 1 and $subscriptionDuration mod $divisorTerm != 0)
 then true()
 else false()
 </expression>
@@ -149,14 +150,14 @@ else false()
                         <link id="k4aa50na" targetId="k4aa50nb" type="containerLink">
                            <condition source="formula">
                               <function name="true">
-                                 <arg name="field">{$temp.temp_IsCustomScheduleFound}</arg>
+                                 <arg name="field">{$output.out_IsCustom}</arg>
                               </function>
                            </condition>
                         </link>
                         <link id="k4aa50nd" targetId="k4aa50ne" type="containerLink">
                            <condition source="formula">
                               <function name="false">
-                                 <arg name="field">{$temp.temp_IsCustomScheduleFound}</arg>
+                                 <arg name="field">{$output.out_IsCustom}</arg>
                               </function>
                            </condition>
                         </link>
@@ -192,5 +193,5 @@ else false()
       <types1:GUID>56SedxwGqmClk8NTfREnam</types1:GUID>
       <types1:DisplayName>FindCustomBillingSchedule</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-17T19:00:47.812Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-08-07T00:01:22.748Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
