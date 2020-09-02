@@ -7,71 +7,90 @@
       <types1:MimeType>application/xml+process</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
-      <types1:Tags>.agent:INFA-AWS-DEV,.anonymous,RevPro</types1:Tags>
+      <types1:Tags>.agent:INFA-AWS-SANDBOX,.anonymous,RevPro</types1:Tags>
       <types1:VersionLabel>1.0</types1:VersionLabel>
       <types1:State>CURRENT</types1:State>
       <types1:ProcessGroup/>
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-12-11T15:58:44Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2018-09-06T21:58:27Z</types1:ModificationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-08-05T14:10:28Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-03-04T22:20:41Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-08-05T14:23:31Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.RevPro-FileUpload-TransactionsAndEvents/RevPro-FileUpload-TransactionsAndEvents.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
          <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
                   xmlns:list="urn:activevos:spi:list:functions"
                   displayName="RevPro-FileUpload-TransactionsAndEvents"
-                  name="RevPro-FileUpload-TransactionsAndEvents">
+                  name="RevPro-FileUpload-TransactionsAndEvents"
+                  overrideAPIName="false">
             <appliesTo/>
             <description/>
-            <tags>RevPro,.agent:INFA-AWS-DEV,.anonymous</tags>
-            <generator>Informatica Process Designer 8</generator>
+            <tags>RevPro,.agent:INFA-AWS-SANDBOX,.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
             <input>
-               <parameter name="in_fileAttachment" required="true" type="attachment">
+               <parameter description=""
+                          name="in_fileAttachment"
+                          required="true"
+                          type="attachment">
                   <options>
                      <option hide="true" name="count">1</option>
                      <option name="maxsize">5242880</option>
                      <option name="required">false</option>
                   </options>
                </parameter>
-               <parameter name="in_templateName" required="true" type="string">
+               <parameter description=""
+                          name="in_templateName"
+                          required="true"
+                          type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </parameter>
-               <parameter name="in_notification_pathWithFile" required="true" type="string">
+               <parameter description=""
+                          name="in_notification_pathWithFile"
+                          required="true"
+                          type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </parameter>
-               <parameter name="in_notification_emailSubject" required="true" type="string">
+               <parameter description=""
+                          name="in_notification_emailSubject"
+                          required="true"
+                          type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </parameter>
-               <parameter name="in_notification_attachmentName" required="true" type="string">
+               <parameter description=""
+                          name="in_notification_attachmentName"
+                          required="true"
+                          type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </parameter>
-               <parameter name="in_notification_toAddress" required="true" type="string">
+               <parameter description=""
+                          name="in_notification_toAddress"
+                          required="true"
+                          type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </parameter>
             </input>
             <output>
-               <field name="isSuccess" type="string">
+               <field description="" name="isSuccess" type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </field>
             </output>
             <tempFields>
-               <field name="temp_fileUploadStatus" type="string">
+               <field description="" name="temp_fileUploadStatus" type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
@@ -79,7 +98,7 @@
             </tempFields>
             <notes/>
             <deployment suspendOnFault="false" tracingLevel="normal">
-               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <targetLocation>INFA-AWS-SANDBOX</targetLocation>
                <rest>
                   <allowAnonymousAccess/>
                </rest>
@@ -215,5 +234,5 @@
       <types1:GUID>05VPMjcGKjQfyG1RT3GiWW</types1:GUID>
       <types1:DisplayName>RevPro-FileUpload-TransactionsAndEvents</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-22T16:20:37.561Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-09-02T20:03:31.647Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
