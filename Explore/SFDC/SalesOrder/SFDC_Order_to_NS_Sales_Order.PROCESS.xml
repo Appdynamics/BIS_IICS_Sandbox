@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-07-21T21:18:38Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-08-11T22:45:12Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-08-05T21:19:19Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-08-11T22:45:33Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -702,6 +702,10 @@ then 'No' else 'Yes'</expression>
                   <operation source="formula"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_joint_sell">
                      <expression language="XQuery">if($Opportunity.Joint_Sell__c = 'true') then 'T' else 'F' </expression>
+                  </operation>
+                  <operation source="formula"
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_cisco_capital">
+                     <expression language="XQuery">if($CiscoCapital__c = 'Yes') then 'T' else 'F'</expression>
                   </operation>
                   <link id="iydvxbey" targetId="iaj27kfk"/>
                </assignment>
@@ -2640,5 +2644,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-08-07T00:02:07.485Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-09-03T19:02:05.455Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
