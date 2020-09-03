@@ -64,8 +64,8 @@
     },
     "path" : "/SYS"
   }, {
-    "id" : "3qLOIwmEi8HlSgV9ggzWkn",
-    "name" : "ip-172-31-19-150.us-west-2.compute.internal",
+    "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
+    "name" : "ip-10-150-6-196.us-west-2.compute.internal",
     "type" : "AgentGroup",
     "metadata" : {
       "modelVersion" : {
@@ -73,7 +73,7 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB25000000000005"
+        "repoHandle" : "000TPB2500000000000K"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
