@@ -13,17 +13,18 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-01-16T21:04:02Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2018-02-22T20:09:11Z</types1:ModificationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-08-28T01:16:09Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2018-02-22T20:09:17Z</types1:PublicationDate>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-08-28T01:16:20Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/Coupa_Users/Coupa_Users_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
          <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
                             agentOnly="false"
                             debug="false"
+                            displayName="Coupa-Users"
                             label=""
                             name="Coupa-Users"
                             uuid="52ea3274-c002-4703-9b26-c22af46d7567">
@@ -200,11 +201,13 @@
                                 name="invoice_approval_limit"
                                 nogen="true"
                                 required="true"
+                                testWith=""
                                 type="string"/>
                      <parameter label="in_invoice_approval_currency_code"
                                 name="invoice_approval_currency_code"
                                 nogen="true"
                                 required="true"
+                                testWith=""
                                 type="string"/>
                   </input>
                   <binding>
@@ -409,12 +412,19 @@
                                 name="invoice_approval_limit"
                                 nogen="true"
                                 required="true"
+                                testWith=""
                                 type="string"/>
                      <parameter label="in_invoice_approval_currency_code"
                                 name="invoice_approval_currency_code"
                                 nogen="true"
                                 required="true"
                                 testWith="USD"
+                                type="string"/>
+                     <parameter label="in_content_group_name"
+                                name="content_group_name"
+                                nogen="true"
+                                required="true"
+                                testWith=""
                                 type="string"/>
                   </input>
                   <binding>
@@ -432,7 +442,9 @@
   &lt;firstname&gt;{$first_name}&lt;/firstname&gt;
   &lt;lastname&gt;{$last_name}&lt;/lastname&gt;
   &lt;active&gt;{$active}&lt;/active&gt;
+  &lt;custom-fields&gt;
   &lt;company-code&gt;{$company_code}&lt;/company-code&gt;
+  &lt;/custom-fields&gt;
   &lt;authentication-method&gt;{$authentication_method}&lt;/authentication-method&gt;
   &lt;sso-identifier&gt;{$sso_identifier}&lt;/sso-identifier&gt;
   &lt;account-security-type&gt;{$account_security_type}&lt;/account-security-type&gt;
@@ -472,6 +484,11 @@
             &lt;code&gt;{$invoice_approval_currency_code}&lt;/code&gt;
         &lt;/currency&gt;
 &lt;/invoice-approval-limit&gt;
+&lt;content-groups&gt;
+ &lt;content-group&gt;
+  &lt;name&gt;{$content_group_name}&lt;/name&gt;
+&lt;/content-group&gt;
+&lt;/content-groups&gt;
 &lt;/user&gt;</body>
                      </restSimpleBinding>
                   </binding>
@@ -560,5 +577,5 @@
       <types1:GUID>fWP8bYoCF82hMTIsLpdukf</types1:GUID>
       <types1:DisplayName>Coupa-Users</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-25T15:22:47.233Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-09-15T02:17:45.874Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
