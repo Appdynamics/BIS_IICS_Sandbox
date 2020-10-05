@@ -6,27 +6,28 @@
       <types1:MimeType>application/xml+process</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
-      <types1:Tags>.agent:INFA-AWS-DEV,RevPro</types1:Tags>
+      <types1:Tags>.agent:INFA-AWS-SANDBOX,RevPro</types1:Tags>
       <types1:VersionLabel>1.0</types1:VersionLabel>
       <types1:State>CURRENT</types1:State>
       <types1:ProcessGroup/>
       <types1:CreatedBy>muni.jangama@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-12-11T21:34:39Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2019-10-16T21:52:22Z</types1:ModificationDate>
-      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
-      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-01-08T23:31:11Z</types1:PublicationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-09-02T18:23:39Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-10-05T20:34:31Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.NetsuiteToRevPro-LoadTransactions-Invoice/NetsuiteToRevPro-LoadTransactions-Invoice.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
          <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
                   xmlns:list="urn:activevos:spi:list:functions"
                   displayName="NetsuiteToRevPro-LoadTransactions-Invoice"
-                  name="NetsuiteToRevPro-LoadTransactions-Invoice">
+                  name="NetsuiteToRevPro-LoadTransactions-Invoice"
+                  overrideAPIName="false">
             <appliesTo/>
             <description/>
-            <tags>RevPro,.agent:INFA-AWS-DEV</tags>
+            <tags>RevPro,.agent:INFA-AWS-SANDBOX</tags>
             <generator>Informatica Process Designer 11</generator>
             <input>
                <parameter description=""
@@ -52,7 +53,7 @@
             </tempFields>
             <notes/>
             <deployment suspendOnFault="false" tracingLevel="normal">
-               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <targetLocation>INFA-AWS-SANDBOX</targetLocation>
                <event eventSource="File-RevPro-TransactionsAndEvents:FileParser-606-Invoice"/>
             </deployment>
             <flow id="a">
@@ -104,5 +105,5 @@ infa:format(xs:string(fn:current-dateTime()),"yyyy-MM-dd HH:mm:ss", "America/Los
       <types1:GUID>2lLVWLG0aPVhJiLJdc9wKD</types1:GUID>
       <types1:DisplayName>NetsuiteToRevPro-LoadTransactions-Invoice</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-22T16:17:39.295Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-10-05T20:35:17.174Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
