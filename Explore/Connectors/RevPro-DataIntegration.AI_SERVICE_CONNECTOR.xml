@@ -14,8 +14,8 @@
       <types1:CreatedBy>muni.jangama@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-11-30T05:56:42Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-09-19T00:32:29Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:ModificationDate>2020-10-23T21:06:01Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
       <types1:PublicationDate>2020-09-19T00:33:46Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/RevPro_DataIntegration/RevPro_DataIntegration_svcDef.xml</types1:PublishedContributionId>
@@ -642,5 +642,5 @@
       <types1:GUID>9xQEqs4ImRBhWTcFeBsaE8</types1:GUID>
       <types1:DisplayName>RevPro-DataIntegration</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-09-19T01:10:37.949Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-10-23T21:26:53.054Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
