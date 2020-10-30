@@ -37,15 +37,15 @@
       },
       "contextAttributes" : null,
       "additionalInfo" : {
-        "description" : null,
+        "description" : "SFDC_SB_Full",
         "contentType" : "JSON",
         "documentState" : "VALID"
       }
     },
     "path" : "/SYS"
   }, {
-    "id" : "brwXcX8SFwdiPZrkZpvZQG",
-    "name" : "NetSuite_ODBC_1",
+    "id" : "4CCGgqXCJRHckum26BMe2M",
+    "name" : "Netsuite_ODBC_SB",
     "type" : "Connection",
     "metadata" : {
       "modelVersion" : {
@@ -53,13 +53,13 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000004E"
+        "repoHandle" : "000TPB0B000000000075"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
         "description" : null,
         "contentType" : "JSON",
-        "documentState" : "VALID"
+        "documentState" : "COMPLETE"
       }
     },
     "path" : "/SYS"
