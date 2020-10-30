@@ -24,26 +24,6 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "3qLOIwmEi8HlSgV9ggzWkn",
-    "name" : "ip-172-31-19-150.us-west-2.compute.internal",
-    "type" : "AgentGroup",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB25000000000005"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : null,
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/SYS"
-  }, {
     "id" : "2CjV79tAT4nicr3VedQp4y",
     "name" : "SFDC_1",
     "type" : "Connection",
@@ -57,6 +37,26 @@
       },
       "contextAttributes" : null,
       "additionalInfo" : {
+        "description" : "SFDC_SB_Full",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/SYS"
+  }, {
+    "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
+    "name" : "INFA-AWS-SANDBOX",
+    "type" : "AgentGroup",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB2500000000000K"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
         "description" : null,
         "contentType" : "JSON",
         "documentState" : "VALID"
@@ -64,8 +64,8 @@
     },
     "path" : "/SYS"
   }, {
-    "id" : "brwXcX8SFwdiPZrkZpvZQG",
-    "name" : "NetSuite_ODBC_1",
+    "id" : "4CCGgqXCJRHckum26BMe2M",
+    "name" : "Netsuite_ODBC_SB",
     "type" : "Connection",
     "metadata" : {
       "modelVersion" : {
@@ -73,13 +73,13 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000004E"
+        "repoHandle" : "000TPB0B000000000075"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
         "description" : null,
         "contentType" : "JSON",
-        "documentState" : "VALID"
+        "documentState" : "COMPLETE"
       }
     },
     "path" : "/SYS"
@@ -95,10 +95,7 @@
       "repoInfo" : {
         "repoHandle" : "000TPB170000000000FZ"
       },
-      "contextAttributes" : [ {
-        "name" : "id",
-        "value" : "@1"
-      } ],
+      "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "",
         "contentType" : "JSON",
