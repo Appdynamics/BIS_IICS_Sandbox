@@ -1,0 +1,245 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>MRgpDqotxGomUhG-gt-162271193-2020-05-19T05:17:06.622Z::pd.xml</types1:EntryId>
+      <types1:Name>SFDC_To_NS_LoadRAs</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-05-19T05:17:07Z</types1:CreationDate>
+      <types1:ModifiedBy/>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-11-04T20:36:09Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SFDC_To_NS_LoadRAs/SFDC_To_NS_LoadRAs.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SFDC_To_NS_LoadRAs"
+                  name="SFDC_To_NS_LoadRAs"
+                  overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <tempFields>
+               <field description="" name="temp_sfdc_RA_Orders" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:Order</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_sfdc_RA_OrderItems" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_sfdc_thisOrderItem" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_sfdc_thisOrder" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Order</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_sfdc_nextOrder" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Order</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcIfOrderAlreadySet" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcSfdcOrderIdList" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcSfdcOrderId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k22ccdl6" targetId="k22ccdl5"/>
+               </start>
+               <assignment id="k22ccdl5">
+                  <title>Get Order Items</title>
+                  <operation source="list" to="temp.temp_sfdc_RA_OrderItems">
+                     <query advanceQuery="false" from="Salesforce:OrderItem">
+                        <where>SBQQ__ContractAction__c in ('Quantity Decrease','Cancel')  AND NS_Reference_Number__c = '' AND NS_Integration_Status__c = 'Submitted' Order By SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber LIMIT 5000</where>
+                     </query>
+                  </operation>
+                  <link id="k22ccdln" targetId="k22ccdlm"/>
+               </assignment>
+               <assignment id="k22ccdlm">
+                  <title>Assign Order Items</title>
+                  <operation source="formula" to="temp.temp_sfdc_thisOrderItem">
+                     <expression language="XQuery">list:head($temp.temp_sfdc_RA_OrderItems)</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_sfdc_RA_OrderItems">
+                     <expression language="XQuery">list:tail($temp.temp_sfdc_RA_OrderItems)</expression>
+                  </operation>
+                  <link id="k22ccdm9" targetId="k22ccdm8"/>
+               </assignment>
+               <container id="k22ccdm8" type="exclusive">
+                  <title>Order Item Set?</title>
+                  <flow id="k22ccdmc">
+                     <assignment id="k22ccdo1">
+                        <title>Assign Order</title>
+                        <operation source="query" to="temp.temp_sfdc_thisOrder">
+                           <query advanceQuery="false" from="Salesforce:Order">
+                              <where>OrderReferenceNumber = '{$temp.temp_sfdc_thisOrderItem.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber}' AND OrderReferenceNumber != '' Limit 1</where>
+                           </query>
+                        </operation>
+                        <link id="k22ccdo5" targetId="k22ccdms"/>
+                     </assignment>
+                     <assignment id="k22ccdms">
+                        <title>Check Order Occurrence</title>
+                        <operation source="formula" to="temp.temp_calcIfOrderAlreadySet">
+                           <expression language="XQuery">if($temp.temp_sfdc_thisOrder=$temp.temp_sfdc_nextOrder) then true() else false()</expression>
+                        </operation>
+                        <operation source="field" to="temp.temp_sfdc_nextOrder">temp.temp_sfdc_thisOrder</operation>
+                        <link id="k34yz37r" targetId="k22ccdoq"/>
+                     </assignment>
+                     <container id="k22ccdoq" type="exclusive">
+                        <title>Order Already Set?</title>
+                        <flow id="k22ccdot">
+                           <jumpTo id="k22ccdpd">
+                              <link id="k22ccdpe" targetId="k22ccdlm"/>
+                           </jumpTo>
+                        </flow>
+                        <flow id="k22ccdow">
+                           <assignment id="k22ccdpn">
+                              <title>Calculate Orders To Process</title>
+                              <operation source="field" to="temp.temp_calcSfdcOrderId">temp.temp_sfdc_thisOrderItem.OrderId</operation>
+                              <operation source="formula" to="temp.temp_calcSfdcOrderIdList">
+                                 <expression language="XQuery">if(fn:string-length($temp.temp_calcSfdcOrderIdList)&gt;0) then 
+fn:concat($temp.temp_calcSfdcOrderIdList,';',$temp.temp_calcSfdcOrderId) else $temp.temp_calcSfdcOrderId</expression>
+                              </operation>
+                              <link id="k34yz3nl" targetId="k22gvtay"/>
+                           </assignment>
+                           <jumpTo id="k22gvtay">
+                              <link id="k22gvtaz" targetId="k22ccdlm"/>
+                           </jumpTo>
+                        </flow>
+                        <link id="k22ccdos" targetId="k22ccdot" type="containerLink">
+                           <condition source="formula">
+                              <function name="true">
+                                 <arg name="field">{$temp.temp_calcIfOrderAlreadySet}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k22ccdov" targetId="k22ccdow" type="containerLink">
+                           <condition source="formula">
+                              <function name="false">
+                                 <arg name="field">{$temp.temp_calcIfOrderAlreadySet}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                  </flow>
+                  <flow id="k22ccdmf">
+                     <assignment id="k34yz3qd">
+                        <title>Assign Orders To Process</title>
+                        <operation source="formula" to="temp.temp_sfdc_RA_Orders">
+                           <expression language="XQuery">$temp.temp_calcSfdcOrderIdList </expression>
+                        </operation>
+                        <link id="k34yz3qe" targetId="k22ccdq7"/>
+                     </assignment>
+                     <container id="k22ccdq7" type="exclusive">
+                        <title>Are Orders Set?</title>
+                        <flow id="k22ccdql">
+                           <subflow id="k34yz3qr">
+                              <title>Process Orders</title>
+                              <subflowGUID>8WguGjscZkDltJy0JQUXWo</subflowGUID>
+                              <subflowPath>SFDC_To_NS_CreateRA</subflowPath>
+                              <appliesTo>Salesforce:Order</appliesTo>
+                              <appliesToDataName source="field">temp.temp_sfdc_RA_Orders</appliesToDataName>
+                              <runForEach>false</runForEach>
+                              <input/>
+                              <outputDef>
+                                 <field name="out_RA_Number" type="string">
+                                    <options>
+                                       <option name="required">false</option>
+                                    </options>
+                                 </field>
+                              </outputDef>
+                           </subflow>
+                           <link id="k22ccdqm" targetId="k22ccdq7" type="containerLink"/>
+                        </flow>
+                        <flow id="k22ccdqn">
+                           <link id="k22ccdqo" targetId="k22ccdq7" type="containerLink"/>
+                        </flow>
+                        <link id="k22ccdqe" targetId="k22ccdql" type="containerLink">
+                           <condition source="formula">
+                              <function name="not-empty">
+                                 <arg name="field">{$temp.temp_sfdc_RA_Orders}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k22ccdqh" targetId="k22ccdqn" type="containerLink">
+                           <condition source="formula">
+                              <function name="empty">
+                                 <arg name="field">{$temp.temp_sfdc_RA_Orders}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k34yz3st" targetId="k34yz3ss"/>
+                     </container>
+                     <end id="k34yz3ss"/>
+                  </flow>
+                  <link id="k22ccdmb" targetId="k22ccdmc" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_sfdc_thisOrderItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k22ccdme" targetId="k22ccdmf" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_sfdc_thisOrderItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+               </container>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>5WUJLyrfkTed4ut6Wr8BeB</types1:GUID>
+      <types1:DisplayName>SFDC_To_NS_LoadRAs</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-11-04T20:39:22.466Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

@@ -1,0 +1,84 @@
+{
+  "objectInfo" : {
+    "id" : "8WguGjscZkDltJy0JQUXWo",
+    "name" : "SFDC_To_NS_CreateRA",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "wpKwKBqRi92qBbb-gt-231067140-2020-05-19T05:17:06.364Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "xml",
+  "objectRefs" : [ {
+    "id" : "58gj2o5v8OacYp4U1C0Jw0",
+    "name" : "Salesforce",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "bbf3TzAnOjseGbc-gt-5216312-2015-09-29T13:59:13.017Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "Informatica Cloud Real Time - Guide Setup created this Salesforce connection. Enter proper password and security token if you want to use this connection outside of Salesforce",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  }, {
+    "id" : "14LuGs1g15zcZeyDsfoMSl",
+    "name" : "NetSuite-AppDynamics",
+    "type" : "AI_CONNECTION",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "juLlpgneO0fXs3C-gt-71439-2015-07-29T13:52:10.152Z::conn.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "NetSuite Connection for Infa dev",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/Connectors"
+  }, {
+    "id" : "fY34Kj85RiAhbE3YPL700N",
+    "name" : "RA_Error_Processing",
+    "type" : "PROCESS",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 1,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "MJoGsF4XkgbdoPV-gt-161756485-2020-05-19T05:17:05.621Z::pd.xml"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "application/json; charset=utf-8",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/SFDC/SalesOrder"
+  } ]
+}

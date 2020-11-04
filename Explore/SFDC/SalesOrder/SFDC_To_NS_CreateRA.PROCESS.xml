@@ -1,0 +1,924 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>wpKwKBqRi92qBbb-gt-231067140-2020-05-19T05:17:06.364Z::pd.xml</types1:EntryId>
+      <types1:Name>SFDC_To_NS_CreateRA</types1:Name>
+      <types1:ParentFlowIds>MRgpDqotxGomUhG-gt-162271193-2020-05-19T05:17:06.622Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo>Salesforce:Order</types1:AppliesTo>
+      <types1:Tags>.anonymous</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-05-19T05:17:06Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-11-02T17:42:13Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-11-04T20:36:09Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SFDC_To_NS_CreateRA/SFDC_To_NS_CreateRA.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SFDC_To_NS_CreateRA"
+                  name="SFDC_To_NS_CreateRA"
+                  overrideAPIName="false">
+            <appliesTo>Salesforce:Order</appliesTo>
+            <description/>
+            <tags>.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <output>
+               <field description="" name="out_RA_Number" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </output>
+            <tempFields>
+               <field description="" name="temp_SFDC_RAItemList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_SFDC_RAItem" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_thisRA" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:Record-Invoice</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_thisRAItemList" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:itemList</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description="" name="temp_NS_thisRAItem" type="reference">
+                  <options>
+                     <option name="referenceTo">NetSuite-AppDynamics:item</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">14LuGs1g15zcZeyDsfoMSl</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_salesOrderInternalId"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_entityInternalId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_deptInternalId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_subsidiaryInternalId"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_customFormInternalId"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_successfullyCreatedRANumber"
+                      type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_sfdcOppId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_calcNS_soLine_ReturnAuthorizedFully"
+                      type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcSfdcErrorOrderLine" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_sfdcExistingErrorQueue" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Queue__c</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_sfdcExistingErrorQueueList"
+                      type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:Integration_Queue__c</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_SFDC_RAItemListAllOrder"
+                      type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description=""
+                      name="temp_SFDC_RAItemListPerOrder"
+                      type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcSfdcThisOrder" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcSfdcNextOrder" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcFlagSameOrder" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_sfdcOrderId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_calcNS_sfdcOriginalOrderId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_sfdcRALinePlaceHolder" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_RAHeaderBookedDate" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_RAChildlessBundleFlag" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_RA_Error_String" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest>
+                  <allowAnonymousAccess/>
+               </rest>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k34wg2dq" targetId="k34wg2dp"/>
+               </start>
+               <assignment id="k34wg2dp">
+                  <title>Get RA Lines</title>
+                  <operation source="list" to="temp.temp_SFDC_RAItemListAllOrder">
+                     <query advanceQuery="false" from="Salesforce:OrderItem">
+                        <where>OrderId = '{$Id}' AND SBQQ__ContractAction__c in ('Quantity Decrease','Cancel')  AND NS_Reference_Number__c = '' AND NS_Integration_Status__c = 'Submitted' Order By SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber LIMIT 5000</where>
+                     </query>
+                  </operation>
+                  <link id="k34wg2i0" targetId="k34wg2hz"/>
+               </assignment>
+               <assignment id="k34wg2hz">
+                  <title>Assign RA  Lines - PreProcess</title>
+                  <operation source="field" to="temp.temp_SFDC_RAItemList">temp.temp_SFDC_RAItemListAllOrder</operation>
+                  <link id="k34wg2ka" targetId="k34wg2k9"/>
+               </assignment>
+               <assignment id="k34wg2k9">
+                  <title>Assign List RA Lines - PreProcess</title>
+                  <operation source="formula" to="temp.temp_SFDC_RAItem">
+                     <expression language="XQuery">list:head($temp.temp_SFDC_RAItemList)</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_SFDC_RAItemList">
+                     <expression language="XQuery">list:tail($temp.temp_SFDC_RAItemList)</expression>
+                  </operation>
+                  <link id="k34wg2np" targetId="k34wg2no"/>
+               </assignment>
+               <assignment id="k2246rl7">
+                  <title>Get RA Lines - To Be Processed</title>
+                  <operation source="field" to="temp.temp_SFDC_RAItemList">temp.temp_SFDC_RAItemListPerOrder</operation>
+                  <operation source="constant" to="temp.temp_RAChildlessBundleFlag">F</operation>
+                  <link id="k37no8ew" targetId="k2246rm9"/>
+               </assignment>
+               <assignment id="k2246rm9">
+                  <title>Assign RA Lines</title>
+                  <operation source="formula" to="temp.temp_SFDC_RAItem">
+                     <expression language="XQuery">list:head($temp.temp_SFDC_RAItemList )</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_SFDC_RAItemList">
+                     <expression language="XQuery">list:tail($temp.temp_SFDC_RAItemList )</expression>
+                  </operation>
+                  <link id="k2246rps" targetId="k2246rnb"/>
+               </assignment>
+               <container id="k34wg2no" type="exclusive">
+                  <title>Is Ra Line Set?</title>
+                  <flow id="k34wg2ns">
+                     <assignment id="k34wg2pr">
+                        <title>Calculate the Current Order</title>
+                        <operation source="formula" to="temp.temp_calcSfdcThisOrder">
+                           <expression language="XQuery">$temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.OrderId</expression>
+                        </operation>
+                        <operation source="formula" to="temp.temp_calcFlagSameOrder">
+                           <expression language="XQuery">if(fn:string-length($temp.temp_calcSfdcNextOrder)=0) then true() else if($temp.temp_calcSfdcThisOrder=$temp.temp_calcSfdcNextOrder) then true() else false()</expression>
+                        </operation>
+                        <operation source="field" to="temp.temp_calcSfdcNextOrder">temp.temp_calcSfdcThisOrder</operation>
+                        <link id="k34wg2zg" targetId="k34wg2zf"/>
+                     </assignment>
+                     <container id="k34wg2zf" type="exclusive">
+                        <title>Is Same Order?</title>
+                        <flow id="k34wg2zi">
+                           <assignment id="k34wg33l">
+                              <title>Gather Order Products</title>
+                              <operation source="formula" to="temp.temp_SFDC_RAItemListPerOrder">
+                                 <function name="list:append">
+                                    <arg name="dest_field">{$temp.temp_SFDC_RAItemListPerOrder}</arg>
+                                    <arg name="new_field">{$temp.temp_SFDC_RAItem}</arg>
+                                 </function>
+                              </operation>
+                              <link id="k34wg36d" targetId="k34wg36b"/>
+                           </assignment>
+                           <jumpTo id="k34wg36b">
+                              <link id="k34wg36c" targetId="k34wg2k9"/>
+                           </jumpTo>
+                        </flow>
+                        <flow id="k34wg2zl">
+                           <jumpTo id="k34wg3a6">
+                              <link id="k34wg3a7" targetId="k2246rl7"/>
+                           </jumpTo>
+                        </flow>
+                        <link id="k34wg2zh" targetId="k34wg2zi" type="containerLink">
+                           <condition source="formula">
+                              <function name="true">
+                                 <arg name="field">{$temp.temp_calcFlagSameOrder}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k34wg2zk" targetId="k34wg2zl" type="containerLink">
+                           <condition source="formula">
+                              <function name="false">
+                                 <arg name="field">{$temp.temp_calcFlagSameOrder}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                  </flow>
+                  <flow id="k34wg2nv">
+                     <link id="k34wg2nw" targetId="k34wg2no" type="containerLink"/>
+                  </flow>
+                  <link id="k34wg2nr" targetId="k34wg2ns" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_SFDC_RAItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k34wg2nu" targetId="k34wg2nv" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_SFDC_RAItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k34wg2nq" targetId="k2246rl7"/>
+               </container>
+               <container id="k2246rnb" type="exclusive">
+                  <title>Is RA Line Set?</title>
+                  <flow id="k2246rnc">
+                     <container id="k69pwbwz" type="exclusive">
+                        <title>Revised Order Product</title>
+                        <flow id="k69pwbx2">
+                           <link id="k69pwbx3" targetId="k69pwbwz" type="containerLink"/>
+                        </flow>
+                        <flow id="k69pwbx5">
+                           <subflow id="k7mu421i">
+                              <title>Invoke RA Error Processing</title>
+                              <subflowGUID>fY34Kj85RiAhbE3YPL700N</subflowGUID>
+                              <subflowPath>RA_Error_Processing</subflowPath>
+                              <runForEach>false</runForEach>
+                              <input>
+                                 <parameter name="Input_ErrorString" source="formula" updatable="true">
+                                    <expression language="XQuery">fn:concat("The RA line  ", $temp.temp_SFDC_RAItem  ," does not contain Revised Order Product.")</expression>
+                                 </parameter>
+                                 <parameter name="Input_RA_Line_List" source="field" updatable="true">temp.temp_SFDC_RAItemListPerOrder</parameter>
+                                 <parameter name="Order_ID" source="field">Id</parameter>
+                                 <parameter name="Order_Name" source="field" updatable="true">temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber</parameter>
+                              </input>
+                              <outputDef/>
+                              <link id="k94ric99" targetId="k94ric98"/>
+                           </subflow>
+                           <end id="k94ric98">
+                              <title>End 1</title>
+                           </end>
+                        </flow>
+                        <link id="k69pwbx1" targetId="k69pwbx2" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__c}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k69pwbx4" targetId="k69pwbx5" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__c}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k69pwbx0" targetId="k2246rnd"/>
+                     </container>
+                     <container id="k2246rne" type="exclusive">
+                        <title>Sales Order &amp; Line Not Found</title>
+                        <flow id="k2246rnf">
+                           <subflow id="k86xbrlx">
+                              <title>Invoke RA Error Processing</title>
+                              <subflowGUID>fY34Kj85RiAhbE3YPL700N</subflowGUID>
+                              <subflowPath>RA_Error_Processing</subflowPath>
+                              <runForEach>false</runForEach>
+                              <input>
+                                 <parameter name="Input_ErrorString" source="formula" updatable="true">
+                                    <expression language="XQuery">fn:concat("Sales Order ",$temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber  ," and/or corresponding line ", $temp.temp_calcSfdcErrorOrderLine ," were not found in Netsuite")</expression>
+                                 </parameter>
+                                 <parameter name="Input_RA_Line_List" source="field" updatable="true">temp.temp_SFDC_RAItemListPerOrder</parameter>
+                                 <parameter name="Order_ID" source="field">Id</parameter>
+                                 <parameter name="Order_Name" source="field" updatable="true">temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber</parameter>
+                              </input>
+                              <outputDef/>
+                           </subflow>
+                           <link id="k2246roq" targetId="k2246rne" type="containerLink"/>
+                        </flow>
+                        <flow id="k2246rni">
+                           <service id="k2kopzgx">
+                              <title>Check RA Line Already Exist in Netsuite</title>
+                              <serviceName>NetSuite-AppDynamics:searchReturnAuthLines</serviceName>
+                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="RA_lineSfdcId_search" source="field" updatable="true">temp.temp_SFDC_RAItem</parameter>
+                              </serviceInput>
+                              <link id="k2kopzku" targetId="k2kopzkt"/>
+                           </service>
+                           <service id="k2246ten">
+                              <title>Get Existing RA Line for SO Line</title>
+                              <serviceName>NetSuite-AppDynamics:searchReturnAuthLines</serviceName>
+                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="RA_lineId_search" source="field" updatable="true">temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__c</parameter>
+                              </serviceInput>
+                              <link id="k2246teo" targetId="k2246rnj"/>
+                           </service>
+                           <container id="k2kopzkt" type="exclusive">
+                              <title>RA Line Doesn't Exist in NS?</title>
+                              <flow id="k2kopzkx">
+                                 <link id="k2kopzky" targetId="k2kopzkt" type="containerLink"/>
+                              </flow>
+                              <flow id="k2kopzl0">
+                                 <subflow id="k86xbrr7">
+                                    <title>Invoke RA Error Processing</title>
+                                    <subflowGUID>fY34Kj85RiAhbE3YPL700N</subflowGUID>
+                                    <subflowPath>RA_Error_Processing</subflowPath>
+                                    <runForEach>false</runForEach>
+                                    <input>
+                                       <parameter name="Input_ErrorString" source="formula" updatable="true">
+                                          <expression language="XQuery">fn:concat("The RA line  ", $temp.temp_calcSfdcErrorOrderLine ," already exist in Netsuite, under the RA with internalId = ", $output.search_RA_internalId )</expression>
+                                       </parameter>
+                                       <parameter name="Input_RA_Line_List" source="field" updatable="true">temp.temp_SFDC_RAItemListPerOrder</parameter>
+                                       <parameter name="Order_ID" source="field">Id</parameter>
+                                       <parameter name="Order_Name" source="field" updatable="true">temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber</parameter>
+                                    </input>
+                                    <outputDef/>
+                                    <link id="k94ricaj" targetId="k94ricai"/>
+                                 </subflow>
+                                 <end id="k94ricai">
+                                    <title>End 2</title>
+                                 </end>
+                              </flow>
+                              <link id="k2kopzkw" targetId="k2kopzkx" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.search_RA_internalId}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k2kopzkz" targetId="k2kopzl0" type="containerLink"/>
+                              <link id="k2kopzkv" targetId="k2246ten"/>
+                           </container>
+                           <container id="k2246rnk" type="exclusive">
+                              <title>Already Full Authorized?</title>
+                              <flow id="k2246rnl">
+                                 <subflow id="k86xbrus">
+                                    <title>Invoke RA Error Processing</title>
+                                    <subflowGUID>fY34Kj85RiAhbE3YPL700N</subflowGUID>
+                                    <subflowPath>RA_Error_Processing</subflowPath>
+                                    <runForEach>false</runForEach>
+                                    <input>
+                                       <parameter name="Input_ErrorString" source="formula" updatable="true">
+                                          <expression language="XQuery">fn:concat("Error Line: ", $temp.temp_calcSfdcErrorOrderLine, 
+"; The sum of Current return authorization line's amount AND already authorized line's amount, cannot be more than that of original sales order line's amount ", 
+
+" Total Order Line Amount = ", $temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Net_Total_Price__c, 
+' Amount Already Authorized = ', if($output.search_RA_lineTotalAmount&lt;0) then $output.search_RA_lineTotalAmount * -1 else  if($output.search_RA_lineTotalAmount='') then '0' else  $output.search_RA_lineTotalAmount ,  
+' Current RA Line Amount = ', 
+if($temp.temp_SFDC_RAItem.Net_Total_Price__c&lt;0) then $temp.temp_SFDC_RAItem.Net_Total_Price__c * -1 else $temp.temp_SFDC_RAItem.Net_Total_Price__c
+)</expression>
+                                       </parameter>
+                                       <parameter name="Input_RA_Line_List" source="field" updatable="true">temp.temp_SFDC_RAItemListPerOrder</parameter>
+                                       <parameter name="Order_ID" source="field">Id</parameter>
+                                       <parameter name="Order_Name" source="field" updatable="true">temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber</parameter>
+                                    </input>
+                                    <outputDef/>
+                                    <link id="k8e11w4c" targetId="k2246rno"/>
+                                 </subflow>
+                                 <end id="k2246rno">
+                                    <title>End</title>
+                                 </end>
+                              </flow>
+                              <flow id="k2246rnp">
+                                 <link id="k2246roy" targetId="k2246rnk" type="containerLink"/>
+                              </flow>
+                              <link id="k2246rot" targetId="k2246rnl" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="true">
+                                       <arg name="field">{$temp.temp_calcNS_soLine_ReturnAuthorizedFully}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k2246rou" targetId="k2246rnp" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="false">
+                                       <arg name="field">{$temp.temp_calcNS_soLine_ReturnAuthorizedFully}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k2246rov" targetId="k2246rnq"/>
+                           </container>
+                           <assignment id="k2246rnj">
+                              <title>Calculate If SO Line Already Billed</title>
+                              <operation source="formula" to="temp.temp_calcNS_soLine_ReturnAuthorizedFully">
+                                 <expression language="XQuery">let $sfdcRALineAmt := if($temp.temp_SFDC_RAItem.Net_Total_Price__c&lt;0) then $temp.temp_SFDC_RAItem.Net_Total_Price__c * -1 else $temp.temp_SFDC_RAItem.Net_Total_Price__c
+let $nsAmt := if($output.search_RA_lineTotalAmount&lt;0) then $output.search_RA_lineTotalAmount * -1 else  if($output.search_RA_lineTotalAmount='') then '0' else  $output.search_RA_lineTotalAmount 
+let $sfdcOrderLineAmt :=  if($temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Net_Total_Price__c&lt;0) then $temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Net_Total_Price__c * -1 else $temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Net_Total_Price__c 
+return if($sfdcOrderLineAmt&lt;($sfdcRALineAmt+$nsAmt)) then true() else false() 
+</expression>
+                              </operation>
+                              <link id="k2246ros" targetId="k2246rnk"/>
+                           </assignment>
+                           <assignment id="k2246rnq">
+                              <title>Assign to NS temp Item</title>
+                              <operation source="field" to="temp.temp_NS_thisRAItem[1]/item[1]/internalId">output.search_Line_internalId</operation>
+                              <operation source="field" to="temp.temp_NS_thisRAItem[1]/line">output.search_Line_Number</operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/quantity">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Quantity&lt;0) then $temp.temp_SFDC_RAItem.Quantity * -1 else $temp.temp_SFDC_RAItem.Quantity </expression>
+                              </operation>
+                              <operation source="field" to="temp.temp_NS_thisRAItem[1]/department[1]/internalId">output.search_SalesOrder_departmentInternalId</operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/rate">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.UnitPrice&lt;0) then $temp.temp_SFDC_RAItem.UnitPrice * -1 else $temp.temp_SFDC_RAItem.UnitPrice</expression>
+                              </operation>
+                              <operation source="field" to="temp.temp_NS_thisRAItem[1]/description">temp.temp_SFDC_RAItem.Description</operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/amount">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Net_Total_Price__c&lt;0) then $temp.temp_SFDC_RAItem.Net_Total_Price__c * -1 else $temp.temp_SFDC_RAItem.Net_Total_Price__c</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/custcol_qty">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Quantity&lt;0) then $temp.temp_SFDC_RAItem.Quantity * -1 else $temp.temp_SFDC_RAItem.Quantity </expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/custcol_list_price">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Revenue_List_Unit_Price__c&lt;0) then $temp.temp_SFDC_RAItem.Revenue_List_Unit_Price__c * -1 else $temp.temp_SFDC_RAItem.Revenue_List_Unit_Price__c</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/custcol_total_price">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Net_Total_Price__c&lt;0) then $temp.temp_SFDC_RAItem.Net_Total_Price__c * -1 else $temp.temp_SFDC_RAItem.Net_Total_Price__c</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/custcol_ext_list_price">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Revenue_Extended_List_Price__c &lt; 0 ) then $temp.temp_SFDC_RAItem.Revenue_Extended_List_Price__c * -1 else $temp.temp_SFDC_RAItem.Revenue_Extended_List_Price__c</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_NS_thisRAItem[1]/custcol_appd_ssp_sp">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Net_Total_Price__c&lt;0) then $temp.temp_SFDC_RAItem.Net_Total_Price__c * -1 else $temp.temp_SFDC_RAItem.Net_Total_Price__c</expression>
+                              </operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisRAItem[1]/custcol_sfdc_transaction_id">temp.temp_SFDC_RAItem</operation>
+                              <operation source="formula"
+                                         to="temp.temp_NS_thisRAItem[1]/custcol_so_line_start_date">
+                                 <expression language="XQuery">if(fn:string-length($temp.temp_SFDC_RAItem.Start_Date__c)&gt;0) then 
+fn:concat(fn:substring($temp.temp_SFDC_RAItem.Start_Date__c,1,10), 'T00:00:00') else ''</expression>
+                              </operation>
+                              <operation source="formula"
+                                         to="temp.temp_NS_thisRAItem[1]/custcol_so_line_end_date">
+                                 <expression language="XQuery">if(fn:string-length($temp.temp_SFDC_RAItem.End_Date__c)&gt;0) then 
+fn:concat(fn:substring($temp.temp_SFDC_RAItem.End_Date__c,1,10), 'T00:00:00') else ''</expression>
+                              </operation>
+                              <operation source="field" to="temp.temp_sfdcRALinePlaceHolder">temp.temp_SFDC_RAItem</operation>
+                              <operation source="formula"
+                                         to="temp.temp_NS_thisRAItem[1]/custcol_childless_bundle_ra">
+                                 <expression language="XQuery">if($temp.temp_SFDC_RAItem.Childless_Bundle_RA__c = 'true') then 'T' else 'F'</expression>
+                              </operation>
+                              <operation source="formula" to="temp.temp_RAChildlessBundleFlag">
+                                 <expression language="XQuery">if ($temp.temp_RAChildlessBundleFlag = 'F') 
+then 
+if ($temp.temp_SFDC_RAItem.Childless_Bundle_RA__c  = 'true') then 'T' else 'F'
+else 'T'</expression>
+                              </operation>
+                              <operation source="field" to="temp.temp_NS_thisRAItem[1]/custcol_sfdc_ra_line_id">temp.temp_SFDC_RAItem</operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisRAItem[1]/custcol_sfdc_ra_parent_line_id">temp.temp_SFDC_RAItem.Parent_Id__c</operation>
+                              <link id="k2246roz" targetId="k2246rnr"/>
+                           </assignment>
+                           <assignment id="k2246rnr">
+                              <title>Assign to NS temp Items</title>
+                              <operation source="formula" to="temp.temp_NS_thisRAItemList[1]/item">
+                                 <function name="list:append">
+                                    <arg name="dest_field">{$temp.temp_NS_thisRAItemList[1]/item}</arg>
+                                    <arg name="new_field">{$temp.temp_NS_thisRAItem}</arg>
+                                 </function>
+                              </operation>
+                              <link id="k2246rp0" targetId="k2246rns"/>
+                           </assignment>
+                           <jumpTo id="k2246rns">
+                              <link id="k2246rp1" targetId="k2246rm9"/>
+                           </jumpTo>
+                        </flow>
+                        <link id="k2246roo" targetId="k2246rnf" type="containerLink">
+                           <condition source="formula">
+                              <function name="string-equals">
+                                 <arg name="left">{$output.search_Line_Number}</arg>
+                                 <arg name="right"/>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k2246rop" targetId="k2246rni" type="containerLink"/>
+                     </container>
+                     <service id="k2246rnd">
+                        <title>Get the SalesOrder &amp; Each Item</title>
+                        <serviceName>NetSuite-AppDynamics:searchSalesOrder</serviceName>
+                        <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                        <serviceInput>
+                           <parameter name="salesOrder_tranId_search" source="field" updatable="true">temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber</parameter>
+                           <parameter name="sfdcOrderLineId_search" source="field" updatable="true">temp.temp_SFDC_RAItem.SBQQ__RevisedOrderProduct__c</parameter>
+                        </serviceInput>
+                        <link id="k2246ron" targetId="k2246rne"/>
+                     </service>
+                     <link id="k2246rom" targetId="k2246rnb" type="containerLink"/>
+                  </flow>
+                  <flow id="k2246rnt">
+                     <container id="k2246rnu" type="exclusive">
+                        <title>Are All Items Set?</title>
+                        <flow id="k2246rnv">
+                           <assignment id="k229wv8h">
+                              <title>Calculate Header Fields &amp; Assign to RA</title>
+                              <operation source="field" to="temp.temp_calcNS_salesOrderInternalId">output.search_SalesOrder_internalId</operation>
+                              <operation source="field" to="temp.temp_calcNS_deptInternalId">output.search_SalesOrder_departmentInternalId</operation>
+                              <operation source="field" to="temp.temp_calcNS_subsidiaryInternalId">output.search_SalesOrder_subsidiaryInternalId</operation>
+                              <operation source="field" to="temp.temp_calcNS_sfdcOppId">Opportunity_18_Digit_ID__c</operation>
+                              <operation source="field" to="temp.temp_calcNS_entityInternalId">output.search_SalesOrder_entityCustomer</operation>
+                              <operation source="field" to="temp.temp_NS_thisRA[1]/createdFrom[1]/internalId">output.search_SalesOrder_internalId</operation>
+                              <operation source="field" to="temp.temp_NS_thisRA[1]/department[1]/internalId">output.search_SalesOrder_departmentInternalId</operation>
+                              <operation source="field" to="temp.temp_NS_thisRA[1]/itemList">temp.temp_NS_thisRAItemList</operation>
+                              <operation source="field" to="temp.temp_NS_thisRA[1]/subsidiary[1]/internalId">temp.temp_calcNS_subsidiaryInternalId</operation>
+                              <operation source="field" to="temp.temp_NS_thisRA[1]/customForm[1]/internalId">temp.temp_calcNS_customFormInternalId</operation>
+                              <operation source="field" to="temp.temp_NS_thisRA[1]/entity[1]/internalId">temp.temp_calcNS_entityInternalId</operation>
+                              <operation source="constant" to="temp.temp_calcNS_customFormInternalId">128</operation>
+                              <operation source="field" to="temp.temp_calcNS_sfdcOrderId">Id</operation>
+                              <operation source="field" to="temp.temp_calcNS_sfdcOriginalOrderId">temp.temp_sfdcRALinePlaceHolder.SBQQ__RevisedOrderProduct__r.OrderId</operation>
+                              <operation source="formula" to="temp.temp_RAHeaderBookedDate">
+                                 <expression language="XQuery">if(fn:empty($Booked_Date__c)) then() else concat(infa:format($Booked_Date__c, "yyyy-MM-dd"), "T12:00:00.000-00:00")   
+</expression>
+                              </operation>
+                              <operation source="field"
+                                         to="temp.temp_NS_thisRA[1]/custbody_order_childless_bundle">temp.temp_RAChildlessBundleFlag</operation>
+                              <link id="k6sdpjjj" targetId="k3rg9sdi"/>
+                           </assignment>
+                           <eventContainer id="k3rg9sdi">
+                              <service id="k2246roh">
+                                 <title>Create RA</title>
+                                 <serviceName>NetSuite-AppDynamics:createReturnAuth</serviceName>
+                                 <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                 <serviceInput>
+                                    <parameter name="SalesOrder_internalId" source="field" updatable="true">temp.temp_calcNS_salesOrderInternalId</parameter>
+                                    <parameter name="RAHeader_customForm" source="field" updatable="true">temp.temp_calcNS_customFormInternalId</parameter>
+                                    <parameter name="RAHeader_sfdcOppId" source="field" updatable="true">temp.temp_calcNS_sfdcOppId</parameter>
+                                    <parameter name="RAHeader_subsidiary" source="field" updatable="true">temp.temp_calcNS_subsidiaryInternalId</parameter>
+                                    <parameter name="ReturnAuthorization" source="field">temp.temp_NS_thisRA</parameter>
+                                    <parameter name="RAHeader_entity" source="field" updatable="true">temp.temp_calcNS_entityInternalId</parameter>
+                                    <parameter name="RAHeader_sfdcOrderId" source="field" updatable="true">temp.temp_calcNS_sfdcOrderId</parameter>
+                                    <parameter name="RAHeader_sfdcOriginalOrderId" source="field" updatable="true">temp.temp_calcNS_sfdcOriginalOrderId</parameter>
+                                    <parameter name="RAHeader_bookedDate" source="field" updatable="true">temp.temp_RAHeaderBookedDate</parameter>
+                                 </serviceInput>
+                              </service>
+                              <flow id="k3rg9sdk">
+                                 <link id="k3rg9sdl" targetId="k3rg9sdi" type="containerLink"/>
+                              </flow>
+                              <flow id="k3rg9sdn">
+                                 <subflow id="k86xbs2m">
+                                    <title>Invoke RA Error Processing</title>
+                                    <subflowGUID>fY34Kj85RiAhbE3YPL700N</subflowGUID>
+                                    <subflowPath>RA_Error_Processing</subflowPath>
+                                    <runForEach>false</runForEach>
+                                    <input>
+                                       <parameter name="Input_ErrorString" source="field" updatable="true">output.faultInfo[1]/reason</parameter>
+                                       <parameter name="Input_RA_Line_List" source="field" updatable="true">temp.temp_SFDC_RAItemListPerOrder</parameter>
+                                       <parameter name="Order_ID" source="field">Id</parameter>
+                                       <parameter name="Order_Name" source="field" updatable="true">temp.temp_sfdcRALinePlaceHolder.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber</parameter>
+                                    </input>
+                                    <outputDef/>
+                                    <link id="k94ricc1" targetId="k94ricc0"/>
+                                 </subflow>
+                                 <end id="k94ricc0">
+                                    <title>End 3</title>
+                                 </end>
+                              </flow>
+                              <link id="k3rg9sdj" targetId="k3rg9sdk" type="containerLink"/>
+                              <link id="k3rg9sbh" targetId="k3rg9sa0"/>
+                              <events>
+                                 <catch faultField="faultInfo" id="k3rg9sdh" interrupting="true">
+                                    <link id="k3rg9sdm" targetId="k3rg9sdn" type="containerLink"/>
+                                 </catch>
+                              </events>
+                           </eventContainer>
+                           <container id="k3rg9sa0" type="exclusive">
+                              <title>RA Created Successfully?</title>
+                              <flow id="k3rg9sa1">
+                                 <service id="k3rg9sa2">
+                                    <title>Get RA</title>
+                                    <serviceName>NetSuite-AppDynamics:searchReturnAuth</serviceName>
+                                    <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="RA_NS_internalId" source="field" updatable="true">output.RA_NSinternalID</parameter>
+                                    </serviceInput>
+                                    <link id="k3rg9sat" targetId="k3rg9sa3"/>
+                                 </service>
+                                 <assignment id="k3rg9sa3">
+                                    <title>Assign RA Number to temp &amp; out  Field</title>
+                                    <operation source="field" to="temp.temp_calcNS_successfullyCreatedRANumber">output.search_RA_tranId</operation>
+                                    <operation source="field" to="output.out_RA_Number">temp.temp_calcNS_successfullyCreatedRANumber</operation>
+                                    <link id="k3rg9sau" targetId="k3rg9sa4"/>
+                                 </assignment>
+                                 <assignment id="k3rg9sa4">
+                                    <title>Get RA Lines - Success</title>
+                                    <operation source="field" to="temp.temp_SFDC_RAItemList">temp.temp_SFDC_RAItemListPerOrder</operation>
+                                    <link id="k3rg9sav" targetId="k3rg9sa5"/>
+                                 </assignment>
+                                 <assignment id="k3rg9sa5">
+                                    <title>Assign Success RA Lines</title>
+                                    <operation source="formula" to="temp.temp_SFDC_RAItem">
+                                       <expression language="XQuery">list:head($temp.temp_SFDC_RAItemList )</expression>
+                                    </operation>
+                                    <operation source="formula" to="temp.temp_SFDC_RAItemList">
+                                       <expression language="XQuery">list:tail($temp.temp_SFDC_RAItemList )</expression>
+                                    </operation>
+                                    <link id="k3rg9saw" targetId="k3rg9sa6"/>
+                                 </assignment>
+                                 <assignment id="k3rg9sab">
+                                    <title>Get Existing Error Queue - If Any</title>
+                                    <operation source="list" to="temp.temp_sfdcExistingErrorQueueList">
+                                       <query advanceQuery="false" from="Salesforce:Integration_Queue__c">
+                                          <where>Source_System__c = 'Salesforce' AND Target_System__c = 'NetSuite' AND Status__c = 'Error' AND Transaction_Type__c = 'Return Authorization' AND Transaction_Id__c = '{$Id}'</where>
+                                       </query>
+                                    </operation>
+                                    <link id="k3rhkp6u" targetId="k3rhkp6t"/>
+                                 </assignment>
+                                 <container id="k3rg9sa6" type="exclusive">
+                                    <title>Is RA Success Item Set ?</title>
+                                    <flow id="k3rg9sa7">
+                                       <assignment id="k3rvhwm6">
+                                          <title>Update SFDC RA Line with Success Details</title>
+                                          <operation source="constant" to="temp.temp_SFDC_RAItem.NS_Integration_Status__c">Integrated</operation>
+                                          <operation source="constant" to="temp.temp_SFDC_RAItem.NS_Reference_Error__c"/>
+                                          <operation source="field" to="temp.temp_SFDC_RAItem.NS_Reference_Number__c">temp.temp_calcNS_successfullyCreatedRANumber</operation>
+                                          <link id="k3rvhwpr" targetId="k3rg9sa9"/>
+                                       </assignment>
+                                       <jumpTo id="k3rg9sa9">
+                                          <link id="k3rg9sb1" targetId="k3rg9sa5"/>
+                                       </jumpTo>
+                                    </flow>
+                                    <flow id="k3rg9saa">
+                                       <link id="k3rg9sb2" targetId="k3rg9sa6" type="containerLink"/>
+                                    </flow>
+                                    <link id="k3rg9sax" targetId="k3rg9sa7" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="set">
+                                             <arg name="field">{$temp.temp_SFDC_RAItem}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="k3rg9say" targetId="k3rg9saa" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="unset">
+                                             <arg name="field">{$temp.temp_SFDC_RAItem}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="k3rg9saz" targetId="k3rg9sab"/>
+                                 </container>
+                                 <container id="k3rhkp6t" type="exclusive">
+                                    <title>Queue List Found?</title>
+                                    <flow id="k3rhkp6x">
+                                       <assignment id="k3rhkp9w">
+                                          <title>Assign Error Queue</title>
+                                          <operation source="formula" to="temp.temp_sfdcExistingErrorQueue">
+                                             <expression language="XQuery">list:head($temp.temp_sfdcExistingErrorQueueList)</expression>
+                                          </operation>
+                                          <operation source="formula" to="temp.temp_sfdcExistingErrorQueueList">
+                                             <expression language="XQuery">list:tail($temp.temp_sfdcExistingErrorQueueList)</expression>
+                                          </operation>
+                                          <link id="k3rhkpb9" targetId="k3rhkpaz"/>
+                                       </assignment>
+                                       <container id="k3rhkpaz" type="exclusive">
+                                          <title>Error Queue Set?</title>
+                                          <flow id="k3rhkpb0">
+                                             <assignment id="k3rhkpb1">
+                                                <title>Update Queue - Success</title>
+                                                <operation source="constant"
+                                                           to="temp.temp_sfdcExistingErrorQueue.Exception_Message__c"/>
+                                                <operation source="constant" to="temp.temp_sfdcExistingErrorQueue.Status__c">Success</operation>
+                                                <operation source="field" to="temp.temp_sfdcExistingErrorQueue.Target_Txn_Id__c">temp.temp_calcNS_successfullyCreatedRANumber</operation>
+                                                <link id="k3rhkpb6" targetId="k3rhkpb2"/>
+                                             </assignment>
+                                             <jumpTo id="k3rhkpb2">
+                                                <link id="k3rhkpb7" targetId="k3rhkp9w"/>
+                                             </jumpTo>
+                                          </flow>
+                                          <flow id="k3rhkpb3">
+                                             <link id="k3rhkpb8" targetId="k3rhkpaz" type="containerLink"/>
+                                          </flow>
+                                          <link id="k3rhkpb4" targetId="k3rhkpb0" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="set">
+                                                   <arg name="field">{$temp.temp_sfdcExistingErrorQueue}</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                          <link id="k3rhkpb5" targetId="k3rhkpb3" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="unset">
+                                                   <arg name="field">{$temp.temp_sfdcExistingErrorQueue}</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                       </container>
+                                       <link id="k3rhkp6y" targetId="k3rhkp6t" type="containerLink"/>
+                                    </flow>
+                                    <flow id="k3rhkp70">
+                                       <create id="k3rhkp83">
+                                          <title>Add Integration Queue - Success</title>
+                                          <entityName>Salesforce:Integration_Queue__c</entityName>
+                                          <createInput>
+                                             <parameter name="Process_Name__c" source="constant" updatable="true">SalesforceToNetsuite-LoadReturnAuthorization</parameter>
+                                             <parameter name="Source_System__c" source="constant" updatable="true">Salesforce</parameter>
+                                             <parameter name="Status__c" source="constant" updatable="true">Success</parameter>
+                                             <parameter name="Target_System__c" source="constant" updatable="true">NetSuite</parameter>
+                                             <parameter name="Transaction_Id__c" source="field">Id</parameter>
+                                             <parameter name="Transaction_Name__c" source="field" updatable="true">Name</parameter>
+                                             <parameter name="Transaction_Type__c" source="constant" updatable="true">Return Authorization</parameter>
+                                             <parameter name="Target_Txn_Id__c" source="field" updatable="true">temp.temp_calcNS_successfullyCreatedRANumber</parameter>
+                                          </createInput>
+                                       </create>
+                                       <link id="k3rhkp71" targetId="k3rhkp6t" type="containerLink"/>
+                                    </flow>
+                                    <link id="k3rhkp6w" targetId="k3rhkp6x" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="not-empty">
+                                             <arg name="field">{$temp.temp_sfdcExistingErrorQueueList}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="k3rhkp6z" targetId="k3rhkp70" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="empty">
+                                             <arg name="field">{$temp.temp_sfdcExistingErrorQueueList}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                 </container>
+                                 <link id="k3rg9sas" targetId="k3rg9sa0" type="containerLink"/>
+                              </flow>
+                              <flow id="k3rg9sah">
+                                 <subflow id="k86xbs8e">
+                                    <title>Invoke RA Error Processing</title>
+                                    <subflowGUID>fY34Kj85RiAhbE3YPL700N</subflowGUID>
+                                    <subflowPath>RA_Error_Processing</subflowPath>
+                                    <runForEach>false</runForEach>
+                                    <input>
+                                       <parameter name="Input_ErrorString" source="field" updatable="true">output.errorMessages</parameter>
+                                       <parameter name="Input_RA_Line_List" source="field" updatable="true">temp.temp_SFDC_RAItemListPerOrder</parameter>
+                                       <parameter name="Order_ID" source="field">Id</parameter>
+                                       <parameter name="Order_Name" source="field" updatable="true">temp.temp_sfdcRALinePlaceHolder.SBQQ__RevisedOrderProduct__r.Order.OrderReferenceNumber</parameter>
+                                    </input>
+                                    <outputDef/>
+                                 </subflow>
+                                 <link id="k3rg9sb8" targetId="k3rg9sa0" type="containerLink"/>
+                              </flow>
+                              <link id="k3rg9saq" targetId="k3rg9sa1" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.isRACreationSuccess}</arg>
+                                       <arg name="right">true</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="k3rg9sar" targetId="k3rg9sah" type="containerLink"/>
+                           </container>
+                           <link id="k2246rp5" targetId="k2246rnu" type="containerLink"/>
+                        </flow>
+                        <flow id="k2246roi">
+                           <link id="k2246rpr" targetId="k2246rnu" type="containerLink"/>
+                        </flow>
+                        <link id="k2246rp3" targetId="k2246rnv" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_NS_thisRAItemList}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="k2246rp4" targetId="k2246roi" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_NS_thisRAItemList}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="k2246rp2" targetId="k2246rnb" type="containerLink"/>
+                  </flow>
+                  <link id="k2246rok" targetId="k2246rnc" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_SFDC_RAItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k2246rol" targetId="k2246rnt" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_SFDC_RAItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k2246swt" targetId="c"/>
+               </container>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>8WguGjscZkDltJy0JQUXWo</types1:GUID>
+      <types1:DisplayName>SFDC_To_NS_CreateRA</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-11-04T20:39:22.328Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

@@ -1,0 +1,159 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>MJoGsF4XkgbdoPV-gt-161756485-2020-05-19T05:17:05.621Z::pd.xml</types1:EntryId>
+      <types1:Name>RA_Error_Processing</types1:Name>
+      <types1:ParentFlowIds>wpKwKBqRi92qBbb-gt-231067140-2020-05-19T05:17:06.364Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-05-19T05:17:06Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-11-04T20:34:36Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-11-04T20:36:09Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.RA_Error_Processing/RA_Error_Processing.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="RA_Error_Processing"
+                  name="RA_Error_Processing"
+                  overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="Input_ErrorString" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter description="" name="Input_RA_Line_List" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </parameter>
+               <parameter description="" name="Order_ID" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+               <parameter description="" name="Order_Name" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="none">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k8zjfyp0" targetId="k8zjfyos"/>
+               </start>
+               <eventContainer id="k8zjfyos">
+                  <subflow id="k8zjfyov">
+                     <title>Update All RA Lines with Error</title>
+                     <subflowGUID>deuxWSHbvUJeYMzEOSkCCL</subflowGUID>
+                     <subflowPath>RA_Update_Error_All_Lines</subflowPath>
+                     <runForEach>false</runForEach>
+                     <input>
+                        <parameter name="Input_SFDC_RA_Line_List" source="field" updatable="true">input.Input_RA_Line_List</parameter>
+                        <parameter name="Input_ErrorString" source="field" updatable="true">input.Input_ErrorString</parameter>
+                     </input>
+                     <outputDef/>
+                  </subflow>
+                  <flow id="k8zjfyot">
+                     <link id="k8zjfyoy" targetId="k8zjfyos" type="containerLink"/>
+                  </flow>
+                  <flow id="k8zjfyou">
+                     <link id="k8zjfyoz" targetId="k8zjfyos" type="containerLink"/>
+                  </flow>
+                  <link id="k8zjfyow" targetId="k8zjfyot" type="containerLink"/>
+                  <link id="k9065w3z" targetId="k9065w7c"/>
+                  <events>
+                     <catch faultField="UpdateRALineFaultInfo"
+                            id="k8zhv9xp"
+                            interrupting="true">
+                        <link id="k8zjfyox" targetId="k8zjfyou" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <eventContainer id="k9065w7c">
+                  <service id="k9065w3y">
+                     <title>Send Free-Form Email</title>
+                     <serviceName>Salesforce:sfSendFreeFormEmailService</serviceName>
+                     <serviceGUID>58gj2o5v8OacYp4U1C0Jw0</serviceGUID>
+                     <serviceInput>
+                        <parameter name="Subject" source="formula">
+                           <expression language="XQuery">fn:concat('RA Integration Failure - Order# ', $input.Order_ID)</expression>
+                        </parameter>
+                        <parameter name="Body" source="constant">&lt;p&gt;RA Integration failure occurred for the following order. Please take action to resolve and resubmit.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Salesforce Order#:&lt;/strong&gt;&lt;/em&gt; {$input.Order_ID}&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Original Order Ref#:&lt;/strong&gt;&lt;/em&gt;&amp;nbsp;{$input.Order_Name}&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Error Message:&lt;/strong&gt;&lt;/em&gt;&amp;nbsp;{$input.Input_ErrorString}&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;</parameter>
+                        <parameter name="Recipient Address" source="constant">bishelp@appdynamics.com; sfdcsupport@appdynamics.com</parameter>
+                     </serviceInput>
+                  </service>
+                  <flow id="k9065w7e">
+                     <link id="k9065w7f" targetId="k9065w7c" type="containerLink"/>
+                  </flow>
+                  <flow id="k9065w7h">
+                     <link id="k9065w7i" targetId="k9065w7c" type="containerLink"/>
+                  </flow>
+                  <link id="k9065w7d" targetId="k9065w7e" type="containerLink"/>
+                  <link id="k9065w8t" targetId="k8zjfyrl"/>
+                  <events>
+                     <catch faultField="EmailFaultInfo" id="k9065w6a" interrupting="true">
+                        <link id="k9065w7g" targetId="k9065w7h" type="containerLink"/>
+                     </catch>
+                  </events>
+               </eventContainer>
+               <create id="k8zjfyrl">
+                  <title>Add Error to the Integration Queue</title>
+                  <entityName>Salesforce:Integration_Queue__c</entityName>
+                  <createInput>
+                     <parameter name="Exception_Message__c" source="formula" updatable="true">
+                        <expression language="XQuery">let $EmailError := if ($output.EmailFaultInfo != '' ) then 
+fn:concat('Unable to send email to BisHelp. Error Message: ' , $output.EmailFaultInfo[1]/reason  , '. ' )
+else ''
+
+let $UpdateLineError := if ($output.UpdateRALineFaultInfo != '') then fn:concat('Unable to Update the RA Lines with the Error. Error Message: ' , $output.UpdateRALineFaultInfo[1]/reason  , '. ')
+else ''
+
+return 
+fn:concat($input.Input_ErrorString, '. ', $UpdateLineError, $EmailError)  </expression>
+                     </parameter>
+                     <parameter name="Process_Name__c" source="constant" updatable="true">SalesforceToNetsuite-CreateEachReturnAuthorization</parameter>
+                     <parameter name="Source_System__c" source="constant" updatable="true">Salesforce</parameter>
+                     <parameter name="Status__c" source="constant" updatable="true">Error</parameter>
+                     <parameter name="Target_System__c" source="constant" updatable="true">NetSuite</parameter>
+                     <parameter name="Transaction_Id__c" source="field" updatable="true">input.Order_ID</parameter>
+                     <parameter name="Transaction_Name__c" source="field" updatable="true">input.Order_Name</parameter>
+                     <parameter name="Transaction_Type__c" source="constant" updatable="true">Return Authorization</parameter>
+                  </createInput>
+                  <link id="k8zjfysj" targetId="c"/>
+               </create>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>fY34Kj85RiAhbE3YPL700N</types1:GUID>
+      <types1:DisplayName>RA_Error_Processing</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-11-04T20:39:21.986Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>

@@ -1,0 +1,133 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>v1MuzBq695kchzt-gt-161756458-2020-05-19T05:17:05.344Z::pd.xml</types1:EntryId>
+      <types1:Name>RA_Update_Error_All_Lines</types1:Name>
+      <types1:ParentFlowIds>MJoGsF4XkgbdoPV-gt-161756485-2020-05-19T05:17:05.621Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-05-19T05:17:05Z</types1:CreationDate>
+      <types1:ModifiedBy/>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-11-04T20:36:09Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.RA_Update_Error_All_Lines/RA_Update_Error_All_Lines.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="RA_Update_Error_All_Lines"
+                  name="RA_Update_Error_All_Lines"
+                  overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description=""
+                          name="Input_SFDC_RA_Line_List"
+                          required="true"
+                          type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </parameter>
+               <parameter description=""
+                          name="Input_ErrorString"
+                          required="true"
+                          type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description="" name="temp_SFDC_RALineToUpdate" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_SFDC_RAList_Iterate" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="none">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k7l1svng" targetId="k7l1svnf"/>
+               </start>
+               <assignment id="k7l1svnf">
+                  <title>Assign Input List to Temp List</title>
+                  <operation source="field" to="temp.temp_SFDC_RAList_Iterate">input.Input_SFDC_RA_Line_List</operation>
+                  <link id="k7l1svnn" targetId="k7l1svnm"/>
+               </assignment>
+               <assignment id="k7l1svnm">
+                  <title>Assign for iterating through the list</title>
+                  <operation source="formula" to="temp.temp_SFDC_RALineToUpdate">
+                     <expression language="XQuery">list:head($temp.temp_SFDC_RAList_Iterate )</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_SFDC_RAList_Iterate">
+                     <expression language="XQuery">list:tail($temp.temp_SFDC_RAList_Iterate )</expression>
+                  </operation>
+                  <link id="k7l1svo2" targetId="k7l1svo1"/>
+               </assignment>
+               <container id="k7l1svo1" type="exclusive">
+                  <title>Check if the Line is set</title>
+                  <flow id="k7l1svo5">
+                     <assignment id="k7l1svou">
+                        <title>Assignment to NS Reference Error, NS Integration Status</title>
+                        <operation source="field" to="temp.temp_SFDC_RALineToUpdate.NS_Reference_Error__c">input.Input_ErrorString</operation>
+                        <operation source="constant"
+                                   to="temp.temp_SFDC_RALineToUpdate.NS_Integration_Status__c">Error</operation>
+                        <link id="k7l1svpx" targetId="k7l1svpv"/>
+                     </assignment>
+                     <jumpTo id="k7l1svpv">
+                        <link id="k7l1svpw" targetId="k7l1svnm"/>
+                     </jumpTo>
+                  </flow>
+                  <flow id="k7l1svo8">
+                     <link id="k7l1svo9" targetId="k7l1svo1" type="containerLink"/>
+                  </flow>
+                  <link id="k7l1svo4" targetId="k7l1svo5" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_SFDC_RALineToUpdate}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k7l1svo7" targetId="k7l1svo8" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_SFDC_RALineToUpdate}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="k7l1svo3" targetId="c"/>
+               </container>
+               <end id="c"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>deuxWSHbvUJeYMzEOSkCCL</types1:GUID>
+      <types1:DisplayName>RA_Update_Error_All_Lines</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-11-04T20:39:21.611Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
