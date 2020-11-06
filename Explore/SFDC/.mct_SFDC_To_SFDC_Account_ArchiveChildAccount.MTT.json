@@ -24,26 +24,6 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "3qLOIwmEi8HlSgV9ggzWkn",
-    "name" : "ip-172-31-19-150.us-west-2.compute.internal",
-    "type" : "AgentGroup",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB25000000000005"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : null,
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/SYS"
-  }, {
     "id" : "2CjV79tAT4nicr3VedQp4y",
     "name" : "SFDC_1",
     "type" : "Connection",
@@ -54,6 +34,26 @@
       },
       "repoInfo" : {
         "repoHandle" : "000TPB0B000000000016"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "SFDC_SB_Full",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/SYS"
+  }, {
+    "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
+    "name" : "INFA-AWS-SANDBOX",
+    "type" : "AgentGroup",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB2500000000000K"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
@@ -75,10 +75,7 @@
       "repoInfo" : {
         "repoHandle" : "000TPB17000000000064"
       },
-      "contextAttributes" : [ {
-        "name" : "id",
-        "value" : "@1"
-      } ],
+      "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "",
         "contentType" : "JSON",
