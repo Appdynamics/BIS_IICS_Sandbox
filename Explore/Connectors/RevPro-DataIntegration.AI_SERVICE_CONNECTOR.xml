@@ -14,8 +14,8 @@
       <types1:CreatedBy>muni.jangama@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-11-30T05:56:42Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-10-23T21:06:01Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:ModificationDate>2020-11-12T22:35:59Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
       <types1:PublicationDate>2020-10-24T00:50:06Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/RevPro_DataIntegration/RevPro_DataIntegration_svcDef.xml</types1:PublishedContributionId>
@@ -72,7 +72,13 @@
                        preemptiveAuth="true"
                        responseEncoding="">
                   <description>This API is used to Authenticate and get Auth Token to push and pull data from RevPro instance</description>
-                  <input/>
+                  <input>
+                     <parameter name="username"
+                                required="false"
+                                testWith="web.service"
+                                type="string"/>
+                     <parameter name="password" required="false" testWith="" type="string"/>
+                  </input>
                   <binding>
                      <restSimpleBinding multiUsing="semicolonSeparated"
                                         url="{$URL}/integration/v1/authenticate"
@@ -642,5 +648,5 @@
       <types1:GUID>9xQEqs4ImRBhWTcFeBsaE8</types1:GUID>
       <types1:DisplayName>RevPro-DataIntegration</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-10-26T22:18:51.912Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-11-25T01:24:16.832Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
