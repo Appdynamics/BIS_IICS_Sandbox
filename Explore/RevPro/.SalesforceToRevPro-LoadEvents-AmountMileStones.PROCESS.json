@@ -36,7 +36,7 @@
       "additionalInfo" : {
         "description" : "",
         "contentType" : "application/json; charset=utf-8",
-        "documentState" : "VALID"
+        "documentState" : "INVALID"
       }
     },
     "path" : "/Explore/RevPro"
