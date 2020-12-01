@@ -7,17 +7,17 @@
       <types1:MimeType>application/xml+connection</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
-      <types1:Tags>.agent:INFA-AWS-SANDBOX-1,RevPro</types1:Tags>
+      <types1:Tags>.agent:INFA-AWS-SANDBOX,RevPro</types1:Tags>
       <types1:VersionLabel>1.0</types1:VersionLabel>
       <types1:State>CURRENT</types1:State>
       <types1:ProcessGroup/>
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-12-04T17:41:14Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-11-24T22:51:02Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-12-01T23:03:26Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-11-25T01:09:04Z</types1:PublicationDate>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-12-01T23:05:11Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connection/File-RevPro-TransactionsAndEvents/File-RevPro-TransactionsAndEvents.conn.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -26,8 +26,8 @@
                      label="File-RevPro-TransactionsAndEvents"
                      name="File-RevPro-TransactionsAndEvents">
             <description/>
-            <tags>RevPro,.agent:INFA-AWS-SANDBOX-1</tags>
-            <agent>INFA-AWS-SANDBOX-1</agent>
+            <tags>RevPro,.agent:INFA-AWS-SANDBOX</tags>
+            <agent>INFA-AWS-SANDBOX</agent>
             <attributes/>
             <consumers>
                <consumer enabled="true"
@@ -229,5 +229,5 @@
       <types1:GUID>7DhXoMclMaFi2jq8G9vhQX</types1:GUID>
       <types1:DisplayName>File-RevPro-TransactionsAndEvents</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-12-01T19:42:39.588Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-12-01T23:24:21.438Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
