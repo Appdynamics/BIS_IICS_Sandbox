@@ -1,0 +1,363 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>OImXycotFgpKi9z-gt-156821180-2020-12-09T23:32:43.652Z::svc.xml</types1:EntryId>
+      <types1:Name>Okta_Service_Connector-1</types1:Name>
+      <types1:ParentFlowIds>Gx9Kymbduaa-gt-157481242-2020-12-09T23:32:00.452Z::conn.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+businesssconnector</types1:MimeType>
+      <types1:Description>Okta users suspend and deactivation</types1:Description>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>sri.battu@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-12-09T23:32:44Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-12-11T02:10:49Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-12-11T02:10:57Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/rt.connector/Okta_Service_Connector_1/Okta_Service_Connector_1_svcDef.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <businessConnector xmlns="http://schemas.informatica.com/socrates/data-services/2014/05/business-connector-model.xsd"
+                            agentOnly="false"
+                            debug="false"
+                            displayName="Okta_Service_Connector"
+                            label=""
+                            name="Okta_Service_Connector-1"
+                            uuid="23d22af1-80d3-400c-a132-122d5ce525cb">
+            <description>Okta users suspend and deactivation</description>
+            <tags/>
+            <connectionAttributes xmlns="http://schemas.informatica.com/appmodules/screenflow/2014/04/avosConnectors.xsd">
+               <connectionAttribute description="Auth header for REST call to OKTA"
+                                    masked="true"
+                                    name="Authorization"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="URL"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+            </connectionAttributes>
+            <actions>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="Deactivate User"
+                       maxRedirects="100"
+                       name="Deactivate User"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter name="userId"
+                                required="false"
+                                testWith="00uvjnv0jjs31WyVE0h7"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/{$userId}/lifecycle/deactivate"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                        <body generateUsing="JSON" preserveJsonStringFormatting="false"/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="out_httpError" type="string">
+                        <xquery>{//errorSummary/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="Get User"
+                       maxRedirects="100"
+                       name="Get User"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="AppD_Email"
+                                name="AppD_Email"
+                                required="true"
+                                testWith="test.user2@appdynamics.com"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}?search=profile.email%20eq%20%22{$AppD_Email}%22"
+                                        verb="GET">
+                        <httpHeaders>
+                           <header name="Accept-Language">application/json</header>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="out_userId" property="id" type="string"/>
+                     <field description=""
+                            name="out_userStatus"
+                            property="status"
+                            type="string"/>
+                     <field description=""
+                            name="out_errorCode"
+                            property="errorCode"
+                            type="string"/>
+                     <field description=""
+                            name="out_httpStatus"
+                            responseStatusCode="true"
+                            type="string"/>
+                     <field description=""
+                            name="out_userEmail"
+                            property="email"
+                            type="string"/>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="Suspend User"
+                       maxRedirects="100"
+                       name="Suspend User"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="userId"
+                                name="userId"
+                                required="true"
+                                testWith="00uvjnv0jjs31WyVE0h7"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/{$userId}/lifecycle/suspend"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                        <body generateUsing="JSON" preserveJsonStringFormatting="true"/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="out_httpError" type="string">
+                        <xquery>{//errorSummary/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="true"
+                       forSearch="false"
+                       label="Unsuspend User"
+                       maxRedirects="100"
+                       name="Unsuspend User"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="userId"
+                                name="userId"
+                                required="true"
+                                testWith="00uvjo6uv344NVm5o0h7"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/{$userId}/lifecycle/unsuspend"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                        <body generateUsing="JSON" preserveJsonStringFormatting="true"/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="out_httpError" type="string">
+                        <xquery>{//errorSummary/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+               <action category=""
+                       failOnError="false"
+                       forSearch="false"
+                       label="Activate User"
+                       maxRedirects="100"
+                       name="Activate User"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description/>
+                  <input>
+                     <parameter label="userId"
+                                name="userId"
+                                required="true"
+                                testWith="00uvjnv0jjs31WyVE0h7"
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated"
+                                        url="{$URL}/{$userId}/lifecycle/activate"
+                                        verb="POST">
+                        <httpHeaders>
+                           <header name="Accept">application/json</header>
+                           <header name="Content-Type">application/json</header>
+                           <header name="Authorization">{$Authorization}</header>
+                        </httpHeaders>
+                        <body generateUsing="JSON" preserveJsonStringFormatting="true"/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output>
+                     <field description="" name="out_httpError" type="string">
+                        <xquery>{//errorSummary/text()}</xquery>
+                     </field>
+                  </output>
+               </action>
+            </actions>
+            <objects>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="root">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="lastLogin" type="string"/>
+                     <field name="lastUpdated" type="string"/>
+                     <field name="passwordChanged" type="string"/>
+                     <field name="credentials" type="reference">
+                        <options>
+                           <option name="referenceTo">credentials</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="links" type="reference">
+                        <options>
+                           <option name="referenceTo">links</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="created" type="string"/>
+                     <field name="profile" type="reference">
+                        <options>
+                           <option name="referenceTo">profile</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="statusChanged" type="string"/>
+                     <field name="id" type="string"/>
+                     <field name="status" type="string"/>
+                     <field name="activated" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="credentials">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="provider" type="reference">
+                        <options>
+                           <option name="referenceTo">provider</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="provider">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="name" type="string"/>
+                     <field name="type" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="links">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="activate" type="reference">
+                        <options>
+                           <option name="referenceTo">activate</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                     <field name="self" type="reference">
+                        <options>
+                           <option name="referenceTo">self</option>
+                           <option name="relationshipName">Child</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="activate">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="method" type="string"/>
+                     <field name="href" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="self">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="href" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="profile">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="lastName" type="string"/>
+                     <field name="zipCode" type="int"/>
+                     <field name="manager" type="string"/>
+                     <field name="city" type="string"/>
+                     <field name="costCenter" type="string"/>
+                     <field name="secondEmail" type="string"/>
+                     <field name="login" type="string"/>
+                     <field name="title" type="string"/>
+                     <field name="locale" type="string"/>
+                     <field name="employeeNumber" type="int"/>
+                     <field name="firstName" type="string"/>
+                     <field name="primaryPhone" type="string"/>
+                     <field name="mobilePhone" type="string"/>
+                     <field name="streetAddress" type="string"/>
+                     <field name="countryCode" type="string"/>
+                     <field name="state" type="string"/>
+                     <field name="userType" type="string"/>
+                     <field name="email" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              isByCopy="true"
+                              name="errorCauses">
+                  <description>An automatically generated process object</description>
+                  <detail>
+                     <field name="errorSummary" type="string"/>
+                  </detail>
+               </processObject>
+            </objects>
+         </businessConnector>
+      </types1:Entry>
+      <types1:GUID>arvImjXXJHzbAhXsEe1EWF</types1:GUID>
+      <types1:DisplayName>Okta_Service_Connector</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-12-12T21:39:48.389Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
