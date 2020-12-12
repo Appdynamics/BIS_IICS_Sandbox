@@ -1,0 +1,178 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>RsPFn2H0Fdw8jIw-gt-2752549-2017-03-31T18:10:24.702Z::pd.xml</types1:EntryId>
+      <types1:Name>NetsuiteToOkta_Terminated_Employee_Suspension</types1:Name>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags>.agent:INFA-AWS-SANDBOX-1</types1:Tags>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>julian.trent@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2017-03-31T18:10:24Z</types1:CreationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-12-11T22:52:56Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-12-11T22:53:11Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.NetsuiteToOkta_Terminated_Employee_Suspension/NetsuiteToOkta_Terminated_Employee_Suspension.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="NetsuiteToOkta_Terminated_Employee_Suspension"
+                  name="NetsuiteToOkta_Terminated_Employee_Suspension"
+                  overrideAPIName="true">
+            <appliesTo/>
+            <description/>
+            <tags>.agent:INFA-AWS-SANDBOX-1</tags>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="delimitedContent" type="reference">
+                  <options>
+                     <option name="required">false</option>
+                     <option name="referenceTo">File-OktaUserFromNetsuite:DelimitedContentParser-File-OktaUserFromNetsuite-SuspensionContent</option>
+                     <option name="isCopy">true</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description="" name="record" type="reference">
+                  <options>
+                     <option name="referenceTo">File-OktaUserFromNetsuite:DelimitedContentParser-File-OktaUserFromNetsuite-SuspensionRecord</option>
+                     <option name="required">false</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">lfbzsVs0M4zbqKxLgsWX8g</option>
+                  </options>
+               </field>
+               <field description="" name="actionCode" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <targetLocation>INFA-AWS-SANDBOX-1</targetLocation>
+               <event eventSource="File-OktaUserFromNetsuite:DelimitedContentParser-File-OktaUserFromNetsuite-Suspension"/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="j1gpk4ie" targetId="j1gpk4id"/>
+               </start>
+               <subflow id="j1gpk4id">
+                  <title>Insert Record into Integration Queue - Submitted</title>
+                  <subflowGUID>5564Md4VhwUcZ2W3OTh3OA</subflowGUID>
+                  <subflowPath>addIntegrationQueue-INFAserver</subflowPath>
+                  <runForEach>false</runForEach>
+                  <input>
+                     <parameter name="source" source="constant" updatable="true">Netsuite</parameter>
+                     <parameter name="target" source="constant" updatable="true">Okta</parameter>
+                     <parameter name="process" source="constant" updatable="true">Okta_User_Suspend</parameter>
+                     <parameter name="tranId" source="field" updatable="true">input.delimitedContent[1]/record[1]/employee_id</parameter>
+                     <parameter name="transactionType" source="constant" updatable="true">Okta_User_Suspend</parameter>
+                     <parameter name="transactionName" source="field" updatable="true">input.delimitedContent[1]/record[1]/email</parameter>
+                  </input>
+                  <outputDef>
+                     <field name="recordId" type="string">
+                        <options>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                  </outputDef>
+                  <link id="j1gpk4jp" targetId="j1gpk4jo"/>
+               </subflow>
+               <subflow id="j1gpk4jo">
+                  <title>Update Integration Queue to 'In Progress' Status</title>
+                  <subflowGUID>1DqERbq5wUaiOtZPZXQkiQ</subflowGUID>
+                  <subflowPath>updateIntegrationQueue-INFAserver</subflowPath>
+                  <runForEach>false</runForEach>
+                  <input>
+                     <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                     <parameter name="status" source="constant" updatable="true">In Progress</parameter>
+                  </input>
+                  <outputDef/>
+                  <link id="j1gxdx4t" targetId="j1gxdx4s"/>
+               </subflow>
+               <service id="j1gxdx4s">
+                  <title>Check User in OKTA</title>
+                  <serviceName>Okta-App-Connection-1:Get User</serviceName>
+                  <serviceGUID>7AMOEs8LR0rckycdYpbpEo</serviceGUID>
+                  <serviceInput>
+                     <parameter name="AppD_Email" source="field" updatable="true">input.delimitedContent[1]/record[1]/email</parameter>
+                  </serviceInput>
+                  <link id="j354nb2w" targetId="j354nb2v"/>
+               </service>
+               <container id="j354nb2v" type="exclusive">
+                  <title>User still 'Active' ?</title>
+                  <flow id="j354nb3q">
+                     <service id="kif8u7jo">
+                        <title>Suspend User</title>
+                        <serviceName>Okta-App-Connection-1:Suspend User</serviceName>
+                        <serviceGUID>7AMOEs8LR0rckycdYpbpEo</serviceGUID>
+                        <serviceInput>
+                           <parameter name="userId" source="field" updatable="true">output.out_userId</parameter>
+                        </serviceInput>
+                        <link id="kif8u7mj" targetId="kif8u7mi"/>
+                     </service>
+                     <subflow id="kif8u7mi">
+                        <title>Update Integration Queue to 'Success' or 'Error'</title>
+                        <subflowGUID>1DqERbq5wUaiOtZPZXQkiQ</subflowGUID>
+                        <subflowPath>updateIntegrationQueue-INFAserver</subflowPath>
+                        <runForEach>false</runForEach>
+                        <input>
+                           <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                           <parameter name="status" source="formula" updatable="true">
+                              <expression language="XQuery">if(
+fn:string-length($output.out_httpError) &gt; 0 
+) 
+then 
+'Error' 
+else 
+'Success'</expression>
+                           </parameter>
+                           <parameter name="exception" source="formula" updatable="true">
+                              <expression language="XQuery">$output.out_httpError</expression>
+                           </parameter>
+                           <parameter name="target transaction id" source="field" updatable="true">input.delimitedContent[1]/record[1]/email</parameter>
+                        </input>
+                        <outputDef/>
+                     </subflow>
+                     <link id="j354nb3r" targetId="j354nb2v" type="containerLink"/>
+                  </flow>
+                  <flow id="j354nb3t">
+                     <subflow id="kif9xutr">
+                        <title>Update Integration Queue to 'Error' Status</title>
+                        <subflowGUID>1DqERbq5wUaiOtZPZXQkiQ</subflowGUID>
+                        <subflowPath>updateIntegrationQueue-INFAserver</subflowPath>
+                        <runForEach>false</runForEach>
+                        <input>
+                           <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                           <parameter name="status" source="constant" updatable="true">Error</parameter>
+                        </input>
+                        <outputDef/>
+                     </subflow>
+                     <link id="j354nb3u" targetId="j354nb2v" type="containerLink"/>
+                  </flow>
+                  <link id="j354nb3n" targetId="j354nb3q" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$output.out_userStatus}</arg>
+                           <arg name="right">ACTIVE</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="j354nb3o" targetId="j354nb3t" type="containerLink"/>
+                  <link id="j354nb6o" targetId="d"/>
+               </container>
+               <end id="d"/>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>60MzW242lNaejGttdwUWKD</types1:GUID>
+      <types1:DisplayName>NetsuiteToOkta_Terminated_Employee_Suspension</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2020-12-12T21:43:19.726Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
