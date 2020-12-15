@@ -16,8 +16,8 @@
       <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
       <types1:ModificationDate>2020-11-23T18:23:18Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-11-23T18:35:00Z</types1:PublicationDate>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-12-14T22:33:08Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connection/Salesforce/Salesforce.conn.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -56,5 +56,5 @@
       <types1:GUID>58gj2o5v8OacYp4U1C0Jw0</types1:GUID>
       <types1:DisplayName>Salesforce</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-12-14T21:28:51.077Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2020-12-15T18:29:02.958Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
