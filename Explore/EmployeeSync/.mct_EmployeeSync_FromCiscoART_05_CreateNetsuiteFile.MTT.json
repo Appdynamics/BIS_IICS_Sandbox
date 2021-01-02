@@ -45,7 +45,7 @@
     "path" : "/SYS"
   }, {
     "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
-    "name" : "ip-10-150-6-196.us-west-2.compute.internal",
+    "name" : "INFA-AWS-SANDBOX",
     "type" : "AgentGroup",
     "metadata" : {
       "modelVersion" : {
