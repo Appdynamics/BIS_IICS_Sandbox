@@ -14,10 +14,10 @@
       <types1:CreatedBy>gykumar@informatica.com.appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-28T09:18:33Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-08-11T20:42:24Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-12-17T18:50:25Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-08-11T21:54:53Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-12-17T18:50:39Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_Service_Connector/NetSuite_Service_Connector_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -201,7 +201,7 @@
                         <httpHeaders>
                            <header name="SOAPAction">add</header>
                         </httpHeaders>
-                        <body>&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:platformCommon="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:platformCore="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:platformMsgs="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:tranSales="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                        <body>&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:platformCommon="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:platformCore="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:platformMsgs="urn:messepages_2018_1.platform.webservices.netsuite.com" xmlns:tranSales="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
   &lt;soap:Header&gt;
     &lt;platformMsgs:passport&gt;
       &lt;platformCore:email&gt;{$username}&lt;/platformCore:email&gt;
@@ -555,7 +555,7 @@
               {
               if(exists($i/custcol_oem_cos_percent/text()))
               then
-               &lt;platformCore:customField internalId="4810" scriptId="custcol_oem_cos_percent" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+               &lt;platformCore:customField scriptId="custcol_oem_cos_percent" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
                            &lt;platformCore:value&gt;{$i/custcol_oem_cos_percent/text()}&lt;/platformCore:value&gt;
               &lt;/platformCore:customField&gt;
               else ()
@@ -563,7 +563,7 @@
               {
               if(exists($i/custcol_referral_percent/text()))
               then
-               &lt;platformCore:customField internalId="4807" scriptId="custcol_referral_percent" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
+               &lt;platformCore:customField scriptId="custcol_referral_percent" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
                            &lt;platformCore:value&gt;{$i/custcol_referral_percent/text()}&lt;/platformCore:value&gt;
               &lt;/platformCore:customField&gt;
               else ()
@@ -1078,8 +1078,7 @@
                 {
                         if(exists($NSHeaderCustomFields/*:custbody_joint_sell/text()))
                                 then
-                		&lt;platformCore:customField   internalId="5020"
-                                                    scriptId="custbody_joint_sell"
+                		&lt;platformCore:customField   scriptId="custbody_joint_sell"
                                                     xsi:type="platformCore:StringCustomFieldRef"&gt;
                             &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_joint_sell/text()}&lt;/platformCore:value&gt;
                         &lt;/platformCore:customField&gt;
@@ -1088,10 +1087,18 @@
                 {
                         if(exists($NSHeaderCustomFields/*:custbody_cisco_capital/text()))
                                 then
-                		&lt;platformCore:customField   internalId="4360"
-                                                    scriptId="custbody_cisco_capital"
+                		&lt;platformCore:customField   scriptId="custbody_cisco_capital"
                                                     xsi:type="platformCore:StringCustomFieldRef"&gt;
                             &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_cisco_capital/text()}&lt;/platformCore:value&gt;
+                        &lt;/platformCore:customField&gt;
+                else ()
+                }                
+                {
+                        if(exists($NSHeaderCustomFields/*:custbody_cancel_replace/text()))
+                                then
+                		&lt;platformCore:customField   scriptId="custbody_cancel_replace"
+                                                    xsi:type="platformCore:StringCustomFieldRef"&gt;
+                            &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_cancel_replace/text()}&lt;/platformCore:value&gt;
                         &lt;/platformCore:customField&gt;
                 else ()
                 }                
@@ -7263,6 +7270,7 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      <field name="custbody_cisco_manual_tracking" type="string"/>
                      <field name="custbody_joint_sell" type="string"/>
                      <field name="custbody_cisco_capital" type="string"/>
+                     <field name="custbody_cancel_replace" type="string"/>
                   </detail>
                </processObject>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -7283,5 +7291,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-09-03T19:01:18.473Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-01-07T19:07:27.939Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
