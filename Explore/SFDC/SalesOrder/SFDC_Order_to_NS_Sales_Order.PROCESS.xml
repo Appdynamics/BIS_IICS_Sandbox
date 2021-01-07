@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-12-17T18:54:21Z</types1:ModificationDate>
+      <types1:ModificationDate>2020-12-22T23:40:21Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-12-17T18:58:15Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-12-22T23:41:09Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -709,7 +709,7 @@ then 'No' else 'Yes'</expression>
                   </operation>
                   <operation source="formula"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_cancel_replace">
-                     <expression language="XQuery">if($Cancel_Replace__c = 'Yes') then 'T' else 'F'</expression>
+                     <expression language="XQuery">if($Cancel_Replace__c = 'true') then 'T' else 'F'</expression>
                   </operation>
                   <link id="iydvxbey" targetId="iaj27kfk"/>
                </assignment>
@@ -2648,5 +2648,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-12-17T19:10:37.528Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-01-07T19:00:06.212Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
