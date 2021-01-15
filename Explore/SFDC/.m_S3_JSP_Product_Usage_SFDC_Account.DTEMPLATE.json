@@ -57,7 +57,7 @@
       },
       "contextAttributes" : null,
       "additionalInfo" : {
-        "description" : null,
+        "description" : "SFDC_SB_Full",
         "contentType" : "JSON",
         "documentState" : "VALID"
       }
