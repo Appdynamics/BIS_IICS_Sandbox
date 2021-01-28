@@ -937,5 +937,5 @@ if(exists($JECustomField/*:custbody_je_memo/text()))
       <types1:GUID>akjnSQ3KsWscwL326ht1eG</types1:GUID>
       <types1:DisplayName>NetSuite-ServiceConnector-JournalEntry</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-25T15:28:33.403Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-01-28T20:49:48.518Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
