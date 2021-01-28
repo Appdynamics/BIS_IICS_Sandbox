@@ -3,7 +3,7 @@
    <types1:Item>
       <types1:EntryId>XKf3TPdqRi92qBb-gt-7616646-2015-10-07T05:15:11.791Z::conn.xml</types1:EntryId>
       <types1:Name>NetSuite-Journal-Entry</types1:Name>
-      <types1:ParentFlowIds>Drr0Fdw8jIw8jIw-gt-2106411-2019-02-08T20:21:04.747Z::pd.xml,lQhtGci3zymbdua-gt-28625957-2019-02-08T20:20:41.9Z::pd.xml</types1:ParentFlowIds>
+      <types1:ParentFlowIds>Drr0Fdw8jIw8jIw-gt-2106411-2019-02-08T20:21:04.747Z::pd.xml,lQhtGci3zymbdua-gt-28625957-2019-02-08T20:20:41.9Z::pd.xml,xJAWa-gt-636553-2016-06-12T23:17:07.638Z::pd.xml</types1:ParentFlowIds>
       <types1:MimeType>application/xml+connection</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
@@ -55,5 +55,5 @@
       <types1:GUID>3e7G3QHutR2jC8RcCWd0Ar</types1:GUID>
       <types1:DisplayName>NetSuite-Journal-Entry</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-25T15:28:33.571Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-01-28T20:56:43.203Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
