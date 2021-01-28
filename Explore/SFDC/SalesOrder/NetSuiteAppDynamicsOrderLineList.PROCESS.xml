@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T06:52:43Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-08-05T20:05:55Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-01-11T22:09:31Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-08-05T21:19:19Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-01-27T18:12:11Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.NetSuiteAppDynamicsOrderLineList/NetSuiteAppDynamicsOrderLineList.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -129,164 +129,8 @@
             </deployment>
             <flow id="a">
                <start id="b">
-                  <link id="jk8kewtf" targetId="jk8kewsy"/>
+                  <link id="kjt48fmg" targetId="jk8kewty"/>
                </start>
-               <container id="jk8kewsy" type="exclusive">
-                  <title>Deal Type</title>
-                  <flow id="jk8kewsz">
-                     <assignment id="jk8kewt0">
-                        <title>Get Opportunity Product Line</title>
-                        <operation source="query" to="temp.opptyProductLine">
-                           <query advanceQuery="false" from="Salesforce:OpportunityLineItem">
-                              <where>Id = '{$Opportunity_Product__c}'</where>
-                           </query>
-                        </operation>
-                        <link id="jk8kewt9" targetId="jk8kewt1"/>
-                     </assignment>
-                     <container id="jk8kewt1" type="exclusive">
-                        <title>opptyProductLine</title>
-                        <flow id="jk8kewt2">
-                           <assignment id="jk8kewt3">
-                              <title>Assignment to cotermOpptyId</title>
-                              <operation source="formula" to="temp.cotermOpptyId">
-                                 <expression language="XQuery">if($temp.opptyProductLine.SBQQ__QuoteLine__r.Line_Type_Override__c = true() and $temp.opptyProductLine.Opportunity.Deal_Type__c = 'Add On Early Renewal') 
-then 
-$temp.opptyProductLine.Opportunity.Original_Contract__r.SBQQ__Opportunity__r.Id
-else 
-if($temp.opptyProductLine.SBQQ__QuoteLine__r.Line_Type_Override__c = true() and ($temp.opptyProductLine.Opportunity.Deal_Type__c = 'Renewal - Subscription' or $temp.opptyProductLine.Opportunity.Deal_Type__c = 'Renewal - Perpetual')) 
-then 
-$temp.opptyProductLine.Opportunity.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
-else 
-if(xs:integer(days-from-duration(xs:date($temp.opptyProductLine.SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__EndDate__c) - xs:date($Order.Start_Date__c))) &gt;= 92)
-then
-$temp.opptyProductLine.SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id
-else
-''</expression>
-                              </operation>
-                           </assignment>
-                           <link id="jk8kewtc" targetId="jk8kewt1" type="containerLink"/>
-                        </flow>
-                        <flow id="jk8kewt4">
-                           <container id="k90gc435" type="exclusive">
-                              <title>Quote Line Item ID</title>
-                              <flow id="k90gc437">
-                                 <assignment id="k90gc43v">
-                                    <title>Assignment to cotermOpptyId</title>
-                                    <operation source="formula" to="temp.cotermOpptyId">
-                                       <expression language="XQuery">if($SBQQ__QuoteLine__r.Line_Type_Override__c = true() and $SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Deal_Type__c = 'Add On Early Renewal')
-then
-$SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Original_Contract__r.SBQQ__Opportunity__r.Id
-else
-if($SBQQ__QuoteLine__r.Line_Type_Override__c = true() and ( $SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Deal_Type__c = 'Renewal - Subscription' or $SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Deal_Type__c = 'Renewal - Perpetual'))
-then
-$SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
-else
-if(xs:integer(days-from-duration(xs:date($SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__EndDate__c) - xs:date($Order.Start_Date__c))) &gt;= 92)
-then
-$SBQQ__QuoteLine__r.SBQQ__RenewedSubscription__r.SBQQ__QuoteLine__r.SBQQ__Quote__r.SBQQ__Opportunity2__r.Id
-else
-''</expression>
-                                    </operation>
-                                 </assignment>
-                                 <link id="k90gc438" targetId="k90gc435" type="containerLink"/>
-                              </flow>
-                              <flow id="k90gc43a">
-                                 <assignment id="k90gc446">
-                                    <title>Assignment to cotermOpptyId</title>
-                                    <operation source="formula" to="temp.cotermOpptyId">
-                                       <expression language="XQuery">if ($Order.Opportunity.Deal_Type__c = 'Add On Early Renewal' and $Line_Type__c  = 'Renewal')
-then
-$Order.Opportunity.Original_Contract__r.SBQQ__Opportunity__r.Id else
-if ($Order.Opportunity.Deal_Type__c = 'Renewal - Subscription' or $Order.Opportunity.Deal_Type__c = 'Renewal - Perpetual')
-then 
-$Order.Opportunity.SBQQ__RenewedContract__r.SBQQ__Opportunity__r.Id
-else ''
-
-</expression>
-                                    </operation>
-                                 </assignment>
-                                 <link id="k90gc43b" targetId="k90gc435" type="containerLink"/>
-                              </flow>
-                              <link id="k90gc436" targetId="k90gc437" type="containerLink">
-                                 <condition source="formula">
-                                    <function name="set">
-                                       <arg name="field">{$SBQQ__QuoteLine__c}</arg>
-                                    </function>
-                                 </condition>
-                              </link>
-                              <link id="k90gc439" targetId="k90gc43a" type="containerLink">
-                                 <condition source="formula">
-                                    <function name="unset">
-                                       <arg name="field">{$SBQQ__QuoteLine__c}</arg>
-                                    </function>
-                                 </condition>
-                              </link>
-                           </container>
-                           <link id="jk8kewtd" targetId="jk8kewt1" type="containerLink"/>
-                        </flow>
-                        <link id="jk8kewta" targetId="jk8kewt2" type="containerLink">
-                           <condition source="formula">
-                              <function name="set">
-                                 <arg name="field">{$temp.opptyProductLine}</arg>
-                              </function>
-                           </condition>
-                        </link>
-                        <link id="jk8kewtb" targetId="jk8kewt4" type="containerLink">
-                           <condition source="formula">
-                              <function name="unset">
-                                 <arg name="field">{$temp.opptyProductLine}</arg>
-                              </function>
-                           </condition>
-                        </link>
-                     </container>
-                     <link id="jk8kewt8" targetId="jk8kewsy" type="containerLink"/>
-                  </flow>
-                  <flow id="jk8kewt5">
-                     <link id="jk8kewte" targetId="jk8kewsy" type="containerLink"/>
-                  </flow>
-                  <link id="jk8kewt6" targetId="jk8kewsz" type="containerLink">
-                     <condition source="formula">
-                        <function name="included">
-                           <arg name="left">{$Order.Deal_Type__c}</arg>
-                           <arg name="right">New,Training,Renewal - Subscription,Renewal - Perpetual,Expansion,Growth - (Co-Term),Add-On,Add On Early Renewal</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="jk8kewt7" targetId="jk8kewt5" type="containerLink"/>
-                  <link id="jk8kewtz" targetId="jk8kewty"/>
-               </container>
-               <container id="jxkxqen9" type="exclusive">
-                  <title>Payment Schedule Empty?</title>
-                  <flow id="jxkxqend">
-                     <link id="jxkxqene" targetId="jxkxqen9" type="containerLink"/>
-                  </flow>
-                  <flow id="jxkxqeng">
-                     <service id="jxkxqeos">
-                        <title>Get Billing Schedule</title>
-                        <serviceName>NetSuite-AppDynamics:searchBillingSchedule</serviceName>
-                        <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                        <serviceInput>
-                           <parameter name="in_billingSchedule_name" source="field" updatable="true">temp.temp_calcBillingScheduleName</parameter>
-                        </serviceInput>
-                        <link id="jxkxqeqr" targetId="jxkxqeqq"/>
-                     </service>
-                     <assignment id="jxkxqeqq">
-                        <title>Assignment Billing Schedule to temp</title>
-                        <operation source="field" to="temp.temp_billingScheduleInternalId">output.billingSchedule_internalId</operation>
-                     </assignment>
-                     <link id="jxkxqenh" targetId="jxkxqen9" type="containerLink"/>
-                  </flow>
-                  <link id="jxkxqenc" targetId="jxkxqend" type="containerLink">
-                     <condition source="formula">
-                        <function name="string-equals">
-                           <arg name="left">{$temp.temp_calcBillingScheduleName}</arg>
-                           <arg name="right"/>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="jxkxqenf" targetId="jxkxqeng" type="containerLink"/>
-                  <link id="jxkxqeo4" targetId="jk8kewue"/>
-               </container>
                <assignment id="jk8kewty">
                   <title>Assignment to months, temp_calcBillingScheduleName</title>
                   <operation source="formula" to="temp.months">
@@ -380,7 +224,7 @@ else()</expression>
                      <expression language="XQuery">if(fn:empty($End_Date__c)) then() else concat(infa:format($End_Date__c, "yyyy-MM-dd"), "T12:00:00.000-00:00")
 </expression>
                   </operation>
-                  <operation source="field" to="temp.thisItem[1]/custcol_coterm_oppty_id">temp.cotermOpptyId</operation>
+                  <operation source="field" to="temp.thisItem[1]/custcol_coterm_oppty_id">Renewal_Co_Term_Opp_ID__c</operation>
                   <operation source="field" to="temp.thisItem[1]/custcol_one_time_disc_amt">One_Time_Discount__c</operation>
                   <operation source="formula" to="temp.thisItem[1]/custcol_ext_list_price">
                      <expression language="XQuery">$Revenue_Extended_List_Price__c</expression>
@@ -426,6 +270,38 @@ fn:concat($Payment_Schedule_Details__c, ' ', $Subscription_Month_Duration__c)</e
                   </operation>
                   <link id="jk8kewwl" targetId="d"/>
                </assignment>
+               <container id="jxkxqen9" type="exclusive">
+                  <title>Payment Schedule Empty?</title>
+                  <flow id="jxkxqend">
+                     <link id="jxkxqene" targetId="jxkxqen9" type="containerLink"/>
+                  </flow>
+                  <flow id="jxkxqeng">
+                     <service id="jxkxqeos">
+                        <title>Get Billing Schedule</title>
+                        <serviceName>NetSuite-AppDynamics:searchBillingSchedule</serviceName>
+                        <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                        <serviceInput>
+                           <parameter name="in_billingSchedule_name" source="field" updatable="true">temp.temp_calcBillingScheduleName</parameter>
+                        </serviceInput>
+                        <link id="jxkxqeqr" targetId="jxkxqeqq"/>
+                     </service>
+                     <assignment id="jxkxqeqq">
+                        <title>Assignment Billing Schedule to temp</title>
+                        <operation source="field" to="temp.temp_billingScheduleInternalId">output.billingSchedule_internalId</operation>
+                     </assignment>
+                     <link id="jxkxqenh" targetId="jxkxqen9" type="containerLink"/>
+                  </flow>
+                  <link id="jxkxqenc" targetId="jxkxqend" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$temp.temp_calcBillingScheduleName}</arg>
+                           <arg name="right"/>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="jxkxqenf" targetId="jxkxqeng" type="containerLink"/>
+                  <link id="jxkxqeo4" targetId="jk8kewue"/>
+               </container>
                <end id="d"/>
             </flow>
          </process>
@@ -433,5 +309,5 @@ fn:concat($Payment_Schedule_Details__c, ' ', $Subscription_Month_Duration__c)</e
       <types1:GUID>kqG4HNhic2Kk0kGc19ss2T</types1:GUID>
       <types1:DisplayName>NetSuiteAppDynamicsOrderLineList</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-08-07T00:01:47.004Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-01-28T18:15:34.646Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
