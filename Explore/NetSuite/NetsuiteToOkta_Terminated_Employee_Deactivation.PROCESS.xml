@@ -13,10 +13,10 @@
       <types1:CreatedBy>sri.battu@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2020-12-12T22:04:16Z</types1:CreationDate>
       <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-12-12T22:11:16Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:ModificationDate>2020-12-13T23:04:21Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-12-12T22:11:56Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-12-13T23:04:32Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.NetsuiteToOkta_Terminated_Employee_Deactivation/NetsuiteToOkta_Terminated_Employee_Deactivation.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -24,7 +24,7 @@
                   xmlns:list="urn:activevos:spi:list:functions"
                   displayName="NetsuiteToOkta_Terminated_Employee_Deactivation"
                   name="NetsuiteToOkta_Terminated_Employee_Deactivation"
-                  overrideAPIName="false">
+                  overrideAPIName="true">
             <appliesTo/>
             <description/>
             <tags>.agent:INFA-AWS-SANDBOX-1</tags>
@@ -33,16 +33,15 @@
                <parameter description="" name="delimitedContent" type="reference">
                   <options>
                      <option name="required">false</option>
-                     <option name="referenceTo">File-OktaUserFromNetsuite:DelimitedContentParser-File-OktaUserFromNetsuite-DeactivationContent</option>
+                     <option name="referenceTo">File-OktaUserFromNetsuite:File-OktaUserFromNetsuite-DeactivationContent</option>
                      <option name="isCopy">true</option>
                   </options>
                </parameter>
             </input>
             <tempFields>
-               <field description="" name="record" type="objectlist">
+               <field description="" name="record" type="reference">
                   <options>
-                     <option name="referenceTo">File-OktaUserFromNetsuite:DelimitedContentParser-File-OktaUserFromNetsuite-DeactivationRecord</option>
-                     <option hide="true" name="multiSelect">true</option>
+                     <option name="referenceTo">File-OktaUserFromNetsuite:File-OktaUserFromNetsuite-DeactivationRecord</option>
                      <option name="required">false</option>
                      <option name="isCopy">true</option>
                      <option name="guid">lfbzsVs0M4zbqKxLgsWX8g</option>
@@ -57,7 +56,7 @@
             <notes/>
             <deployment suspendOnFault="false" tracingLevel="verbose">
                <targetLocation>INFA-AWS-SANDBOX-1</targetLocation>
-               <event eventSource="File-OktaUserFromNetsuite:DelimitedContentParser-File-OktaUserFromNetsuite-Deactivation"/>
+               <event eventSource="File-OktaUserFromNetsuite:File-OktaUserFromNetsuite-Deactivation"/>
             </deployment>
             <flow id="a">
                <start id="b">
@@ -161,7 +160,7 @@ else
                      <condition source="formula">
                         <function name="string-equals">
                            <arg name="left">{$output.out_userStatus}</arg>
-                           <arg name="right">SUSPEND</arg>
+                           <arg name="right">SUSPENDED</arg>
                         </function>
                      </condition>
                   </link>
@@ -175,5 +174,5 @@ else
       <types1:GUID>7cHGKr3PnAVjz5huv3ozeH</types1:GUID>
       <types1:DisplayName>NetsuiteToOkta_Terminated_Employee_Deactivation</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-12-12T22:17:42.538Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-02-04T20:38:34.257Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
