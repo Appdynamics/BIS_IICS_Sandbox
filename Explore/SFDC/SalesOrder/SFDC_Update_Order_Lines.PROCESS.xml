@@ -1,0 +1,132 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>FVNN5KaaabbgdoG-gt-4070335-2020-12-17T19:06:59.507Z::pd.xml</types1:EntryId>
+      <types1:Name>SFDC_Update_Order_Lines</types1:Name>
+      <types1:ParentFlowIds>qZpOzEkhK6LlRkP-gt-11708313-2016-11-21T03:52:29.261Z::pd.xml</types1:ParentFlowIds>
+      <types1:MimeType>application/xml+process</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>smitha.reddy@appdynamics.com.sandbox</types1:CreatedBy>
+      <types1:CreationDate>2020-12-17T19:07:00Z</types1:CreationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2021-01-12T17:55:53Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2021-01-27T18:12:11Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/spi.SFDC_Update_Order_Lines/SFDC_Update_Order_Lines.pd.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                  xmlns:list="urn:activevos:spi:list:functions"
+                  displayName="SFDC_Update_Order_Lines"
+                  name="SFDC_Update_Order_Lines"
+                  overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description=""
+                          name="input_SFDC_OrderItems_ToUpdate"
+                          type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </parameter>
+               <parameter description="" name="input_NS_tranId" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description="" name="temp_thisOrderItem" type="reference">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_OrderItemList" type="objectlist">
+                  <options>
+                     <option name="referenceTo">Salesforce:OrderItem</option>
+                     <option hide="true" name="multiSelect">true</option>
+                     <option name="required">false</option>
+                     <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <rest/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="kjsuzmmv" targetId="kjsuzmmu"/>
+               </start>
+               <assignment id="kjsuzmmu">
+                  <title>Assignment to temp_OrderItemList</title>
+                  <operation source="field" to="temp.temp_OrderItemList">input.input_SFDC_OrderItems_ToUpdate</operation>
+                  <link id="kjsuzmn3" targetId="kjsuzmn2"/>
+               </assignment>
+               <assignment id="kjsuzmn2">
+                  <title>Assign Order Lines</title>
+                  <operation source="formula" to="temp.temp_thisOrderItem">
+                     <expression language="XQuery">list:head($temp.temp_OrderItemList )</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_OrderItemList">
+                     <expression language="XQuery">list:tail($temp.temp_OrderItemList)</expression>
+                  </operation>
+                  <link id="kjsuzmnl" targetId="kjsuzmnb"/>
+               </assignment>
+               <container id="kjsuzmnb" type="exclusive">
+                  <title>temp_thisOrderItem</title>
+                  <flow id="kjsuzmnc">
+                     <assignment id="kjsuzmnd">
+                        <title>Assignment to NS Integration Status, NS Reference Number</title>
+                        <operation source="constant" to="temp.temp_thisOrderItem.NS_Integration_Status__c">Integrated</operation>
+                        <operation source="field" to="temp.temp_thisOrderItem.NS_Reference_Number__c">input.input_NS_tranId</operation>
+                        <link id="kjsuzmni" targetId="kjsuzmne"/>
+                     </assignment>
+                     <jumpTo id="kjsuzmne">
+                        <link id="kjsuzmnj" targetId="kjsuzmn2"/>
+                     </jumpTo>
+                  </flow>
+                  <flow id="kjsuzmnf">
+                     <link id="kjsuzmnk" targetId="kjsuzmnb" type="containerLink"/>
+                  </flow>
+                  <link id="kjsuzmng" targetId="kjsuzmnc" type="containerLink">
+                     <condition source="formula">
+                        <function name="set">
+                           <arg name="field">{$temp.temp_thisOrderItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="kjsuzmnh" targetId="kjsuzmnf" type="containerLink">
+                     <condition source="formula">
+                        <function name="unset">
+                           <arg name="field">{$temp.temp_thisOrderItem}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="kjsuzmnr" targetId="kitcvp7e"/>
+               </container>
+               <end id="kitcvp7e">
+                  <title>End</title>
+               </end>
+            </flow>
+         </process>
+      </types1:Entry>
+      <types1:GUID>gQhqDHf642RhdeqzpHEVQe</types1:GUID>
+      <types1:DisplayName>SFDC_Update_Order_Lines</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2021-02-04T21:17:56.693Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
