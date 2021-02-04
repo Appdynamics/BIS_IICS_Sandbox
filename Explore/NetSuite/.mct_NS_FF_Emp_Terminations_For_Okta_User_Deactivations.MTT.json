@@ -1,0 +1,107 @@
+{
+  "objectInfo" : {
+    "id" : "36CTVU1onYBlrDfBQnJyuo",
+    "name" : "mct_NS_FF_Emp_Terminations_For_Okta_User_Deactivations",
+    "type" : "MTT",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0Z0000000000JW"
+      },
+      "contextAttributes" : [ {
+        "name" : "id",
+        "value" : "@1"
+      } ],
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    }
+  },
+  "dataFileExtension" : "zip",
+  "objectRefs" : [ {
+    "id" : "1AoqRRcFAVobCrPGI9Fgac",
+    "name" : "FlatFile_Netsuite_Terminations",
+    "type" : "Connection",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0B00000000007G"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "COMPLETE"
+      }
+    },
+    "path" : "/SYS"
+  }, {
+    "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
+    "name" : "INFA-AWS-SANDBOX",
+    "type" : "AgentGroup",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB2500000000000K"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/SYS"
+  }, {
+    "id" : "8IaTDFtcniaf695LtwKEi4",
+    "name" : "m_NS_FF_Emp_Terminations_For_Okta_User_Deactivations",
+    "type" : "DTEMPLATE",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB170000000000JK"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/NetSuite"
+  }, {
+    "id" : "4CCGgqXCJRHckum26BMe2M",
+    "name" : "Netsuite_ODBC_SB",
+    "type" : "Connection",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0B000000000075"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "COMPLETE"
+      }
+    },
+    "path" : "/SYS"
+  } ]
+}
