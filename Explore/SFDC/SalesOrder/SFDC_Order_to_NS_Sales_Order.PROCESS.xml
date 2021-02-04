@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-12-22T23:40:21Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:ModificationDate>2021-01-27T18:08:27Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-12-22T23:41:09Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-01-27T18:12:11Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -711,6 +711,13 @@ then 'No' else 'Yes'</expression>
                              to="temp.thisNSHeaderCustomFields[1]/custbody_cancel_replace">
                      <expression language="XQuery">if($Cancel_Replace__c = 'true') then 'T' else 'F'</expression>
                   </operation>
+                  <operation source="formula" to="temp.thisNSHeaderCustomFields[1]/custbody_baddebt">
+                     <expression language="XQuery">if($Bad_Debt__c = 'true') then 'T' else 'F'</expression>
+                  </operation>
+                  <operation source="formula"
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_concession">
+                     <expression language="XQuery">if($Concession__c  = 'true') then 'T' else 'F'</expression>
+                  </operation>
                   <link id="iydvxbey" targetId="iaj27kfk"/>
                </assignment>
                <assignment id="iaj27kfk">
@@ -758,7 +765,7 @@ then 'No' else 'Yes'</expression>
                              to="temp.thisSalesOrder[1]/transactionShipAddress[1]/shipAddressee">ShipToContact.Account.Name</operation>
                   <operation source="formula" to="temp.thisSalesOrder[1]/subsidiary[1]/internalId">
                      <expression language="XQuery">if($EULA_Region__c='Americas') then '1' else 
-if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expression>
+if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expression>
                   </operation>
                   <link id="iaj2ydsj" targetId="iaj2ydsi"/>
                </assignment>
@@ -766,7 +773,7 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expressio
                   <title>Query for Order Products</title>
                   <operation source="list" to="temp.thisOrderProductList">
                      <query advanceQuery="false" from="Salesforce:OrderItem">
-                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') LIMIT 2000</where>
+                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel')  LIMIT 2000</where>
                      </query>
                   </operation>
                   <operation source="query" to="temp.temp_sfdcGetCustomScheduleLine">
@@ -1056,7 +1063,7 @@ else $Opportunity.Opportunity_Type__c</expression>
                         <operation source="field" to="temp.temp_SFDCBillingCountry">temp.temp_IntegrationMapping_Billing.Mapping_Name__c</operation>
                         <operation source="formula" to="temp.billToSubsidiary">
                            <expression language="XQuery">if($EULA_Region__c='Americas') then '1' else 
-if($EULA_Region__c='APAC' or $EULA_Region__c='EMEA') then '9' else ''</expression>
+if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expression>
                         </operation>
                         <operation source="query" to="temp.temp_IntegrationMapping_Subsidiary">
                            <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
@@ -2463,90 +2470,64 @@ else
                      </jumpTo>
                   </flow>
                   <flow id="j58f49ek">
-                     <assignment id="j58f49ne">
-                        <title>Update Order with NetSuite Id</title>
-                        <operation source="field" to="OrderReferenceNumber">output.NSsalesOrder[1]/tranId</operation>
-                        <operation source="constant" to="Integration_Exception_Message__c"/>
-                        <operation source="formula" to="Sync_Time__c">
-                           <function name="time_from_now">
-                              <arg name="value">0</arg>
-                              <arg name="HM_flag">M</arg>
-                           </function>
-                        </operation>
-                        <operation source="constant" to="SO_Integration_Status__c">Integrated</operation>
-                        <link id="k9waj2vl" targetId="k9waj2vk"/>
-                     </assignment>
-                     <assignment id="k9waj2vk">
-                        <title>Assign Order Lines</title>
-                        <operation source="formula" to="temp.temp_orderProduct">
-                           <expression language="XQuery">list:head($temp.thisOrderProductList)</expression>
-                        </operation>
-                        <operation source="formula" to="temp.thisOrderProductList">
-                           <expression language="XQuery">list:tail($temp.thisOrderProductList)</expression>
-                        </operation>
-                        <link id="k9waj39j" targetId="k9waj39i"/>
-                     </assignment>
-                     <assignment id="jerndxei">
-                        <title>Update Order Exception</title>
-                        <operation source="formula" to="Integration_Exception_Message__c">
-                           <expression language="XQuery">fn:concat($output.status, ' ', $output.errorMessages,' ',$output.faultcode, ' ', $output.faultstring, ' ', $output.errorSyncAttach,' ',$temp.exception, ' ', $temp.exceptionOrder)</expression>
-                        </operation>
-                        <operation source="formula" to="Sync_Time__c">
-                           <function name="time_from_now">
-                              <arg name="value">0</arg>
-                              <arg name="HM_flag">M</arg>
-                           </function>
-                        </operation>
-                        <operation source="formula" to="SO_Integration_Status__c">
-                           <expression language="XQuery">if ($temp.exception = 'Yes')
-then 'Error'
-else 'Integrated'</expression>
-                        </operation>
-                        <operation source="formula" to="output.out_error">
-                           <expression language="XQuery">fn:concat($output.status,' ', $output.errorMessages,' ', $output.faultcode, ' ',$output.faultstring, ' ',$output.errorSyncAttach, ' ',$temp.exception, ' ',$temp.exceptionOrder)</expression>
-                        </operation>
-                        <operation source="constant" to="RecordTypeId">012340000007mHzAAI</operation>
-                        <link id="jerndxhe" targetId="jerndxhd"/>
-                     </assignment>
-                     <assignment id="jerndxhd">
-                        <title>Assignment to out_NetSuiteId</title>
-                        <operation source="formula" to="output.out_NetSuiteId">
-                           <expression language="XQuery">if(fn:string-length($output.search_SalesOrder_internalId)&gt;0) then $output.search_SalesOrder_internalId else $output.NSinternalID </expression>
-                        </operation>
-                        <link id="jerndxk4" targetId="jerndxk3"/>
-                     </assignment>
-                     <container id="k9waj39i" type="exclusive">
-                        <title>Is Order Product Set?</title>
-                        <flow id="k9waj39m">
-                           <assignment id="k9waj3iv">
-                              <title>Ns Order Reference Number</title>
-                              <operation source="field" to="temp.temp_orderProduct.NS_Reference_Number__c">output.NSsalesOrder[1]/tranId</operation>
-                              <operation source="constant" to="temp.temp_orderProduct.NS_Integration_Status__c">Integrated</operation>
-                              <link id="k9waj3wu" targetId="k9waj3ws"/>
-                           </assignment>
-                           <jumpTo id="k9waj3ws">
-                              <link id="k9waj3wt" targetId="k9waj2vk"/>
-                           </jumpTo>
+                     <eventContainer id="kjt4k9fg">
+                        <subflow id="kjt4k8o7">
+                           <title>Update SFDC Order With TranID</title>
+                           <subflowGUID>lODQrP0MdcXe55ZaPea7Om</subflowGUID>
+                           <subflowPath>SFDC_Update_Order</subflowPath>
+                           <runForEach>false</runForEach>
+                           <input>
+                              <parameter name="input_OrderToUpdate" source="query" updatable="true">
+                                 <query advanceQuery="false" from="Salesforce:Order">
+                                    <where>Id = '{$Id}' </where>
+                                 </query>
+                              </parameter>
+                              <parameter name="input_NS_TranID" source="field" updatable="true">output.NSsalesOrder[1]/tranId</parameter>
+                           </input>
+                           <outputDef/>
+                        </subflow>
+                        <flow id="kjt4k9fi">
+                           <link id="kjt4k9fj" targetId="kjt4k9fg" type="containerLink"/>
                         </flow>
-                        <flow id="k9waj39p">
-                           <link id="k9waj39q" targetId="k9waj39i" type="containerLink"/>
+                        <flow id="kjt4k9fl">
+                           <link id="kjt4k9fm" targetId="kjt4k9fg" type="containerLink"/>
                         </flow>
-                        <link id="k9waj39l" targetId="k9waj39m" type="containerLink">
-                           <condition source="formula">
-                              <function name="set">
-                                 <arg name="field">{$temp.temp_orderProduct}</arg>
-                              </function>
-                           </condition>
-                        </link>
-                        <link id="k9waj39o" targetId="k9waj39p" type="containerLink">
-                           <condition source="formula">
-                              <function name="unset">
-                                 <arg name="field">{$temp.temp_orderProduct}</arg>
-                              </function>
-                           </condition>
-                        </link>
-                        <link id="k9waj39k" targetId="jrc67snx"/>
-                     </container>
+                        <link id="kjt4k9fh" targetId="kjt4k9fi" type="containerLink"/>
+                        <link id="kjt4k9cv" targetId="kjt4k9zs"/>
+                        <events>
+                           <catch faultField="faultInfo" id="kjt4k9fb" interrupting="true">
+                              <link id="kjt4k9fk" targetId="kjt4k9fl" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <eventContainer id="kjt4k9zs">
+                        <subflow id="kjt4k9cu">
+                           <title>Update SFDC Lines with TranID</title>
+                           <subflowGUID>gQhqDHf642RhdeqzpHEVQe</subflowGUID>
+                           <subflowPath>SFDC_Update_Order_Lines</subflowPath>
+                           <runForEach>false</runForEach>
+                           <input>
+                              <parameter name="input_SFDC_OrderItems_ToUpdate"
+                                         source="field"
+                                         updatable="true">temp.thisOrderProductList</parameter>
+                              <parameter name="input_NS_tranId" source="field" updatable="true">output.NSsalesOrder[1]/tranId</parameter>
+                           </input>
+                           <outputDef/>
+                        </subflow>
+                        <flow id="kjt4k9zu">
+                           <link id="kjt4k9zv" targetId="kjt4k9zs" type="containerLink"/>
+                        </flow>
+                        <flow id="kjt4k9zx">
+                           <link id="kjt4k9zy" targetId="kjt4k9zs" type="containerLink"/>
+                        </flow>
+                        <link id="kjt4k9zt" targetId="kjt4k9zu" type="containerLink"/>
+                        <link id="kjt4kaj2" targetId="jrc67snx"/>
+                        <events>
+                           <catch faultField="faultInfo" id="kjt4k9kq" interrupting="true">
+                              <link id="kjt4k9zw" targetId="kjt4k9zx" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
                      <container id="jrc67snx" type="exclusive">
                         <title>Sales Order - Newly Created &amp; Not Already Existing?</title>
                         <flow id="jrc67so1">
@@ -2583,6 +2564,35 @@ else 'Integrated'</expression>
                         <link id="jrc67so3" targetId="jrc67so4" type="containerLink"/>
                         <link id="jrc67sx6" targetId="jerndxei"/>
                      </container>
+                     <assignment id="jerndxei">
+                        <title>Update Order Exception</title>
+                        <operation source="formula" to="Integration_Exception_Message__c">
+                           <expression language="XQuery">fn:concat($output.status, ' ', $output.errorMessages,' ',$output.faultcode, ' ', $output.faultstring, ' ', $output.errorSyncAttach,' ',$temp.exception, ' ', $temp.exceptionOrder)</expression>
+                        </operation>
+                        <operation source="formula" to="Sync_Time__c">
+                           <function name="time_from_now">
+                              <arg name="value">0</arg>
+                              <arg name="HM_flag">M</arg>
+                           </function>
+                        </operation>
+                        <operation source="formula" to="SO_Integration_Status__c">
+                           <expression language="XQuery">if ($temp.exception = 'Yes')
+then 'Error'
+else 'Integrated'</expression>
+                        </operation>
+                        <operation source="formula" to="output.out_error">
+                           <expression language="XQuery">fn:concat($output.status,' ', $output.errorMessages,' ', $output.faultcode, ' ',$output.faultstring, ' ',$output.errorSyncAttach, ' ',$temp.exception, ' ',$temp.exceptionOrder)</expression>
+                        </operation>
+                        <operation source="constant" to="RecordTypeId">012340000007mHzAAI</operation>
+                        <link id="jerndxhe" targetId="jerndxhd"/>
+                     </assignment>
+                     <assignment id="jerndxhd">
+                        <title>Assignment to out_NetSuiteId</title>
+                        <operation source="formula" to="output.out_NetSuiteId">
+                           <expression language="XQuery">if(fn:string-length($output.search_SalesOrder_internalId)&gt;0) then $output.search_SalesOrder_internalId else $output.NSinternalID </expression>
+                        </operation>
+                        <link id="jerndxk4" targetId="jerndxk3"/>
+                     </assignment>
                      <end id="jerndxk3">
                         <title>End</title>
                      </end>
@@ -2648,5 +2658,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-01-07T19:00:06.212Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-02-04T21:20:40.915Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
