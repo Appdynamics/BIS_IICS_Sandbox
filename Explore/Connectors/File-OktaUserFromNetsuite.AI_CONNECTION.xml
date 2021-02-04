@@ -3,7 +3,7 @@
    <types1:Item>
       <types1:EntryId>nFr3s8NTYglxbdy-gt-9232271-2017-04-13T18:22:49.21Z::conn.xml</types1:EntryId>
       <types1:Name>File-OktaUserFromNetsuite</types1:Name>
-      <types1:ParentFlowIds>KsTSicjumf6S3wO-gt-141059107-2020-12-07T21:01:50.594Z::pd.xml,RsPFn2H0Fdw8jIw-gt-2752549-2017-03-31T18:10:24.702Z::pd.xml</types1:ParentFlowIds>
+      <types1:ParentFlowIds>bdreAFLK2D86Cjq-gt-191190556-2021-01-13T19:01:17.023Z::pd.xml,KsTSicjumf6S3wO-gt-141059107-2020-12-07T21:01:50.594Z::pd.xml,LVLYtjCtbdsreK8-gt-174635374-2020-12-12T22:04:15.606Z::pd.xml,RsPFn2H0Fdw8jIw-gt-2752549-2017-03-31T18:10:24.702Z::pd.xml</types1:ParentFlowIds>
       <types1:MimeType>application/xml+connection</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
@@ -14,10 +14,10 @@
       <types1:CreatedBy>julian.trent@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-04-13T18:22:49Z</types1:CreationDate>
       <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-12-11T22:44:47Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-01-20T02:11:27Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-12-11T22:44:56Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-01-20T02:11:47Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connection/File-OktaUserFromNetsuite/File-OktaUserFromNetsuite.conn.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -31,7 +31,7 @@
             <attributes/>
             <consumers>
                <consumer enabled="true"
-                         name="DelimitedContentParser-File-OktaUserFromNetsuite-Suspension"
+                         name="File-OktaUserFromNetsuite-Suspension"
                          typeName="DelimitedContentParser">
                   <description>This event source can be used to monitor folders for new delimited content files such as CSV and parse them.</description>
                   <attributes>
@@ -41,7 +41,7 @@
                      <attribute encrypted="false" name="recursive" value="false"/>
                      <attribute encrypted="false"
                                 name="include"
-                                value="FF_Okta_Users_From_Netsuite*\.csv"/>
+                                value="FF_Okta_Users_From_Netsuite_Suspension.csv"/>
                      <attribute encrypted="false" name="exclude" value=""/>
                      <attribute encrypted="false" name="noop" value="false"/>
                      <attribute encrypted="false" name="delete" value="true"/>
@@ -72,17 +72,17 @@
                   </attributes>
                </consumer>
                <consumer enabled="true"
-                         name="DelimitedContentParser-File-OktaUserFromNetsuite-Deactivation"
+                         name="File-OktaUserFromNetsuite-Deactivation"
                          typeName="DelimitedContentParser">
                   <description>Use this event source to monitor folders for new delimited content files, such as CSV, and parse them.</description>
                   <attributes>
                      <attribute encrypted="false"
                                 name="directoryName"
-                                value="opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT"/>
+                                value="/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT"/>
                      <attribute encrypted="false" name="recursive" value="false"/>
                      <attribute encrypted="false"
                                 name="include"
-                                value="FF_Okta_Users_From_Netsuite_Deactivation*\.csv"/>
+                                value="FF_Okta_Users_From_Netsuite_Deactivation.csv"/>
                      <attribute encrypted="false" name="exclude" value=""/>
                      <attribute encrypted="false" name="noop" value="false"/>
                      <attribute encrypted="false" name="delete" value="true"/>
@@ -110,6 +110,47 @@
                      <attribute encrypted="false"
                                 name="customObjectFields"
                                 value="employee_id,email,name,cisco_employee_id,cemail,cisco_user_status,termination_date,supervisor_id,cisco_worker_type"/>
+                  </attributes>
+               </consumer>
+               <consumer enabled="true"
+                         name="File-OktaUserFromNetsuite-Reactivation"
+                         typeName="DelimitedContentParser">
+                  <description>Use this event source to monitor folders for new delimited content files, such as CSV, and parse them.</description>
+                  <attributes>
+                     <attribute encrypted="false"
+                                name="directoryName"
+                                value="/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT"/>
+                     <attribute encrypted="false" name="recursive" value="false"/>
+                     <attribute encrypted="false"
+                                name="include"
+                                value="FF_Okta_Users_From_Netsuite_Rescind.csv"/>
+                     <attribute encrypted="false" name="exclude" value=""/>
+                     <attribute encrypted="false" name="noop" value="false"/>
+                     <attribute encrypted="false" name="delete" value="true"/>
+                     <attribute encrypted="false" name="preMove" value=""/>
+                     <attribute encrypted="false" name="move" value=""/>
+                     <attribute encrypted="false" name="moveFailed" value=""/>
+                     <attribute encrypted="false" name="initialDelay" value="5"/>
+                     <attribute encrypted="false" name="delay" value="5"/>
+                     <attribute encrypted="false" name="maxMessagesPerPoll" value=""/>
+                     <attribute encrypted="false" name="readLock" value="rename"/>
+                     <attribute encrypted="false" name="readLockTimeout" value="60"/>
+                     <attribute encrypted="false" name="readLockCheckInterval" value=""/>
+                     <attribute encrypted="false" name="readLockMinLength" value=""/>
+                     <attribute encrypted="false" name="readLockLoggingLevel" value="WARN"/>
+                     <attribute encrypted="false" name="charset" value=""/>
+                     <attribute encrypted="false" name="otherAttributes" value=""/>
+                     <attribute encrypted="false" name="contentFormat" value="DelimitedContent"/>
+                     <attribute encrypted="false" name="columnsDescriptor" value=""/>
+                     <attribute encrypted="false" name="ignoreFirstRecord" value="true"/>
+                     <attribute encrypted="false" name="ignoreColumnInconsistency" value="false"/>
+                     <attribute encrypted="false" name="delimiter" value=","/>
+                     <attribute encrypted="false" name="textQualifier" value="&#34;"/>
+                     <attribute encrypted="false" name="splitRows" value="true"/>
+                     <attribute encrypted="false" name="useBuiltInProcessObject" value="false"/>
+                     <attribute encrypted="false"
+                                name="customObjectFields"
+                                value="employee_id,email,name,cisco_employee_id,cemail,cisco_user_status,termination_date,supervisor_id,cisco_worker_type,date_rescinded,isinactive"/>
                   </attributes>
                </consumer>
             </consumers>
@@ -128,5 +169,5 @@
       <types1:GUID>lfbzsVs0M4zbqKxLgsWX8g</types1:GUID>
       <types1:DisplayName>File-OktaUserFromNetsuite</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-12-12T21:41:25.83Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-02-04T20:09:24.138Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
