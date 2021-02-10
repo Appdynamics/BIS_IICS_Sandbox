@@ -14,10 +14,10 @@
       <types1:CreatedBy>gykumar@informatica.com.appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-28T09:18:33Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-01-29T06:52:50Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-02-09T00:04:02Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-01-29T06:54:43Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-02-09T00:04:11Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_Service_Connector/NetSuite_Service_Connector_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -5673,7 +5673,7 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
               
                             if(exists($i/custcol_qty/text()))
                                         then
-                            &lt;platformCore:customField scriptId="custcol_qty" xsi:type="platformCore:LongCustomFieldRef"&gt;
+                            &lt;platformCore:customField scriptId="custcol_qty" xsi:type="platformCore:DoubleCustomFieldRef"&gt;
                                         &lt;platformCore:value&gt;{$i/custcol_qty/data()}&lt;/platformCore:value&gt;
                             &lt;/platformCore:customField&gt;
                             else ()
@@ -7330,5 +7330,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-02-04T21:20:02.7Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-02-10T00:43:09.642Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
