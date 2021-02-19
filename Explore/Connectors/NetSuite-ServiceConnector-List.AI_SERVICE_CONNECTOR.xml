@@ -13,11 +13,11 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-06-22T18:09:50Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2019-06-18T00:11:55Z</types1:ModificationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-10-13T22:27:49Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2019-06-18T00:12:06Z</types1:PublicationDate>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-10-13T22:28:23Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_ServiceConnector_List/NetSuite_ServiceConnector_List_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -47,13 +47,13 @@
                                     masked="false"
                                     name="account"
                                     required="true"
-                                    testWith="3501352_SB2"
+                                    testWith="3501352_SB89"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
                                     name="URL"
                                     required="true"
-                                    testWith="https://webservices.netsuite.com/services/NetSuitePort_2018_1?c=3501352_SB3"
+                                    testWith="https://3501352-SB89.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
@@ -342,5 +342,5 @@
       <types1:GUID>68KFglWMvhZeDf5rbveTa7</types1:GUID>
       <types1:DisplayName>NetSuite-ServiceConnector-List</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-25T15:28:33.442Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-02-19T01:27:11.322Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
