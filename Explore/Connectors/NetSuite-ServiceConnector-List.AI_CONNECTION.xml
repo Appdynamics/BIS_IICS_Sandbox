@@ -12,11 +12,11 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-06-22T18:42:40Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2019-07-18T20:40:48Z</types1:ModificationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-10-13T22:29:09Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2019-07-18T20:40:57Z</types1:PublicationDate>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-10-13T22:29:22Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connection/NetSuite-ServiceConnector-List/NetSuite-ServiceConnector-List.conn.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -32,10 +32,10 @@
                           name="username"
                           value="ns.webservice@appdynamics.com"/>
                <attribute encrypted="true" name="password" value=""/>
-               <attribute encrypted="false" name="account" value="3501352_SB3"/>
+               <attribute encrypted="false" name="account" value="3501352_SB89"/>
                <attribute encrypted="false"
                           name="URL"
-                          value="https://3501352-sb3.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"/>
+                          value="https://3501352-SB89.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"/>
                <attribute encrypted="false"
                           name="applicationId"
                           value="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"/>
@@ -54,5 +54,5 @@
       <types1:GUID>2DSl46x3pucicB9XBc1rAu</types1:GUID>
       <types1:DisplayName>NetSuite-ServiceConnector-List</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-25T15:28:33.58Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-02-19T01:28:10.284Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
