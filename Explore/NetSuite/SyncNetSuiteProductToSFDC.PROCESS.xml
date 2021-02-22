@@ -14,9 +14,9 @@
       <types1:CreationDate>2015-12-31T18:49:56Z</types1:CreationDate>
       <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
       <types1:ModificationDate>2019-05-09T18:10:53Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-15T20:11:59Z</types1:PublicationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2020-12-09T17:34:43Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SyncNetSuiteProductToSFDC/SyncNetSuiteProductToSFDC.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -450,5 +450,5 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
       <types1:GUID>4ekj31AdLklkpjliCiE9kI</types1:GUID>
       <types1:DisplayName>SyncNetSuiteProductToSFDC</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-18T19:27:25.576Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-02-22T22:49:33.366Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
