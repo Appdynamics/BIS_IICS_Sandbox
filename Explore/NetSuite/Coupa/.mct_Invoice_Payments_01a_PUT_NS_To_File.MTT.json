@@ -24,6 +24,26 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
+    "id" : "5n3as5vZKeAjdi2ovOxk2S",
+    "name" : "m_Invoice_Payments_01a_PUT_NS_To_File",
+    "type" : "DTEMPLATE",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB170000000000JY"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : "",
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/Explore/NetSuite/Coupa"
+  }, {
     "id" : "b3U4nPCAkmZgKaHvUiQ8w2",
     "name" : "NetSuite_1",
     "type" : "Connection",
@@ -45,7 +65,7 @@
     "path" : "/SYS"
   }, {
     "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
-    "name" : "ip-10-150-6-196.us-west-2.compute.internal",
+    "name" : "INFA-AWS-SANDBOX",
     "type" : "AgentGroup",
     "metadata" : {
       "modelVersion" : {
@@ -83,25 +103,5 @@
       }
     },
     "path" : "/SYS"
-  }, {
-    "id" : "3u08PLKWvkJh3pUDtHeIQ1",
-    "name" : "m_Invoice_Payments_01a_PUT_NS_To_File",
-    "type" : "DTEMPLATE",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB17000000000024"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : "",
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/Explore/NetSuite/Coupa"
   } ]
 }
