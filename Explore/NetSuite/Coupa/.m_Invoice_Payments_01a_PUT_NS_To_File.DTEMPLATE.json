@@ -1,6 +1,6 @@
 {
   "objectInfo" : {
-    "id" : "3u08PLKWvkJh3pUDtHeIQ1",
+    "id" : "5n3as5vZKeAjdi2ovOxk2S",
     "name" : "m_Invoice_Payments_01a_PUT_NS_To_File",
     "type" : "DTEMPLATE",
     "metadata" : {
@@ -9,7 +9,7 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB17000000000024"
+        "repoHandle" : "000TPB170000000000JY"
       },
       "contextAttributes" : [ {
         "name" : "id",
