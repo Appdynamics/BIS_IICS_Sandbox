@@ -13,11 +13,11 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-06-23T01:51:35Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2019-06-17T23:38:58Z</types1:ModificationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2021-02-21T16:52:20Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2019-06-17T23:39:04Z</types1:PublicationDate>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2021-02-21T16:53:36Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_ServiceConnector_GLAccounts/NetSuite_ServiceConnector_GLAccounts_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -47,19 +47,43 @@
                                     masked="false"
                                     name="account"
                                     required="true"
-                                    testWith="3501352_SB2"
+                                    testWith="3501352_SB89"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
                                     name="URL"
                                     required="true"
-                                    testWith="https://webservices.netsuite.com/services/NetSuitePort_2018_1?c=3501352_SB3"
+                                    testWith="https://3501352-SB89.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
                                     name="applicationId"
                                     required="false"
                                     testWith="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="token_id"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="token_secret"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="consumer_key"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="consumer_secret"
+                                    required="true"
+                                    testWith=""
                                     type="string"/>
             </connectionAttributes>
             <namespaces>
@@ -230,30 +254,37 @@
                         <httpHeaders>
                            <header name="SOAPAction">search</header>
                         </httpHeaders>
-                        <body>&amp;lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&amp;gt;
-    &amp;lt;S:Header&amp;gt;
-        &amp;lt;passport&amp;gt;
-            &amp;lt;ns7:email xmlns:ns7="urn:core_2018_1.platform.webservices.netsuite.com"&amp;gt;{$username}&amp;lt;/ns7:email&amp;gt;
-            &amp;lt;ns8:password xmlns:ns8="urn:core_2018_1.platform.webservices.netsuite.com"&amp;gt;{$password}&amp;lt;/ns8:password&amp;gt;
-            &amp;lt;ns9:account xmlns:ns9="urn:core_2018_1.platform.webservices.netsuite.com"&amp;gt;{$account}&amp;lt;/ns9:account&amp;gt;
-        &amp;lt;/passport&amp;gt;
-        &amp;lt;ns3:searchPreferences xmlns:ns3="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;
-            &amp;lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;true&amp;lt;/ns4:bodyFieldsOnly&amp;gt;
-            &amp;lt;ns5:returnSearchColumns xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;false&amp;lt;/ns5:returnSearchColumns&amp;gt;
-            &amp;lt;ns6:pageSize xmlns:ns6="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;1000&amp;lt;/ns6:pageSize&amp;gt;
-        &amp;lt;/ns3:searchPreferences&amp;gt;
-        &amp;lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;
-            &amp;lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&amp;gt;{$applicationId}&amp;lt;/urn:applicationId&amp;gt;
-        &amp;lt;/urn:applicationInfo&amp;gt;
-    &amp;lt;/S:Header&amp;gt;
-    &amp;lt;S:Body&amp;gt;
-        &amp;lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&amp;gt;
-            &amp;lt;ns24:searchRecord xsi:type="ns8:AccountSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&amp;gt;
-                &amp;lt;ns8:basic/&amp;gt;
-            &amp;lt;/ns24:searchRecord&amp;gt;
-        &amp;lt;/ns24:search&amp;gt;
-    &amp;lt;/S:Body&amp;gt;
-&amp;lt;/S:Envelope&amp;gt;</body>
+                        <body>&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;S:Header&gt;
+    &lt;tokenPassport&gt;
+            &lt;account&gt;{$account}&lt;/account&gt;
+            &lt;consumerKey&gt;{$consumer_key}&lt;/consumerKey&gt;
+            &lt;token&gt;{$token_id}&lt;/token&gt;
+            &lt;nonce&gt;{util:generate-random-string(20)}&lt;/nonce&gt;
+            &lt;timestamp&gt;{round((fn:current-dateTime() - xs:dateTime('1970-01-01T00:00:00-00:00')) div xs:dayTimeDuration('PT1S'))}&lt;/timestamp&gt;
+            
+            &lt;signature algorithm="HMAC-SHA256"&gt;   {dsig:hmacSHA256signature(
+                $account||'&amp;amp;'||
+                $consumer_key||'&amp;amp;'||
+                $token_id||'&amp;amp;'||
+                util:generate-random-string(20)||'&amp;amp;'||
+                round((fn:current-dateTime() - xs:dateTime('1970-01-01T00:00:00-00:00')) div xs:dayTimeDuration('PT1S')),                    $consumer_secret||'&amp;amp;'||$token_secret
+                )} &lt;/signature&gt;
+        &lt;/tokenPassport&gt;   
+        &lt;ns3:searchPreferences xmlns:ns3="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
+            &lt;ns4:bodyFieldsOnly xmlns:ns4="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;true&lt;/ns4:bodyFieldsOnly&gt;
+            &lt;ns5:returnSearchColumns xmlns:ns5="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;false&lt;/ns5:returnSearchColumns&gt;
+            &lt;ns6:pageSize xmlns:ns6="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;1000&lt;/ns6:pageSize&gt;
+        &lt;/ns3:searchPreferences&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns24:search xmlns:ns5="urn:filecabinet_2018_1.documents.webservices.netsuite.com" xmlns:ns6="urn:relationships_2018_1.lists.webservices.netsuite.com" xmlns:ns3="urn:common_2018_1.platform.webservices.netsuite.com" xmlns:ns4="urn:communication_2018_1.general.webservices.netsuite.com" xmlns:ns9="urn:sales_2018_1.transactions.webservices.netsuite.com" xmlns:ns7="urn:support_2018_1.lists.webservices.netsuite.com" xmlns:ns8="urn:accounting_2018_1.lists.webservices.netsuite.com" xmlns="urn:core_2018_1.platform.webservices.netsuite.com" xmlns:ns19="urn:purchases_2018_1.transactions.webservices.netsuite.com" xmlns:ns18="urn:supplychain_2018_1.lists.webservices.netsuite.com" xmlns:ns2="urn:scheduling_2018_1.activities.webservices.netsuite.com" xmlns:ns17="urn:demandplanning_2018_1.transactions.webservices.netsuite.com" xmlns:ns16="urn:marketing_2018_1.lists.webservices.netsuite.com" xmlns:ns15="urn:employees_2018_1.transactions.webservices.netsuite.com" xmlns:ns14="urn:website_2018_1.lists.webservices.netsuite.com" xmlns:ns13="urn:employees_2018_1.lists.webservices.netsuite.com" xmlns:ns24="urn:messages_2018_1.platform.webservices.netsuite.com" xmlns:ns12="urn:customization_2018_1.setup.webservices.netsuite.com" xmlns:ns23="urn:faults_2018_1.platform.webservices.netsuite.com" xmlns:ns11="urn:financial_2018_1.transactions.webservices.netsuite.com" xmlns:ns22="urn:general_2018_1.transactions.webservices.netsuite.com" xmlns:ns10="urn:customers_2018_1.transactions.webservices.netsuite.com" xmlns:ns21="urn:inventory_2018_1.transactions.webservices.netsuite.com" xmlns:ns20="urn:bank_2018_1.transactions.webservices.netsuite.com"&gt;
+            &lt;ns24:searchRecord xsi:type="ns8:AccountSearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;ns8:basic/&gt;
+            &lt;/ns24:searchRecord&gt;
+        &lt;/ns24:search&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;</body>
                      </restSimpleBinding>
                   </binding>
                   <output>
@@ -474,5 +505,5 @@
       <types1:GUID>4CkOqh8cDv1grwFRRdO5wI</types1:GUID>
       <types1:DisplayName>NetSuite-ServiceConnector-GLAccounts</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-25T15:28:33.417Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-03-05T02:24:05.703Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
