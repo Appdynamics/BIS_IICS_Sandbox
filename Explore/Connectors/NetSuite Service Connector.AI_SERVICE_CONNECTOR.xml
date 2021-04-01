@@ -13,11 +13,11 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>gykumar@informatica.com.appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-28T09:18:33Z</types1:CreationDate>
-      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-03-15T18:05:20Z</types1:ModificationDate>
-      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
-      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-03-01T02:20:32Z</types1:PublicationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2021-03-24T18:39:24Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2021-03-24T18:39:57Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_Service_Connector/NetSuite_Service_Connector_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -1158,6 +1158,24 @@
                         &lt;/platformCore:customField&gt;
                 else ()
                 }                
+                {
+                        if(exists($NSHeaderCustomFields/*:custbody_ct_mod_manual_linking/text()))
+                                then
+                		&lt;platformCore:customField   scriptId="custbody_ct_mod_manual_linking"
+                                                    xsi:type="platformCore:StringCustomFieldRef"&gt;
+                            &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_ct_mod_manual_linking/text()}&lt;/platformCore:value&gt;
+                        &lt;/platformCore:customField&gt;
+                else ()
+                }                
+                {
+                        if(exists($NSHeaderCustomFields/*:custbody_abl_to_ibl_conv/text()))
+                                then
+                		&lt;platformCore:customField   scriptId="custbody_abl_to_ibl_conv"
+                                                    xsi:type="platformCore:StringCustomFieldRef"&gt;
+                            &lt;platformCore:value&gt;{$NSHeaderCustomFields/*:custbody_abl_to_ibl_conv/text()}&lt;/platformCore:value&gt;
+                        &lt;/platformCore:customField&gt;
+                else ()
+                }                
                &lt;/tranSales:customFieldList&gt;      
       &lt;/platformMsgs:record&gt;
     &lt;/platformMsgs:add&gt;  
@@ -1344,6 +1362,11 @@
                                 nogen="true"
                                 required="false"
                                 testWith=""
+                                type="string"/>
+                     <parameter label="Cisco_PartyId"
+                                name="Cisco_PartyId"
+                                nogen="true"
+                                required="false"
                                 type="string"/>
                   </input>
                   <binding>
@@ -1562,6 +1585,16 @@
                   &lt;/platformCore:customField&gt;
 				  else()			  
 			  }
+			  {
+			    if(exists($Cisco_PartyId ))
+				then
+				    &lt;platformCore:customField scriptId="custentity_cisco_cust_id"
+                                            xsi:type="platformCore:StringCustomFieldRef"&gt;
+                     &lt;platformCore:value&gt;{$Cisco_PartyId}&lt;/platformCore:value&gt;
+                  &lt;/platformCore:customField&gt;
+				else()			  
+			  }
+
               &lt;/listRel:customFieldList&gt;
         &lt;/record&gt;
       &lt;/update&gt;
@@ -1971,6 +2004,12 @@
                                 required="false"
                                 testWith="Test-12212018632"
                                 type="string"/>
+                     <parameter label="Cisco_PartyId"
+                                name="Cisco_PartyId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
                   </input>
                   <binding>
                      <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
@@ -2116,6 +2155,16 @@
                                             xsi:type="platformCore:StringCustomFieldRef"&gt;
                      &lt;platformCore:value&gt;{$parentCustomer_uniqueId}&lt;/platformCore:value&gt;
                   &lt;/platformCore:customField&gt;
+			  {
+			    if(exists($Cisco_PartyId ))
+				then
+				    &lt;platformCore:customField scriptId="custentity_cisco_cust_id"
+                                            xsi:type="platformCore:StringCustomFieldRef"&gt;
+                     &lt;platformCore:value&gt;{$Cisco_PartyId}&lt;/platformCore:value&gt;
+                  &lt;/platformCore:customField&gt;
+				else()			  
+			  }
+                 
               &lt;/listRel:customFieldList&gt;            
            
          &lt;/record&gt;
@@ -7446,6 +7495,8 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      <field name="custbody_cancel_replace" type="string"/>
                      <field name="custbody_baddebt" type="string"/>
                      <field name="custbody_concession" type="string"/>
+                     <field name="custbody_ct_mod_manual_linking" type="string"/>
+                     <field name="custbody_abl_to_ibl_conv" type="string"/>
                   </detail>
                </processObject>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -7466,5 +7517,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-03-15T18:26:58.049Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-04-01T21:53:07.024Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
