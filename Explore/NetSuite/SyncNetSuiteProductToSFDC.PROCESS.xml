@@ -12,18 +12,19 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-12-31T18:49:56Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2019-05-09T18:10:53Z</types1:ModificationDate>
+      <types1:ModifiedBy>keo.zaiger@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2021-03-04T01:39:18Z</types1:ModificationDate>
       <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
-      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-12-09T17:34:43Z</types1:PublicationDate>
+      <types1:PublishedBy>keo.zaiger@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2021-03-04T01:45:15Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SyncNetSuiteProductToSFDC/SyncNetSuiteProductToSFDC.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
          <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
                   xmlns:list="urn:activevos:spi:list:functions"
                   displayName="SyncNetSuiteProductToSFDC"
-                  name="SyncNetSuiteProductToSFDC">
+                  name="SyncNetSuiteProductToSFDC"
+                  overrideAPIName="false">
             <appliesTo isCopy="true">NetSuite-AppDynamics:Record-Item</appliesTo>
             <description/>
             <tags>NetSuite</tags>
@@ -142,28 +143,28 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
                            <link id="jtzzdkkr" targetId="jtzzdkkm" type="containerLink"/>
                         </flow>
                         <flow id="jtzzdkkt">
-                           <assignment id="jtzzdkm6">
+                           <assignment id="kljz0lqp">
                               <title>Price Assignment</title>
                               <operation source="field" to="temp.temp_priceLevel">output.pricing[1]/priceLevel</operation>
                               <operation source="field" to="temp.temp_pricing">output.scItems[1]/pricingMatrix[1]/pricing</operation>
                               <operation source="query" to="temp.temp_product">
-                                 <query from="Salesforce:Product2">
+                                 <query advanceQuery="false" from="Salesforce:Product2">
                                     <where>NetSuite_Id__c = '{$output.scItems[1]/internalId}'</where>
                                  </query>
                               </operation>
-                              <link id="jtzzdkn1" targetId="jtzzdkn0"/>
+                              <link id="kljz0lqq" targetId="jtzzdkm6"/>
                            </assignment>
-                           <assignment id="jtzzdkn0">
-                              <title>Product Lookup</title>
+                           <assignment id="jtzzdkm6">
+                              <title>NetSuite Id AND Product Code Lookup</title>
                               <operation source="query" to="temp.temp_product">
-                                 <query from="Salesforce:Product2">
-                                    <where>NetSuite_Id__c = '{$output.scItems[1]/internalId}'</where>
+                                 <query advanceQuery="false" from="Salesforce:Product2">
+                                    <where>NetSuite_Id__c = '{$output.scItems[1]/internalId}' AND ProductCode = '{$output.scItems[1]/itemId}' </where>
                                  </query>
                               </operation>
-                              <link id="jtzzdkoe" targetId="jtzzdkns"/>
+                              <link id="kljypxgx" targetId="jtzzdkns"/>
                            </assignment>
                            <container id="jtzzdkns" type="exclusive">
-                              <title>temp_product</title>
+                              <title>NetSuite Id AND Product Code</title>
                               <flow id="jtzzdknt">
                                  <assignment id="jtzzdknu">
                                     <title>Update Product</title>
@@ -251,6 +252,145 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
                                  <link id="jtzzdko6" targetId="jtzzdkns" type="containerLink"/>
                               </flow>
                               <flow id="jtzzdko1">
+                                 <assignment id="klseu10s">
+                                    <title>NetSuite Id Lookup</title>
+                                    <operation source="query" to="temp.temp_product">
+                                       <query advanceQuery="false" from="Salesforce:Product2">
+                                          <where>NetSuite_Id__c = '{$output.scItems[1]/internalId}'  AND ProductCode &lt;&gt;  '{$output.scItems[1]/itemId}' </where>
+                                       </query>
+                                    </operation>
+                                    <link id="klseu1h9" targetId="klseu1h8"/>
+                                 </assignment>
+                                 <container id="klseu1h8" type="exclusive">
+                                    <title>NetSuite Id Only</title>
+                                    <flow id="klseu1kc">
+                                       <subflow id="klseu1ua">
+                                          <title>Add Integration Queue</title>
+                                          <subflowGUID>3ezheT37LJWcuAMHeqrlcw</subflowGUID>
+                                          <subflowPath>addIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="source" source="constant" updatable="true">NetSuite</parameter>
+                                             <parameter name="target" source="constant" updatable="true">Salesforce</parameter>
+                                             <parameter name="process" source="constant" updatable="true">SyncNetSuiteProductToSFDC</parameter>
+                                             <parameter name="tranId" source="field" updatable="true">output.scItems[1]/internalId</parameter>
+                                             <parameter name="transactionType" source="constant" updatable="true">Product/PriceBook</parameter>
+                                             <parameter name="transactionName" source="field" updatable="true">output.scItems[1]/salesDescription</parameter>
+                                          </input>
+                                          <outputDef>
+                                             <field name="recordId" type="string">
+                                                <options>
+                                                   <option name="required">false</option>
+                                                </options>
+                                             </field>
+                                          </outputDef>
+                                          <link id="klsij8vy" targetId="klsij8vx"/>
+                                       </subflow>
+                                       <subflow id="klsij8vx">
+                                          <title>Update Integration Queue</title>
+                                          <subflowGUID>33r0jc61skah94kOEi5MuG</subflowGUID>
+                                          <subflowPath>updateIntegrationQueue</subflowPath>
+                                          <runForEach>false</runForEach>
+                                          <input>
+                                             <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                                             <parameter name="status" source="constant" updatable="true">Error</parameter>
+                                             <parameter name="exception" source="constant" updatable="true">No Product Code in SFDC</parameter>
+                                          </input>
+                                          <outputDef/>
+                                          <link id="klsija1k" targetId="klsija1j"/>
+                                       </subflow>
+                                       <jumpTo id="klsija1j">
+                                          <link id="klsija3r" targetId="d"/>
+                                       </jumpTo>
+                                    </flow>
+                                    <flow id="klseu1ke">
+                                       <assignment id="klsijale">
+                                          <title>Product Code Lookup</title>
+                                          <operation source="query" to="temp.temp_product">
+                                             <query advanceQuery="false" from="Salesforce:Product2">
+                                                <where>NetSuite_Id__c &lt;&gt; '{$output.scItems[1]/internalId}'  AND ProductCode = '{$output.scItems[1]/itemId}' </where>
+                                             </query>
+                                          </operation>
+                                          <link id="klsijb6d" targetId="klsijb6c"/>
+                                       </assignment>
+                                       <container id="klsijb6c" type="exclusive">
+                                          <title>Product Code Only</title>
+                                          <flow id="klsijb8r">
+                                             <subflow id="klsijbg4">
+                                                <title>Add Integration Queue</title>
+                                                <subflowGUID>3ezheT37LJWcuAMHeqrlcw</subflowGUID>
+                                                <subflowPath>addIntegrationQueue</subflowPath>
+                                                <runForEach>false</runForEach>
+                                                <input>
+                                                   <parameter name="source" source="constant" updatable="true">NetSuite</parameter>
+                                                   <parameter name="target" source="constant" updatable="true">Salesforce</parameter>
+                                                   <parameter name="process" source="constant" updatable="true">SyncNetSuiteProductToSFDC</parameter>
+                                                   <parameter name="tranId" source="field" updatable="true">internalId</parameter>
+                                                   <parameter name="transactionType" source="constant" updatable="true">Product/PriceBook</parameter>
+                                                   <parameter name="transactionName" source="field" updatable="true">salesDescription</parameter>
+                                                </input>
+                                                <outputDef>
+                                                   <field name="recordId" type="string">
+                                                      <options>
+                                                         <option name="required">false</option>
+                                                      </options>
+                                                   </field>
+                                                </outputDef>
+                                                <link id="klsijcl0" targetId="klsijckz"/>
+                                             </subflow>
+                                             <subflow id="klsijckz">
+                                                <title>Update Integration Queue</title>
+                                                <subflowGUID>33r0jc61skah94kOEi5MuG</subflowGUID>
+                                                <subflowPath>updateIntegrationQueue</subflowPath>
+                                                <runForEach>false</runForEach>
+                                                <input>
+                                                   <parameter name="recordId" source="field" updatable="true">output.recordId</parameter>
+                                                   <parameter name="status" source="constant" updatable="true">Error</parameter>
+                                                   <parameter name="exception" source="constant" updatable="true">No NetSuite ID in SFDC</parameter>
+                                                </input>
+                                                <outputDef/>
+                                                <link id="klsijd8z" targetId="klsijd8y"/>
+                                             </subflow>
+                                             <jumpTo id="klsijd8y">
+                                                <link id="klsijdbj" targetId="d"/>
+                                             </jumpTo>
+                                          </flow>
+                                          <flow id="klsijb8t">
+                                             <link id="klsijb8u" targetId="klsijb6c" type="containerLink"/>
+                                          </flow>
+                                          <link id="klsijb8k" targetId="klsijb8r" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="set">
+                                                   <arg name="field">{$temp.temp_product}</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                          <link id="klsijb8n" targetId="klsijb8t" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="unset">
+                                                   <arg name="field">{$temp.temp_product}</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                       </container>
+                                       <link id="klseu1kf" targetId="klseu1h8" type="containerLink"/>
+                                    </flow>
+                                    <link id="klseu1k5" targetId="klseu1kc" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="set">
+                                             <arg name="field">{$temp.temp_product}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="klseu1k8" targetId="klseu1ke" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="unset">
+                                             <arg name="field">{$temp.temp_product}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="klseu1ha" targetId="jtzzdkq3"/>
+                                 </container>
                                  <eventContainer id="jtzzdkq3">
                                     <create id="jtzzdko2">
                                        <title>Create Product</title>
@@ -266,13 +406,13 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
                                        <link id="jtzzdkq6" targetId="jtzzdkq3" type="containerLink"/>
                                     </flow>
                                     <flow id="jtzzdkq8">
-                                       <subflow id="jtzzdkti">
+                                       <subflow id="klseu32i">
                                           <title>Add Integration Queue</title>
                                           <subflowGUID>3ezheT37LJWcuAMHeqrlcw</subflowGUID>
                                           <subflowPath>addIntegrationQueue</subflowPath>
                                           <runForEach>false</runForEach>
                                           <input>
-                                             <parameter name="source" source="constant" updatable="true">Netsuite</parameter>
+                                             <parameter name="source" source="constant" updatable="true">NetSuite</parameter>
                                              <parameter name="target" source="constant" updatable="true">Salesforce</parameter>
                                              <parameter name="process" source="constant" updatable="true">SyncNetSuiteProductToSFDC</parameter>
                                              <parameter name="tranId" source="field" updatable="true">output.scItems[1]/internalId</parameter>
@@ -286,7 +426,7 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
                                                 </options>
                                              </field>
                                           </outputDef>
-                                          <link id="jtzzdl6c" targetId="jtzzdl6b"/>
+                                          <link id="klseu32j" targetId="jtzzdl6b"/>
                                        </subflow>
                                        <subflow id="jtzzdl6b">
                                           <title>Update Integration Queue</title>
@@ -299,11 +439,11 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
                                              <parameter name="exception" source="field" updatable="true">output.faultInfo[1]/reason</parameter>
                                           </input>
                                           <outputDef/>
-                                          <link id="jtzzdn55" targetId="jtzzdn54"/>
+                                          <link id="klsijabj" targetId="klsijabi"/>
                                        </subflow>
-                                       <end id="jtzzdn54">
-                                          <title>End</title>
-                                       </end>
+                                       <jumpTo id="klsijabi">
+                                          <link id="klsijadq" targetId="d"/>
+                                       </jumpTo>
                                     </flow>
                                     <link id="jtzzdkq4" targetId="jtzzdkq5" type="containerLink"/>
                                     <link id="jtzzdkod" targetId="jtzzdkr2"/>
@@ -450,5 +590,5 @@ if(fn:contains(fn:upper-case($output.scItems[1]/displayName),"DO NOT") or fn:con
       <types1:GUID>4ekj31AdLklkpjliCiE9kI</types1:GUID>
       <types1:DisplayName>SyncNetSuiteProductToSFDC</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-02-22T22:49:33.366Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-04-01T18:56:14.704Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
