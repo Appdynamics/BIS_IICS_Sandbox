@@ -1,6 +1,6 @@
 {
   "objectInfo" : {
-    "id" : "552dWBHBJqjbcO7eZbZeqi",
+    "id" : "8radPSBVIE8iGg2mlyWBOL",
     "name" : "m_NS_Vendor_PUT_PO_Emails_All",
     "type" : "DTEMPLATE",
     "metadata" : {
@@ -9,7 +9,7 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB170000000000JW"
+        "repoHandle" : "000TPB170000000000KB"
       },
       "contextAttributes" : [ {
         "name" : "id",
