@@ -1,6 +1,6 @@
 {
   "objectInfo" : {
-    "id" : "7apJdOslloadkFj2Qy4fUP",
+    "id" : "9goDFuSdhoocxosYVLKwu8",
     "name" : "m_NS_Vendor_PO_Emails_All",
     "type" : "DTEMPLATE",
     "metadata" : {
@@ -9,7 +9,7 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB170000000000JV"
+        "repoHandle" : "000TPB170000000000JT"
       },
       "contextAttributes" : [ {
         "name" : "id",
@@ -17,33 +17,13 @@
       } ],
       "additionalInfo" : {
         "description" : "",
-        "contentType" : null,
+        "contentType" : "JSON",
         "documentState" : "VALID"
       }
     }
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "b3U4nPCAkmZgKaHvUiQ8w2",
-    "name" : "NetSuite_1",
-    "type" : "Connection",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000000Y"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : null,
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/SYS"
-  }, {
     "id" : "brwXcX8SFwdiPZrkZpvZQG",
     "name" : "NetSuite_ODBC_1",
     "type" : "Connection",
@@ -54,6 +34,26 @@
       },
       "repoInfo" : {
         "repoHandle" : "000TPB0B00000000004E"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/SYS"
+  }, {
+    "id" : "b3U4nPCAkmZgKaHvUiQ8w2",
+    "name" : "NetSuite_1",
+    "type" : "Connection",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0B00000000000Y"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
