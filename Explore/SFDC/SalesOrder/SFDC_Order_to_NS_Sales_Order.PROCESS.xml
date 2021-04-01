@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-01-27T18:08:27Z</types1:ModificationDate>
-      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
+      <types1:ModificationDate>2021-03-30T17:08:16Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-01-27T18:12:11Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-03-30T17:13:48Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -457,7 +457,7 @@
                   <title>Get Negative Amount Items</title>
                   <operation source="list" to="temp.temp_orderProducts">
                      <query advanceQuery="false" from="Salesforce:OrderItem">
-                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND Net_Total_Price__c &lt; 0 AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') LIMIT 2000</where>
+                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND Net_Total_Price__c &lt; 0 AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') AND Line_Type__c != 'LINKED ASSET' LIMIT 2000</where>
                      </query>
                   </operation>
                   <link id="jx232sa7" targetId="jx232sa6"/>
@@ -718,6 +718,14 @@ then 'No' else 'Yes'</expression>
                              to="temp.thisNSHeaderCustomFields[1]/custbody_concession">
                      <expression language="XQuery">if($Concession__c  = 'true') then 'T' else 'F'</expression>
                   </operation>
+                  <operation source="formula"
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_ct_mod_manual_linking">
+                     <expression language="XQuery">if(fn:empty($Multi_Contract_Mod_Opp_Name__c)) then 'F' else 'T'</expression>
+                  </operation>
+                  <operation source="formula"
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_abl_to_ibl_conv">
+                     <expression language="XQuery">if($ABL_IBL_License_Conversion__c = 'true') then 'T' else 'F'</expression>
+                  </operation>
                   <link id="iydvxbey" targetId="iaj27kfk"/>
                </assignment>
                <assignment id="iaj27kfk">
@@ -773,12 +781,12 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expressi
                   <title>Query for Order Products</title>
                   <operation source="list" to="temp.thisOrderProductList">
                      <query advanceQuery="false" from="Salesforce:OrderItem">
-                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel')  LIMIT 2000</where>
+                        <where>OrderId = '{$Id}' AND Ignore_Sync__c != true AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel')  AND Line_Type__c != 'LINKED ASSET' LIMIT 2000</where>
                      </query>
                   </operation>
                   <operation source="query" to="temp.temp_sfdcGetCustomScheduleLine">
                      <query advanceQuery="false" from="Salesforce:OrderItem">
-                        <where>OrderId = '{$Id}' AND Payment_Schedule_Details__c = 'Custom' AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') Limit 1</where>
+                        <where>OrderId = '{$Id}' AND Payment_Schedule_Details__c = 'Custom' AND SBQQ__ContractAction__c not in ('Quantity Decrease','Cancel') AND Line_Type__c != 'LINKED ASSET' Limit 1</where>
                      </query>
                   </operation>
                   <link id="jyiv1dmn" targetId="jyiv1dmm"/>
@@ -1578,6 +1586,7 @@ else
                                        </parameter>
                                        <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
                                        <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                                     </serviceInput>
                                     <link id="j71bjwma" targetId="j71bjwko"/>
                                  </service>
@@ -1636,6 +1645,7 @@ else
                                        <parameter name="email" source="formula">
                                           <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
                                        </parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                                     </serviceInput>
                                     <link id="jxn4y1c2" targetId="jxn4y1bs"/>
                                  </service>
@@ -1723,6 +1733,7 @@ else
                                        </parameter>
                                        <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
                                        <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                                     </serviceInput>
                                     <link id="j71bjwml" targetId="j71bjwl0"/>
                                  </service>
@@ -1782,6 +1793,7 @@ else
                                        <parameter name="email" source="formula">
                                           <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
                                        </parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                                     </serviceInput>
                                     <link id="jxn4y0rx" targetId="jxn4y0rn"/>
                                  </service>
@@ -1880,6 +1892,7 @@ else
                                  </parameter>
                                  <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
                                  <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
+                                 <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                               </serviceInput>
                               <link id="j71bjwmx" targetId="j71bjwlc"/>
                            </service>
@@ -1938,6 +1951,7 @@ else
                                  <parameter name="email" source="formula">
                                     <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
                                  </parameter>
+                                 <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                               </serviceInput>
                               <link id="jxn4y1th" targetId="jxn4y1t7"/>
                            </service>
@@ -2022,6 +2036,7 @@ else
                                  </parameter>
                                  <parameter name="parentCustomer_uniqueId" source="field">Ship_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
                                  <parameter name="Customer_uniqueId" source="field">Ship_To__r.Account__r.Customer_Unique_ID__c</parameter>
+                                 <parameter name="Cisco_PartyId" source="field" updatable="true">Ship_To__r.Account__r.Cisco_Party_ID__c</parameter>
                               </serviceInput>
                               <link id="j71bjwn7" targetId="j71bjwln"/>
                            </service>
@@ -2088,6 +2103,7 @@ else
                                  <parameter name="email" source="formula">
                                     <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($ShipToContact.Email!='') then $ShipToContact.Email else $temp.temp_OppContact_Email</expression>
                                  </parameter>
+                                 <parameter name="Cisco_PartyId" source="field" updatable="true">Ship_To__r.Account__r.Cisco_Party_ID__c</parameter>
                               </serviceInput>
                               <link id="jxn4y3k7" targetId="jxn4y3jx"/>
                            </service>
@@ -2658,5 +2674,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-02-04T21:20:40.915Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-04-01T18:11:41.88Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
