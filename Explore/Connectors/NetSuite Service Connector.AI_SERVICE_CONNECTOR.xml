@@ -7517,5 +7517,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-04-01T21:53:07.024Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-04-02T16:22:03.497Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
