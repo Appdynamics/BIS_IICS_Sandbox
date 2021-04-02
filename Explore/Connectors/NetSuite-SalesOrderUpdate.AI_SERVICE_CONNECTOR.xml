@@ -13,11 +13,11 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2018-06-20T02:17:21Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2019-10-29T13:35:53Z</types1:ModificationDate>
+      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2021-03-01T07:30:31Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>phani.baddam@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2019-10-29T13:36:03Z</types1:PublicationDate>
+      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2021-03-01T07:30:40Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_SalesOrderUpdate/NetSuite_SalesOrderUpdate_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -47,19 +47,43 @@
                                     masked="false"
                                     name="account"
                                     required="true"
-                                    testWith="3501352_SB3"
+                                    testWith="3501352_SB89"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
                                     name="URL"
                                     required="true"
-                                    testWith="https://webservices.netsuite.com/services/NetSuitePort_2018_1?c=3501352_SB3"
+                                    testWith="https://3501352-SB89.suitetalk.api.netsuite.com/services/NetSuitePort_2018_1"
                                     type="string"/>
                <connectionAttribute description=""
                                     masked="false"
                                     name="applicationId"
                                     required="false"
                                     testWith="58C2BFC6-9B09-4C3E-8027-E78B8EA3F34F"
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="token_id"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="token_secret"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="consumer_key"
+                                    required="true"
+                                    testWith=""
+                                    type="string"/>
+               <connectionAttribute description=""
+                                    masked="true"
+                                    name="consumer_secret"
+                                    required="true"
+                                    testWith=""
                                     type="string"/>
             </connectionAttributes>
             <namespaces>
@@ -104,14 +128,21 @@
     xmlns:platformCommon='urn:common_2018_1.platform.webservices.netsuite.com'
     xmlns:platformMsgs='urn:messages_2018_1.platform.webservices.netsuite.com'&gt;
     &lt;soapenv:Header&gt;
-        &lt;passport xsi:type='platformCore:Passport'&gt;
-            &lt;email xsi:type='xsd:string'&gt;{$username}&lt;/email&gt;
-            &lt;password xsi:type='xsd:string'&gt;{$password}&lt;/password&gt;
-            &lt;account xsi:type='xsd:string'&gt;{$account}&lt;/account&gt;            
-        &lt;/passport&gt;
-		&lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
-       &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
-    &lt;/urn:applicationInfo&gt;
+       &lt;tokenPassport&gt;
+            &lt;account&gt;{$account}&lt;/account&gt;
+            &lt;consumerKey&gt;{$consumer_key}&lt;/consumerKey&gt;
+            &lt;token&gt;{$token_id}&lt;/token&gt;
+            &lt;nonce&gt;{util:generate-random-string(20)}&lt;/nonce&gt;
+            &lt;timestamp&gt;{round((fn:current-dateTime() - xs:dateTime('1970-01-01T00:00:00-00:00')) div xs:dayTimeDuration('PT1S'))}&lt;/timestamp&gt;
+            
+            &lt;signature algorithm="HMAC-SHA256"&gt;   {dsig:hmacSHA256signature(
+                $account||'&amp;amp;'||
+                $consumer_key||'&amp;amp;'||
+                $token_id||'&amp;amp;'||
+                util:generate-random-string(20)||'&amp;amp;'||
+                round((fn:current-dateTime() - xs:dateTime('1970-01-01T00:00:00-00:00')) div xs:dayTimeDuration('PT1S')),                    $consumer_secret||'&amp;amp;'||$token_secret
+                )} &lt;/signature&gt;
+        &lt;/tokenPassport&gt;
     &lt;/soapenv:Header&gt;
     &lt;soapenv:Body&gt;
         &lt;search xsi:type='platformMsgs:SearchRequest'&gt;
@@ -219,14 +250,21 @@
          &lt;platformMsgs:disableSystemNotesForCustomFields&gt;false&lt;/platformMsgs:disableSystemNotesForCustomFields&gt;
          &lt;platformMsgs:ignoreReadOnlyFields&gt;true&lt;/platformMsgs:ignoreReadOnlyFields&gt;
       &lt;/platformMsgs:preferences&gt;  
-    &lt;platformMsgs:passport&gt;
-      &lt;platformCore:email&gt;{$username}&lt;/platformCore:email&gt;
-      &lt;platformCore:password&gt;{$password}&lt;/platformCore:password&gt;
-      &lt;platformCore:account&gt;{$account}&lt;/platformCore:account&gt;
-    &lt;/platformMsgs:passport&gt;
-	&lt;urn:applicationInfo xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;
-       &lt;urn:applicationId xmlns:urn="urn:messages_2018_1.platform.webservices.netsuite.com"&gt;{$applicationId}&lt;/urn:applicationId&gt;
-    &lt;/urn:applicationInfo&gt;
+    &lt;tokenPassport&gt;
+            &lt;account&gt;{$account}&lt;/account&gt;
+            &lt;consumerKey&gt;{$consumer_key}&lt;/consumerKey&gt;
+            &lt;token&gt;{$token_id}&lt;/token&gt;
+            &lt;nonce&gt;{util:generate-random-string(20)}&lt;/nonce&gt;
+            &lt;timestamp&gt;{round((fn:current-dateTime() - xs:dateTime('1970-01-01T00:00:00-00:00')) div xs:dayTimeDuration('PT1S'))}&lt;/timestamp&gt;
+            
+            &lt;signature algorithm="HMAC-SHA256"&gt;   {dsig:hmacSHA256signature(
+                $account||'&amp;amp;'||
+                $consumer_key||'&amp;amp;'||
+                $token_id||'&amp;amp;'||
+                util:generate-random-string(20)||'&amp;amp;'||
+                round((fn:current-dateTime() - xs:dateTime('1970-01-01T00:00:00-00:00')) div xs:dayTimeDuration('PT1S')),                    $consumer_secret||'&amp;amp;'||$token_secret
+                )} &lt;/signature&gt;
+        &lt;/tokenPassport&gt;
   &lt;/soap:Header&gt;
   &lt;soap:Body&gt;
     &lt;platformMsgs:update&gt;
@@ -1690,5 +1728,5 @@
       <types1:GUID>8ft4bbmvLCkdlKqV4Xwtck</types1:GUID>
       <types1:DisplayName>NetSuite-SalesOrderUpdate</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-25T15:28:33.383Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-04-02T16:21:10.898Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
