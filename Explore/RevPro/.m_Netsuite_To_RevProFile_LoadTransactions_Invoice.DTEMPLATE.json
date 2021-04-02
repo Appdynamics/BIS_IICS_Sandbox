@@ -44,26 +44,6 @@
     },
     "path" : "/SYS"
   }, {
-    "id" : "brwXcX8SFwdiPZrkZpvZQG",
-    "name" : "NetSuite_ODBC_1",
-    "type" : "Connection",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000004E"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : null,
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/SYS"
-  }, {
     "id" : "8Qp1Vvtik7ejRmnNM3lSiT",
     "name" : "FlatFile_Stage",
     "type" : "Connection",
