@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-03-30T17:08:16Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-05-03T19:35:47Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-03-30T17:13:48Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-05-03T20:02:41Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -440,6 +440,12 @@
                      <option hide="true" name="multiSelect">true</option>
                      <option name="required">false</option>
                      <option name="guid">58gj2o5v8OacYp4U1C0Jw0</option>
+                  </options>
+               </field>
+               <field description="" name="temp_RetryCounter" type="int">
+                  <options>
+                     <option name="required">false</option>
+                     <option name="initialvalue">1</option>
                   </options>
                </field>
             </tempFields>
@@ -2486,99 +2492,150 @@ else
                      </jumpTo>
                   </flow>
                   <flow id="j58f49ek">
-                     <eventContainer id="kjt4k9fg">
-                        <subflow id="kjt4k8o7">
-                           <title>Update SFDC Order With TranID</title>
-                           <subflowGUID>lODQrP0MdcXe55ZaPea7Om</subflowGUID>
-                           <subflowPath>SFDC_Update_Order</subflowPath>
-                           <runForEach>false</runForEach>
-                           <input>
-                              <parameter name="input_OrderToUpdate" source="query" updatable="true">
-                                 <query advanceQuery="false" from="Salesforce:Order">
-                                    <where>Id = '{$Id}' </where>
-                                 </query>
-                              </parameter>
-                              <parameter name="input_NS_TranID" source="field" updatable="true">output.NSsalesOrder[1]/tranId</parameter>
-                           </input>
-                           <outputDef/>
-                        </subflow>
-                        <flow id="kjt4k9fi">
-                           <link id="kjt4k9fj" targetId="kjt4k9fg" type="containerLink"/>
+                     <container id="knks77lj" type="parallel">
+                        <title>Parallel Paths 1</title>
+                        <flow id="knks77lm">
+                           <eventContainer id="knks77oc">
+                              <subflow id="knks77of">
+                                 <title>Update SFDC Order With TranID</title>
+                                 <subflowGUID>lODQrP0MdcXe55ZaPea7Om</subflowGUID>
+                                 <subflowPath>SFDC_Update_Order</subflowPath>
+                                 <runForEach>false</runForEach>
+                                 <input>
+                                    <parameter name="input_OrderToUpdate" source="query" updatable="true">
+                                       <query advanceQuery="false" from="Salesforce:Order">
+                                          <where>Id = '{$Id}' </where>
+                                       </query>
+                                    </parameter>
+                                    <parameter name="input_NS_TranID" source="field" updatable="true">output.NSsalesOrder[1]/tranId</parameter>
+                                 </input>
+                                 <outputDef/>
+                              </subflow>
+                              <flow id="knks77od">
+                                 <link id="knks77oi" targetId="knks77oc" type="containerLink"/>
+                              </flow>
+                              <flow id="knks77oe">
+                                 <assignment id="knks78rv">
+                                    <title>Assignment to temp_RetryCounter</title>
+                                    <operation source="formula" to="temp.temp_RetryCounter">
+                                       <expression language="XQuery">$temp.temp_RetryCounter + 1</expression>
+                                    </operation>
+                                    <link id="knktpown" targetId="knktpo91"/>
+                                 </assignment>
+                                 <container id="knktpo91" type="exclusive">
+                                    <title>Check if counter &gt; 5</title>
+                                    <flow id="knktpo94">
+                                       <link id="knktpo95" targetId="knktpo91" type="containerLink"/>
+                                    </flow>
+                                    <flow id="knktpo97">
+                                       <wait id="knktpoyw">
+                                          <title>Wait for 10 secs between retries</title>
+                                          <duration source="formula">
+                                             <function name="duration_expression">
+                                                <arg name="value">10</arg>
+                                                <arg name="scale">S</arg>
+                                                <arg name="businessDays"/>
+                                             </function>
+                                          </duration>
+                                          <link id="knktpoyx" targetId="knktpomk"/>
+                                       </wait>
+                                       <jumpTo id="knktpomk">
+                                          <link id="knktpoml" targetId="knks77oc"/>
+                                       </jumpTo>
+                                    </flow>
+                                    <link id="knktpo93" targetId="knktpo94" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="greater-than">
+                                             <arg name="left">{$temp.temp_RetryCounter}</arg>
+                                             <arg name="right">{5}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="knktpo96" targetId="knktpo97" type="containerLink"/>
+                                 </container>
+                                 <link id="knks77oj" targetId="knks77oc" type="containerLink"/>
+                              </flow>
+                              <link id="knks77og" targetId="knks77od" type="containerLink"/>
+                              <events>
+                                 <catch faultField="faultInfo" id="kjt4k9fb" interrupting="true">
+                                    <link id="knks77oh" targetId="knks77oe" type="containerLink"/>
+                                 </catch>
+                              </events>
+                           </eventContainer>
+                           <link id="knks77ln" targetId="knks77lj" type="containerLink"/>
                         </flow>
-                        <flow id="kjt4k9fl">
-                           <link id="kjt4k9fm" targetId="kjt4k9fg" type="containerLink"/>
+                        <flow id="knks77lp">
+                           <eventContainer id="knks77v9">
+                              <subflow id="knks77vc">
+                                 <title>Update SFDC Lines with TranID</title>
+                                 <subflowGUID>gQhqDHf642RhdeqzpHEVQe</subflowGUID>
+                                 <subflowPath>SFDC_Update_Order_Lines</subflowPath>
+                                 <runForEach>false</runForEach>
+                                 <input>
+                                    <parameter name="input_SFDC_OrderItems_ToUpdate"
+                                               source="field"
+                                               updatable="true">temp.thisOrderProductList</parameter>
+                                    <parameter name="input_NS_tranId" source="field" updatable="true">output.NSsalesOrder[1]/tranId</parameter>
+                                 </input>
+                                 <outputDef/>
+                              </subflow>
+                              <flow id="knks77va">
+                                 <link id="knks77vf" targetId="knks77v9" type="containerLink"/>
+                              </flow>
+                              <flow id="knks77vb">
+                                 <link id="knks77vg" targetId="knks77v9" type="containerLink"/>
+                              </flow>
+                              <link id="knks77vd" targetId="knks77va" type="containerLink"/>
+                              <events>
+                                 <catch faultField="faultInfo" id="kjt4k9kq" interrupting="true">
+                                    <link id="knks77ve" targetId="knks77vb" type="containerLink"/>
+                                 </catch>
+                              </events>
+                           </eventContainer>
+                           <link id="knks77lq" targetId="knks77lj" type="containerLink"/>
                         </flow>
-                        <link id="kjt4k9fh" targetId="kjt4k9fi" type="containerLink"/>
-                        <link id="kjt4k9cv" targetId="kjt4k9zs"/>
-                        <events>
-                           <catch faultField="faultInfo" id="kjt4k9fb" interrupting="true">
-                              <link id="kjt4k9fk" targetId="kjt4k9fl" type="containerLink"/>
-                           </catch>
-                        </events>
-                     </eventContainer>
-                     <eventContainer id="kjt4k9zs">
-                        <subflow id="kjt4k9cu">
-                           <title>Update SFDC Lines with TranID</title>
-                           <subflowGUID>gQhqDHf642RhdeqzpHEVQe</subflowGUID>
-                           <subflowPath>SFDC_Update_Order_Lines</subflowPath>
-                           <runForEach>false</runForEach>
-                           <input>
-                              <parameter name="input_SFDC_OrderItems_ToUpdate"
-                                         source="field"
-                                         updatable="true">temp.thisOrderProductList</parameter>
-                              <parameter name="input_NS_tranId" source="field" updatable="true">output.NSsalesOrder[1]/tranId</parameter>
-                           </input>
-                           <outputDef/>
-                        </subflow>
-                        <flow id="kjt4k9zu">
-                           <link id="kjt4k9zv" targetId="kjt4k9zs" type="containerLink"/>
+                        <flow id="knks77t0">
+                           <container id="knks78i3" type="exclusive">
+                              <title>Sales Order - Newly Created &amp; Not Already Existing?</title>
+                              <flow id="knks78i4">
+                                 <subflow id="knks78i5">
+                                    <title>SyncAttachmentToNetSuite</title>
+                                    <subflowGUID>3gJ1dRfaJ25lHLylc4qI6J</subflowGUID>
+                                    <subflowPath>SyncAttachmentToNetSuite</subflowPath>
+                                    <runForEach>false</runForEach>
+                                    <input>
+                                       <parameter name="parentId" source="field">Oppty_Id__c</parameter>
+                                       <parameter name="netSuiteOrderId" source="field" updatable="true">output.NSinternalID</parameter>
+                                    </input>
+                                    <outputDef>
+                                       <field name="errorSyncAttach" type="string">
+                                          <options>
+                                             <option name="required">false</option>
+                                          </options>
+                                       </field>
+                                    </outputDef>
+                                 </subflow>
+                                 <link id="knks78i9" targetId="knks78i3" type="containerLink"/>
+                              </flow>
+                              <flow id="knks78i6">
+                                 <link id="knks78ia" targetId="knks78i3" type="containerLink"/>
+                              </flow>
+                              <link id="knks78i7" targetId="knks78i4" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.search_SalesOrder_internalId}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="knks78i8" targetId="knks78i6" type="containerLink"/>
+                           </container>
+                           <link id="knks77t1" targetId="knks77lj" type="containerLink"/>
                         </flow>
-                        <flow id="kjt4k9zx">
-                           <link id="kjt4k9zy" targetId="kjt4k9zs" type="containerLink"/>
-                        </flow>
-                        <link id="kjt4k9zt" targetId="kjt4k9zu" type="containerLink"/>
-                        <link id="kjt4kaj2" targetId="jrc67snx"/>
-                        <events>
-                           <catch faultField="faultInfo" id="kjt4k9kq" interrupting="true">
-                              <link id="kjt4k9zw" targetId="kjt4k9zx" type="containerLink"/>
-                           </catch>
-                        </events>
-                     </eventContainer>
-                     <container id="jrc67snx" type="exclusive">
-                        <title>Sales Order - Newly Created &amp; Not Already Existing?</title>
-                        <flow id="jrc67so1">
-                           <subflow id="jrc67sx7">
-                              <title>SyncAttachmentToNetSuite</title>
-                              <subflowGUID>3gJ1dRfaJ25lHLylc4qI6J</subflowGUID>
-                              <subflowPath>SyncAttachmentToNetSuite</subflowPath>
-                              <runForEach>false</runForEach>
-                              <input>
-                                 <parameter name="parentId" source="field">Oppty_Id__c</parameter>
-                                 <parameter name="netSuiteOrderId" source="field" updatable="true">output.NSinternalID</parameter>
-                              </input>
-                              <outputDef>
-                                 <field name="errorSyncAttach" type="string">
-                                    <options>
-                                       <option name="required">false</option>
-                                    </options>
-                                 </field>
-                              </outputDef>
-                           </subflow>
-                           <link id="jrc67so2" targetId="jrc67snx" type="containerLink"/>
-                        </flow>
-                        <flow id="jrc67so4">
-                           <link id="jrc67so5" targetId="jrc67snx" type="containerLink"/>
-                        </flow>
-                        <link id="jrc67so0" targetId="jrc67so1" type="containerLink">
-                           <condition source="formula">
-                              <function name="string-equals">
-                                 <arg name="left">{$output.search_SalesOrder_internalId}</arg>
-                                 <arg name="right"/>
-                              </function>
-                           </condition>
-                        </link>
-                        <link id="jrc67so3" targetId="jrc67so4" type="containerLink"/>
-                        <link id="jrc67sx6" targetId="jerndxei"/>
+                        <link id="knks77ll" targetId="knks77lm" type="containerLink"/>
+                        <link id="knks77lo" targetId="knks77lp" type="containerLink"/>
+                        <link id="knks77sz" targetId="knks77t0" type="containerLink"/>
+                        <link id="knks78fs" targetId="jerndxei"/>
                      </container>
                      <assignment id="jerndxei">
                         <title>Update Order Exception</title>
@@ -2674,5 +2731,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-04-01T18:11:41.88Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-05-06T21:02:13.939Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>

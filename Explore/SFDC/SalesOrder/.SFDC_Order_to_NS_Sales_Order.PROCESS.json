@@ -15,7 +15,7 @@
       "additionalInfo" : {
         "description" : "Create Sales Order in NetSuite(Infa dev).",
         "contentType" : "application/json; charset=utf-8",
-        "documentState" : "INVALID"
+        "documentState" : "VALID"
       }
     }
   },
