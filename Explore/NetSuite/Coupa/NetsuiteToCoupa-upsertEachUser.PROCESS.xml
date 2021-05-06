@@ -13,10 +13,10 @@
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-04-22T23:18:05Z</types1:CreationDate>
       <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-09-03T23:49:46Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:ModificationDate>2021-04-18T22:04:42Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-09-03T23:51:11Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-04-18T22:05:56Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.NetsuiteToCoupa-upsertEachUser/NetsuiteToCoupa-upsertEachUser.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -202,7 +202,7 @@ else 'true'
                                        <parameter name="company_name" source="formula">
                                           <expression language="XQuery">if($subsidiary[1]/internalId  = '1')
   then
-   'AppDynamics, LLC'
+   'AppDynamics LLC'
  else 
    'AppDynamics International Ltd'</expression>
                                        </parameter>
@@ -210,7 +210,7 @@ else 'true'
                                        <parameter name="default_address_name" source="formula">
                                           <expression language="XQuery">if($subsidiary[1]/internalId  = '1')
   then
-   'AppDynamics, Inc.'
+   'AppDynamics LLC'
  else 
    'AppDynamics International Ltd'</expression>
                                        </parameter>
@@ -241,13 +241,9 @@ else
 </expression>
                                        </parameter>
                                        <parameter name="requisition_approval_limit" source="field" updatable="true">temp.temp_approvalLimit</parameter>
-                                       <parameter name="requisition_approval_currency_code"
-                                                  source="field"
-                                                  updatable="true">temp.temp_CurrencyCodeLkp.Lookup_Name__c</parameter>
+                                       <parameter name="requisition_approval_currency_code" source="constant">USD</parameter>
                                        <parameter name="invoice_approval_limit" source="field" updatable="true">temp.temp_approvalLimit</parameter>
-                                       <parameter name="invoice_approval_currency_code"
-                                                  source="field"
-                                                  updatable="true">temp.temp_CurrencyCodeLkp.Lookup_Name__c</parameter>
+                                       <parameter name="invoice_approval_currency_code" source="constant">USD</parameter>
                                        <parameter name="content_group_name" source="formula">
                                           <expression language="XQuery">if($subsidiary[1]/internalId  = '1')
   then
@@ -282,13 +278,13 @@ if(fn:current-date() &gt;= xs:date(fn:substring-before($releaseDate, 'T'))) then
 else 'true'
 </expression>
                                        </parameter>
-                                       <parameter name="authentication_method" source="constant">saml</parameter>
+                                       <parameter name="authentication_method" source="constant">coupa_credentials</parameter>
                                        <parameter name="sso_identifier" source="field" updatable="true">email</parameter>
                                        <parameter name="company_code" source="field" updatable="true">subsidiary[1]/internalId</parameter>
                                        <parameter name="company_name" source="formula">
                                           <expression language="XQuery">if($subsidiary[1]/internalId  = '1')
   then
-   'AppDynamics, LLC'
+   'AppDynamics LLC'
  else 
    'AppDynamics International Ltd'</expression>
                                        </parameter>
@@ -297,18 +293,14 @@ else 'true'
                                        <parameter name="default_address_name" source="formula">
                                           <expression language="XQuery">if($subsidiary[1]/internalId  = '1')
   then
-   'AppDynamics, Inc.'
+   'AppDynamics LLC'
  else 
    'AppDynamics International Ltd'</expression>
                                        </parameter>
                                        <parameter name="requisition_approval_limit" source="field" updatable="true">temp.temp_approvalLimit</parameter>
-                                       <parameter name="requisition_approval_currency_code"
-                                                  source="field"
-                                                  updatable="true">temp.temp_CurrencyCodeLkp.Lookup_Name__c</parameter>
+                                       <parameter name="requisition_approval_currency_code" source="constant">USD</parameter>
                                        <parameter name="invoice_approval_limit" source="field" updatable="true">temp.temp_approvalLimit</parameter>
-                                       <parameter name="invoice_approval_currency_code"
-                                                  source="field"
-                                                  updatable="true">temp.temp_CurrencyCodeLkp.Lookup_Name__c</parameter>
+                                       <parameter name="invoice_approval_currency_code" source="constant">USD</parameter>
                                     </serviceInput>
                                  </service>
                                  <link id="jmqvxbwt" targetId="jmqvxbwl" type="containerLink"/>
@@ -396,5 +388,5 @@ else 'true'
       <types1:GUID>1fvNqm00TYJgtUz0vxpdAp</types1:GUID>
       <types1:DisplayName>NetsuiteToCoupa-upsertEachUser</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-09-15T02:17:07.102Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-05-06T17:09:04.301Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
