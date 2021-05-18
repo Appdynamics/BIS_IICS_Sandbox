@@ -3,7 +3,7 @@
    <types1:Item>
       <types1:EntryId>lwnHUPAZf5kck8j-gt-26412504-2017-12-04T17:41:14.183Z::conn.xml</types1:EntryId>
       <types1:Name>File-RevPro-TransactionsAndEvents</types1:Name>
-      <types1:ParentFlowIds>ARW8UBM7zsZvEIA-gt-204539428-2019-11-05T16:56:17.432Z::pd.xml,E7D2L5SeE1KoJBU-gt-5716055-2017-12-11T18:41:37.489Z::pd.xml,joxMXdzWztZK0CY-gt-353640714-2019-10-30T22:44:57.149Z::pd.xml,rRfRW8UBM7zsZvE-gt-21076851-2020-11-12T17:50:32.277Z::pd.xml,vvNtLSVMTonQYWe-gt-912919-2017-12-11T21:34:39.351Z::pd.xml,XnbdoEFsWTzIf6r-gt-648780-2017-12-11T18:45:39.801Z::pd.xml</types1:ParentFlowIds>
+      <types1:ParentFlowIds>ARW8UBM7zsZvEIA-gt-204539428-2019-11-05T16:56:17.432Z::pd.xml,E7D2L5SeE1KoJBU-gt-5716055-2017-12-11T18:41:37.489Z::pd.xml,joxMXdzWztZK0CY-gt-353640714-2019-10-30T22:44:57.149Z::pd.xml,rRfRW8UBM7zsZvE-gt-21076851-2020-11-12T17:50:32.277Z::pd.xml,vvNtLSVMTonQYWe-gt-912919-2017-12-11T21:34:39.351Z::pd.xml,XnbdoEFsWTzIf6r-gt-648780-2017-12-11T18:45:39.801Z::pd.xml,ypLK2D86CjqFVNN-gt-11858884-2021-04-22T22:28:54.403Z::pd.xml</types1:ParentFlowIds>
       <types1:MimeType>application/xml+connection</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
@@ -13,11 +13,11 @@
       <types1:ProcessGroup/>
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-12-04T17:41:14Z</types1:CreationDate>
-      <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-12-03T01:38:31Z</types1:ModificationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2021-04-22T21:51:00Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
-      <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-12-03T01:38:51Z</types1:PublicationDate>
+      <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
+      <types1:PublicationDate>2021-04-23T18:25:43Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connection/File-RevPro-TransactionsAndEvents/File-RevPro-TransactionsAndEvents.conn.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -193,6 +193,39 @@
                      <attribute encrypted="false" name="singleObjectContent" value="false"/>
                   </attributes>
                </consumer>
+               <consumer enabled="true"
+                         name="FileParser-606-SOExpiryDate"
+                         typeName="FileParser">
+                  <description>Use this event source to monitor folders for new files and process file information and content.</description>
+                  <attributes>
+                     <attribute encrypted="false"
+                                name="directoryName"
+                                value="/opt/infaagent/apps/Data_Integration_Server/data/stage/ICRT"/>
+                     <attribute encrypted="false" name="recursive" value="false"/>
+                     <attribute encrypted="false"
+                                name="include"
+                                value="FF_NS_To_RevProFile_606_Transaction_SOExpiryDate.csv"/>
+                     <attribute encrypted="false" name="exclude" value=""/>
+                     <attribute encrypted="false" name="noop" value="false"/>
+                     <attribute encrypted="false" name="delete" value="true"/>
+                     <attribute encrypted="false" name="preMove" value=""/>
+                     <attribute encrypted="false" name="move" value=""/>
+                     <attribute encrypted="false" name="moveFailed" value=""/>
+                     <attribute encrypted="false" name="initialDelay" value="10"/>
+                     <attribute encrypted="false" name="delay" value="10"/>
+                     <attribute encrypted="false" name="maxMessagesPerPoll" value=""/>
+                     <attribute encrypted="false" name="readLock" value="rename"/>
+                     <attribute encrypted="false" name="readLockTimeout" value="60"/>
+                     <attribute encrypted="false" name="readLockCheckInterval" value=""/>
+                     <attribute encrypted="false" name="readLockMinLength" value=""/>
+                     <attribute encrypted="false" name="readLockLoggingLevel" value="WARN"/>
+                     <attribute encrypted="false" name="charset" value=""/>
+                     <attribute encrypted="false" name="otherAttributes" value=""/>
+                     <attribute encrypted="false" name="contentFormat" value="PlainText"/>
+                     <attribute encrypted="false" name="simplifyContent" value="false"/>
+                     <attribute encrypted="false" name="singleObjectContent" value="false"/>
+                  </attributes>
+               </consumer>
             </consumers>
             <producers>
                <producer enabled="true"
@@ -229,5 +262,5 @@
       <types1:GUID>7DhXoMclMaFi2jq8G9vhQX</types1:GUID>
       <types1:DisplayName>File-RevPro-TransactionsAndEvents</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-04-22T21:44:25.676Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-05-18T23:38:57.219Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
