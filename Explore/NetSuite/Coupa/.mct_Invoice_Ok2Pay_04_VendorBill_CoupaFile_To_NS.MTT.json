@@ -104,8 +104,28 @@
     },
     "path" : "/SYS"
   }, {
+    "id" : "brwXcX8SFwdiPZrkZpvZQG",
+    "name" : "NetSuite_ODBC_1",
+    "type" : "Connection",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0B00000000004E"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "VALID"
+      }
+    },
+    "path" : "/SYS"
+  }, {
     "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
-    "name" : "ip-10-150-6-196.us-west-2.compute.internal",
+    "name" : "INFA-AWS-SANDBOX",
     "type" : "AgentGroup",
     "metadata" : {
       "modelVersion" : {
