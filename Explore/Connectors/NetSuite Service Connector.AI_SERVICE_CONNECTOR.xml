@@ -14,10 +14,10 @@
       <types1:CreatedBy>gykumar@informatica.com.appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-28T09:18:33Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-03-24T18:39:24Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-06-02T20:15:19Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-03-24T18:39:57Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-06-02T20:15:26Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_Service_Connector/NetSuite_Service_Connector_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -145,9 +145,10 @@
                      </restSimpleBinding>
                   </binding>
                   <output>
-                     <field description="" name="companyName" type="string">
-                        <xquery>{//listRel:entityId/text()}</xquery>
-                     </field>
+                     <field description=""
+                            name="companyName"
+                            property="entityId"
+                            type="string"/>
                      <field description="" name="phone" property="phone" type="phone"/>
                      <field description="" name="email" property="email" type="email"/>
                      <field description="" name="balance" property="balance" type="double"/>
@@ -1367,6 +1368,7 @@
                                 name="Cisco_PartyId"
                                 nogen="true"
                                 required="false"
+                                testWith=""
                                 type="string"/>
                   </input>
                   <binding>
@@ -1916,7 +1918,7 @@
                      <parameter label="Company Name"
                                 name="companyName"
                                 required="true"
-                                testWith="TestJWCorp1234"
+                                testWith="World Wide Technology Holding CO INC"
                                 type="string"/>
                      <parameter label="Phone"
                                 name="phone"
@@ -1996,16 +1998,22 @@
                                 name="parentCustomer_uniqueId"
                                 nogen="true"
                                 required="false"
-                                testWith="Test-12212018631"
+                                testWith=""
                                 type="string"/>
                      <parameter label="Customer_uniqueId"
                                 name="Customer_uniqueId"
                                 nogen="true"
                                 required="false"
-                                testWith="Test-12212018632"
+                                testWith=""
                                 type="string"/>
                      <parameter label="Cisco_PartyId"
                                 name="Cisco_PartyId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="parentCustomer_NetSuiteID"
+                                name="parentCustomer_NetSuiteID"
                                 nogen="true"
                                 required="false"
                                 testWith=""
@@ -2046,7 +2054,7 @@
 			&lt;ns1:email&gt;{$email}&lt;/ns1:email&gt; 
 			   else ()
            } 
-            &lt;ns1:entityId&gt;{$Customer_uniqueId}&lt;/ns1:entityId&gt;
+&lt;!--            &lt;ns1:entityId&gt;{$Customer_uniqueId}&lt;/ns1:entityId&gt; --&gt;
            {
 		  if ($parentNSId != '')
                then
@@ -2151,10 +2159,10 @@
                                             xsi:type="platformCore:StringCustomFieldRef"&gt;
                      &lt;platformCore:value&gt;{$industry}&lt;/platformCore:value&gt;
                   &lt;/platformCore:customField&gt;
-                  &lt;platformCore:customField scriptId="custentity_ad_parent_cust_unique_id"
+&lt;!--                  &lt;platformCore:customField scriptId="custentity_ad_parent_cust_unique_id"
                                             xsi:type="platformCore:StringCustomFieldRef"&gt;
                      &lt;platformCore:value&gt;{$parentCustomer_uniqueId}&lt;/platformCore:value&gt;
-                  &lt;/platformCore:customField&gt;
+                  &lt;/platformCore:customField&gt; --&gt;
 			  {
 			    if(exists($Cisco_PartyId ))
 				then
@@ -2163,8 +2171,7 @@
                      &lt;platformCore:value&gt;{$Cisco_PartyId}&lt;/platformCore:value&gt;
                   &lt;/platformCore:customField&gt;
 				else()			  
-			  }
-                 
+			  }                 
               &lt;/listRel:customFieldList&gt;            
            
          &lt;/record&gt;
@@ -6099,6 +6106,130 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
                      </field>
                   </output>
                </action>
+               <action category="Create"
+                       failOnError="false"
+                       forSearch="false"
+                       label="Create Customer New"
+                       maxRedirects="100"
+                       name="Create Customer New"
+                       preemptiveAuth="true"
+                       responseEncoding="">
+                  <description>Create Customer With Customer ID autogenerated with NetSuite</description>
+                  <input>
+                     <parameter label="Company Name"
+                                name="companyName"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Phone"
+                                name="phone"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Email"
+                                name="email"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Subsidiary Name"
+                                name="subsidiary"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Fax"
+                                name="fax"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Url"
+                                name="url"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Billing Address"
+                                name="billingAddress"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="reference">
+                        <options>
+                           <option name="referenceTo">billingAddress</option>
+                        </options>
+                     </parameter>
+                     <parameter label="Shipping Address"
+                                name="shippingAddress"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="reference">
+                        <options>
+                           <option name="referenceTo">shippingAddress</option>
+                        </options>
+                     </parameter>
+                     <parameter label="taxItem"
+                                name="taxItem"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="accountID"
+                                name="accountID"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="parentNSId"
+                                name="parentNSId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="industry"
+                                name="industry"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="parentCustomer_uniqueId"
+                                name="parentCustomer_uniqueId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Customer_uniqueId"
+                                name="Customer_uniqueId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="Cisco_PartyId"
+                                name="Cisco_PartyId"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                     <parameter label="autoname"
+                                name="autoname"
+                                nogen="true"
+                                required="false"
+                                testWith=""
+                                type="string"/>
+                  </input>
+                  <binding>
+                     <restSimpleBinding multiUsing="semicolonSeparated" url="{$URL}" verb="POST">
+                        <httpHeaders>
+                           <header name="SOAPAction">add</header>
+                        </httpHeaders>
+                        <body/>
+                     </restSimpleBinding>
+                  </binding>
+                  <output/>
+               </action>
             </actions>
             <objects>
                <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
@@ -7517,5 +7648,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-04-29T22:41:40.41Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-06-21T19:26:55.323Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
