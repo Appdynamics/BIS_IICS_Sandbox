@@ -14,10 +14,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-11-21T03:52:29Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-05-03T19:35:47Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-06-24T22:06:09Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-05-03T20:02:41Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-06-24T22:06:30Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_Order_to_NS_Sales_Order/SFDC_Order_to_NS_Sales_Order.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -448,6 +448,39 @@
                      <option name="initialvalue">1</option>
                   </options>
                </field>
+               <field description="" name="temp_BillingSubsidiary" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_ParentBillToExists" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_ParentShipToExists" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_BillToExists" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
+               <field description="" name="temp_ShipToExists" type="boolean">
+                  <options>
+                     <option name="defaultvalue">false</option>
+                     <option name="boolean_show_as">checkbox</option>
+                     <option name="required">false</option>
+                  </options>
+               </field>
             </tempFields>
             <notes/>
             <deployment suspendOnFault="false" tracingLevel="verbose">
@@ -468,7 +501,7 @@
                   </operation>
                   <link id="jx232sa7" targetId="jx232sa6"/>
                </assignment>
-               <assignment id="idzqt3bm">
+               <assignment id="kosw3a7w">
                   <title>Lookup SFDC IntegrationMapping</title>
                   <operation source="query" to="temp.temp_IntegrationMapping_Billing">
                      <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
@@ -510,18 +543,18 @@
                         <where>Lookup_Type__c = 'State/Province' AND Attribute_1__c = '{$ShippingCountry}' AND Lookup_Name__c = '{$ShippingState}'</where>
                      </query>
                   </operation>
-                  <link id="j2r1a3f0" targetId="j2r1a3ez"/>
+                  <link id="kosw3blr" targetId="kosw3blg"/>
                </assignment>
-               <assignment id="idzrv8od">
+               <assignment id="kphd8q6e">
                   <title>Assign Billing Address values</title>
                   <operation source="field" to="temp.thisBillingAddress[1]/billingAddress1">BillingStreet</operation>
                   <operation source="field" to="temp.thisBillingAddress[1]/billingCity">BillingCity</operation>
                   <operation source="field" to="temp.thisBillingAddress[1]/billingState">temp.billingStateProvince</operation>
                   <operation source="field" to="temp.thisBillingAddress[1]/billingZip">BillingPostalCode</operation>
                   <operation source="field" to="temp.thisBillingAddress[1]/billingCountry">temp.temp_SFDCBillingCountry</operation>
-                  <link id="ih5bru2h" targetId="ih5bru2g"/>
+                  <link id="kphd8q6g" targetId="kphd8q0w"/>
                </assignment>
-               <assignment id="idzrv8pj">
+               <assignment id="kphd8q0w">
                   <title>Assign Shipping Address values</title>
                   <operation source="formula" to="temp.thisShippingAddress[1]/shippingAddress1">
                      <expression language="XQuery">fn:substring($ShippingStreet, 1,150)</expression>
@@ -534,7 +567,41 @@
                   <operation source="field" to="temp.thisShippingAddress[1]/shippingState">temp.shippingStateProvince</operation>
                   <operation source="field" to="temp.thisShippingAddress[1]/shippingZip">ShippingPostalCode</operation>
                   <operation source="field" to="temp.thisShippingAddress[1]/shippingCountry">temp.temp_SFDCShippingCountry</operation>
-                  <link id="j6lflux9" targetId="j6lflux0"/>
+                  <link id="kphd8q0y" targetId="kot0w7vg"/>
+               </assignment>
+               <assignment id="kot0w7vg">
+                  <title>Assign Billing Subsidiary</title>
+                  <operation source="formula" to="temp.temp_BillingSubsidiary">
+                     <expression language="XQuery">if($EULA_Region__c='Americas') then '1' else if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expression>
+                  </operation>
+                  <link id="kq8jgwe0" targetId="kot2hvbg"/>
+               </assignment>
+               <assignment id="kot2hvbg">
+                  <title>Check if Parent BillTo, Parent ShipTo, BillTo, ShipTo exists</title>
+                  <operation source="formula" to="temp.temp_ParentBillToExists">
+                     <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then if(fn:empty($Bill_To__r.Account__r.Parent.NetSuite_Id__c)) then false() else true()
+else if(fn:empty($Bill_To__r.Account__r.Parent.UK2_Netsuite_ID__c)) then false() else true()</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_ParentShipToExists">
+                     <expression language="XQuery">if(fn:empty($Ship_To__r.Account__r.Parent.NetSuite_Id__c) and fn:empty($Ship_To__r.Account__r.Parent.UK2_Netsuite_ID__c)) then false() else true()
+</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_BillToExists">
+                     <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then if(fn:empty($Bill_To__r.Account__r.NetSuite_Id__c)) then false() else true()
+else if(fn:empty($Bill_To__r.Account__r.UK2_Netsuite_ID__c)) then false() else true()</expression>
+                  </operation>
+                  <operation source="formula" to="temp.temp_ShipToExists">
+                     <expression language="XQuery">if(fn:empty($Ship_To__r.Account__r.NetSuite_Id__c) and fn:empty($Ship_To__r.Account__r.UK2_Netsuite_ID__c)) then false() else true()</expression>
+                  </operation>
+                  <link id="kot2hyf6" targetId="jpyi36a3"/>
+               </assignment>
+               <assignment id="kq8jgut5">
+                  <title>Check if Parent ShipTo exists</title>
+                  <operation source="formula" to="temp.temp_ParentShipToExists">
+                     <expression language="XQuery">if(fn:empty($Ship_To__r.Account__r.Parent.NetSuite_Id__c) and fn:empty($Ship_To__r.Account__r.Parent.UK2_Netsuite_ID__c)) then false() else true()
+</expression>
+                  </operation>
+                  <link id="kq8jgut7" targetId="jpyi36dj"/>
                </assignment>
                <assignment id="jrc1kuda">
                   <title>Assign Existing BillTo Subsidiary to temp Field</title>
@@ -542,7 +609,7 @@
                   <operation source="formula" to="output.subsidiary">
                      <expression language="XQuery">()</expression>
                   </operation>
-                  <link id="jrjoqzyy" targetId="jrjoqzyx"/>
+                  <link id="kq8jgx33" targetId="jrjoqzyx"/>
                </assignment>
                <assignment id="jrjoqzyx">
                   <title>Get Opportunity Contact</title>
@@ -559,7 +626,15 @@
                      <expression language="XQuery">if ($Partner__c != '' and $Partner__c != $AccountId)
 then 'No' else 'Yes'</expression>
                   </operation>
-                  <link id="j71bjwnk" targetId="j71bjwkg"/>
+                  <link id="kq8jgxjk" targetId="kq8jgx5u"/>
+               </assignment>
+               <assignment id="kq8jgx5u">
+                  <title>Check if  BillTo exists</title>
+                  <operation source="formula" to="temp.temp_BillToExists">
+                     <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then if(fn:empty($Bill_To__r.Account__r.NetSuite_Id__c)) then false() else true()
+else if(fn:empty($Bill_To__r.Account__r.UK2_Netsuite_ID__c)) then false() else true()</expression>
+                  </operation>
+                  <link id="kq8jgx5w" targetId="j71bjwkg"/>
                </assignment>
                <assignment id="idptne53">
                   <title>Assign NSHeaderCustomFields</title>
@@ -571,9 +646,26 @@ then 'No' else 'Yes'</expression>
                   </operation>
                   <operation source="field"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_license_term_in_months">License_T__c</operation>
-                  <operation source="field" to="temp.thisNSHeaderCustomFields[1]/custbody_end_user">Ship_To__r.Account__r.NetSuite_Id__c</operation>
-                  <operation source="field"
-                             to="temp.thisNSHeaderCustomFields[1]/custbody_netsuite_entity">Ship_To__r.Account__r.NetSuite_Id__c</operation>
+                  <operation source="formula"
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_end_user">
+                     <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') 
+	then (if(fn:string-length($Ship_To__r.Account__r.NetSuite_Id__c) &gt; 0) 
+		then $Ship_To__r.Account__r.NetSuite_Id__c 
+		else $Ship_To__r.Account__r.UK2_Netsuite_ID__c) 
+	else  (if(fn:string-length($Ship_To__r.Account__r.UK2_Netsuite_ID__c) &gt; 0) 
+		then $Ship_To__r.Account__r.UK2_Netsuite_ID__c
+		else $Ship_To__r.Account__r.NetSuite_Id__c)</expression>
+                  </operation>
+                  <operation source="formula"
+                             to="temp.thisNSHeaderCustomFields[1]/custbody_netsuite_entity">
+                     <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') 
+	then (if(fn:string-length($Ship_To__r.Account__r.NetSuite_Id__c) &gt; 0) 
+		then $Ship_To__r.Account__r.NetSuite_Id__c 
+		else $Ship_To__r.Account__r.UK2_Netsuite_ID__c) 
+	else  (if(fn:string-length($Ship_To__r.Account__r.UK2_Netsuite_ID__c) &gt; 0) 
+		then $Ship_To__r.Account__r.UK2_Netsuite_ID__c
+		else $Ship_To__r.Account__r.NetSuite_Id__c)</expression>
+                  </operation>
                   <operation source="field"
                              to="temp.thisNSHeaderCustomFields[1]/custbody_opportunity_currency">CurrencyIsoCode</operation>
                   <operation source="field"
@@ -737,7 +829,7 @@ then 'No' else 'Yes'</expression>
                <assignment id="iaj27kfk">
                   <title>Populate Sales Order Header</title>
                   <operation source="formula" to="temp.thisSalesOrder[1]/entity[1]/internalId">
-                     <expression language="XQuery">if($Opportunity_Type__c = 'VAR – Referral') then $Account.NetSuite_Id__c else $Bill_To__r.Account__r.NetSuite_Id__c
+                     <expression language="XQuery">if($Opportunity_Type__c = 'VAR – Referral') then (if($temp.temp_BillingSubsidiary = '1') then $Account.NetSuite_Id__c else $Account.UK2_Netsuite_ID__c)  else (if($temp.temp_BillingSubsidiary = '1') then $Bill_To__r.Account__r.NetSuite_Id__c else $Bill_To__r.Account__r.UK2_Netsuite_ID__c)
 </expression>
                   </operation>
                   <operation source="field"
@@ -938,19 +1030,19 @@ else $Opportunity.Opportunity_Type__c</expression>
                      </condition>
                   </link>
                   <link id="j0o5o2aj" targetId="j0o5o2ao" type="containerLink"/>
-                  <link id="j2r1a3fw" targetId="idzqt3bm"/>
+                  <link id="kosw3a7x" targetId="kosw3a7w"/>
                </container>
-               <container id="j2r1a3ez" type="exclusive">
+               <container id="kosw3blg" type="exclusive">
                   <title>temp_IntegrationMapping_ChannelTier</title>
-                  <flow id="j2r1a3gw">
-                     <assignment id="j2r1a3gv">
+                  <flow id="kosw3blh">
+                     <assignment id="kosw3bli">
                         <title>Assignment to channelTier</title>
                         <operation source="field" to="temp.channelTier">temp.temp_IntegrationMapping_ChannelTier.Mapping_Name__c</operation>
                      </assignment>
-                     <link id="j2r1a3gx" targetId="j2r1a3ez" type="containerLink"/>
+                     <link id="kosw3blo" targetId="kosw3blg" type="containerLink"/>
                   </flow>
-                  <flow id="j2r1a3gz">
-                     <assignment id="j2s01hua">
+                  <flow id="kosw3blj">
+                     <assignment id="kosw3blk">
                         <title>Assign Channel Tier Exception</title>
                         <operation source="constant" to="Integration_Exception_Message__c">No Channel Tier mapping</operation>
                         <operation source="constant" to="SO_Integration_Status__c">Error</operation>
@@ -961,39 +1053,39 @@ else $Opportunity.Opportunity_Type__c</expression>
                            </function>
                         </operation>
                         <operation source="constant" to="output.out_error">No Channel Tier mapping</operation>
-                        <link id="j2s01hub" targetId="j2r1a3gy"/>
+                        <link id="kosw3blp" targetId="kosw3bll"/>
                      </assignment>
-                     <jumpTo id="j2r1a3gy">
-                        <link id="j2s01h6w" targetId="jerndxk3"/>
+                     <jumpTo id="kosw3bll">
+                        <link id="kosw3blq" targetId="jerndxk3"/>
                      </jumpTo>
                   </flow>
-                  <link id="j2r1a3gt" targetId="j2r1a3gw" type="containerLink">
+                  <link id="kosw3blm" targetId="kosw3blh" type="containerLink">
                      <condition source="formula">
                         <function name="set">
                            <arg name="field">{$temp.temp_IntegrationMapping_ChannelTier}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="j2r1a3gu" targetId="j2r1a3gz" type="containerLink">
+                  <link id="kosw3bln" targetId="kosw3blj" type="containerLink">
                      <condition source="formula">
                         <function name="unset">
                            <arg name="field">{$temp.temp_IntegrationMapping_ChannelTier}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="j2s01h7w" targetId="j2s01h7v"/>
+                  <link id="kosw3btc" targetId="kosw3bt1"/>
                </container>
-               <container id="j2s01h7v" type="exclusive">
+               <container id="kosw3bt1" type="exclusive">
                   <title>temp_IntegrationMappingTerms</title>
-                  <flow id="j2s01h9t">
-                     <assignment id="j2s01h9s">
+                  <flow id="kosw3bt2">
+                     <assignment id="kosw3bt3">
                         <title>Assignment to paymentTerm</title>
                         <operation source="field" to="temp.paymentTerm">temp.temp_IntegrationMappingTerms.Mapping_Name__c</operation>
                      </assignment>
-                     <link id="j2s01h9u" targetId="j2s01h7v" type="containerLink"/>
+                     <link id="kosw3bt9" targetId="kosw3bt1" type="containerLink"/>
                   </flow>
-                  <flow id="j2s01h9w">
-                     <assignment id="j2s4c471">
+                  <flow id="kosw3bt4">
+                     <assignment id="kosw3bt5">
                         <title>Assign Payment Term Exception</title>
                         <operation source="constant" to="Integration_Exception_Message__c">No Payment Term mapping</operation>
                         <operation source="constant" to="SO_Integration_Status__c">Error</operation>
@@ -1004,39 +1096,39 @@ else $Opportunity.Opportunity_Type__c</expression>
                            </function>
                         </operation>
                         <operation source="constant" to="output.out_error">No Payment Term mapping</operation>
-                        <link id="j2s4c4bb" targetId="j2s01h9v"/>
+                        <link id="kosw3bta" targetId="kosw3bt6"/>
                      </assignment>
-                     <jumpTo id="j2s01h9v">
-                        <link id="j2s01he0" targetId="jerndxk3"/>
+                     <jumpTo id="kosw3bt6">
+                        <link id="kosw3btb" targetId="jerndxk3"/>
                      </jumpTo>
                   </flow>
-                  <link id="j2s01h9q" targetId="j2s01h9t" type="containerLink">
+                  <link id="kosw3bt7" targetId="kosw3bt2" type="containerLink">
                      <condition source="formula">
                         <function name="set">
                            <arg name="field">{$temp.temp_IntegrationMappingTerms}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="j2s01h9r" targetId="j2s01h9w" type="containerLink">
+                  <link id="kosw3bt8" targetId="kosw3bt4" type="containerLink">
                      <condition source="formula">
                         <function name="unset">
                            <arg name="field">{$temp.temp_IntegrationMappingTerms}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="j2s01hgx" targetId="j2s01hgw"/>
+                  <link id="kosw3byj" targetId="kosw3by8"/>
                </container>
-               <container id="j2s01hgw" type="exclusive">
+               <container id="kosw3by8" type="exclusive">
                   <title>temp_IntegrationMapping_DealType</title>
-                  <flow id="j2s01hiw">
-                     <assignment id="j2s01hiv">
+                  <flow id="kosw3by9">
+                     <assignment id="kosw3bya">
                         <title>Assignment to dealType</title>
                         <operation source="field" to="temp.dealType">temp.temp_IntegrationMapping_DealType.Mapping_Name__c</operation>
                      </assignment>
-                     <link id="j2s01hix" targetId="j2s01hgw" type="containerLink"/>
+                     <link id="kosw3byg" targetId="kosw3by8" type="containerLink"/>
                   </flow>
-                  <flow id="j2s01hiz">
-                     <assignment id="j2s4c4g9">
+                  <flow id="kosw3byb">
+                     <assignment id="kosw3byc">
                         <title>Assign Deal Type Exception</title>
                         <operation source="constant" to="Integration_Exception_Message__c">No Deal Type mapping</operation>
                         <operation source="constant" to="SO_Integration_Status__c">Error</operation>
@@ -1047,291 +1139,321 @@ else $Opportunity.Opportunity_Type__c</expression>
                            </function>
                         </operation>
                         <operation source="constant" to="output.out_error">No Deal Type mapping</operation>
-                        <link id="j2s4c4kj" targetId="j2s01hiy"/>
+                        <link id="kosw3byh" targetId="kosw3byd"/>
                      </assignment>
-                     <jumpTo id="j2s01hiy">
-                        <link id="j2s01hn7" targetId="jerndxk3"/>
+                     <jumpTo id="kosw3byd">
+                        <link id="kosw3byi" targetId="jerndxk3"/>
                      </jumpTo>
                   </flow>
-                  <link id="j2s01hit" targetId="j2s01hiw" type="containerLink">
+                  <link id="kosw3bye" targetId="kosw3by9" type="containerLink">
                      <condition source="formula">
                         <function name="set">
                            <arg name="field">{$temp.temp_IntegrationMapping_DealType}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="j2s01hiu" targetId="j2s01hiz" type="containerLink">
+                  <link id="kosw3byf" targetId="kosw3byb" type="containerLink">
                      <condition source="formula">
                         <function name="unset">
                            <arg name="field">{$temp.temp_IntegrationMapping_DealType}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="j2s01hgy" targetId="ie3x2jj5"/>
+                  <link id="kosw3byk" targetId="kosw3485"/>
                </container>
-               <container id="ie3x2jj5" type="exclusive">
-                  <title>Is IntegrationMapping_Billing set?</title>
-                  <flow id="ie3x2jjp">
-                     <assignment id="ie3x2jjo">
-                        <title>Add Billing Country if lookup returns non null</title>
-                        <operation source="field" to="temp.temp_SFDCBillingCountry">temp.temp_IntegrationMapping_Billing.Mapping_Name__c</operation>
-                        <operation source="formula" to="temp.billToSubsidiary">
-                           <expression language="XQuery">if($EULA_Region__c='Americas') then '1' else 
+               <container id="kosw3485" type="parallel">
+                  <title>Parallel Paths 2</title>
+                  <flow id="kosw351c">
+                     <container id="kosw38zj" type="exclusive">
+                        <title>Is IntegrationMapping_Billing set?</title>
+                        <flow id="kosw38zk">
+                           <assignment id="kosw38zl">
+                              <title>Add Billing Country if lookup returns non null</title>
+                              <operation source="field" to="temp.temp_SFDCBillingCountry">temp.temp_IntegrationMapping_Billing.Mapping_Name__c</operation>
+                              <operation source="formula" to="temp.billToSubsidiary">
+                                 <expression language="XQuery">if($EULA_Region__c='Americas') then '1' else 
 if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expression>
-                        </operation>
-                        <operation source="query" to="temp.temp_IntegrationMapping_Subsidiary">
-                           <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
-                              <where>Mapping_Name__c = '{$temp.temp_IntegrationMapping_Billing.Attribute_2__c}' and Lookup_Type__c = 'Subsidiary'</where>
-                           </query>
-                        </operation>
-                        <link id="j5xdy8ti" targetId="j5xdy8th"/>
-                     </assignment>
-                     <service id="j5xdy8th">
-                        <title>GetGeoRegion</title>
-                        <serviceName>NetSuite-CiscoDepartmentLookup:GetGeoRegion</serviceName>
-                        <serviceGUID>gPD9ex60xIIkSd9IzZgAmL</serviceGUID>
-                        <serviceInput>
-                           <parameter name="countryCode" source="field" updatable="true">temp.temp_IntegrationMapping_Billing.Attribute_1__c</parameter>
-                        </serviceInput>
-                     </service>
-                     <link id="ie3x2jjq" targetId="ie3x2jj5" type="containerLink"/>
+                              </operation>
+                              <operation source="query" to="temp.temp_IntegrationMapping_Subsidiary">
+                                 <query advanceQuery="false" from="Salesforce:Integration_Mapping__c">
+                                    <where>Mapping_Name__c = '{$temp.temp_IntegrationMapping_Billing.Attribute_2__c}' and Lookup_Type__c = 'Subsidiary'</where>
+                                 </query>
+                              </operation>
+                              <link id="kosw38zs" targetId="kosw38zm"/>
+                           </assignment>
+                           <service id="kosw38zm">
+                              <title>GetGeoRegion</title>
+                              <serviceName>NetSuite-CiscoDepartmentLookup:GetGeoRegion</serviceName>
+                              <serviceGUID>gPD9ex60xIIkSd9IzZgAmL</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="countryCode" source="field" updatable="true">temp.temp_IntegrationMapping_Billing.Attribute_1__c</parameter>
+                              </serviceInput>
+                           </service>
+                           <link id="kosw38zr" targetId="kosw38zj" type="containerLink"/>
+                        </flow>
+                        <flow id="kosw38zn">
+                           <assignment id="kosw38zo">
+                              <title>Add blank value to Billing Country</title>
+                              <operation source="constant" to="temp.temp_SFDCBillingCountry"/>
+                              <operation source="constant" to="temp.billToSubsidiary"/>
+                           </assignment>
+                           <link id="kosw38zt" targetId="kosw38zj" type="containerLink"/>
+                        </flow>
+                        <link id="kosw38zp" targetId="kosw38zk" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Billing}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kosw38zq" targetId="kosw38zn" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Billing}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="kosw351d" targetId="kosw3485" type="containerLink"/>
                   </flow>
-                  <flow id="ie3x2jjs">
-                     <assignment id="ie3x2jjr">
-                        <title>Add blank value to Billing Country</title>
-                        <operation source="constant" to="temp.temp_SFDCBillingCountry"/>
-                        <operation source="constant" to="temp.billToSubsidiary"/>
-                     </assignment>
-                     <link id="ie3x2jjt" targetId="ie3x2jj5" type="containerLink"/>
+                  <flow id="kphd8o81">
+                     <container id="kphd8p3z" type="exclusive">
+                        <title>thisBillingStateProvinceLookup</title>
+                        <flow id="kphd8p40">
+                           <assignment id="kphd8p41">
+                              <title>Assignment to billingStateProvince</title>
+                              <operation source="field" to="temp.billingStateProvince">temp.thisBillingStateProvinceLookup.Mapping_Name__c</operation>
+                           </assignment>
+                           <link id="kphd8p46" targetId="kphd8p3z" type="containerLink"/>
+                        </flow>
+                        <flow id="kphd8p42">
+                           <assignment id="kphd8p43">
+                              <title>Assignment to billingStateProvince</title>
+                              <operation source="field" to="temp.billingStateProvince">BillingState</operation>
+                           </assignment>
+                           <link id="kphd8p47" targetId="kphd8p3z" type="containerLink"/>
+                        </flow>
+                        <link id="kphd8p44" targetId="kphd8p40" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.thisBillingStateProvinceLookup}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kphd8p45" targetId="kphd8p42" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.thisBillingStateProvinceLookup}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="kphd8o82" targetId="kosw3485" type="containerLink"/>
                   </flow>
-                  <link id="ie3x2jjm" targetId="ie3x2jjp" type="containerLink">
-                     <condition source="formula">
-                        <function name="set">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Billing}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="ie3x2jjn" targetId="ie3x2jjs" type="containerLink">
-                     <condition source="formula">
-                        <function name="unset">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Billing}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j7jyr7xn" targetId="j7jyr7xe"/>
-               </container>
-               <container id="j7jyr7xe" type="exclusive">
-                  <title>thisBillingStateProvinceLookup</title>
-                  <flow id="j7jyr7xf">
-                     <assignment id="j7jyr7xg">
-                        <title>Assignment to billingStateProvince</title>
-                        <operation source="field" to="temp.billingStateProvince">temp.thisBillingStateProvinceLookup.Mapping_Name__c</operation>
-                     </assignment>
-                     <link id="j7jyr7xl" targetId="j7jyr7xe" type="containerLink"/>
+                  <flow id="kosw353q">
+                     <container id="kosw39f5" type="exclusive">
+                        <title>Is temp_IntegrationMappingClass Set?</title>
+                        <flow id="kosw39f6">
+                           <assignment id="kosw39f7">
+                              <title>Assignment to temp_NSClassId</title>
+                              <operation source="field" to="temp.temp_NSClassId">temp.temp_IntegrationMappingClass.Mapping_Name__c</operation>
+                           </assignment>
+                           <link id="kosw39fc" targetId="kosw39f5" type="containerLink"/>
+                        </flow>
+                        <flow id="kosw39f8">
+                           <assignment id="kosw39f9">
+                              <title>Assignment to temp_NSClassId</title>
+                              <operation source="constant" to="temp.temp_NSClassId"/>
+                           </assignment>
+                           <link id="kosw39fd" targetId="kosw39f5" type="containerLink"/>
+                        </flow>
+                        <link id="kosw39fa" targetId="kosw39f6" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_IntegrationMappingClass}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kosw39fb" targetId="kosw39f8" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_IntegrationMappingClass}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="kosw353r" targetId="kosw3485" type="containerLink"/>
                   </flow>
-                  <flow id="j7jyr7xh">
-                     <assignment id="j7jyr7xi">
-                        <title>Assignment to billingStateProvince</title>
-                        <operation source="field" to="temp.billingStateProvince">BillingState</operation>
-                     </assignment>
-                     <link id="j7jyr7xm" targetId="j7jyr7xe" type="containerLink"/>
+                  <flow id="kosw35iv">
+                     <container id="kosw39k7" type="exclusive">
+                        <title>Is IntegrationMapping_Shipping set?</title>
+                        <flow id="kosw39k8">
+                           <assignment id="kosw39k9">
+                              <title>Add Shipping Country if lookup returns non null</title>
+                              <operation source="field" to="temp.temp_SFDCShippingCountry">temp.temp_IntegrationMapping_Shipping.Mapping_Name__c</operation>
+                              <operation source="formula" to="temp.shipToSubsidiary">
+                                 <expression language="XQuery">if($Ship_to_Subsidiary__c='AppDynamics, Inc.') then '1' else if($Ship_to_Subsidiary__c='AppDynamics UK2') then '9' else ''</expression>
+                              </operation>
+                           </assignment>
+                           <link id="kosw39ke" targetId="kosw39k7" type="containerLink"/>
+                        </flow>
+                        <flow id="kosw39ka">
+                           <assignment id="kosw39kb">
+                              <title>Add blank value to Shipping Country</title>
+                              <operation source="constant" to="temp.temp_SFDCShippingCountry"/>
+                              <operation source="constant" to="temp.shipToSubsidiary"/>
+                           </assignment>
+                           <link id="kosw39kf" targetId="kosw39k7" type="containerLink"/>
+                        </flow>
+                        <link id="kosw39kc" targetId="kosw39k8" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Shipping}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kosw39kd" targetId="kosw39ka" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Shipping}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="kosw35iw" targetId="kosw3485" type="containerLink"/>
                   </flow>
-                  <link id="j7jyr7xj" targetId="j7jyr7xf" type="containerLink">
-                     <condition source="formula">
-                        <function name="set">
-                           <arg name="field">{$temp.thisBillingStateProvinceLookup}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j7jyr7xk" targetId="j7jyr7xh" type="containerLink">
-                     <condition source="formula">
-                        <function name="unset">
-                           <arg name="field">{$temp.thisBillingStateProvinceLookup}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j7jyr7xo" targetId="idzrv8od"/>
-               </container>
-               <container id="ih5bru2g" type="exclusive">
-                  <title>Is temp_IntegrationMappingClass Set?</title>
-                  <flow id="ih5bru3x">
-                     <assignment id="ih5bru3w">
-                        <title>Assignment to temp_NSClassId</title>
-                        <operation source="field" to="temp.temp_NSClassId">temp.temp_IntegrationMappingClass.Mapping_Name__c</operation>
-                     </assignment>
-                     <link id="ih5bru3y" targetId="ih5bru2g" type="containerLink"/>
+                  <flow id="kphd8ob6">
+                     <container id="kphd8pnc" type="exclusive">
+                        <title>thisShippingStateProvinceLookup</title>
+                        <flow id="kphd8pnd">
+                           <assignment id="kphd8pne">
+                              <title>Assignment to shippingStateProvince</title>
+                              <operation source="field" to="temp.shippingStateProvince">temp.thisShippingStateProvinceLookup.Mapping_Name__c</operation>
+                           </assignment>
+                           <link id="kphd8pnj" targetId="kphd8pnc" type="containerLink"/>
+                        </flow>
+                        <flow id="kphd8pnf">
+                           <assignment id="kphd8png">
+                              <title>Assignment to shippingStateProvince</title>
+                              <operation source="field" to="temp.shippingStateProvince">ShippingState</operation>
+                           </assignment>
+                           <link id="kphd8pnk" targetId="kphd8pnc" type="containerLink"/>
+                        </flow>
+                        <link id="kphd8pnh" targetId="kphd8pnd" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.thisShippingStateProvinceLookup}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kphd8pni" targetId="kphd8pnf" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.thisShippingStateProvinceLookup}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="kphd8ob7" targetId="kosw3485" type="containerLink"/>
                   </flow>
-                  <flow id="ih5bru40">
-                     <assignment id="ih5bru3z">
-                        <title>Assignment to temp_NSClassId</title>
-                        <operation source="constant" to="temp.temp_NSClassId"/>
-                     </assignment>
-                     <link id="ih5bru41" targetId="ih5bru2g" type="containerLink"/>
+                  <flow id="kosw35lb">
+                     <container id="kosw3ah0" type="exclusive">
+                        <title>Is temp_IntegrationMapping_Subsidiary set?</title>
+                        <flow id="kosw3ah1">
+                           <assignment id="kosw3ah2">
+                              <title>Add internal ID of Subsidiary if lookup returns non null</title>
+                              <operation source="field" to="temp.temp_SFDCSubsidiary">temp.temp_IntegrationMapping_Billing.Attribute_2__c</operation>
+                              <operation source="field" to="temp.temp_NSTaxItem">temp.temp_IntegrationMapping_Subsidiary.Attribute_1__c</operation>
+                           </assignment>
+                           <link id="kosw3ah7" targetId="kosw3ah0" type="containerLink"/>
+                        </flow>
+                        <flow id="kosw3ah3">
+                           <assignment id="kosw3ah4">
+                              <title>Add blank to Subsidiary internal ID</title>
+                              <operation source="constant" to="temp.temp_SFDCSubsidiary"/>
+                              <operation source="constant" to="temp.temp_NSTaxItem"/>
+                           </assignment>
+                           <link id="kosw3ah8" targetId="kosw3ah0" type="containerLink"/>
+                        </flow>
+                        <link id="kosw3ah5" targetId="kosw3ah1" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Subsidiary}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kosw3ah6" targetId="kosw3ah3" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Subsidiary}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="kosw35lc" targetId="kosw3485" type="containerLink"/>
                   </flow>
-                  <link id="ih5bru3u" targetId="ih5bru3x" type="containerLink">
-                     <condition source="formula">
-                        <function name="set">
-                           <arg name="field">{$temp.temp_IntegrationMappingClass}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="ih5bru3v" targetId="ih5bru40" type="containerLink">
-                     <condition source="formula">
-                        <function name="unset">
-                           <arg name="field">{$temp.temp_IntegrationMappingClass}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="ih5bru2i" targetId="ie3x2jmj"/>
-               </container>
-               <container id="ie3x2jmj" type="exclusive">
-                  <title>Is IntegrationMapping_Shipping set?</title>
-                  <flow id="ie3x2jn3">
-                     <assignment id="ie3x2jn2">
-                        <title>Add Shipping Country if lookup returns non null</title>
-                        <operation source="field" to="temp.temp_SFDCShippingCountry">temp.temp_IntegrationMapping_Shipping.Mapping_Name__c</operation>
-                        <operation source="formula" to="temp.shipToSubsidiary">
-                           <expression language="XQuery">if($Ship_to_Subsidiary__c='AppDynamics, Inc.') then '1' else if($Ship_to_Subsidiary__c='AppDynamics UK2') then '9' else ''</expression>
-                        </operation>
-                     </assignment>
-                     <link id="ie3x2jn4" targetId="ie3x2jmj" type="containerLink"/>
+                  <flow id="kosw3am2">
+                     <container id="kosw3aqy" type="exclusive">
+                        <title>Is temp_IntegrationMapping_Currency set?</title>
+                        <flow id="kosw3aqz">
+                           <assignment id="kosw3ar0">
+                              <title>Add temp_OpptyCurrencyNSId if lookup returns non null</title>
+                              <operation source="field" to="temp.temp_OpptyCurrencyNSId">temp.temp_IntegrationMapping_Currency.Mapping_Name__c</operation>
+                           </assignment>
+                           <link id="kosw3ar5" targetId="kosw3aqy" type="containerLink"/>
+                        </flow>
+                        <flow id="kosw3ar1">
+                           <assignment id="kosw3ar2">
+                              <title>Add blank to temp_OpptyCurrencyNSId</title>
+                              <operation source="constant" to="temp.temp_OpptyCurrencyNSId"/>
+                           </assignment>
+                           <link id="kosw3ar6" targetId="kosw3aqy" type="containerLink"/>
+                        </flow>
+                        <link id="kosw3ar3" targetId="kosw3aqz" type="containerLink">
+                           <condition source="formula">
+                              <function name="set">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Currency}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kosw3ar4" targetId="kosw3ar1" type="containerLink">
+                           <condition source="formula">
+                              <function name="unset">
+                                 <arg name="field">{$temp.temp_IntegrationMapping_Currency}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                     </container>
+                     <link id="kosw3am3" targetId="kosw3485" type="containerLink"/>
                   </flow>
-                  <flow id="ie3x2jn6">
-                     <assignment id="ie3x2jn5">
-                        <title>Add blank value to Shipping Country</title>
-                        <operation source="constant" to="temp.temp_SFDCShippingCountry"/>
-                        <operation source="constant" to="temp.shipToSubsidiary"/>
-                     </assignment>
-                     <link id="ie3x2jn7" targetId="ie3x2jmj" type="containerLink"/>
-                  </flow>
-                  <link id="ie3x2jn0" targetId="ie3x2jn3" type="containerLink">
-                     <condition source="formula">
-                        <function name="set">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Shipping}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="ie3x2jn1" targetId="ie3x2jn6" type="containerLink">
-                     <condition source="formula">
-                        <function name="unset">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Shipping}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j7jyr84e" targetId="j7jyr845"/>
-               </container>
-               <container id="j7jyr845" type="exclusive">
-                  <title>thisShippingStateProvinceLookup</title>
-                  <flow id="j7jyr846">
-                     <assignment id="j7jyr847">
-                        <title>Assignment to shippingStateProvince</title>
-                        <operation source="field" to="temp.shippingStateProvince">temp.thisShippingStateProvinceLookup.Mapping_Name__c</operation>
-                     </assignment>
-                     <link id="j7jyr84c" targetId="j7jyr845" type="containerLink"/>
-                  </flow>
-                  <flow id="j7jyr848">
-                     <assignment id="j7jyr849">
-                        <title>Assignment to shippingStateProvince</title>
-                        <operation source="field" to="temp.shippingStateProvince">ShippingState</operation>
-                     </assignment>
-                     <link id="j7jyr84d" targetId="j7jyr845" type="containerLink"/>
-                  </flow>
-                  <link id="j7jyr84a" targetId="j7jyr846" type="containerLink">
-                     <condition source="formula">
-                        <function name="set">
-                           <arg name="field">{$temp.thisShippingStateProvinceLookup}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j7jyr84b" targetId="j7jyr848" type="containerLink">
-                     <condition source="formula">
-                        <function name="unset">
-                           <arg name="field">{$temp.thisShippingStateProvinceLookup}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j7jyr84f" targetId="idzrv8pj"/>
-               </container>
-               <container id="j6lflux0" type="exclusive">
-                  <title>Is temp_IntegrationMapping_Subsidiary set?</title>
-                  <flow id="j6lflux1">
-                     <assignment id="j6lflux2">
-                        <title>Add internal ID of Subsidiary if lookup returns non null</title>
-                        <operation source="field" to="temp.temp_SFDCSubsidiary">temp.temp_IntegrationMapping_Billing.Attribute_2__c</operation>
-                        <operation source="field" to="temp.temp_NSTaxItem">temp.temp_IntegrationMapping_Subsidiary.Attribute_1__c</operation>
-                     </assignment>
-                     <link id="j6lflux7" targetId="j6lflux0" type="containerLink"/>
-                  </flow>
-                  <flow id="j6lflux3">
-                     <assignment id="j6lflux4">
-                        <title>Add blank to Subsidiary internal ID</title>
-                        <operation source="constant" to="temp.temp_SFDCSubsidiary"/>
-                        <operation source="constant" to="temp.temp_NSTaxItem"/>
-                     </assignment>
-                     <link id="j6lflux8" targetId="j6lflux0" type="containerLink"/>
-                  </flow>
-                  <link id="j6lflux5" targetId="j6lflux1" type="containerLink">
-                     <condition source="formula">
-                        <function name="set">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Subsidiary}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j6lflux6" targetId="j6lflux3" type="containerLink">
-                     <condition source="formula">
-                        <function name="unset">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Subsidiary}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j71bjwf4" targetId="j71bjwev"/>
-               </container>
-               <container id="j71bjwev" type="exclusive">
-                  <title>Is temp_IntegrationMapping_Currency set?</title>
-                  <flow id="j71bjwew">
-                     <assignment id="j71bjwex">
-                        <title>Add temp_OpptyCurrencyNSId if lookup returns non null</title>
-                        <operation source="field" to="temp.temp_OpptyCurrencyNSId">temp.temp_IntegrationMapping_Currency.Mapping_Name__c</operation>
-                     </assignment>
-                     <link id="j71bjwf2" targetId="j71bjwev" type="containerLink"/>
-                  </flow>
-                  <flow id="j71bjwey">
-                     <assignment id="j71bjwez">
-                        <title>Add blank to temp_OpptyCurrencyNSId</title>
-                        <operation source="constant" to="temp.temp_OpptyCurrencyNSId"/>
-                     </assignment>
-                     <link id="j71bjwf3" targetId="j71bjwev" type="containerLink"/>
-                  </flow>
-                  <link id="j71bjwf0" targetId="j71bjwew" type="containerLink">
-                     <condition source="formula">
-                        <function name="set">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Currency}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="j71bjwf1" targetId="j71bjwey" type="containerLink">
-                     <condition source="formula">
-                        <function name="unset">
-                           <arg name="field">{$temp.temp_IntegrationMapping_Currency}</arg>
-                        </function>
-                     </condition>
-                  </link>
-                  <link id="jpyi36ae" targetId="jpyi36a3"/>
+                  <link id="kosw351b" targetId="kosw351c" type="containerLink"/>
+                  <link id="kphd8o80" targetId="kphd8o81" type="containerLink"/>
+                  <link id="kosw353p" targetId="kosw353q" type="containerLink"/>
+                  <link id="kosw35iu" targetId="kosw35iv" type="containerLink"/>
+                  <link id="kphd8ob5" targetId="kphd8ob6" type="containerLink"/>
+                  <link id="kosw35la" targetId="kosw35lb" type="containerLink"/>
+                  <link id="kosw3am1" targetId="kosw3am2" type="containerLink"/>
+                  <link id="kphd8q6f" targetId="kphd8q6e"/>
                </container>
                <container id="jpyi36a3" type="exclusive">
                   <title>Parent billTo Doesn't Exist in Netsuite</title>
                   <flow id="jpyi36a4">
-                     <container id="jqqb7c53" type="exclusive">
+                     <link id="jpyi36ab" targetId="jpyi36a3" type="containerLink"/>
+                  </flow>
+                  <flow id="jpyi36a7">
+                     <container id="kot2hz71" type="exclusive">
                         <title>Parent billTo Exist in Salesforce?</title>
-                        <flow id="jqqb7c56">
-                           <subflow id="jqqb7cdx">
+                        <flow id="kot2hz72">
+                           <subflow id="kot2hz73">
                               <title>billTo - SFDC To NS - Sales Order - Parent Customer</title>
                               <subflowGUID>1PcKhwyZKULh1N8w5Ux2yk</subflowGUID>
                               <subflowPath>SFDC_To_NS_-_Sales_Order_-_Parent_Customer</subflowPath>
                               <appliesTo>Salesforce:Account</appliesTo>
                               <appliesToDataName source="field">Bill_To__r.Account__r.ParentId</appliesToDataName>
                               <runForEach>false</runForEach>
-                              <input/>
+                              <input>
+                                 <parameter name="inputBillingSubsidiary" source="field" updatable="true">temp.temp_BillingSubsidiary</parameter>
+                              </input>
                               <outputDef>
                                  <field name="out_parentCustomer_internalId" type="string">
                                     <options>
@@ -1344,34 +1466,34 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expressi
                                     </options>
                                  </field>
                               </outputDef>
-                              <link id="jqqb7cjg" targetId="jqqb7cj6"/>
+                              <link id="kot2hz7e" targetId="kot2hz74"/>
                            </subflow>
-                           <container id="jqqb7cj6" type="exclusive">
+                           <container id="kot2hz74" type="exclusive">
                               <title>billTo Parent Failed?</title>
-                              <flow id="jqqb7cj7">
-                                 <assignment id="jqqb7cj8">
+                              <flow id="kot2hz75">
+                                 <assignment id="kot2hz76">
                                     <title>Assignment to faultstring, exception - billTo</title>
                                     <operation source="formula" to="output.faultstring">
                                        <expression language="XQuery">fn:concat('billTo Parent Customer Creation Failed - ',$output.out_parentCustomer_errorMessage )</expression>
                                     </operation>
                                     <operation source="constant" to="temp.exception">Yes</operation>
-                                    <link id="jqqb7cjd" targetId="jqqb7cj9"/>
+                                    <link id="kot2hz7h" targetId="kot2hz77"/>
                                  </assignment>
-                                 <jumpTo id="jqqb7cj9">
-                                    <link id="jqqb7cje" targetId="jerndxei"/>
+                                 <jumpTo id="kot2hz77">
+                                    <link id="kot2hz7i" targetId="jerndxei"/>
                                  </jumpTo>
                               </flow>
-                              <flow id="jqqb7cja">
-                                 <assignment id="jqqb7cod">
+                              <flow id="kot2hz78">
+                                 <assignment id="kot2hz79">
                                     <title>Assign billTo Parent to temp Field</title>
                                     <operation source="field" to="temp.temp_parentCustomer_billTo_internalId">output.out_parentCustomer_internalId</operation>
                                     <operation source="formula" to="output.out_parentCustomer_internalId">
                                        <expression language="XQuery">()</expression>
                                     </operation>
                                  </assignment>
-                                 <link id="jqqb7cjf" targetId="jqqb7cj6" type="containerLink"/>
+                                 <link id="kot2hz7j" targetId="kot2hz74" type="containerLink"/>
                               </flow>
-                              <link id="jqqb7cjb" targetId="jqqb7cj7" type="containerLink">
+                              <link id="kot2hz7f" targetId="kot2hz75" type="containerLink">
                                  <condition source="formula">
                                     <function name="string-equals">
                                        <arg name="left">{$output.out_parentCustomer_internalId}</arg>
@@ -1379,21 +1501,21 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expressi
                                     </function>
                                  </condition>
                               </link>
-                              <link id="jqqb7cjc" targetId="jqqb7cja" type="containerLink"/>
+                              <link id="kot2hz7g" targetId="kot2hz78" type="containerLink"/>
                            </container>
-                           <link id="jqqb7c57" targetId="jqqb7c53" type="containerLink"/>
+                           <link id="kot2hz7d" targetId="kot2hz71" type="containerLink"/>
                         </flow>
-                        <flow id="jqqb7c59">
-                           <link id="jqqb7c5a" targetId="jqqb7c53" type="containerLink"/>
+                        <flow id="kot2hz7a">
+                           <link id="kot2hz7k" targetId="kot2hz71" type="containerLink"/>
                         </flow>
-                        <link id="jqqb7c55" targetId="jqqb7c56" type="containerLink">
+                        <link id="kot2hz7b" targetId="kot2hz72" type="containerLink">
                            <condition source="formula">
                               <function name="set">
                                  <arg name="field">{$Bill_To__r.Account__r.ParentId}</arg>
                               </function>
                            </condition>
                         </link>
-                        <link id="jqqb7c58" targetId="jqqb7c59" type="containerLink">
+                        <link id="kot2hz7c" targetId="kot2hz7a" type="containerLink">
                            <condition source="formula">
                               <function name="unset">
                                  <arg name="field">{$Bill_To__r.Account__r.ParentId}</arg>
@@ -1401,36 +1523,43 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expressi
                            </condition>
                         </link>
                      </container>
-                     <link id="jpyi36ab" targetId="jpyi36a3" type="containerLink"/>
-                  </flow>
-                  <flow id="jpyi36a7">
                      <link id="jpyi36ad" targetId="jpyi36a3" type="containerLink"/>
                   </flow>
                   <link id="jpyi36a9" targetId="jpyi36a4" type="containerLink">
                      <condition source="formula">
-                        <function name="string-equals">
-                           <arg name="left">{$Bill_To__r.Account__r.Parent.NetSuite_Id__c}</arg>
-                           <arg name="right"/>
+                        <function name="true">
+                           <arg name="field">{$temp.temp_ParentBillToExists}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="jpyi36aa" targetId="jpyi36a7" type="containerLink"/>
-                  <link id="jpyi36du" targetId="jpyi36dj"/>
+                  <link id="jpyi36aa" targetId="jpyi36a7" type="containerLink">
+                     <condition source="formula">
+                        <function name="false">
+                           <arg name="field">{$temp.temp_ParentBillToExists}</arg>
+                        </function>
+                     </condition>
+                  </link>
+                  <link id="kq8jgut6" targetId="kq8jgut5"/>
                </container>
                <container id="jpyi36dj" type="exclusive">
                   <title>Parent shipTo Doesn't Exist in Netsuite?</title>
                   <flow id="jpyi36dk">
-                     <container id="jqqb7cv3" type="exclusive">
+                     <link id="jpyi36dr" targetId="jpyi36dj" type="containerLink"/>
+                  </flow>
+                  <flow id="jpyi36dn">
+                     <container id="kot2hzfk" type="exclusive">
                         <title>Parent shipTo Exist in Salesforce?</title>
-                        <flow id="jqqb7cv6">
-                           <subflow id="jqqb7d0s">
+                        <flow id="kot2hzfl">
+                           <subflow id="kot2hzfm">
                               <title>shipTo - SFDC To NS - Sales Order - Parent Customer</title>
                               <subflowGUID>1PcKhwyZKULh1N8w5Ux2yk</subflowGUID>
                               <subflowPath>SFDC_To_NS_-_Sales_Order_-_Parent_Customer</subflowPath>
                               <appliesTo>Salesforce:Account</appliesTo>
                               <appliesToDataName source="field">Ship_To__r.Account__r.ParentId</appliesToDataName>
                               <runForEach>false</runForEach>
-                              <input/>
+                              <input>
+                                 <parameter name="inputBillingSubsidiary" source="field" updatable="true">temp.temp_BillingSubsidiary</parameter>
+                              </input>
                               <outputDef>
                                  <field name="out_parentCustomer_internalId" type="string">
                                     <options>
@@ -1443,31 +1572,31 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expressi
                                     </options>
                                  </field>
                               </outputDef>
-                              <link id="jqqb7d4w" targetId="jqqb7d4m"/>
+                              <link id="kot2hzfx" targetId="kot2hzfn"/>
                            </subflow>
-                           <container id="jqqb7d4m" type="exclusive">
+                           <container id="kot2hzfn" type="exclusive">
                               <title>shipTo Parent Failed?</title>
-                              <flow id="jqqb7d4n">
-                                 <assignment id="jqqb7d4o">
+                              <flow id="kot2hzfo">
+                                 <assignment id="kot2hzfp">
                                     <title>Assignment to faultstring, exception - shipTo</title>
                                     <operation source="formula" to="output.faultstring">
                                        <expression language="XQuery">fn:concat('billTo Parent Customer Creation Failed - ',$output.out_parentCustomer_errorMessage )</expression>
                                     </operation>
                                     <operation source="constant" to="temp.exception">Yes</operation>
-                                    <link id="jqqb7d4t" targetId="jqqb7d4p"/>
+                                    <link id="kot2hzg0" targetId="kot2hzfq"/>
                                  </assignment>
-                                 <jumpTo id="jqqb7d4p">
-                                    <link id="jqqb7d4u" targetId="jerndxei"/>
+                                 <jumpTo id="kot2hzfq">
+                                    <link id="kot2hzg1" targetId="jerndxei"/>
                                  </jumpTo>
                               </flow>
-                              <flow id="jqqb7d4q">
-                                 <assignment id="jqqb7d8c">
+                              <flow id="kot2hzfr">
+                                 <assignment id="kot2hzfs">
                                     <title>Assign shipTo Parent to temp Field</title>
                                     <operation source="field" to="temp.temp_parentCustomer_shipTo_internalId">output.out_parentCustomer_internalId</operation>
                                  </assignment>
-                                 <link id="jqqb7d4v" targetId="jqqb7d4m" type="containerLink"/>
+                                 <link id="kot2hzg2" targetId="kot2hzfn" type="containerLink"/>
                               </flow>
-                              <link id="jqqb7d4r" targetId="jqqb7d4n" type="containerLink">
+                              <link id="kot2hzfy" targetId="kot2hzfo" type="containerLink">
                                  <condition source="formula">
                                     <function name="string-equals">
                                        <arg name="left">{$output.out_parentCustomer_internalId}</arg>
@@ -1475,21 +1604,21 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expressi
                                     </function>
                                  </condition>
                               </link>
-                              <link id="jqqb7d4s" targetId="jqqb7d4q" type="containerLink"/>
+                              <link id="kot2hzfz" targetId="kot2hzfr" type="containerLink"/>
                            </container>
-                           <link id="jqqb7cv7" targetId="jqqb7cv3" type="containerLink"/>
+                           <link id="kot2hzfw" targetId="kot2hzfk" type="containerLink"/>
                         </flow>
-                        <flow id="jqqb7cv9">
-                           <link id="jqqb7cva" targetId="jqqb7cv3" type="containerLink"/>
+                        <flow id="kot2hzft">
+                           <link id="kot2hzg3" targetId="kot2hzfk" type="containerLink"/>
                         </flow>
-                        <link id="jqqb7cv5" targetId="jqqb7cv6" type="containerLink">
+                        <link id="kot2hzfu" targetId="kot2hzfl" type="containerLink">
                            <condition source="formula">
                               <function name="set">
                                  <arg name="field">{$Ship_To__r.Account__r.ParentId}</arg>
                               </function>
                            </condition>
                         </link>
-                        <link id="jqqb7cv8" targetId="jqqb7cv9" type="containerLink">
+                        <link id="kot2hzfv" targetId="kot2hzft" type="containerLink">
                            <condition source="formula">
                               <function name="unset">
                                  <arg name="field">{$Ship_To__r.Account__r.ParentId}</arg>
@@ -1497,20 +1626,22 @@ if($EULA_Region__c='APAC' or $EULA_Region__c='EMEAR') then '9' else ''</expressi
                            </condition>
                         </link>
                      </container>
-                     <link id="jpyi36dr" targetId="jpyi36dj" type="containerLink"/>
-                  </flow>
-                  <flow id="jpyi36dn">
                      <link id="jpyi36dt" targetId="jpyi36dj" type="containerLink"/>
                   </flow>
                   <link id="jpyi36dp" targetId="jpyi36dk" type="containerLink">
                      <condition source="formula">
-                        <function name="string-equals">
-                           <arg name="left">{$Ship_To__r.Account__r.Parent.NetSuite_Id__c}</arg>
-                           <arg name="right"/>
+                        <function name="true">
+                           <arg name="field">{$temp.temp_ParentShipToExists}</arg>
                         </function>
                      </condition>
                   </link>
-                  <link id="jpyi36dq" targetId="jpyi36dn" type="containerLink"/>
+                  <link id="jpyi36dq" targetId="jpyi36dn" type="containerLink">
+                     <condition source="formula">
+                        <function name="false">
+                           <arg name="field">{$temp.temp_ParentShipToExists}</arg>
+                        </function>
+                     </condition>
+                  </link>
                   <link id="jrc1ku9r" targetId="jrc1ku9q"/>
                </container>
                <container id="jrjor0hq" type="exclusive">
@@ -1558,7 +1689,66 @@ then 'Yes' else 'No'</expression>
                            <container id="j71bjwkl" type="exclusive">
                               <title>Bill to Account NetSuite Id Null?</title>
                               <flow id="j71bjwkm">
-                                 <service id="j71bjwkn">
+                                 <service id="kot2hzr8">
+                                    <title>Update Bill-to Customer</title>
+                                    <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
+                                    <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="InternalID" source="formula">
+                                          <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then $Bill_To__r.Account__r.NetSuite_Id__c 
+else $Bill_To__r.Account__r.UK2_Netsuite_ID__c</expression>
+                                       </parameter>
+                                       <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
+                                       <parameter name="parentNSId" source="formula">
+                                          <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then (if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c) &gt; 0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else '') else  (if(fn:string-length($Bill_To__r.Account__r.Parent.UK2_Netsuite_ID__c) &gt; 0) then $Bill_To__r.Account__r.Parent.UK2_Netsuite_ID__c else '')  
+ </expression>
+                                       </parameter>
+                                       <parameter name="currencyNSId" source="field" updatable="true">temp.temp_OpptyCurrencyNSId</parameter>
+                                       <parameter name="industry" source="formula">
+                                          <expression language="XQuery">$Bill_To__r.Account__r.Master_Industry__c</expression>
+                                       </parameter>
+                                       <parameter name="email" source="formula">
+                                          <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
+                                       </parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
+                                    </serviceInput>
+                                    <link id="kot2hzx1" targetId="kot2hzwr"/>
+                                 </service>
+                                 <container id="kot2hzwr" type="exclusive">
+                                    <title>isUpdateCRSuccess</title>
+                                    <flow id="kot2hzws">
+                                       <link id="kot2hzwy" targetId="kot2hzwr" type="containerLink"/>
+                                    </flow>
+                                    <flow id="kot2hzwt">
+                                       <assignment id="kot2hzwu">
+                                          <title>Assignment to faultstring</title>
+                                          <operation source="constant" to="output.faultstring">Customer not found for update at update bill-to customer step</operation>
+                                          <operation source="constant" to="temp.exception">Yes</operation>
+                                          <link id="kot2hzwz" targetId="kot2hzwv"/>
+                                       </assignment>
+                                       <jumpTo id="kot2hzwv">
+                                          <link id="kot2hzx0" targetId="jerndxei"/>
+                                       </jumpTo>
+                                    </flow>
+                                    <link id="kot2hzww" targetId="kot2hzws" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="true">
+                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="kot2hzwx" targetId="kot2hzwt" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="false">
+                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                 </container>
+                                 <link id="j71bjwm9" targetId="j71bjwkl" type="containerLink"/>
+                              </flow>
+                              <flow id="j71bjwku">
+                                 <service id="kot2i029">
                                     <title>Create Bill-to Customer</title>
                                     <serviceName>NetSuite-AppDynamics:Create Customer</serviceName>
                                     <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
@@ -1570,7 +1760,7 @@ then 'Yes' else 'No'</expression>
                                        <parameter name="email" source="formula">
                                           <expression language="XQuery">if($BillToContact.Email='') then $temp.temp_OppContact_Email else $BillToContact.Email</expression>
                                        </parameter>
-                                       <parameter name="subsidiary" source="field" updatable="true">temp.billToSubsidiary</parameter>
+                                       <parameter name="subsidiary" source="field" updatable="true">temp.temp_BillingSubsidiary</parameter>
                                        <parameter name="url" source="formula">
                                           <expression language="XQuery">if(exists($Bill_To__r.Account__r.Website)) 
 then
@@ -1583,40 +1773,61 @@ else
 </expression>
                                        </parameter>
                                        <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
-                                       <parameter name="accountID" source="field" updatable="true">Bill_To__r.Account__r.Account_Id_18_digit__c</parameter>
+                                       <parameter name="accountID" source="field">Bill_To__r.Account__r.Account_ID__c</parameter>
                                        <parameter name="parentNSId" source="formula">
                                           <expression language="XQuery">if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_billTo_internalId </expression>
                                        </parameter>
                                        <parameter name="industry" source="formula">
                                           <expression language="XQuery">$Bill_To__r.Account__r.Master_Industry__c</expression>
                                        </parameter>
-                                       <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                       <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
                                        <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                                     </serviceInput>
-                                    <link id="j71bjwma" targetId="j71bjwko"/>
+                                    <link id="kot2i084" targetId="kot2i07t"/>
                                  </service>
-                                 <container id="j71bjwko" type="exclusive">
+                                 <container id="kot2i07t" type="exclusive">
                                     <title>isCreateCRSuccess</title>
-                                    <flow id="j71bjwkp">
-                                       <assignment id="j71bjwkq">
-                                          <title>Assign new NetSuite ID to SFDC Account</title>
-                                          <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
-                                          <operation source="field" to="Bill_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
-                                       </assignment>
-                                       <link id="j71bjwmd" targetId="j71bjwko" type="containerLink"/>
+                                    <flow id="kot2i07u">
+                                       <container id="koyr4xre" type="exclusive">
+                                          <title>Check Billing Subsidiary and update appropriate field</title>
+                                          <flow id="koyr4xrf">
+                                             <assignment id="koyr4xrg">
+                                                <title>Assign new NetSuite ID to LLCNetSuiteID 1</title>
+                                                <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
+                                                <operation source="field" to="Bill_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
+                                             </assignment>
+                                             <link id="koyr4xrl" targetId="koyr4xre" type="containerLink"/>
+                                          </flow>
+                                          <flow id="koyr4xrh">
+                                             <assignment id="koyr4xri">
+                                                <title>Assign new NetSuite ID to UK2NetSuiteID 1</title>
+                                                <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
+                                                <operation source="field" to="Bill_To__r.Account__r.UK2_Netsuite_ID__c">output.NetSuite Customer ID</operation>
+                                             </assignment>
+                                             <link id="koyr4xrm" targetId="koyr4xre" type="containerLink"/>
+                                          </flow>
+                                          <link id="koyr4xrj" targetId="koyr4xrf" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="string-equals">
+                                                   <arg name="left">{$temp.temp_BillingSubsidiary}</arg>
+                                                   <arg name="right">1</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                          <link id="koyr4xrk" targetId="koyr4xrh" type="containerLink"/>
+                                       </container>
+                                       <link id="kot2i081" targetId="kot2i07t" type="containerLink"/>
                                     </flow>
-                                    <flow id="j71bjwkr">
-                                       <assignment id="j71bjwks">
+                                    <flow id="kot2i07w">
+                                       <assignment id="kot2i07x">
                                           <title>Assign Exception</title>
                                           <operation source="constant" to="temp.exception">Yes</operation>
-                                          <link id="j71bjwme" targetId="j71bjwkt"/>
+                                          <link id="kot2i082" targetId="kot2i07y"/>
                                        </assignment>
-                                       <jumpTo id="j71bjwkt">
-                                          <link id="j71bjwmf" targetId="jerndxei"/>
+                                       <jumpTo id="kot2i07y">
+                                          <link id="kot2i083" targetId="jerndxei"/>
                                        </jumpTo>
                                     </flow>
-                                    <link id="j71bjwmb" targetId="j71bjwkp" type="containerLink">
+                                    <link id="kot2i07z" targetId="kot2i07u" type="containerLink">
                                        <condition source="formula">
                                           <function name="string-equals">
                                              <arg name="left">{$output.isCreateCRSuccess}</arg>
@@ -1624,79 +1835,24 @@ else
                                           </function>
                                        </condition>
                                     </link>
-                                    <link id="j71bjwmc" targetId="j71bjwkr" type="containerLink"/>
-                                 </container>
-                                 <link id="j71bjwm9" targetId="j71bjwkl" type="containerLink"/>
-                              </flow>
-                              <flow id="j71bjwku">
-                                 <service id="jxn4y17n">
-                                    <title>Update Bill-to Customer</title>
-                                    <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
-                                    <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                                    <serviceInput>
-                                       <parameter name="InternalID" source="field" updatable="true">temp.NetSuiteId_Customer</parameter>
-                                       <parameter name="Subsidiary" source="formula">
-                                          <expression language="XQuery">if($temp.temp_existingBillToCustomer_subsidiary=$temp.billToSubsidiary) then $temp.billToSubsidiary else ''</expression>
-                                       </parameter>
-                                       <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
-                                       <parameter name="parentNSId" source="formula">
-                                          <expression language="XQuery">if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_billTo_internalId </expression>
-                                       </parameter>
-                                       <parameter name="currencyNSId" source="field" updatable="true">temp.temp_OpptyCurrencyNSId</parameter>
-                                       <parameter name="industry" source="formula">
-                                          <expression language="XQuery">$Bill_To__r.Account__r.Master_Industry__c</expression>
-                                       </parameter>
-                                       <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                       <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
-                                       <parameter name="email" source="formula">
-                                          <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
-                                       </parameter>
-                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
-                                    </serviceInput>
-                                    <link id="jxn4y1c2" targetId="jxn4y1bs"/>
-                                 </service>
-                                 <container id="jxn4y1bs" type="exclusive">
-                                    <title>isUpdateCRSuccess</title>
-                                    <flow id="jxn4y1bt">
-                                       <link id="jxn4y1bz" targetId="jxn4y1bs" type="containerLink"/>
-                                    </flow>
-                                    <flow id="jxn4y1bu">
-                                       <assignment id="jxn4y1bv">
-                                          <title>Assignment to faultstring</title>
-                                          <operation source="constant" to="output.faultstring">Customer not found for update at update bill-to customer step</operation>
-                                          <operation source="constant" to="temp.exception">Yes</operation>
-                                          <link id="jxn4y1c0" targetId="jxn4y1bw"/>
-                                       </assignment>
-                                       <jumpTo id="jxn4y1bw">
-                                          <link id="jxn4y1c1" targetId="jerndxei"/>
-                                       </jumpTo>
-                                    </flow>
-                                    <link id="jxn4y1bx" targetId="jxn4y1bt" type="containerLink">
-                                       <condition source="formula">
-                                          <function name="true">
-                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
-                                          </function>
-                                       </condition>
-                                    </link>
-                                    <link id="jxn4y1by" targetId="jxn4y1bu" type="containerLink">
-                                       <condition source="formula">
-                                          <function name="false">
-                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
-                                          </function>
-                                       </condition>
-                                    </link>
+                                    <link id="kot2i080" targetId="kot2i07w" type="containerLink"/>
                                  </container>
                                  <link id="j71bjwmg" targetId="j71bjwkl" type="containerLink"/>
                               </flow>
                               <link id="j71bjwm7" targetId="j71bjwkm" type="containerLink">
                                  <condition source="formula">
-                                    <function name="string-equals">
-                                       <arg name="left">{$Bill_To__r.Account__r.NetSuite_Id__c}</arg>
-                                       <arg name="right"/>
+                                    <function name="true">
+                                       <arg name="field">{$temp.temp_BillToExists}</arg>
                                     </function>
                                  </condition>
                               </link>
-                              <link id="j71bjwm8" targetId="j71bjwku" type="containerLink"/>
+                              <link id="j71bjwm8" targetId="j71bjwku" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="false">
+                                       <arg name="field">{$temp.temp_BillToExists}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
                            </container>
                            <link id="j71bjwm6" targetId="j71bjwkj" type="containerLink"/>
                         </flow>
@@ -1704,7 +1860,66 @@ else
                            <container id="j71bjwkx" type="exclusive">
                               <title>Bill to Account NetSuite Id Null?</title>
                               <flow id="j71bjwky">
-                                 <service id="j71bjwkz">
+                                 <service id="koyr55q0">
+                                    <title>Update Bill-to/Ship-to Customer</title>
+                                    <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
+                                    <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="InternalID" source="formula">
+                                          <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then $Bill_To__r.Account__r.NetSuite_Id__c 
+else $Bill_To__r.Account__r.UK2_Netsuite_ID__c</expression>
+                                       </parameter>
+                                       <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
+                                       <parameter name="shippingAddress" source="field">temp.thisShippingAddress</parameter>
+                                       <parameter name="parentNSId" source="formula">
+                                          <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then (if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c) &gt; 0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else '') else  (if(fn:string-length($Bill_To__r.Account__r.Parent.UK2_Netsuite_ID__c) &gt; 0) then $Bill_To__r.Account__r.Parent.UK2_Netsuite_ID__c else '')</expression>
+                                       </parameter>
+                                       <parameter name="currencyNSId" source="field" updatable="true">temp.temp_OpptyCurrencyNSId</parameter>
+                                       <parameter name="industry" source="formula">
+                                          <expression language="XQuery">$Ship_To__r.Account__r.Master_Industry__c</expression>
+                                       </parameter>
+                                       <parameter name="email" source="formula">
+                                          <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
+                                       </parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
+                                    </serviceInput>
+                                    <link id="koyr55vs" targetId="koyr55vi"/>
+                                 </service>
+                                 <container id="koyr55vi" type="exclusive">
+                                    <title>isUpdateCRSuccess</title>
+                                    <flow id="koyr55vj">
+                                       <link id="koyr55vp" targetId="koyr55vi" type="containerLink"/>
+                                    </flow>
+                                    <flow id="koyr55vk">
+                                       <assignment id="koyr55vl">
+                                          <title>Assignment to faultstring</title>
+                                          <operation source="constant" to="output.faultstring">Customer not found for update at update bill-to/ship-to step</operation>
+                                          <operation source="constant" to="temp.exception">Yes</operation>
+                                          <link id="koyr55vq" targetId="koyr55vm"/>
+                                       </assignment>
+                                       <jumpTo id="koyr55vm">
+                                          <link id="koyr55vr" targetId="jerndxei"/>
+                                       </jumpTo>
+                                    </flow>
+                                    <link id="koyr55vn" targetId="koyr55vj" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="true">
+                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="koyr55vo" targetId="koyr55vk" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="false">
+                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                 </container>
+                                 <link id="j71bjwmk" targetId="j71bjwkx" type="containerLink"/>
+                              </flow>
+                              <flow id="j71bjwl6">
+                                 <service id="koyr560z">
                                     <title>Create Bill-to Customer with different address</title>
                                     <serviceName>NetSuite-AppDynamics:Create Customer</serviceName>
                                     <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
@@ -1716,7 +1931,7 @@ else
                                        <parameter name="email" source="formula">
                                           <expression language="XQuery">if($BillToContact.Email='') then $temp.temp_OppContact_Email else $BillToContact.Email</expression>
                                        </parameter>
-                                       <parameter name="subsidiary" source="field" updatable="true">temp.billToSubsidiary</parameter>
+                                       <parameter name="subsidiary" source="field" updatable="true">temp.temp_BillingSubsidiary</parameter>
                                        <parameter name="url" source="formula">
                                           <expression language="XQuery">if(exists($Bill_To__r.Account__r.Website)) 
 then
@@ -1730,40 +1945,61 @@ else
                                        </parameter>
                                        <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
                                        <parameter name="shippingAddress" source="field">temp.thisShippingAddress</parameter>
-                                       <parameter name="accountID" source="field" updatable="true">Bill_To__r.Account__r.Account_Id_18_digit__c</parameter>
+                                       <parameter name="accountID" source="field">Bill_To__r.Account__r.Account_ID__c</parameter>
                                        <parameter name="parentNSId" source="formula">
                                           <expression language="XQuery">if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_billTo_internalId </expression>
                                        </parameter>
                                        <parameter name="industry" source="formula">
                                           <expression language="XQuery">$Bill_To__r.Account__r.Master_Industry__c</expression>
                                        </parameter>
-                                       <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                       <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
                                        <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                                     </serviceInput>
-                                    <link id="j71bjwml" targetId="j71bjwl0"/>
+                                    <link id="koyr5672" targetId="koyr566j"/>
                                  </service>
-                                 <container id="j71bjwl0" type="exclusive">
+                                 <container id="koyr566j" type="exclusive">
                                     <title>isCreateCRSuccess</title>
-                                    <flow id="j71bjwl1">
-                                       <assignment id="j71bjwl2">
-                                          <title>Assign new NetSuite ID to SFDC Account</title>
-                                          <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
-                                          <operation source="field" to="Bill_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
-                                       </assignment>
-                                       <link id="j71bjwmo" targetId="j71bjwl0" type="containerLink"/>
+                                    <flow id="koyr566k">
+                                       <container id="koyr566l" type="exclusive">
+                                          <title>Check Billing Subsidiary and update appropriate field</title>
+                                          <flow id="koyr566m">
+                                             <assignment id="koyr566n">
+                                                <title>Assign new NetSuite ID to LLCNetSuiteID 2</title>
+                                                <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
+                                                <operation source="field" to="Bill_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
+                                             </assignment>
+                                             <link id="koyr566y" targetId="koyr566l" type="containerLink"/>
+                                          </flow>
+                                          <flow id="koyr566o">
+                                             <assignment id="koyr566p">
+                                                <title>Assign new NetSuite ID to UK2NetSuiteID 2</title>
+                                                <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
+                                                <operation source="field" to="Bill_To__r.Account__r.UK2_Netsuite_ID__c">output.NetSuite Customer ID</operation>
+                                             </assignment>
+                                             <link id="koyr566z" targetId="koyr566l" type="containerLink"/>
+                                          </flow>
+                                          <link id="koyr566w" targetId="koyr566m" type="containerLink">
+                                             <condition source="formula">
+                                                <function name="string-equals">
+                                                   <arg name="left">{$temp.temp_BillingSubsidiary}</arg>
+                                                   <arg name="right">1</arg>
+                                                </function>
+                                             </condition>
+                                          </link>
+                                          <link id="koyr566x" targetId="koyr566o" type="containerLink"/>
+                                       </container>
+                                       <link id="koyr566v" targetId="koyr566j" type="containerLink"/>
                                     </flow>
-                                    <flow id="j71bjwl3">
-                                       <assignment id="j71bjwl4">
+                                    <flow id="koyr566q">
+                                       <assignment id="koyr566r">
                                           <title>Assign Exception</title>
                                           <operation source="constant" to="temp.exception">Yes</operation>
-                                          <link id="j71bjwmp" targetId="j71bjwl5"/>
+                                          <link id="koyr5670" targetId="koyr566s"/>
                                        </assignment>
-                                       <jumpTo id="j71bjwl5">
-                                          <link id="j71bjwmq" targetId="jerndxei"/>
+                                       <jumpTo id="koyr566s">
+                                          <link id="koyr5671" targetId="jerndxei"/>
                                        </jumpTo>
                                     </flow>
-                                    <link id="j71bjwmm" targetId="j71bjwl1" type="containerLink">
+                                    <link id="koyr566t" targetId="koyr566k" type="containerLink">
                                        <condition source="formula">
                                           <function name="string-equals">
                                              <arg name="left">{$output.isCreateCRSuccess}</arg>
@@ -1771,80 +2007,24 @@ else
                                           </function>
                                        </condition>
                                     </link>
-                                    <link id="j71bjwmn" targetId="j71bjwl3" type="containerLink"/>
-                                 </container>
-                                 <link id="j71bjwmk" targetId="j71bjwkx" type="containerLink"/>
-                              </flow>
-                              <flow id="j71bjwl6">
-                                 <service id="jxn4y0nf">
-                                    <title>Update Bill-to/Ship-to Customer</title>
-                                    <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
-                                    <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                                    <serviceInput>
-                                       <parameter name="InternalID" source="field" updatable="true">temp.NetSuiteId_Customer</parameter>
-                                       <parameter name="Subsidiary" source="formula">
-                                          <expression language="XQuery">if($temp.temp_existingBillToCustomer_subsidiary=$temp.billToSubsidiary) then $temp.billToSubsidiary else ''</expression>
-                                       </parameter>
-                                       <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
-                                       <parameter name="shippingAddress" source="field">temp.thisShippingAddress</parameter>
-                                       <parameter name="parentNSId" source="formula">
-                                          <expression language="XQuery">if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_billTo_internalId </expression>
-                                       </parameter>
-                                       <parameter name="currencyNSId" source="field" updatable="true">temp.temp_OpptyCurrencyNSId</parameter>
-                                       <parameter name="industry" source="formula">
-                                          <expression language="XQuery">$Ship_To__r.Account__r.Master_Industry__c</expression>
-                                       </parameter>
-                                       <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                       <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
-                                       <parameter name="email" source="formula">
-                                          <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
-                                       </parameter>
-                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
-                                    </serviceInput>
-                                    <link id="jxn4y0rx" targetId="jxn4y0rn"/>
-                                 </service>
-                                 <container id="jxn4y0rn" type="exclusive">
-                                    <title>isUpdateCRSuccess</title>
-                                    <flow id="jxn4y0ro">
-                                       <link id="jxn4y0ru" targetId="jxn4y0rn" type="containerLink"/>
-                                    </flow>
-                                    <flow id="jxn4y0rp">
-                                       <assignment id="jxn4y0rq">
-                                          <title>Assignment to faultstring</title>
-                                          <operation source="constant" to="output.faultstring">Customer not found for update at update bill-to/ship-to step</operation>
-                                          <operation source="constant" to="temp.exception">Yes</operation>
-                                          <link id="jxn4y0rv" targetId="jxn4y0rr"/>
-                                       </assignment>
-                                       <jumpTo id="jxn4y0rr">
-                                          <link id="jxn4y0rw" targetId="jerndxei"/>
-                                       </jumpTo>
-                                    </flow>
-                                    <link id="jxn4y0rs" targetId="jxn4y0ro" type="containerLink">
-                                       <condition source="formula">
-                                          <function name="true">
-                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
-                                          </function>
-                                       </condition>
-                                    </link>
-                                    <link id="jxn4y0rt" targetId="jxn4y0rp" type="containerLink">
-                                       <condition source="formula">
-                                          <function name="false">
-                                             <arg name="field">{$output.isUpdateCRSuccess}</arg>
-                                          </function>
-                                       </condition>
-                                    </link>
+                                    <link id="koyr566u" targetId="koyr566q" type="containerLink"/>
                                  </container>
                                  <link id="j71bjwmr" targetId="j71bjwkx" type="containerLink"/>
                               </flow>
                               <link id="j71bjwmi" targetId="j71bjwky" type="containerLink">
                                  <condition source="formula">
-                                    <function name="string-equals">
-                                       <arg name="left">{$Bill_To__r.Account__r.NetSuite_Id__c}</arg>
-                                       <arg name="right"/>
+                                    <function name="true">
+                                       <arg name="field">{$temp.temp_BillToExists}</arg>
                                     </function>
                                  </condition>
                               </link>
-                              <link id="j71bjwmj" targetId="j71bjwl6" type="containerLink"/>
+                              <link id="j71bjwmj" targetId="j71bjwl6" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="false">
+                                       <arg name="field">{$temp.temp_BillToExists}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
                            </container>
                            <link id="j71bjwmh" targetId="j71bjwkj" type="containerLink"/>
                         </flow>
@@ -1864,7 +2044,65 @@ else
                      <container id="j71bjwl9" type="exclusive">
                         <title>Bill to Account NetSuite Id Null?</title>
                         <flow id="j71bjwla">
-                           <service id="j71bjwlb">
+                           <service id="koyr4x86">
+                              <title>Update Bill-to Customer</title>
+                              <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
+                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                              <serviceInput>
+                                 <parameter name="InternalID" source="formula">
+                                    <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then $Bill_To__r.Account__r.NetSuite_Id__c 
+else $Bill_To__r.Account__r.UK2_Netsuite_ID__c</expression>
+                                 </parameter>
+                                 <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
+                                 <parameter name="parentNSId" source="formula">
+                                    <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') then (if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c) &gt; 0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else '') else  (if(fn:string-length($Bill_To__r.Account__r.Parent.UK2_Netsuite_ID__c) &gt; 0) then $Bill_To__r.Account__r.Parent.UK2_Netsuite_ID__c else '')</expression>
+                                 </parameter>
+                                 <parameter name="currencyNSId" source="field" updatable="true">temp.temp_OpptyCurrencyNSId</parameter>
+                                 <parameter name="industry" source="formula">
+                                    <expression language="XQuery">$Bill_To__r.Account__r.Master_Industry__c</expression>
+                                 </parameter>
+                                 <parameter name="email" source="formula">
+                                    <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
+                                 </parameter>
+                                 <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
+                              </serviceInput>
+                              <link id="koyr4xe2" targetId="koyr4xds"/>
+                           </service>
+                           <container id="koyr4xds" type="exclusive">
+                              <title>isUpdateCRSuccess</title>
+                              <flow id="koyr4xdt">
+                                 <link id="koyr4xdz" targetId="koyr4xds" type="containerLink"/>
+                              </flow>
+                              <flow id="koyr4xdu">
+                                 <assignment id="koyr4xdv">
+                                    <title>Assignment to faultstring</title>
+                                    <operation source="constant" to="output.faultstring">Customer not found for update at update bill-to step</operation>
+                                    <operation source="constant" to="temp.exception">Yes</operation>
+                                    <link id="koyr4xe0" targetId="koyr4xdw"/>
+                                 </assignment>
+                                 <jumpTo id="koyr4xdw">
+                                    <link id="koyr4xe1" targetId="jerndxei"/>
+                                 </jumpTo>
+                              </flow>
+                              <link id="koyr4xdx" targetId="koyr4xdt" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="true">
+                                       <arg name="field">{$output.isUpdateCRSuccess}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="koyr4xdy" targetId="koyr4xdu" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="false">
+                                       <arg name="field">{$output.isUpdateCRSuccess}</arg>
+                                    </function>
+                                 </condition>
+                              </link>
+                           </container>
+                           <link id="j71bjwmw" targetId="j71bjwl9" type="containerLink"/>
+                        </flow>
+                        <flow id="j71bjwli">
+                           <service id="koyr4wxf">
                               <title>Create Bill-to Customer</title>
                               <serviceName>NetSuite-AppDynamics:Create Customer</serviceName>
                               <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
@@ -1876,7 +2114,7 @@ else
                                  <parameter name="email" source="formula">
                                     <expression language="XQuery">if($BillToContact.Email='') then $temp.temp_OppContact_Email else $BillToContact.Email</expression>
                                  </parameter>
-                                 <parameter name="subsidiary" source="field" updatable="true">temp.billToSubsidiary</parameter>
+                                 <parameter name="subsidiary" source="field" updatable="true">temp.temp_BillingSubsidiary</parameter>
                                  <parameter name="url" source="formula">
                                     <expression language="XQuery">if(exists($Bill_To__r.Account__r.Website)) 
 then
@@ -1889,40 +2127,61 @@ else
 </expression>
                                  </parameter>
                                  <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
-                                 <parameter name="accountID" source="field" updatable="true">Bill_To__r.Account__r.Account_Id_18_digit__c</parameter>
+                                 <parameter name="accountID" source="field">Bill_To__r.Account__r.Account_ID__c</parameter>
                                  <parameter name="parentNSId" source="formula">
                                     <expression language="XQuery">if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_billTo_internalId </expression>
                                  </parameter>
                                  <parameter name="industry" source="formula">
                                     <expression language="XQuery">$Bill_To__r.Account__r.Master_Industry__c</expression>
                                  </parameter>
-                                 <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                 <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
                                  <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
                               </serviceInput>
-                              <link id="j71bjwmx" targetId="j71bjwlc"/>
+                              <link id="koyr4x3a" targetId="koyr4x2z"/>
                            </service>
-                           <container id="j71bjwlc" type="exclusive">
+                           <container id="koyr4x2z" type="exclusive">
                               <title>isCreateCRSuccess</title>
-                              <flow id="j71bjwld">
-                                 <assignment id="j71bjwle">
-                                    <title>Assign new NetSuite ID to SFDC Account</title>
-                                    <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
-                                    <operation source="field" to="Bill_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
-                                 </assignment>
-                                 <link id="j71bjwn0" targetId="j71bjwlc" type="containerLink"/>
+                              <flow id="koyr4x30">
+                                 <container id="koyr532p" type="exclusive">
+                                    <title>Check Billing Subsidiary and update appropriate field</title>
+                                    <flow id="koyr532q">
+                                       <assignment id="koyr532r">
+                                          <title>Assign new NetSuite ID to LLCNetSuiteID</title>
+                                          <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
+                                          <operation source="field" to="Bill_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
+                                       </assignment>
+                                       <link id="koyr532w" targetId="koyr532p" type="containerLink"/>
+                                    </flow>
+                                    <flow id="koyr532s">
+                                       <assignment id="koyr532t">
+                                          <title>Assign new NetSuite ID to UK2NetSuiteID</title>
+                                          <operation source="field" to="temp.NetSuiteId_Customer">output.NetSuite Customer ID</operation>
+                                          <operation source="field" to="Bill_To__r.Account__r.UK2_Netsuite_ID__c">output.NetSuite Customer ID</operation>
+                                       </assignment>
+                                       <link id="koyr532x" targetId="koyr532p" type="containerLink"/>
+                                    </flow>
+                                    <link id="koyr532u" targetId="koyr532q" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="string-equals">
+                                             <arg name="left">{$temp.temp_BillingSubsidiary}</arg>
+                                             <arg name="right">1</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="koyr532v" targetId="koyr532s" type="containerLink"/>
+                                 </container>
+                                 <link id="koyr4x37" targetId="koyr4x2z" type="containerLink"/>
                               </flow>
-                              <flow id="j71bjwlf">
-                                 <assignment id="j71bjwlg">
+                              <flow id="koyr4x32">
+                                 <assignment id="koyr4x33">
                                     <title>Assign Exception</title>
                                     <operation source="constant" to="temp.exception">Yes</operation>
-                                    <link id="j71bjwn1" targetId="j71bjwlh"/>
+                                    <link id="koyr4x38" targetId="koyr4x34"/>
                                  </assignment>
-                                 <jumpTo id="j71bjwlh">
-                                    <link id="j71bjwn2" targetId="jerndxei"/>
+                                 <jumpTo id="koyr4x34">
+                                    <link id="koyr4x39" targetId="jerndxei"/>
                                  </jumpTo>
                               </flow>
-                              <link id="j71bjwmy" targetId="j71bjwld" type="containerLink">
+                              <link id="koyr4x35" targetId="koyr4x30" type="containerLink">
                                  <condition source="formula">
                                     <function name="string-equals">
                                        <arg name="left">{$output.isCreateCRSuccess}</arg>
@@ -1930,61 +2189,121 @@ else
                                     </function>
                                  </condition>
                               </link>
-                              <link id="j71bjwmz" targetId="j71bjwlf" type="containerLink"/>
+                              <link id="koyr4x36" targetId="koyr4x32" type="containerLink"/>
                            </container>
-                           <link id="j71bjwmw" targetId="j71bjwl9" type="containerLink"/>
+                           <link id="j71bjwn3" targetId="j71bjwl9" type="containerLink"/>
                         </flow>
-                        <flow id="j71bjwli">
-                           <service id="jxn4y1ne">
-                              <title>Update Bill-to Customer</title>
-                              <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
-                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                              <serviceInput>
-                                 <parameter name="InternalID" source="field" updatable="true">Bill_To__r.Account__r.NetSuite_Id__c</parameter>
-                                 <parameter name="Subsidiary" source="formula">
-                                    <expression language="XQuery">if($temp.temp_existingBillToCustomer_subsidiary=$temp.billToSubsidiary) then $temp.billToSubsidiary else ''</expression>
-                                 </parameter>
-                                 <parameter name="billingAddress" source="field">temp.thisBillingAddress</parameter>
-                                 <parameter name="parentNSId" source="formula">
-                                    <expression language="XQuery">if(fn:string-length($Bill_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Bill_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_billTo_internalId</expression>
-                                 </parameter>
-                                 <parameter name="currencyNSId" source="field" updatable="true">temp.temp_OpptyCurrencyNSId</parameter>
-                                 <parameter name="industry" source="formula">
-                                    <expression language="XQuery">$Bill_To__r.Account__r.Master_Industry__c</expression>
-                                 </parameter>
-                                 <parameter name="parentCustomer_uniqueId" source="field">Bill_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                 <parameter name="Customer_uniqueId" source="field">Bill_To__r.Account__r.Customer_Unique_ID__c</parameter>
-                                 <parameter name="email" source="formula">
-                                    <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($BillToContact.Email!='') then $BillToContact.Email else $temp.temp_OppContact_Email</expression>
-                                 </parameter>
-                                 <parameter name="Cisco_PartyId" source="field" updatable="true">Bill_To__r.Account__r.Cisco_Party_ID__c</parameter>
-                              </serviceInput>
-                              <link id="jxn4y1th" targetId="jxn4y1t7"/>
-                           </service>
-                           <container id="jxn4y1t7" type="exclusive">
-                              <title>isUpdateCRSuccess</title>
-                              <flow id="jxn4y1t8">
-                                 <link id="jxn4y1te" targetId="jxn4y1t7" type="containerLink"/>
+                        <link id="j71bjwmt" targetId="j71bjwla" type="containerLink">
+                           <condition source="formula">
+                              <function name="true">
+                                 <arg name="field">{$temp.temp_BillToExists}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="j71bjwmv" targetId="j71bjwli" type="containerLink">
+                           <condition source="formula">
+                              <function name="false">
+                                 <arg name="field">{$temp.temp_BillToExists}</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kq8jgxuj" targetId="kq8jgxui"/>
+                     </container>
+                     <container id="j71bjwlk" type="exclusive">
+                        <title>Ship To Account NetSuite Id Null?</title>
+                        <flow id="j71bjwll">
+                           <container id="kq6z7a4m" type="exclusive">
+                              <title>If ShipTo Parent was created, then send parent info in the update</title>
+                              <flow id="kq6z7a4p">
+                                 <service id="kq6z7azm">
+                                    <title>Update ShipTo customer without Parent info</title>
+                                    <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
+                                    <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="InternalID" source="formula">
+                                          <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') 
+	then (if(fn:string-length($Ship_To__r.Account__r.NetSuite_Id__c) &gt; 0) 
+		then $Ship_To__r.Account__r.NetSuite_Id__c 
+		else $Ship_To__r.Account__r.UK2_Netsuite_ID__c) 
+	else  (if(fn:string-length($Ship_To__r.Account__r.UK2_Netsuite_ID__c) &gt; 0) 
+		then $Ship_To__r.Account__r.UK2_Netsuite_ID__c
+		else $Ship_To__r.Account__r.NetSuite_Id__c)</expression>
+                                       </parameter>
+                                       <parameter name="shippingAddress" source="field">temp.thisShippingAddress</parameter>
+                                       <parameter name="industry" source="formula">
+                                          <expression language="XQuery">$Ship_To__r.Account__r.Master_Industry__c</expression>
+                                       </parameter>
+                                       <parameter name="email" source="formula">
+                                          <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($ShipToContact.Email!='') then $ShipToContact.Email else $temp.temp_OppContact_Email</expression>
+                                       </parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Ship_To__r.Account__r.Cisco_Party_ID__c</parameter>
+                                    </serviceInput>
+                                 </service>
+                                 <link id="kq6z7a4q" targetId="kq6z7a4m" type="containerLink"/>
                               </flow>
-                              <flow id="jxn4y1t9">
-                                 <assignment id="jxn4y1ta">
+                              <flow id="kq6z7a4s">
+                                 <service id="kq6z7al4">
+                                    <title>Update ShipTo customer with Parent info</title>
+                                    <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
+                                    <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
+                                    <serviceInput>
+                                       <parameter name="InternalID" source="formula">
+                                          <expression language="XQuery">if($temp.temp_BillingSubsidiary = '1') 
+	then (if(fn:string-length($Ship_To__r.Account__r.NetSuite_Id__c) &gt; 0) 
+		then $Ship_To__r.Account__r.NetSuite_Id__c 
+		else $Ship_To__r.Account__r.UK2_Netsuite_ID__c) 
+	else  (if(fn:string-length($Ship_To__r.Account__r.UK2_Netsuite_ID__c) &gt; 0) 
+		then $Ship_To__r.Account__r.UK2_Netsuite_ID__c
+		else $Ship_To__r.Account__r.NetSuite_Id__c)</expression>
+                                       </parameter>
+                                       <parameter name="shippingAddress" source="field">temp.thisShippingAddress</parameter>
+                                       <parameter name="parentNSId" source="field" updatable="true">temp.temp_parentCustomer_shipTo_internalId</parameter>
+                                       <parameter name="industry" source="formula">
+                                          <expression language="XQuery">$Ship_To__r.Account__r.Master_Industry__c</expression>
+                                       </parameter>
+                                       <parameter name="email" source="formula">
+                                          <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($ShipToContact.Email!='') then $ShipToContact.Email else $temp.temp_OppContact_Email</expression>
+                                       </parameter>
+                                       <parameter name="Cisco_PartyId" source="field" updatable="true">Ship_To__r.Account__r.Cisco_Party_ID__c</parameter>
+                                    </serviceInput>
+                                 </service>
+                                 <link id="kq6z7a4t" targetId="kq6z7a4m" type="containerLink"/>
+                              </flow>
+                              <link id="kq6z7a4o" targetId="kq6z7a4p" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$temp.temp_parentCustomer_shipTo_internalId}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="kq6z7a4r" targetId="kq6z7a4s" type="containerLink"/>
+                              <link id="kq6z7bte" targetId="kpwwep7n"/>
+                           </container>
+                           <container id="kpwwep7n" type="exclusive">
+                              <title>is ShipTo Customer Update Successful?</title>
+                              <flow id="kpwwep7o">
+                                 <link id="kpwwep7u" targetId="kpwwep7n" type="containerLink"/>
+                              </flow>
+                              <flow id="kpwwep7p">
+                                 <assignment id="kpwwep7q">
                                     <title>Assignment to faultstring</title>
-                                    <operation source="constant" to="output.faultstring">Customer not found for update at update bill-to step</operation>
+                                    <operation source="constant" to="output.faultstring">Customer not found for update</operation>
                                     <operation source="constant" to="temp.exception">Yes</operation>
-                                    <link id="jxn4y1tf" targetId="jxn4y1tb"/>
+                                    <link id="kpwwep7v" targetId="kpwwep7r"/>
                                  </assignment>
-                                 <jumpTo id="jxn4y1tb">
-                                    <link id="jxn4y1tg" targetId="jerndxei"/>
+                                 <jumpTo id="kpwwep7r">
+                                    <link id="kpwwep7w" targetId="jerndxei"/>
                                  </jumpTo>
                               </flow>
-                              <link id="jxn4y1tc" targetId="jxn4y1t8" type="containerLink">
+                              <link id="kpwwep7s" targetId="kpwwep7o" type="containerLink">
                                  <condition source="formula">
                                     <function name="true">
                                        <arg name="field">{$output.isUpdateCRSuccess}</arg>
                                     </function>
                                  </condition>
                               </link>
-                              <link id="jxn4y1td" targetId="jxn4y1t9" type="containerLink">
+                              <link id="kpwwep7t" targetId="kpwwep7p" type="containerLink">
                                  <condition source="formula">
                                     <function name="false">
                                        <arg name="field">{$output.isUpdateCRSuccess}</arg>
@@ -1992,23 +2311,10 @@ else
                                  </condition>
                               </link>
                            </container>
-                           <link id="j71bjwn3" targetId="j71bjwl9" type="containerLink"/>
+                           <link id="j71bjwn6" targetId="j71bjwlk" type="containerLink"/>
                         </flow>
-                        <link id="j71bjwmt" targetId="j71bjwla" type="containerLink">
-                           <condition source="formula">
-                              <function name="string-equals">
-                                 <arg name="left">{$Bill_To__r.Account__r.NetSuite_Id__c}</arg>
-                                 <arg name="right"/>
-                              </function>
-                           </condition>
-                        </link>
-                        <link id="j71bjwmv" targetId="j71bjwli" type="containerLink"/>
-                        <link id="jrc1kvmo" targetId="j71bjwlk"/>
-                     </container>
-                     <container id="j71bjwlk" type="exclusive">
-                        <title>Ship To Account NetSuite Id Null?</title>
-                        <flow id="j71bjwll">
-                           <service id="j71bjwlm">
+                        <flow id="j71bjwlt">
+                           <service id="koyr56cp">
                               <title>Create Ship-to Customer</title>
                               <serviceName>NetSuite-AppDynamics:Create Customer</serviceName>
                               <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
@@ -2020,7 +2326,7 @@ else
                                  <parameter name="email" source="formula">
                                     <expression language="XQuery">if($ShipToContact.Email='') then $temp.temp_OppContact_Email else $ShipToContact.Email</expression>
                                  </parameter>
-                                 <parameter name="subsidiary" source="field" updatable="true">temp.shipToSubsidiary</parameter>
+                                 <parameter name="subsidiary" source="field" updatable="true">temp.temp_BillingSubsidiary</parameter>
                                  <parameter name="url" source="formula">
                                     <expression language="XQuery">if(exists($Ship_To__r.Account__r.Website)) 
 then
@@ -2033,40 +2339,60 @@ else
 </expression>
                                  </parameter>
                                  <parameter name="shippingAddress" source="field">temp.thisShippingAddress</parameter>
-                                 <parameter name="accountID" source="field" updatable="true">Ship_To__r.Account__r.Account_Id_18_digit__c</parameter>
+                                 <parameter name="accountID" source="field">Ship_To__r.Account__r.Account_ID__c</parameter>
                                  <parameter name="parentNSId" source="formula">
                                     <expression language="XQuery">if(fn:string-length($Ship_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Ship_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_shipTo_internalId</expression>
                                  </parameter>
                                  <parameter name="industry" source="formula">
                                     <expression language="XQuery">$Ship_To__r.Account__r.Master_Industry__c </expression>
                                  </parameter>
-                                 <parameter name="parentCustomer_uniqueId" source="field">Ship_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                 <parameter name="Customer_uniqueId" source="field">Ship_To__r.Account__r.Customer_Unique_ID__c</parameter>
                                  <parameter name="Cisco_PartyId" source="field" updatable="true">Ship_To__r.Account__r.Cisco_Party_ID__c</parameter>
                               </serviceInput>
-                              <link id="j71bjwn7" targetId="j71bjwln"/>
+                              <link id="koyr56tp" targetId="koyr56t6"/>
                            </service>
-                           <container id="j71bjwln" type="exclusive">
+                           <container id="koyr56t6" type="exclusive">
                               <title>isCreateCRSuccess</title>
-                              <flow id="j71bjwlo">
-                                 <assignment id="j71bjwlp">
-                                    <title>Assign to Netsuite Id to Ship-to Account</title>
-                                    <operation source="field" to="Ship_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
-                                 </assignment>
-                                 <link id="j71bjwna" targetId="j71bjwln" type="containerLink"/>
+                              <flow id="koyr56t7">
+                                 <container id="koyr56t8" type="exclusive">
+                                    <title>Check Billing Subsidiary and update appropriate field</title>
+                                    <flow id="koyr56t9">
+                                       <assignment id="koyr56ta">
+                                          <title>Assign to Netsuite Id to Ship-to Account</title>
+                                          <operation source="field" to="Ship_To__r.Account__r.NetSuite_Id__c">output.NetSuite Customer ID</operation>
+                                       </assignment>
+                                       <link id="koyr56tl" targetId="koyr56t8" type="containerLink"/>
+                                    </flow>
+                                    <flow id="koyr56tb">
+                                       <assignment id="koyr56tc">
+                                          <title>Assign to Netsuite Id to Ship-to Account 1</title>
+                                          <operation source="field" to="Ship_To__r.Account__r.UK2_Netsuite_ID__c">output.NetSuite Customer ID</operation>
+                                       </assignment>
+                                       <link id="koyr56tm" targetId="koyr56t8" type="containerLink"/>
+                                    </flow>
+                                    <link id="koyr56tj" targetId="koyr56t9" type="containerLink">
+                                       <condition source="formula">
+                                          <function name="string-equals">
+                                             <arg name="left">{$temp.temp_BillingSubsidiary}</arg>
+                                             <arg name="right">1</arg>
+                                          </function>
+                                       </condition>
+                                    </link>
+                                    <link id="koyr56tk" targetId="koyr56tb" type="containerLink"/>
+                                 </container>
+                                 <link id="koyr56ti" targetId="koyr56t6" type="containerLink"/>
                               </flow>
-                              <flow id="j71bjwlq">
-                                 <assignment id="j71bjwlr">
+                              <flow id="koyr56td">
+                                 <assignment id="koyr56te">
                                     <title>Assignment to faultstring</title>
                                     <operation source="constant" to="output.faultstring">End Customer Creation Error</operation>
                                     <operation source="constant" to="temp.exception">Yes</operation>
-                                    <link id="j71bjwnb" targetId="j71bjwls"/>
+                                    <link id="koyr56tn" targetId="koyr56tf"/>
                                  </assignment>
-                                 <jumpTo id="j71bjwls">
-                                    <link id="j71bjwnc" targetId="jerndxei"/>
+                                 <jumpTo id="koyr56tf">
+                                    <link id="koyr56to" targetId="jerndxei"/>
                                  </jumpTo>
                               </flow>
-                              <link id="j71bjwn8" targetId="j71bjwlo" type="containerLink">
+                              <link id="koyr56tg" targetId="koyr56t7" type="containerLink">
                                  <condition source="formula">
                                     <function name="string-equals">
                                        <arg name="left">{$output.isCreateCRSuccess}</arg>
@@ -2074,93 +2400,32 @@ else
                                     </function>
                                  </condition>
                               </link>
-                              <link id="j71bjwn9" targetId="j71bjwlq" type="containerLink"/>
-                           </container>
-                           <link id="j71bjwn6" targetId="j71bjwlk" type="containerLink"/>
-                        </flow>
-                        <flow id="j71bjwlt">
-                           <service id="jrc1kvo9">
-                              <title>Get Existing NS Customer - ShipTo</title>
-                              <serviceName>NetSuite-AppDynamics:Get Customer Info</serviceName>
-                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                              <serviceInput>
-                                 <parameter name="InternalID" source="field" updatable="true">Ship_To__r.Account__r.NetSuite_Id__c</parameter>
-                              </serviceInput>
-                              <link id="jxn4y230" targetId="jv2itz99"/>
-                           </service>
-                           <service id="jxn4y3e7">
-                              <title>Update End Customer</title>
-                              <serviceName>NetSuite-AppDynamics:Update Customer Info</serviceName>
-                              <serviceGUID>14LuGs1g15zcZeyDsfoMSl</serviceGUID>
-                              <serviceInput>
-                                 <parameter name="InternalID" source="field" updatable="true">Ship_To__r.Account__r.NetSuite_Id__c</parameter>
-                                 <parameter name="Subsidiary" source="formula">
-                                    <expression language="XQuery">if($temp.temp_existingShipToCustomer_subsidiary=$temp.shipToSubsidiary) then $temp.shipToSubsidiary else ''</expression>
-                                 </parameter>
-                                 <parameter name="shippingAddress" source="field">temp.thisShippingAddress</parameter>
-                                 <parameter name="parentNSId" source="formula">
-                                    <expression language="XQuery">if(fn:string-length($Ship_To__r.Account__r.Parent.NetSuite_Id__c )&gt;0) then $Ship_To__r.Account__r.Parent.NetSuite_Id__c else  $temp.temp_parentCustomer_shipTo_internalId</expression>
-                                 </parameter>
-                                 <parameter name="industry" source="formula">
-                                    <expression language="XQuery">$Ship_To__r.Account__r.Master_Industry__c</expression>
-                                 </parameter>
-                                 <parameter name="parentCustomer_uniqueId" source="field">Ship_To__r.Account__r.Parent_Customer_Unique_Id__c</parameter>
-                                 <parameter name="Customer_uniqueId" source="field">Ship_To__r.Account__r.Customer_Unique_ID__c</parameter>
-                                 <parameter name="email" source="formula">
-                                    <expression language="XQuery">if(fn:string-length($output.email)&gt;0) then '' else if($ShipToContact.Email!='') then $ShipToContact.Email else $temp.temp_OppContact_Email</expression>
-                                 </parameter>
-                                 <parameter name="Cisco_PartyId" source="field" updatable="true">Ship_To__r.Account__r.Cisco_Party_ID__c</parameter>
-                              </serviceInput>
-                              <link id="jxn4y3k7" targetId="jxn4y3jx"/>
-                           </service>
-                           <assignment id="jv2itz99">
-                              <title>Assign Existing ShipTo Subsidiary to temp</title>
-                              <operation source="field" to="temp.temp_existingShipToCustomer_subsidiary">output.subsidiary</operation>
-                              <link id="jxn4y3e8" targetId="jxn4y3e7"/>
-                           </assignment>
-                           <container id="jxn4y3jx" type="exclusive">
-                              <title>isUpdateCRSuccess</title>
-                              <flow id="jxn4y3jy">
-                                 <link id="jxn4y3k4" targetId="jxn4y3jx" type="containerLink"/>
-                              </flow>
-                              <flow id="jxn4y3jz">
-                                 <assignment id="jxn4y3k0">
-                                    <title>Assignment to faultstring</title>
-                                    <operation source="constant" to="output.faultstring">Customer not found for update</operation>
-                                    <operation source="constant" to="temp.exception">Yes</operation>
-                                    <link id="jxn4y3k5" targetId="jxn4y3k1"/>
-                                 </assignment>
-                                 <jumpTo id="jxn4y3k1">
-                                    <link id="jxn4y3k6" targetId="jerndxei"/>
-                                 </jumpTo>
-                              </flow>
-                              <link id="jxn4y3k2" targetId="jxn4y3jy" type="containerLink">
-                                 <condition source="formula">
-                                    <function name="true">
-                                       <arg name="field">{$output.isUpdateCRSuccess}</arg>
-                                    </function>
-                                 </condition>
-                              </link>
-                              <link id="jxn4y3k3" targetId="jxn4y3jz" type="containerLink">
-                                 <condition source="formula">
-                                    <function name="false">
-                                       <arg name="field">{$output.isUpdateCRSuccess}</arg>
-                                    </function>
-                                 </condition>
-                              </link>
+                              <link id="koyr56th" targetId="koyr56td" type="containerLink"/>
                            </container>
                            <link id="j71bjwnd" targetId="j71bjwlk" type="containerLink"/>
                         </flow>
                         <link id="j71bjwn4" targetId="j71bjwll" type="containerLink">
                            <condition source="formula">
-                              <function name="string-equals">
-                                 <arg name="left">{$Ship_To__r.Account__r.NetSuite_Id__c}</arg>
-                                 <arg name="right"/>
+                              <function name="true">
+                                 <arg name="field">{$temp.temp_ShipToExists}</arg>
                               </function>
                            </condition>
                         </link>
-                        <link id="j71bjwn5" targetId="j71bjwlt" type="containerLink"/>
+                        <link id="j71bjwn5" targetId="j71bjwlt" type="containerLink">
+                           <condition source="formula">
+                              <function name="false">
+                                 <arg name="field">{$temp.temp_ShipToExists}</arg>
+                              </function>
+                           </condition>
+                        </link>
                      </container>
+                     <assignment id="kq8jgxui">
+                        <title>Check if ShipTo exists</title>
+                        <operation source="formula" to="temp.temp_ShipToExists">
+                           <expression language="XQuery">if(fn:empty($Ship_To__r.Account__r.NetSuite_Id__c) and fn:empty($Ship_To__r.Account__r.UK2_Netsuite_ID__c)) then false() else true()</expression>
+                        </operation>
+                        <link id="kq8jgxuk" targetId="j71bjwlk"/>
+                     </assignment>
                      <link id="j71bjwms" targetId="j71bjwkg" type="containerLink"/>
                   </flow>
                   <link id="j71bjwm0" targetId="j71bjwkh" type="containerLink">
@@ -2731,5 +2996,5 @@ else 'Integrated'</expression>
       <types1:GUID>7WXKpNZM9P0fHJt7ibcT6B</types1:GUID>
       <types1:DisplayName>SFDC_Order_to_NS_Sales_Order</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-05-06T21:02:13.939Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-06-26T02:23:05.111Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
