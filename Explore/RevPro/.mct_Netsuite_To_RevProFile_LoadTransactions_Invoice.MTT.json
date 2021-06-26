@@ -24,28 +24,8 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
-    "id" : "3qLOIwmEi8HlSgV9ggzWkn",
-    "name" : "ip-172-31-19-150.us-west-2.compute.internal",
-    "type" : "AgentGroup",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB25000000000005"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : null,
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/SYS"
-  }, {
-    "id" : "brwXcX8SFwdiPZrkZpvZQG",
-    "name" : "NetSuite_ODBC_1",
+    "id" : "6PU3rFIMgCQbgSudCSzFiN",
+    "name" : "Netsuite_ODBC_SO_INV",
     "type" : "Connection",
     "metadata" : {
       "modelVersion" : {
@@ -53,7 +33,27 @@
         "minor" : 0
       },
       "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000004E"
+        "repoHandle" : "000TPB0B00000000007E"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "COMPLETE"
+      }
+    },
+    "path" : "/SYS"
+  }, {
+    "id" : "1KKuSUw1Rkfbzmz4wJo8eb",
+    "name" : "INFA-AWS-SANDBOX",
+    "type" : "AgentGroup",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB2500000000000K"
       },
       "contextAttributes" : null,
       "additionalInfo" : {
@@ -95,10 +95,7 @@
       "repoInfo" : {
         "repoHandle" : "000TPB1700000000006F"
       },
-      "contextAttributes" : [ {
-        "name" : "id",
-        "value" : "@1"
-      } ],
+      "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "",
         "contentType" : "JSON",
