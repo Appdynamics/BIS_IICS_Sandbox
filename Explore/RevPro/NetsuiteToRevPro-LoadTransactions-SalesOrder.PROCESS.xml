@@ -6,27 +6,28 @@
       <types1:MimeType>application/xml+process</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo/>
-      <types1:Tags>.agent:INFA-AWS-DEV,RevPro</types1:Tags>
+      <types1:Tags>.agent:INFA-AWS-SANDBOX-1,RevPro</types1:Tags>
       <types1:VersionLabel>1.0</types1:VersionLabel>
       <types1:State>CURRENT</types1:State>
       <types1:ProcessGroup/>
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-12-11T18:41:37Z</types1:CreationDate>
-      <types1:ModifiedBy>phani.baddam@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2019-10-16T21:51:52Z</types1:ModificationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-12-03T01:40:22Z</types1:ModificationDate>
       <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-02-03T21:53:38Z</types1:PublicationDate>
+      <types1:PublicationDate>2020-12-03T01:40:37Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.NetsuiteToRevPro-LoadTransactions-SalesOrder/NetsuiteToRevPro-LoadTransactions-SalesOrder.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
          <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
                   xmlns:list="urn:activevos:spi:list:functions"
                   displayName="NetsuiteToRevPro-LoadTransactions-SalesOrder"
-                  name="NetsuiteToRevPro-LoadTransactions-SalesOrder">
+                  name="NetsuiteToRevPro-LoadTransactions-SalesOrder"
+                  overrideAPIName="false">
             <appliesTo/>
             <description/>
-            <tags>RevPro,.agent:INFA-AWS-DEV</tags>
+            <tags>RevPro,.agent:INFA-AWS-SANDBOX-1</tags>
             <generator>Informatica Process Designer 11</generator>
             <input>
                <parameter description=""
@@ -52,7 +53,7 @@
             </tempFields>
             <notes/>
             <deployment suspendOnFault="false" tracingLevel="normal">
-               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <targetLocation>INFA-AWS-SANDBOX-1</targetLocation>
                <event eventSource="File-RevPro-TransactionsAndEvents:FileParser-606-SalesOrder"/>
             </deployment>
             <flow id="a">
@@ -104,5 +105,5 @@ infa:format(xs:string(fn:current-dateTime()),"yyyy-MM-dd HH:mm:ss", "America/Los
       <types1:GUID>2QTmGWO1C8Zg07CCGtXRA4</types1:GUID>
       <types1:DisplayName>NetsuiteToRevPro-LoadTransactions-SalesOrder</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-22T17:44:52.9Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-06-26T02:31:49.681Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
