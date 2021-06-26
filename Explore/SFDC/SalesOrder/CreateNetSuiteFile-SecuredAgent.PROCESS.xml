@@ -6,44 +6,48 @@
       <types1:MimeType>application/xml+process</types1:MimeType>
       <types1:Description/>
       <types1:AppliesTo>Salesforce:Attachment</types1:AppliesTo>
-      <types1:Tags>.agent:INFA-AWS-DEV,.anonymous</types1:Tags>
+      <types1:Tags>.agent:INFA-AWS-SANDBOX,.anonymous</types1:Tags>
       <types1:VersionLabel>1.0</types1:VersionLabel>
       <types1:State>CURRENT</types1:State>
       <types1:ProcessGroup/>
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2016-06-12T23:17:07Z</types1:CreationDate>
-      <types1:ModifiedBy>justin.wong@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2017-06-26T23:28:55Z</types1:ModificationDate>
+      <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
+      <types1:ModificationDate>2020-08-05T21:17:41Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-04-17T17:56:12Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-06-24T22:06:30Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.CreateNetSuiteFile-SecuredAgent/CreateNetSuiteFile-SecuredAgent.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
          <process xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
                   xmlns:list="urn:activevos:spi:list:functions"
                   displayName="CreateNetSuiteFile-SecuredAgent"
-                  name="CreateNetSuiteFile-SecuredAgent">
+                  name="CreateNetSuiteFile-SecuredAgent"
+                  overrideAPIName="false">
             <appliesTo>Salesforce:Attachment</appliesTo>
             <description/>
-            <tags>.agent:INFA-AWS-DEV,.anonymous</tags>
-            <generator>Informatica Process Designer 8</generator>
+            <tags>.agent:INFA-AWS-SANDBOX,.anonymous</tags>
+            <generator>Informatica Process Designer 11</generator>
             <input>
-               <parameter name="netSuiteOrderId" required="true" type="string">
+               <parameter description=""
+                          name="netSuiteOrderId"
+                          required="true"
+                          type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </parameter>
             </input>
             <output>
-               <field name="statusMessage" type="string">
+               <field description="" name="statusMessage" type="string">
                   <options>
                      <option name="required">false</option>
                   </options>
                </field>
             </output>
             <tempFields>
-               <field name="temp_attachment" type="reference">
+               <field description="" name="temp_attachment" type="reference">
                   <options>
                      <option name="referenceTo">Salesforce:Attachment</option>
                      <option name="required">false</option>
@@ -53,7 +57,7 @@
             </tempFields>
             <notes/>
             <deployment suspendOnFault="false" tracingLevel="verbose">
-               <targetLocation>INFA-AWS-DEV</targetLocation>
+               <targetLocation>INFA-AWS-SANDBOX</targetLocation>
                <rest>
                   <allowAnonymousAccess/>
                </rest>
@@ -116,5 +120,5 @@
       <types1:GUID>5DWOOPZwAe0g4XOVhbhAsM</types1:GUID>
       <types1:DisplayName>CreateNetSuiteFile-SecuredAgent</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-04-17T19:00:47.677Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-06-26T02:25:09.968Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
