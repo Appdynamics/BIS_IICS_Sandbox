@@ -13,10 +13,10 @@
       <types1:CreatedBy>justin.wong@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2017-01-15T04:43:52Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2020-06-03T18:30:00Z</types1:ModificationDate>
-      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:ModificationDate>2021-05-01T00:48:20Z</types1:ModificationDate>
+      <types1:PublicationStatus>out-of-date</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2020-06-03T19:26:53Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-05-01T00:48:55Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.processIntegrationQueueTxn/processIntegrationQueueTxn.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -125,7 +125,7 @@
                      <assignment id="j3d8mpxn">
                         <title>Assignment to Status</title>
                         <operation source="constant" to="Status__c">In Progress</operation>
-                        <link id="j3d8mpy3" targetId="j3daei93"/>
+                        <link id="kny60ki6" targetId="j3daei93"/>
                      </assignment>
                      <eventContainer id="j3daei93">
                         <subflow id="j3d8mpy2">
@@ -200,7 +200,7 @@
                      <assignment id="j3oxqw4c">
                         <title>Assignment to Status</title>
                         <operation source="constant" to="Status__c">In Progress</operation>
-                        <link id="j3oxqw4y" targetId="j3oxqw86"/>
+                        <link id="kny60kl6" targetId="j3oxqw86"/>
                      </assignment>
                      <eventContainer id="j3oxqw86">
                         <subflow id="j3oxqw4x">
@@ -275,7 +275,7 @@
                      <assignment id="jivecz90">
                         <title>Assignment to Status</title>
                         <operation source="constant" to="Status__c">In Progress</operation>
-                        <link id="jivecza8" targetId="jiveixxk"/>
+                        <link id="kny60ko4" targetId="jiveixxk"/>
                      </assignment>
                      <eventContainer id="jiveixxk">
                         <subflow id="jivecza7">
@@ -352,7 +352,7 @@
                      <assignment id="k9ae3s82">
                         <title>Assignment to Status</title>
                         <operation source="constant" to="Status__c">In Progress</operation>
-                        <link id="k9ae3sbq" targetId="k9afr611"/>
+                        <link id="kny60kre" targetId="k9afr611"/>
                      </assignment>
                      <eventContainer id="k9afr611">
                         <subflow id="k9ae3sbp">
@@ -423,6 +423,88 @@
                      </eventContainer>
                      <link id="k9ae3s3q" targetId="j3c03vf2" type="containerLink"/>
                   </flow>
+                  <flow id="kny60k8i">
+                     <assignment id="kny60ks6">
+                        <title>Assignment to Status</title>
+                        <operation source="constant" to="Status__c">In Progress</operation>
+                        <link id="kny60kv0" targetId="ko08patc"/>
+                     </assignment>
+                     <eventContainer id="ko08patc">
+                        <subflow id="kny60kuz">
+                           <title>SFDC_To_NS_RA</title>
+                           <subflowGUID>6Kvm2J3rb5Fcrx3OZ3O1iE</subflowGUID>
+                           <subflowPath>SFDC_To_NS_RA_Test</subflowPath>
+                           <appliesTo>Salesforce:Order</appliesTo>
+                           <appliesToDataName source="query">
+                              <query from="Salesforce:Order">
+                                 <where>Id = '{$Transaction_Id__c}' </where>
+                              </query>
+                           </appliesToDataName>
+                           <runForEach>false</runForEach>
+                           <input/>
+                           <outputDef>
+                              <field name="out_RA_List" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                              <field name="out_Error_List" type="string">
+                                 <options>
+                                    <option name="required">false</option>
+                                 </options>
+                              </field>
+                           </outputDef>
+                        </subflow>
+                        <flow id="ko08pate">
+                           <container id="ko08pavg" type="exclusive">
+                              <title>out_Error_List</title>
+                              <flow id="ko08pavh">
+                                 <assignment id="ko08pavi">
+                                    <title>Assign Success if all RA's were successful</title>
+                                    <operation source="constant" to="Status__c">Success</operation>
+                                    <operation source="field" to="Exception_Message__c">output.out_RA_List</operation>
+                                 </assignment>
+                                 <link id="ko08pavo" targetId="ko08pavg" type="containerLink"/>
+                              </flow>
+                              <flow id="ko08pavj">
+                                 <assignment id="ko08pavk">
+                                    <title>Assign Error if any one of RA's failed</title>
+                                    <operation source="constant" to="Status__c">Error</operation>
+                                    <operation source="field" to="Exception_Message__c">output.out_Error_List</operation>
+                                 </assignment>
+                                 <link id="ko08pavp" targetId="ko08pavg" type="containerLink"/>
+                              </flow>
+                              <link id="ko08pavm" targetId="ko08pavh" type="containerLink">
+                                 <condition source="formula">
+                                    <function name="string-equals">
+                                       <arg name="left">{$output.out_Error_List}</arg>
+                                       <arg name="right"/>
+                                    </function>
+                                 </condition>
+                              </link>
+                              <link id="ko08pavn" targetId="ko08pavj" type="containerLink"/>
+                           </container>
+                           <link id="ko08patf" targetId="ko08patc" type="containerLink"/>
+                        </flow>
+                        <flow id="ko08path">
+                           <assignment id="ko08pb3e">
+                              <title>Assign Exception</title>
+                              <operation source="constant" to="Status__c">Error</operation>
+                              <operation source="formula" to="Exception_Message__c">
+                                 <expression language="XQuery">fn:concat($output.faultInfo[1]/code , ' ', $output.faultInfo[1]/reason, ' ', $output.faultInfo[1]/detail  )</expression>
+                              </operation>
+                           </assignment>
+                           <link id="ko08pati" targetId="ko08patc" type="containerLink"/>
+                        </flow>
+                        <link id="ko08patd" targetId="ko08pate" type="containerLink"/>
+                        <events>
+                           <catch faultField="faultInfo" id="ko08paqg" interrupting="true">
+                              <link id="ko08patg" targetId="ko08path" type="containerLink"/>
+                           </catch>
+                        </events>
+                     </eventContainer>
+                     <link id="kny60k8j" targetId="j3c03vf2" type="containerLink"/>
+                  </flow>
                   <flow id="j3c03vff">
                      <link id="j3c03vfg" targetId="j3c03vf2" type="containerLink"/>
                   </flow>
@@ -466,6 +548,14 @@
                         </function>
                      </condition>
                   </link>
+                  <link id="kny60k8h" targetId="kny60k8i" type="containerLink">
+                     <condition source="formula">
+                        <function name="string-equals">
+                           <arg name="left">{$Transaction_Type__c}</arg>
+                           <arg name="right">Return Authorization</arg>
+                        </function>
+                     </condition>
+                  </link>
                   <link id="j3c03vfa" targetId="j3c03vff" type="containerLink"/>
                   <link id="j3c03vf4" targetId="d"/>
                </container>
@@ -476,5 +566,5 @@
       <types1:GUID>dLPOBuVhwYmkInD5gHJ8W6</types1:GUID>
       <types1:DisplayName>processIntegrationQueueTxn</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2020-06-08T16:26:59.376Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-06-26T02:29:03.201Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
