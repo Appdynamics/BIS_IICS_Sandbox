@@ -14,10 +14,10 @@
       <types1:CreatedBy>phani.baddam@appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2018-12-17T16:53:43Z</types1:CreationDate>
       <types1:ModifiedBy>smitha.reddy@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-03-24T16:38:15Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-06-22T21:15:20Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>smitha.reddy@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-03-30T17:13:48Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-06-24T22:06:30Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/spi.SFDC_To_NS_-_Sales_Order_-_Parent_Customer/SFDC_To_NS_-_Sales_Order_-_Parent_Customer.pd.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -30,6 +30,13 @@
             <description/>
             <tags/>
             <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="inputBillingSubsidiary" type="string">
+                  <options>
+                     <option name="required">false</option>
+                  </options>
+               </parameter>
+            </input>
             <output>
                <field description="" name="out_parentCustomer_internalId" type="string">
                   <options>
@@ -336,7 +343,7 @@
                         <parameter name="phone" source="formula">
                            <expression language="XQuery">if (fn:string-length($Phone) &gt; 5) then $Phone else ''</expression>
                         </parameter>
-                        <parameter name="subsidiary" source="field" updatable="true">temp.temp_billingSubsidiary</parameter>
+                        <parameter name="subsidiary" source="field" updatable="true">input.inputBillingSubsidiary</parameter>
                         <parameter name="url" source="formula">
                            <expression language="XQuery">if(exists($Website)) 
 then
@@ -352,22 +359,44 @@ else
                         </parameter>
                         <parameter name="billingAddress" source="field">temp.temp_NS_billingAddress</parameter>
                         <parameter name="shippingAddress" source="field">temp.temp_NS_shippingAddress</parameter>
-                        <parameter name="accountID" source="field" updatable="true">Account_Id_18_digit__c</parameter>
+                        <parameter name="accountID" source="field">Account_ID__c</parameter>
                         <parameter name="industry" source="formula">
                            <expression language="XQuery">$Master_Industry__c </expression>
                         </parameter>
-                        <parameter name="parentCustomer_uniqueId" source="field">Parent_Customer_Unique_Id__c</parameter>
-                        <parameter name="Customer_uniqueId" source="field">Customer_Unique_ID__c</parameter>
                         <parameter name="Cisco_PartyId" source="field" updatable="true">Cisco_Party_ID__c</parameter>
                      </serviceInput>
                   </service>
                   <flow id="jpyk1p6r">
-                     <assignment id="jpyk1p7u">
-                        <title>Assign Parent Customer internalId &amp; Update SFDC</title>
-                        <operation source="field" to="output.out_parentCustomer_internalId">output.NetSuite Customer ID</operation>
-                        <operation source="field" to="NetSuite_Id__c">output.NetSuite Customer ID</operation>
-                        <operation source="field" to="output.out_parentCustomer_errorMessage">output.errorMessages</operation>
-                     </assignment>
+                     <container id="kot1z3ls" type="exclusive">
+                        <title>inputBillingSubsidiary</title>
+                        <flow id="kot1z3lv">
+                           <assignment id="kot1z3o6">
+                              <title>Assign Parent Customer internalId &amp; Update SFDC</title>
+                              <operation source="field" to="output.out_parentCustomer_internalId">output.NetSuite Customer ID</operation>
+                              <operation source="field" to="NetSuite_Id__c">output.NetSuite Customer ID</operation>
+                              <operation source="field" to="output.out_parentCustomer_errorMessage">output.errorMessages</operation>
+                           </assignment>
+                           <link id="kot1z3lw" targetId="kot1z3ls" type="containerLink"/>
+                        </flow>
+                        <flow id="kot1z3ly">
+                           <assignment id="kot1z3s3">
+                              <title>Assign Parent Customer internalId &amp; Update SFDC 1</title>
+                              <operation source="field" to="output.out_parentCustomer_internalId">output.NetSuite Customer ID</operation>
+                              <operation source="field" to="UK2_Netsuite_ID__c">output.NetSuite Customer ID</operation>
+                              <operation source="field" to="output.out_parentCustomer_errorMessage">output.errorMessages</operation>
+                           </assignment>
+                           <link id="kot1z3lz" targetId="kot1z3ls" type="containerLink"/>
+                        </flow>
+                        <link id="kot1z3lu" targetId="kot1z3lv" type="containerLink">
+                           <condition source="formula">
+                              <function name="contains">
+                                 <arg name="left">{$input.inputBillingSubsidiary}</arg>
+                                 <arg name="right">1</arg>
+                              </function>
+                           </condition>
+                        </link>
+                        <link id="kot1z3lx" targetId="kot1z3ly" type="containerLink"/>
+                     </container>
                      <link id="jpyk1p6s" targetId="jpyk1p6p" type="containerLink"/>
                   </flow>
                   <flow id="jpyk1p6u">
@@ -396,5 +425,5 @@ else
       <types1:GUID>1PcKhwyZKULh1N8w5Ux2yk</types1:GUID>
       <types1:DisplayName>SFDC_To_NS_-_Sales_Order_-_Parent_Customer</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-04-01T18:11:14.61Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-06-26T02:23:55.552Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
