@@ -24,6 +24,26 @@
   },
   "dataFileExtension" : "zip",
   "objectRefs" : [ {
+    "id" : "0KqRjP4K6VrkFyte6VxNG9",
+    "name" : "NetSuite_1_2",
+    "type" : "Connection",
+    "metadata" : {
+      "modelVersion" : {
+        "major" : 0,
+        "minor" : 0
+      },
+      "repoInfo" : {
+        "repoHandle" : "000TPB0B00000000007O"
+      },
+      "contextAttributes" : null,
+      "additionalInfo" : {
+        "description" : null,
+        "contentType" : "JSON",
+        "documentState" : "COMPLETE"
+      }
+    },
+    "path" : "/SYS"
+  }, {
     "id" : "2CjV79tAT4nicr3VedQp4y",
     "name" : "SFDC_1",
     "type" : "Connection",
@@ -38,26 +58,6 @@
       "contextAttributes" : null,
       "additionalInfo" : {
         "description" : "SFDC_SB_Full",
-        "contentType" : "JSON",
-        "documentState" : "VALID"
-      }
-    },
-    "path" : "/SYS"
-  }, {
-    "id" : "b3U4nPCAkmZgKaHvUiQ8w2",
-    "name" : "NetSuite_1",
-    "type" : "Connection",
-    "metadata" : {
-      "modelVersion" : {
-        "major" : 0,
-        "minor" : 0
-      },
-      "repoInfo" : {
-        "repoHandle" : "000TPB0B00000000000Y"
-      },
-      "contextAttributes" : null,
-      "additionalInfo" : {
-        "description" : null,
         "contentType" : "JSON",
         "documentState" : "VALID"
       }
