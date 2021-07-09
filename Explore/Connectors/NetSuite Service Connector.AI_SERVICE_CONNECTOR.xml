@@ -14,10 +14,10 @@
       <types1:CreatedBy>gykumar@informatica.com.appdynamics.com.sandbox</types1:CreatedBy>
       <types1:CreationDate>2015-07-28T09:18:33Z</types1:CreationDate>
       <types1:ModifiedBy>sri.battu@appdynamics.com.sandbox</types1:ModifiedBy>
-      <types1:ModificationDate>2021-06-21T19:38:54Z</types1:ModificationDate>
+      <types1:ModificationDate>2021-06-30T23:21:27Z</types1:ModificationDate>
       <types1:PublicationStatus>published</types1:PublicationStatus>
       <types1:PublishedBy>sri.battu@appdynamics.com.sandbox</types1:PublishedBy>
-      <types1:PublicationDate>2021-06-21T19:39:03Z</types1:PublicationDate>
+      <types1:PublicationDate>2021-06-30T23:21:36Z</types1:PublicationDate>
       <types1:PublishedContributionId>project:/rt.connector/NetSuite_Service_Connector/NetSuite_Service_Connector_svcDef.xml</types1:PublishedContributionId>
       <types1:AutosaveExists>false</types1:AutosaveExists>
       <types1:Entry>
@@ -7648,5 +7648,5 @@ xmlns:listAcct="urn:accounting_2018_1.lists.webservices.netsuite.com" &gt;
       <types1:GUID>7offrQ1KPBxfkH2EHDn0gI</types1:GUID>
       <types1:DisplayName>NetSuite Service Connector</types1:DisplayName>
    </types1:Item>
-   <types1:CurrentServerDateTime>2021-06-23T23:45:50.874Z</types1:CurrentServerDateTime>
+   <types1:CurrentServerDateTime>2021-07-09T17:24:29.603Z</types1:CurrentServerDateTime>
 </aetgt:getResponse>
